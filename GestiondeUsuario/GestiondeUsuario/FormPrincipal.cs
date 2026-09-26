@@ -65,6 +65,12 @@ namespace GestiondeUsuario
             gestionRespaldoToolStripMenuItem1.Enabled =
              PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
 
+            // Un menú sin ninguna opción habilitada queda en gris y no se puede abrir
+            // (por ejemplo, Admin para un Vendedor)
+            foreach (ToolStripMenuItem menu in menuStrip1.Items.OfType<ToolStripMenuItem>())
+                if (menu.DropDownItems.Count > 0)
+                    menu.Enabled = menu.Enabled && menu.DropDownItems.OfType<ToolStripItem>().Any(i => i.Enabled);
+
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
         }
 

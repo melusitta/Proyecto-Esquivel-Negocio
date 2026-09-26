@@ -76,7 +76,27 @@ namespace GestiondeUsuario
             form.FormBorderStyle = FormBorderStyle.Sizable;
             form.MaximizeBox = true;
             form.MinimumSize = form.Size;
+            RecordarMaximizado(form);
             AplicarControles(form.Controls);
+        }
+
+        // ---------- Ventanas maximizadas ----------
+        // Si la usuaria maximiza una pantalla, las siguientes que se abran también arrancan maximizadas,
+        // hasta que la restaure. Minimizar no cambia nada. Los diálogos (ShowDialog) no se tocan.
+        private static bool _maximizado;
+
+        private static void RecordarMaximizado(Form form)
+        {
+            if (form.Modal) return;
+            if (_maximizado)
+                form.WindowState = FormWindowState.Maximized;
+            form.Resize += (s, e) =>
+            {
+                if (form.WindowState == FormWindowState.Maximized)
+                    _maximizado = true;
+                else if (form.WindowState == FormWindowState.Normal)
+                    _maximizado = false;
+            };
         }
 
         private static void AplicarControles(Control.ControlCollection controles)

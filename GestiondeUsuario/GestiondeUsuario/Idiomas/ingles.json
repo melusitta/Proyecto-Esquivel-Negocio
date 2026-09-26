@@ -46,7 +46,8 @@
     "msgSesionActiva": "There is already an active session: ",
     "msgSesionActivaTitulo": "Active session",
     "generarFactura": "Generate invoice",
-    "gestionProductos": "Product management"
+    "gestionProductos": "Product management",
+    "productosMasVendidos": "Best-selling products"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -469,6 +470,44 @@
     "mostrar": "Show password",
     "ocultar": "Hide password"
   },
+  "FormProductosMasVendidos": {
+    "tituloForm": "Best-selling products",
+    "grpFiltros": "Filters",
+    "lblPeriodo": "Period:",
+    "lblAnio": "Year:",
+    "lblDesde": "From:",
+    "lblHasta": "To:",
+    "lblOrden": "Sort by:",
+    "rbUnidades": "Units",
+    "rbMonto": "Amount",
+    "lblMostrar": "Show:",
+    "btnGenerar": "Generate report",
+    "grpGrafico": "Chart",
+    "btnVolver": "Back",
+    "btnImprimir": "Print",
+    "perPersonalizado": "Custom",
+    "perDiaDelNino": "Children's Day",
+    "perNavidadYReyes": "Christmas & Epiphany",
+    "perAnioCompleto": "Full year",
+    "top10": "Top 10",
+    "top20": "Top 20",
+    "topTodos": "All",
+    "colPosicion": "#",
+    "colCodigo": "Code",
+    "colProducto": "Product",
+    "colMarca": "Brand",
+    "colUnidades": "Units",
+    "colMonto": "Amount",
+    "colPorcentaje": "%",
+    "lblResumen": "From {0} to {1}  ·  {2} invoices  ·  {3} units  ·  $ {4}",
+    "sinVentas": "There were no paid sales between {0} and {1}.",
+    "sinDatosGrafico": "Generate the report to see the chart",
+    "ejeUnidades": "Units",
+    "ejeMonto": "Amount ($)",
+    "msgGenerarPrimero": "Generate the report before printing it.",
+    "msgAtencion": "Attention",
+    "msgError": "Error"
+  },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",
     "PATENTE_YA_EN_ROL": "This patent is already assigned directly to the role.",
@@ -504,6 +543,7 @@
     "CODIGO_PRODUCTO_INVALIDO": "The product code must be greater than zero.",
     "PRODUCTO_DATOS_INCOMPLETOS": "Enter the product's name, brand, color and model.",
     "PRECIO_INVALIDO": "The price must be greater than zero.",
-    "EXISTENCIA_INVALIDA": "The stock cannot be negative."
+    "EXISTENCIA_INVALIDA": "The stock cannot be negative.",
+    "FECHAS_INVALIDAS": "The \"from\" date cannot be later than the \"to\" date."
   }
 }

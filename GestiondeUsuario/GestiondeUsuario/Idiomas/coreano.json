@@ -46,7 +46,8 @@
     "msgSesionActiva": "이미 활성 세션이 있습니다: ",
     "msgSesionActivaTitulo": "활성 세션",
     "generarFactura": "청구서 발행",
-    "gestionProductos": "상품 관리"
+    "gestionProductos": "상품 관리",
+    "productosMasVendidos": "가장 많이 팔린 상품"
   },
   "FormGU": {
     "tituloForm": "사용자 관리",
@@ -469,6 +470,44 @@
     "mostrar": "비밀번호 표시",
     "ocultar": "비밀번호 숨기기"
   },
+  "FormProductosMasVendidos": {
+    "tituloForm": "가장 많이 팔린 상품",
+    "grpFiltros": "필터",
+    "lblPeriodo": "기간:",
+    "lblAnio": "연도:",
+    "lblDesde": "시작:",
+    "lblHasta": "종료:",
+    "lblOrden": "정렬 기준:",
+    "rbUnidades": "수량",
+    "rbMonto": "금액",
+    "lblMostrar": "표시:",
+    "btnGenerar": "보고서 생성",
+    "grpGrafico": "차트",
+    "btnVolver": "뒤로",
+    "btnImprimir": "인쇄",
+    "perPersonalizado": "사용자 지정",
+    "perDiaDelNino": "어린이날",
+    "perNavidadYReyes": "크리스마스·주현절",
+    "perAnioCompleto": "연간",
+    "top10": "상위 10",
+    "top20": "상위 20",
+    "topTodos": "전체",
+    "colPosicion": "#",
+    "colCodigo": "코드",
+    "colProducto": "상품",
+    "colMarca": "브랜드",
+    "colUnidades": "수량",
+    "colMonto": "금액",
+    "colPorcentaje": "%",
+    "lblResumen": "{0} ~ {1}  ·  청구서 {2}건  ·  {3}개  ·  $ {4}",
+    "sinVentas": "{0}부터 {1}까지 결제된 판매가 없습니다.",
+    "sinDatosGrafico": "차트를 보려면 보고서를 생성하세요",
+    "ejeUnidades": "수량",
+    "ejeMonto": "금액 ($)",
+    "msgGenerarPrimero": "인쇄하기 전에 보고서를 생성하세요.",
+    "msgAtencion": "주의",
+    "msgError": "오류"
+  },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",
     "PATENTE_YA_EN_ROL": "이 특허는 이미 역할에 직접 할당되어 있습니다.",
@@ -504,6 +543,7 @@
     "CODIGO_PRODUCTO_INVALIDO": "상품 코드는 0보다 커야 합니다.",
     "PRODUCTO_DATOS_INCOMPLETOS": "상품의 이름, 브랜드, 색상, 모델을 입력하세요.",
     "PRECIO_INVALIDO": "가격은 0보다 커야 합니다.",
-    "EXISTENCIA_INVALIDA": "재고는 음수가 될 수 없습니다."
+    "EXISTENCIA_INVALIDA": "재고는 음수가 될 수 없습니다.",
+    "FECHAS_INVALIDAS": "시작 날짜는 종료 날짜보다 늦을 수 없습니다."
   }
 }

@@ -175,3 +175,17 @@ DECLARE @rolAdmin INT = (SELECT Id FROM Rol WHERE Nombre = 'Admin');
 IF @rolAdmin IS NOT NULL AND NOT EXISTS (SELECT 1 FROM Rol_Pat WHERE IdRol = @rolAdmin AND IdPatente = @patProductos)
     INSERT INTO Rol_Pat (IdRol, IdPatente) VALUES (@rolAdmin, @patProductos);
 GO
+
+-- ---------------------------------------------------------------------
+-- Reportes de ventas (menú Reporte)
+--   Patente ReportesVentas -> se asigna al Admin
+-- ---------------------------------------------------------------------
+IF NOT EXISTS (SELECT 1 FROM Patente WHERE Nombre = 'ReportesVentas')
+    INSERT INTO Patente (Nombre, Descripcion) VALUES ('ReportesVentas', N'Permite consultar los reportes de ventas');
+GO
+
+DECLARE @patReportes INT = (SELECT Id FROM Patente WHERE Nombre = 'ReportesVentas');
+DECLARE @rolAdmin INT = (SELECT Id FROM Rol WHERE Nombre = 'Admin');
+IF @rolAdmin IS NOT NULL AND NOT EXISTS (SELECT 1 FROM Rol_Pat WHERE IdRol = @rolAdmin AND IdPatente = @patReportes)
+    INSERT INTO Rol_Pat (IdRol, IdPatente) VALUES (@rolAdmin, @patReportes);
+GO

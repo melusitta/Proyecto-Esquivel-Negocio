@@ -46,7 +46,8 @@
     "msgSesionActiva": "Ya hay una sesión activa: ",
     "msgSesionActivaTitulo": "Sesión activa",
     "generarFactura": "Generar factura",
-    "gestionProductos": "Gestión de productos"
+    "gestionProductos": "Gestión de productos",
+    "productosMasVendidos": "Productos más vendidos"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -469,6 +470,44 @@
     "mostrar": "Mostrar contraseña",
     "ocultar": "Ocultar contraseña"
   },
+  "FormProductosMasVendidos": {
+    "tituloForm": "Productos más vendidos",
+    "grpFiltros": "Filtros",
+    "lblPeriodo": "Período:",
+    "lblAnio": "Año:",
+    "lblDesde": "Desde:",
+    "lblHasta": "Hasta:",
+    "lblOrden": "Ordenar por:",
+    "rbUnidades": "Unidades",
+    "rbMonto": "Monto",
+    "lblMostrar": "Mostrar:",
+    "btnGenerar": "Generar reporte",
+    "grpGrafico": "Gráfico",
+    "btnVolver": "Volver",
+    "btnImprimir": "Imprimir",
+    "perPersonalizado": "Personalizado",
+    "perDiaDelNino": "Día del Niño",
+    "perNavidadYReyes": "Navidad y Reyes",
+    "perAnioCompleto": "Año completo",
+    "top10": "Top 10",
+    "top20": "Top 20",
+    "topTodos": "Todos",
+    "colPosicion": "#",
+    "colCodigo": "Código",
+    "colProducto": "Producto",
+    "colMarca": "Marca",
+    "colUnidades": "Unidades",
+    "colMonto": "Monto",
+    "colPorcentaje": "%",
+    "lblResumen": "Del {0} al {1}  ·  {2} facturas  ·  {3} unidades  ·  $ {4}",
+    "sinVentas": "No hubo ventas cobradas entre el {0} y el {1}.",
+    "sinDatosGrafico": "Generá el reporte para ver el gráfico",
+    "ejeUnidades": "Unidades",
+    "ejeMonto": "Monto ($)",
+    "msgGenerarPrimero": "Generá el reporte antes de imprimirlo.",
+    "msgAtencion": "Atención",
+    "msgError": "Error"
+  },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",
     "PATENTE_YA_EN_ROL": "Esta patente ya está asignada directamente al rol.",
@@ -504,6 +543,7 @@
     "CODIGO_PRODUCTO_INVALIDO": "El código de producto debe ser mayor a cero.",
     "PRODUCTO_DATOS_INCOMPLETOS": "Completá nombre, marca, color y modelo del producto.",
     "PRECIO_INVALIDO": "El precio debe ser mayor a cero.",
-    "EXISTENCIA_INVALIDA": "La existencia no puede ser negativa."
+    "EXISTENCIA_INVALIDA": "La existencia no puede ser negativa.",
+    "FECHAS_INVALIDAS": "La fecha \"desde\" no puede ser posterior a la fecha \"hasta\"."
   }
 }

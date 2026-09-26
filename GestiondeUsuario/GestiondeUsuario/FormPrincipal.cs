@@ -43,6 +43,7 @@ namespace GestiondeUsuario
             bool tieneGestionProductos = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionProductos");
             bool tieneCompras = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Compras");
             bool tieneReporte = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Reporte");
+            bool tieneReportesVentas = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "ReportesVentas");
             bool tieneAyuda = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Ayuda");
 
             gestionDeUsuariosToolStripMenuItem.Enabled = tieneGestionUsuarios;
@@ -58,7 +59,8 @@ namespace GestiondeUsuario
             generarFacturaToolStripMenuItem.Enabled = tieneFacturar;
             menuVenta.Enabled = tieneVentas || tieneCargarCarrito || tieneFacturar;
             menuCompras.Enabled = tieneCompras;
-            menuReporte.Enabled = tieneReporte;
+            productosMasVendidosToolStripMenuItem.Enabled = tieneReportesVentas;
+            menuReporte.Enabled = tieneReporte || tieneReportesVentas;
             menuAyuda.Enabled = tieneAyuda;
             gestionRespaldoToolStripMenuItem1.Enabled =
              PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
@@ -132,6 +134,11 @@ namespace GestiondeUsuario
             new FormGestionProductos().Show();
             this.Hide();
         }
+        private void productosMasVendidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormProductosMasVendidos().Show();
+            this.Hide();
+        }
         private void cargarCarritoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormCargarCarrito().Show();
@@ -166,6 +173,7 @@ namespace GestiondeUsuario
             generarFacturaToolStripMenuItem.Text = t["generarFactura"]?.ToString();
             menuCompras.Text = t["menuCompras"]?.ToString();
             menuReporte.Text = t["menuReporte"]?.ToString();
+            productosMasVendidosToolStripMenuItem.Text = t["productosMasVendidos"]?.ToString();
             menuAyuda.Text = t["menuAyuda"]?.ToString();
             iniciarSesionToolStripMenuItem.Text = t["iniciarSesion"]?.ToString();
             cambiarContraseñaToolStripMenuItem.Text = t["cambiarContraseña"]?.ToString();

@@ -50,6 +50,7 @@
             this.generarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCompras = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReporte = new System.Windows.Forms.ToolStripMenuItem();
+            this.productosMasVendidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -213,8 +214,17 @@
             this.menuCompras.Size = new System.Drawing.Size(60, 19);
             this.menuCompras.Text = "Compras";
             // 
+            // productosMasVendidosToolStripMenuItem
+            // 
+            this.productosMasVendidosToolStripMenuItem.Name = "productosMasVendidosToolStripMenuItem";
+            this.productosMasVendidosToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.productosMasVendidosToolStripMenuItem.Text = "Productos más vendidos";
+            this.productosMasVendidosToolStripMenuItem.Click += new System.EventHandler(this.productosMasVendidosToolStripMenuItem_Click);
+            // 
             // menuReporte
             // 
+            this.menuReporte.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.productosMasVendidosToolStripMenuItem});
             this.menuReporte.Name = "menuReporte";
             this.menuReporte.Size = new System.Drawing.Size(60, 19);
             this.menuReporte.Text = "Reporte";
@@ -282,6 +292,7 @@
         private System.Windows.Forms.ToolStripMenuItem generarFacturaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuCompras;
         private System.Windows.Forms.ToolStripMenuItem menuReporte;
+        private System.Windows.Forms.ToolStripMenuItem productosMasVendidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuAyuda;
         private System.Windows.Forms.ToolStripMenuItem gestionDeRolesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionRespaldoToolStripMenuItem1;

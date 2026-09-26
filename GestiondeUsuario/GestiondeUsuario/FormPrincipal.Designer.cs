@@ -44,6 +44,7 @@
             this.gestionDeRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionRespaldoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMaestro = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarCarritoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -170,9 +171,18 @@
             // 
             // menuMaestro
             // 
+            this.menuMaestro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gestionProductosToolStripMenuItem});
             this.menuMaestro.Name = "menuMaestro";
             this.menuMaestro.Size = new System.Drawing.Size(60, 19);
             this.menuMaestro.Text = "Maestro";
+            // 
+            // gestionProductosToolStripMenuItem
+            // 
+            this.gestionProductosToolStripMenuItem.Name = "gestionProductosToolStripMenuItem";
+            this.gestionProductosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gestionProductosToolStripMenuItem.Text = "Gestión de productos";
+            this.gestionProductosToolStripMenuItem.Click += new System.EventHandler(this.gestionProductosToolStripMenuItem_Click);
             // 
             // menuVenta
             // 
@@ -266,6 +276,7 @@
         private System.Windows.Forms.ToolStripMenuItem gestionDePerfilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bitacoraEventosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuMaestro;
+        private System.Windows.Forms.ToolStripMenuItem gestionProductosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuVenta;
         private System.Windows.Forms.ToolStripMenuItem cargarCarritoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarFacturaToolStripMenuItem;

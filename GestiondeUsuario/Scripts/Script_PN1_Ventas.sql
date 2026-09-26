@@ -161,3 +161,17 @@ IF NOT EXISTS (SELECT 1 FROM Rol_Pat WHERE IdRol = @rolCajero AND IdPatente = @p
 IF @rolAdmin IS NOT NULL AND NOT EXISTS (SELECT 1 FROM Rol_Fam WHERE IdRol = @rolAdmin AND IdFamilia = @famVentas)
     INSERT INTO Rol_Fam (IdRol, IdFamilia) VALUES (@rolAdmin, @famVentas);
 GO
+
+-- ---------------------------------------------------------------------
+-- Maestro: ABM de productos
+--   Patente GestionProductos -> se asigna al Admin
+-- ---------------------------------------------------------------------
+IF NOT EXISTS (SELECT 1 FROM Patente WHERE Nombre = 'GestionProductos')
+    INSERT INTO Patente (Nombre, Descripcion) VALUES ('GestionProductos', N'Permite dar de alta, modificar y dar de baja productos');
+GO
+
+DECLARE @patProductos INT = (SELECT Id FROM Patente WHERE Nombre = 'GestionProductos');
+DECLARE @rolAdmin INT = (SELECT Id FROM Rol WHERE Nombre = 'Admin');
+IF @rolAdmin IS NOT NULL AND NOT EXISTS (SELECT 1 FROM Rol_Pat WHERE IdRol = @rolAdmin AND IdPatente = @patProductos)
+    INSERT INTO Rol_Pat (IdRol, IdPatente) VALUES (@rolAdmin, @patProductos);
+GO

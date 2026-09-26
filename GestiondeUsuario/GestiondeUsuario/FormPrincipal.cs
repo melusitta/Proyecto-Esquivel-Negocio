@@ -40,6 +40,7 @@ namespace GestiondeUsuario
             bool tieneVentas = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Ventas");
             bool tieneCargarCarrito = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "CargarCarrito");
             bool tieneFacturar = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Facturar");
+            bool tieneGestionProductos = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionProductos");
             bool tieneCompras = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Compras");
             bool tieneReporte = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Reporte");
             bool tieneAyuda = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Ayuda");
@@ -50,7 +51,8 @@ namespace GestiondeUsuario
             bitacoraEventosToolStripMenuItem.Enabled = tieneVerBitacora;
             PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
 
-            menuMaestro.Enabled = tieneMaestro;
+            gestionProductosToolStripMenuItem.Enabled = tieneGestionProductos;
+            menuMaestro.Enabled = tieneMaestro || tieneGestionProductos;
             // PN1: el Vendedor carga el carrito y el Cajero factura y cobra
             cargarCarritoToolStripMenuItem.Enabled = tieneCargarCarrito;
             generarFacturaToolStripMenuItem.Enabled = tieneFacturar;
@@ -125,6 +127,11 @@ namespace GestiondeUsuario
             this.Hide();
         }
 
+        private void gestionProductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormGestionProductos().Show();
+            this.Hide();
+        }
         private void cargarCarritoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormCargarCarrito().Show();
@@ -153,6 +160,7 @@ namespace GestiondeUsuario
             usuarioToolStripMenuItem.Text = t["menuUsuario"]?.ToString();
             menuAdmin.Text = t["menuAdmin"]?.ToString();
             menuMaestro.Text = t["menuMaestro"]?.ToString();
+            gestionProductosToolStripMenuItem.Text = t["gestionProductos"]?.ToString();
             menuVenta.Text = t["menuVenta"]?.ToString();
             cargarCarritoToolStripMenuItem.Text = t["cargarCarrito"]?.ToString();
             generarFacturaToolStripMenuItem.Text = t["generarFactura"]?.ToString();

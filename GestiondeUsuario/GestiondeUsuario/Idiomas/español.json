@@ -45,7 +45,8 @@
     "msgCerrarSesionTitulo": "Cerrar sesión",
     "msgSesionActiva": "Ya hay una sesión activa: ",
     "msgSesionActivaTitulo": "Sesión activa",
-    "generarFactura": "Generar factura"
+    "generarFactura": "Generar factura",
+    "gestionProductos": "Gestión de productos"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -391,6 +392,49 @@
     "colSubtotal": "Subtotal",
     "lblTotal": "Total:"
   },
+  "FormGestionProductos": {
+    "tituloForm": "Gestión de Productos",
+    "lblBuscar": "Buscar:",
+    "btnBuscar": "Buscar",
+    "rbActivos": "Activos",
+    "rbTodos": "Todos",
+    "lblCodigo": "Código:",
+    "lblNombre": "Nombre:",
+    "lblMarca": "Marca:",
+    "lblColor": "Color:",
+    "lblModelo": "Modelo:",
+    "lblPrecio": "Precio:",
+    "lblExistencia": "Existencia:",
+    "btnAgregar": "Agregar",
+    "btnModificar": "Modificar",
+    "btnBaja": "Dar de baja",
+    "btnReactivar": "Reactivar",
+    "btnAplicar": "Aplicar",
+    "btnCancelar": "Cancelar",
+    "btnVolver": "Volver",
+    "lblModoInicial": "Seleccioná una opción",
+    "lblModoAgregar": "Modo agregar",
+    "lblModoModificar": "Modo modificar",
+    "colCodigo": "Código",
+    "colNombre": "Nombre",
+    "colMarca": "Marca",
+    "colColor": "Color",
+    "colModelo": "Modelo",
+    "colPrecio": "Precio",
+    "colExistencia": "Existencia",
+    "colActivo": "Activo",
+    "msgSeleccionarPrimero": "Seleccioná un producto primero.",
+    "msgConfirmarBaja": "¿Querés dar de baja '{0}'? No se podrá vender hasta que lo reactives.",
+    "msgConfirmarReactivar": "¿Querés reactivar '{0}'?",
+    "msgCreado": "Producto creado correctamente.",
+    "msgModificado": "Producto modificado correctamente.",
+    "msgBaja": "Producto dado de baja.",
+    "msgReactivado": "Producto reactivado.",
+    "msgConfirmar": "Confirmar",
+    "msgExito": "Éxito",
+    "msgAtencion": "Atención",
+    "msgError": "Error"
+  },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",
     "PATENTE_YA_EN_ROL": "Esta patente ya está asignada directamente al rol.",
@@ -421,6 +465,11 @@
     "FACTURA_YA_PAGADA": "La factura N° {0} ya fue cobrada.",
     "FORMA_PAGO_INVALIDA": "Seleccioná una forma de pago válida.",
     "MONTO_INCORRECTO": "El monto pagado debe ser igual al total de la factura ({0}).",
-    "PAGO_NO_ACREDITADO": "El banco todavía no confirmó la acreditación del pago."
+    "PAGO_NO_ACREDITADO": "El banco todavía no confirmó la acreditación del pago.",
+    "PRODUCTO_CODIGO_DUPLICADO": "Ya existe un producto con el código {0}.",
+    "CODIGO_PRODUCTO_INVALIDO": "El código de producto debe ser mayor a cero.",
+    "PRODUCTO_DATOS_INCOMPLETOS": "Completá nombre, marca, color y modelo del producto.",
+    "PRECIO_INVALIDO": "El precio debe ser mayor a cero.",
+    "EXISTENCIA_INVALIDA": "La existencia no puede ser negativa."
   }
 }

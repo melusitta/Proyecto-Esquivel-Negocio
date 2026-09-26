@@ -103,6 +103,12 @@
     <Compile Include="FormGestionFamilias.Designer.cs">
       <DependentUpon>FormGestionFamilias.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormGestionProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGestionProductos.Designer.cs">
+      <DependentUpon>FormGestionProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormGestionRespaldo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormGestionFamilias.resx">
       <DependentUpon>FormGestionFamilias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGestionProductos.resx">
+      <DependentUpon>FormGestionProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormGestionRespaldo.resx">
       <DependentUpon>FormGestionRespaldo.cs</DependentUpon>

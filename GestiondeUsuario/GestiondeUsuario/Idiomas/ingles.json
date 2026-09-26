@@ -45,7 +45,8 @@
     "msgCerrarSesionTitulo": "Log out",
     "msgSesionActiva": "There is already an active session: ",
     "msgSesionActivaTitulo": "Active session",
-    "generarFactura": "Generate invoice"
+    "generarFactura": "Generate invoice",
+    "gestionProductos": "Product management"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -391,6 +392,49 @@
     "colSubtotal": "Subtotal",
     "lblTotal": "Total:"
   },
+  "FormGestionProductos": {
+    "tituloForm": "Product Management",
+    "lblBuscar": "Search:",
+    "btnBuscar": "Search",
+    "rbActivos": "Active",
+    "rbTodos": "All",
+    "lblCodigo": "Code:",
+    "lblNombre": "Name:",
+    "lblMarca": "Brand:",
+    "lblColor": "Color:",
+    "lblModelo": "Model:",
+    "lblPrecio": "Price:",
+    "lblExistencia": "Stock:",
+    "btnAgregar": "Add",
+    "btnModificar": "Modify",
+    "btnBaja": "Deactivate",
+    "btnReactivar": "Reactivate",
+    "btnAplicar": "Apply",
+    "btnCancelar": "Cancel",
+    "btnVolver": "Back",
+    "lblModoInicial": "Select an option",
+    "lblModoAgregar": "Add mode",
+    "lblModoModificar": "Modify mode",
+    "colCodigo": "Code",
+    "colNombre": "Name",
+    "colMarca": "Brand",
+    "colColor": "Color",
+    "colModelo": "Model",
+    "colPrecio": "Price",
+    "colExistencia": "Stock",
+    "colActivo": "Active",
+    "msgSeleccionarPrimero": "Select a product first.",
+    "msgConfirmarBaja": "Do you want to deactivate '{0}'? It cannot be sold until you reactivate it.",
+    "msgConfirmarReactivar": "Do you want to reactivate '{0}'?",
+    "msgCreado": "Product created successfully.",
+    "msgModificado": "Product modified successfully.",
+    "msgBaja": "Product deactivated.",
+    "msgReactivado": "Product reactivated.",
+    "msgConfirmar": "Confirm",
+    "msgExito": "Success",
+    "msgAtencion": "Attention",
+    "msgError": "Error"
+  },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",
     "PATENTE_YA_EN_ROL": "This patent is already assigned directly to the role.",
@@ -421,6 +465,11 @@
     "FACTURA_YA_PAGADA": "Invoice No. {0} has already been paid.",
     "FORMA_PAGO_INVALIDA": "Please select a valid payment method.",
     "MONTO_INCORRECTO": "The amount paid must equal the invoice total ({0}).",
-    "PAGO_NO_ACREDITADO": "The bank has not yet confirmed the payment."
+    "PAGO_NO_ACREDITADO": "The bank has not yet confirmed the payment.",
+    "PRODUCTO_CODIGO_DUPLICADO": "A product with code {0} already exists.",
+    "CODIGO_PRODUCTO_INVALIDO": "The product code must be greater than zero.",
+    "PRODUCTO_DATOS_INCOMPLETOS": "Enter the product's name, brand, color and model.",
+    "PRECIO_INVALIDO": "The price must be greater than zero.",
+    "EXISTENCIA_INVALIDA": "The stock cannot be negative."
   }
 }

@@ -45,7 +45,8 @@
     "msgCerrarSesionTitulo": "로그아웃",
     "msgSesionActiva": "이미 활성 세션이 있습니다: ",
     "msgSesionActivaTitulo": "활성 세션",
-    "generarFactura": "청구서 발행"
+    "generarFactura": "청구서 발행",
+    "gestionProductos": "상품 관리"
   },
   "FormGU": {
     "tituloForm": "사용자 관리",
@@ -391,6 +392,49 @@
     "colSubtotal": "소계",
     "lblTotal": "합계:"
   },
+  "FormGestionProductos": {
+    "tituloForm": "상품 관리",
+    "lblBuscar": "검색:",
+    "btnBuscar": "검색",
+    "rbActivos": "활성",
+    "rbTodos": "전체",
+    "lblCodigo": "코드:",
+    "lblNombre": "이름:",
+    "lblMarca": "브랜드:",
+    "lblColor": "색상:",
+    "lblModelo": "모델:",
+    "lblPrecio": "가격:",
+    "lblExistencia": "재고:",
+    "btnAgregar": "추가",
+    "btnModificar": "수정",
+    "btnBaja": "비활성화",
+    "btnReactivar": "재활성화",
+    "btnAplicar": "적용",
+    "btnCancelar": "취소",
+    "btnVolver": "뒤로",
+    "lblModoInicial": "옵션을 선택하세요",
+    "lblModoAgregar": "추가 모드",
+    "lblModoModificar": "수정 모드",
+    "colCodigo": "코드",
+    "colNombre": "이름",
+    "colMarca": "브랜드",
+    "colColor": "색상",
+    "colModelo": "모델",
+    "colPrecio": "가격",
+    "colExistencia": "재고",
+    "colActivo": "활성",
+    "msgSeleccionarPrimero": "먼저 상품을 선택하세요.",
+    "msgConfirmarBaja": "'{0}'을(를) 비활성화하시겠습니까? 재활성화할 때까지 판매할 수 없습니다.",
+    "msgConfirmarReactivar": "'{0}'을(를) 재활성화하시겠습니까?",
+    "msgCreado": "상품이 생성되었습니다.",
+    "msgModificado": "상품이 수정되었습니다.",
+    "msgBaja": "상품이 비활성화되었습니다.",
+    "msgReactivado": "상품이 재활성화되었습니다.",
+    "msgConfirmar": "확인",
+    "msgExito": "성공",
+    "msgAtencion": "주의",
+    "msgError": "오류"
+  },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",
     "PATENTE_YA_EN_ROL": "이 특허는 이미 역할에 직접 할당되어 있습니다.",
@@ -421,6 +465,11 @@
     "FACTURA_YA_PAGADA": "청구서 번호 {0}은(는) 이미 결제되었습니다.",
     "FORMA_PAGO_INVALIDA": "올바른 결제 방법을 선택하세요.",
     "MONTO_INCORRECTO": "결제 금액은 청구서 합계({0})와 같아야 합니다.",
-    "PAGO_NO_ACREDITADO": "은행에서 아직 결제를 확인하지 않았습니다."
+    "PAGO_NO_ACREDITADO": "은행에서 아직 결제를 확인하지 않았습니다.",
+    "PRODUCTO_CODIGO_DUPLICADO": "코드 {0}의 상품이 이미 존재합니다.",
+    "CODIGO_PRODUCTO_INVALIDO": "상품 코드는 0보다 커야 합니다.",
+    "PRODUCTO_DATOS_INCOMPLETOS": "상품의 이름, 브랜드, 색상, 모델을 입력하세요.",
+    "PRECIO_INVALIDO": "가격은 0보다 커야 합니다.",
+    "EXISTENCIA_INVALIDA": "재고는 음수가 될 수 없습니다."
   }
 }

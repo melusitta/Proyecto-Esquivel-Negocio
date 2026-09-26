@@ -390,7 +390,8 @@
     "colCantidad": "수량",
     "colPrecio": "가격",
     "colSubtotal": "소계",
-    "lblTotal": "합계:"
+    "lblTotal": "합계:",
+    "msgPreguntaImprimir": "청구서를 인쇄하시겠습니까?"
   },
   "FormGestionProductos": {
     "tituloForm": "상품 관리",
@@ -434,6 +435,26 @@
     "msgExito": "성공",
     "msgAtencion": "주의",
     "msgError": "오류"
+  },
+  "ImpresionFactura": {
+    "titulo": "청구서",
+    "nro": "번호",
+    "fecha": "날짜:",
+    "hora": "시간:",
+    "comercio": "장난감 가게 · 로마스 데 사모라",
+    "cliente": "고객:",
+    "dni": "신분증:",
+    "colProducto": "상품",
+    "colCantidad": "수량",
+    "colPrecio": "단가",
+    "colSubtotal": "소계",
+    "continua": "다음 페이지에 계속...",
+    "total": "합계",
+    "formaPago": "결제 방법:",
+    "pagada": "결제 완료",
+    "fechaPago": "결제일:",
+    "cajero": "담당자:",
+    "gracias": "구매해 주셔서 감사합니다!"
   },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",

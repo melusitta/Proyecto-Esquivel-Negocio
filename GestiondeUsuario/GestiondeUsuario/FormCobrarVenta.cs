@@ -92,8 +92,15 @@ namespace GestiondeUsuario
             try
             {
                 FacturaBLL.Instancia.Cobrar(_factura.Id, monto, formaPago, chkAcreditado.Checked);
-                MessageBox.Show(string.Format(g.Obtener("FormCobrarVenta", "msgVentaCobrada"), _factura.NroFactura),
-                    g.Obtener("FormCobrarVenta", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Paso 15: el cajero entrega la factura. Se ofrece imprimirla (ya figura como pagada)
+                DialogResult imprimir = MessageBox.Show(
+                    string.Format(g.Obtener("FormCobrarVenta", "msgVentaCobrada"), _factura.NroFactura) + "\n\n" +
+                    g.Obtener("FormCobrarVenta", "msgPreguntaImprimir"),
+                    g.Obtener("FormCobrarVenta", "msgExito"), MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (imprimir == DialogResult.Yes)
+                    new ImpresionFactura(FacturaBLL.Instancia.ObtenerPorId(_factura.Id)).MostrarVistaPrevia(this);
+
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

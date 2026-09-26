@@ -151,6 +151,7 @@
     <Compile Include="FormRestore.Designer.cs">
       <DependentUpon>FormRestore.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImpresionFactura.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Tema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

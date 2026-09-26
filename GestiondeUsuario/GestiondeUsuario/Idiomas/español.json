@@ -390,7 +390,8 @@
     "colCantidad": "Cantidad",
     "colPrecio": "Precio",
     "colSubtotal": "Subtotal",
-    "lblTotal": "Total:"
+    "lblTotal": "Total:",
+    "msgPreguntaImprimir": "¿Querés imprimir la factura?"
   },
   "FormGestionProductos": {
     "tituloForm": "Gestión de Productos",
@@ -434,6 +435,26 @@
     "msgExito": "Éxito",
     "msgAtencion": "Atención",
     "msgError": "Error"
+  },
+  "ImpresionFactura": {
+    "titulo": "FACTURA",
+    "nro": "N°",
+    "fecha": "Fecha:",
+    "hora": "Hora:",
+    "comercio": "Juguetería · Lomas de Zamora",
+    "cliente": "Cliente:",
+    "dni": "DNI:",
+    "colProducto": "Producto",
+    "colCantidad": "Cantidad",
+    "colPrecio": "Precio unit.",
+    "colSubtotal": "Subtotal",
+    "continua": "Continúa en la página siguiente...",
+    "total": "TOTAL",
+    "formaPago": "Forma de pago:",
+    "pagada": "PAGADA",
+    "fechaPago": "Fecha de pago:",
+    "cajero": "Atendido por:",
+    "gracias": "¡Gracias por tu compra!"
   },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",

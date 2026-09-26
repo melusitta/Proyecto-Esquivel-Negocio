@@ -390,7 +390,8 @@
     "colCantidad": "Quantity",
     "colPrecio": "Price",
     "colSubtotal": "Subtotal",
-    "lblTotal": "Total:"
+    "lblTotal": "Total:",
+    "msgPreguntaImprimir": "Do you want to print the invoice?"
   },
   "FormGestionProductos": {
     "tituloForm": "Product Management",
@@ -434,6 +435,26 @@
     "msgExito": "Success",
     "msgAtencion": "Attention",
     "msgError": "Error"
+  },
+  "ImpresionFactura": {
+    "titulo": "INVOICE",
+    "nro": "No.",
+    "fecha": "Date:",
+    "hora": "Time:",
+    "comercio": "Toy store · Lomas de Zamora",
+    "cliente": "Customer:",
+    "dni": "ID:",
+    "colProducto": "Product",
+    "colCantidad": "Quantity",
+    "colPrecio": "Unit price",
+    "colSubtotal": "Subtotal",
+    "continua": "Continued on next page...",
+    "total": "TOTAL",
+    "formaPago": "Payment method:",
+    "pagada": "PAID",
+    "fechaPago": "Payment date:",
+    "cajero": "Served by:",
+    "gracias": "Thank you for your purchase!"
   },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",

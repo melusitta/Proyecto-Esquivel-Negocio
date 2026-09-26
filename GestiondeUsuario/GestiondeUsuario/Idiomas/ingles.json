@@ -228,6 +228,7 @@
     "msgExitoTitulo": "Success"
   },
   "FormInconsistencia": {
+    "msgError": "Error",
     "tituloForm": "Inconsistency detected",
     "lblMensaje": "A data inconsistency was detected. Please select an option to continue.",
     "btnRecalcular": "Recalculate DV",
@@ -236,6 +237,7 @@
     "msgRecalculadoOk": "Check digit recalculated successfully. The system accepts the current data as valid."
   },
   "FormRestore": {
+    "msgError": "Error",
     "tituloForm": "Database restore",
     "lblMensaje": "Select the backup you want to restore. The most recent one is recommended to minimize data loss.",
     "lblBackups": "Available backups:",
@@ -266,5 +268,19 @@
     "msgErrorRestore": "Error performing restore: ",
     "msgError": "Error",
     "msgSeleccionarArchivoRestore": "Select the backup file"
+  },
+  "Errores": {
+    "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",
+    "PATENTE_YA_EN_ROL": "This patent is already assigned directly to the role.",
+    "PATENTE_EN_FAMILIA_DEL_ROL": "The patent '{0}' is already included in the family '{1}' assigned to this role.",
+    "FAMILIA_YA_EN_ROL": "This family is already in the role.",
+    "FAMILIA_EN_USO": "This family cannot be deleted because it is used by one or more roles.",
+    "PATENTE_YA_EN_FAMILIA": "This patent is already in the family.",
+    "PATENTE_EN_FAMILIA_INTEGRADA": "The patent '{0}' is already included in the integrated family '{1}'.",
+    "FAMILIA_SE_CONTIENE": "A family cannot contain itself.",
+    "FAMILIA_YA_INTEGRADA": "This family is already integrated.",
+    "USUARIO_BLOQUEADO": "The user is blocked.",
+    "CONTRASENA_IGUAL_ACTUAL": "The new password cannot be the same as the current one.",
+    "USUARIO_DUPLICADO": "A user with that ID or email already exists."
   }
 }

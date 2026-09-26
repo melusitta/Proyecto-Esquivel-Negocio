@@ -54,6 +54,7 @@ namespace GestiondeUsuario
 
                 string json = File.ReadAllText(ruta);
                 _traducciones = JObject.Parse(json);
+                GestorIdioma.Instancia.CambiarIdioma(idioma); // para traducir los errores de la BLL en el login
                 AplicarIdioma();
             }
             catch { }
@@ -132,12 +133,20 @@ namespace GestiondeUsuario
                             ?? "Atención",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                else
+                else if (ex is ErrorNegocio error && error.Codigo == "USUARIO_BLOQUEADO")
                 {
                     MessageBox.Show(
-                        ex.Message + "\n" + _traducciones?["Form1"]?["msgCuentaBloqueada"]?.ToString(),
+                        GestorIdioma.Instancia.TraducirError(ex) + "\n" + _traducciones?["Form1"]?["msgCuentaBloqueada"]?.ToString(),
                         _traducciones?["Form1"]?["msgCuentaBloqueadaTitulo"]?.ToString(),
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    // Cualquier otro error (por ejemplo, sin conexión a la base) ya no se muestra como "cuenta bloqueada"
+                    MessageBox.Show(
+                        GestorIdioma.Instancia.TraducirError(ex),
+                        _traducciones?["Form1"]?["msgError"]?.ToString() ?? "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

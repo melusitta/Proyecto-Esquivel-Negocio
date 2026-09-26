@@ -47,6 +47,7 @@
     <Compile Include="Bitacora.cs" />
     <Compile Include="DigitoVerificador.cs" />
     <Compile Include="Encriptador.cs" />
+    <Compile Include="ErrorNegocio.cs" />
     <Compile Include="Familia.cs" />
     <Compile Include="GestorIdioma.cs" />
     <Compile Include="IComponentePermiso.cs" />

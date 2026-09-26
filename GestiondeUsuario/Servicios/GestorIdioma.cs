@@ -59,6 +59,19 @@ namespace Servicios
             if (_traducciones == null) return clave;
             return _traducciones[form]?[clave]?.ToString() ?? clave;
         }
+
+        // Devuelve el mensaje de un error en el idioma activo.
+        // ErrorNegocio -> texto de la sección "Errores" del JSON (con sus datos en {0}, {1}...).
+        // Cualquier otro error (SQL, archivos...) -> su mensaje original.
+        public string TraducirError(Exception ex)
+        {
+            if (ex is ErrorNegocio error)
+            {
+                string plantilla = Obtener("Errores", error.Codigo);
+                return error.Datos.Length > 0 ? string.Format(plantilla, error.Datos) : plantilla;
+            }
+            return ex.Message;
+        }
     }
 }
 

@@ -227,6 +227,7 @@
     "msgExitoTitulo": "Éxito"
   },
   "FormInconsistencia": {
+    "msgError": "Error",
     "tituloForm": "Inconsistencia detectada",
     "lblMensaje": "Se detectó una inconsistencia en los datos del sistema. Seleccioná una opción para continuar.",
     "btnRecalcular": "Recalcular DV",
@@ -235,6 +236,7 @@
     "msgRecalculadoOk": "Dígito verificador recalculado correctamente. El sistema acepta los datos actuales como válidos."
   },
   "FormRestore": {
+    "msgError": "Error",
     "tituloForm": "Restore de base de datos",
     "lblMensaje": "Seleccioná el backup que querés restaurar. Se recomienda el más reciente para minimizar la pérdida de datos.",
     "lblBackups": "Backups disponibles:",
@@ -265,5 +267,19 @@
     "msgErrorRestore": "Error al realizar restore: ",
     "msgError": "Error",
     "msgSeleccionarArchivoRestore": "Seleccioná el archivo de backup"
+  },
+  "Errores": {
+    "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",
+    "PATENTE_YA_EN_ROL": "Esta patente ya está asignada directamente al rol.",
+    "PATENTE_EN_FAMILIA_DEL_ROL": "La patente '{0}' ya está incluida en la familia '{1}' que tiene este rol.",
+    "FAMILIA_YA_EN_ROL": "Esta familia ya está en el rol.",
+    "FAMILIA_EN_USO": "No se puede eliminar esta familia porque está siendo utilizada por uno o más roles.",
+    "PATENTE_YA_EN_FAMILIA": "Esta patente ya está en la familia.",
+    "PATENTE_EN_FAMILIA_INTEGRADA": "La patente '{0}' ya está incluida en la familia integrada '{1}'.",
+    "FAMILIA_SE_CONTIENE": "Una familia no puede contenerse a sí misma.",
+    "FAMILIA_YA_INTEGRADA": "Esta familia ya está integrada.",
+    "USUARIO_BLOQUEADO": "El usuario está bloqueado.",
+    "CONTRASENA_IGUAL_ACTUAL": "La nueva contraseña no puede ser igual a la actual.",
+    "USUARIO_DUPLICADO": "Ya existe un usuario con ese DNI o Email."
   }
 }

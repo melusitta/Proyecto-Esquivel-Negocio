@@ -184,7 +184,7 @@ namespace GestiondeUsuario
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error",
+                    MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), GestorIdioma.Instancia.Obtener("FormGestionFamilias", "msgError"),
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -250,7 +250,7 @@ namespace GestiondeUsuario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, g.Obtener("FormGestionFamilias", "msgError"),
+                MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), g.Obtener("FormGestionFamilias", "msgError"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -304,7 +304,7 @@ namespace GestiondeUsuario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, g.Obtener("FormGestionFamilias", "msgError"),
+                MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), g.Obtener("FormGestionFamilias", "msgError"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -337,7 +337,7 @@ namespace GestiondeUsuario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error",
+                MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), GestorIdioma.Instancia.Obtener("FormGestionFamilias", "msgError"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

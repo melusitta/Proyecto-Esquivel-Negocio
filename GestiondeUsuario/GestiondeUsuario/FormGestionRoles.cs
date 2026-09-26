@@ -181,7 +181,7 @@ namespace GestiondeUsuario
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, g.Obtener("FormGestionRoles", "msgError"),
+                    MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), g.Obtener("FormGestionRoles", "msgError"),
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -287,7 +287,7 @@ namespace GestiondeUsuario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, g.Obtener("FormGestionRoles", "msgError"),
+                MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), g.Obtener("FormGestionRoles", "msgError"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -320,7 +320,7 @@ namespace GestiondeUsuario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error",
+                MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), GestorIdioma.Instancia.Obtener("FormGestionRoles", "msgError"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -90,7 +90,7 @@ namespace GestiondeUsuario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, g.Obtener("FormRecuperar", "msgError"),
+                MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), g.Obtener("FormRecuperar", "msgError"),
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }

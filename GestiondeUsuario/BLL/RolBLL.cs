@@ -58,7 +58,7 @@ namespace BLL
         {
             RolDAL dal = new RolDAL();
             if (dal.EstaEnUso(id))
-                throw new Exception("No se puede eliminar un rol que está siendo utilizado por un usuario.");
+                throw new ErrorNegocio("ROL_EN_USO");
             foreach (var p in dal.ObtenerPatentes(id))
                 dal.EliminarPatente(id, p.Id);
             foreach (var f in dal.ObtenerFamilias(id))
@@ -80,7 +80,7 @@ namespace BLL
             // Verificamos que no esté ya directo en el rol
             var patentes = dal.ObtenerPatentes(idRol);
             if (patentes.Any(p => p.Id == idPatente))
-                throw new Exception("Esta patente ya está asignada directamente al rol.");
+                throw new ErrorNegocio("PATENTE_YA_EN_ROL");
 
             // Verificamos que ninguna familia del rol ya tenga esa patente (recursivo)
             var familias = dal.ObtenerFamilias(idRol);
@@ -90,8 +90,7 @@ namespace BLL
                 {
                     var patente = PatenteBLL.Instancia.ObtenerTodos()
                         .FirstOrDefault(p => p.Id == idPatente);
-                    throw new Exception(
-                        $"La patente '{patente?.Nombre}' ya está incluida en la familia '{familia.Nombre}' que tiene este rol.");
+                    throw new ErrorNegocio("PATENTE_EN_FAMILIA_DEL_ROL", patente?.Nombre, familia.Nombre);
                 }
             }
 
@@ -122,7 +121,7 @@ namespace BLL
             RolDAL dal = new RolDAL();
             var familias = dal.ObtenerFamilias(idRol);
             if (familias.Any(f => f.Id == idFamilia))
-                throw new Exception("Esta familia ya está en el rol.");
+                throw new ErrorNegocio("FAMILIA_YA_EN_ROL");
 
             bool ok = dal.AgregarFamilia(idRol, idFamilia);
             if (ok)

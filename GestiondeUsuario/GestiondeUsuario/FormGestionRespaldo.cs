@@ -48,7 +48,7 @@ namespace GestiondeUsuario
                 catch (Exception ex)
                 {
                     MessageBox.Show(
-                        GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgErrorBackup") + ex.Message,
+                        GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgErrorBackup") + GestorIdioma.Instancia.TraducirError(ex),
                         GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgError"),
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -83,7 +83,7 @@ namespace GestiondeUsuario
                     catch (Exception ex)
                     {
                         MessageBox.Show(
-                            GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgErrorRestore") + ex.Message,
+                            GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgErrorRestore") + GestorIdioma.Instancia.TraducirError(ex),
                             GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgError"),
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }

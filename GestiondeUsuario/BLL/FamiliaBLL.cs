@@ -58,7 +58,7 @@ namespace BLL
         {
             FamiliaDAL dal = new FamiliaDAL();
             if (dal.EstaEnUso(id))
-                throw new Exception("No se puede eliminar esta familia porque está siendo utilizada por uno o más roles.");
+                throw new ErrorNegocio("FAMILIA_EN_USO");
             bool ok = dal.Eliminar(id);
             if (ok)
                 GestorEventosBLL.Instancia.Notificar(
@@ -87,7 +87,7 @@ namespace BLL
             // Verificamos que no esté ya directo en esta familia
             var patentes = dal.ObtenerPatentes(idFamilia);
             if (patentes.Any(p => p.Id == idPatente))
-                throw new Exception("Esta patente ya está en la familia.");
+                throw new ErrorNegocio("PATENTE_YA_EN_FAMILIA");
 
             // Verificamos que ninguna familia integrada (recursivamente) ya la tenga
             var familiasIntegradas = dal.ObtenerFamiliasIntegradas(idFamilia);
@@ -97,8 +97,7 @@ namespace BLL
                 {
                     var patente = PatenteBLL.Instancia.ObtenerTodos()
                         .FirstOrDefault(p => p.Id == idPatente);
-                    throw new Exception(
-                        $"La patente '{patente?.Nombre}' ya está incluida en la familia integrada '{familiaIntegrada.Nombre}'.");
+                    throw new ErrorNegocio("PATENTE_EN_FAMILIA_INTEGRADA", patente?.Nombre, familiaIntegrada.Nombre);
                 }
             }
 
@@ -129,12 +128,12 @@ namespace BLL
         public bool AgregarFamilia(int idFamilia, int idFamiliaIntegrada)
         {
             if (idFamilia == idFamiliaIntegrada)
-                throw new Exception("Una familia no puede contenerse a sí misma.");
+                throw new ErrorNegocio("FAMILIA_SE_CONTIENE");
 
             FamiliaDAL dal = new FamiliaDAL();
             var familias = dal.ObtenerFamiliasIntegradas(idFamilia);
             if (familias.Any(f => f.Id == idFamiliaIntegrada))
-                throw new Exception("Esta familia ya está integrada.");
+                throw new ErrorNegocio("FAMILIA_YA_INTEGRADA");
 
             bool ok = dal.AgregarFamilia(idFamilia, idFamiliaIntegrada);
             if (ok)

@@ -38,7 +38,7 @@ namespace BLL
             if (usuario.Bloqueado)
             {
                 GestorEventosBLL.Instancia.Notificar(nombreUsuario, "Intento en cuenta bloqueada", "Usuarios", 1);
-                throw new Exception("Usuario bloqueado");
+                throw new ErrorNegocio("USUARIO_BLOQUEADO");
             }
 
             if (usuario.Contraseña == passEnc)
@@ -82,7 +82,7 @@ namespace BLL
                 return false;
 
             if (usuario.Contraseña == Encriptador.Encriptar(nuevaPass))
-                throw new Exception("La nueva contraseña no puede ser igual a la actual.");
+                throw new ErrorNegocio("CONTRASENA_IGUAL_ACTUAL");
 
             usuario.Contraseña = Encriptador.Encriptar(nuevaPass);
             usuario.PrimerIngreso = false;
@@ -118,7 +118,7 @@ namespace BLL
             catch (SqlException ex)
             {
                 if (ex.Number == 2627)
-                    throw new Exception("Ya existe un usuario con ese DNI o Email.");
+                    throw new ErrorNegocio("USUARIO_DUPLICADO");
                 throw;
             }
 

@@ -81,7 +81,7 @@ namespace GestiondeUsuario
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: " + ex.Message, "Error",
+                    MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), GestorIdioma.Instancia.Obtener("FormRestore", "msgError"),
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }

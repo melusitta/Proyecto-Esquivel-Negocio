@@ -50,7 +50,7 @@ namespace GestiondeUsuario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(g.Obtener("FormBitacora", "msgErrorCargar") + ex.Message,
+                MessageBox.Show(g.Obtener("FormBitacora", "msgErrorCargar") + GestorIdioma.Instancia.TraducirError(ex),
                 g.Obtener("FormBitacora", "msgError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -313,7 +313,7 @@ namespace GestiondeUsuario
             }
             catch (Exception ex)
             {
-                MessageBox.Show(g.Obtener("FormBitacora", "msgErrorLimpiar") + ex.Message,
+                MessageBox.Show(g.Obtener("FormBitacora", "msgErrorLimpiar") + GestorIdioma.Instancia.TraducirError(ex),
                  g.Obtener("FormBitacora", "msgError"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 

@@ -348,7 +348,16 @@
     "colCantidad": "Cantidad",
     "colPrecio": "Precio",
     "colSubtotal": "Subtotal",
-    "lblTotal": "Total:"
+    "lblTotal": "Total:",
+    "grpPendientes": "Pendientes de caja",
+    "btnActualizar": "Actualizar",
+    "colDNI": "DNI",
+    "colCliente": "Cliente",
+    "colEstado": "Estado",
+    "colTotal": "Total",
+    "noRegistrado": "(no registrado)",
+    "estCarritoAsociado": "Carrito",
+    "estFacturaPendiente": "Factura N° {0}"
   },
   "FormRegistrarCliente": {
     "tituloForm": "Registrar cliente",

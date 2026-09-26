@@ -49,6 +49,7 @@
     <Compile Include="Factura.cs" />
     <Compile Include="ItemCarrito.cs" />
     <Compile Include="ItemFactura.cs" />
+    <Compile Include="PendienteCaja.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

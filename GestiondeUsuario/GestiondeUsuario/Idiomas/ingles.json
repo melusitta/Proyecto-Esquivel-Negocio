@@ -348,7 +348,16 @@
     "colCantidad": "Quantity",
     "colPrecio": "Price",
     "colSubtotal": "Subtotal",
-    "lblTotal": "Total:"
+    "lblTotal": "Total:",
+    "grpPendientes": "Waiting at checkout",
+    "btnActualizar": "Refresh",
+    "colDNI": "ID",
+    "colCliente": "Customer",
+    "colEstado": "Status",
+    "colTotal": "Total",
+    "noRegistrado": "(not registered)",
+    "estCarritoAsociado": "Cart",
+    "estFacturaPendiente": "Invoice No. {0}"
   },
   "FormRegistrarCliente": {
     "tituloForm": "Register customer",

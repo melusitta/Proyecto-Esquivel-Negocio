@@ -1,5 +1,6 @@
 ﻿using BE;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -37,6 +38,43 @@ namespace DAL
         public Factura ObtenerPorNro(int nroFactura)
         {
             return Obtener("SELECT * FROM Factura WHERE NroFactura = @Valor", nroFactura);
+        }
+
+        // La "fila" de la caja: carritos asociados sin facturar y facturas sin cobrar, del más viejo al más nuevo
+        public List<PendienteCaja> ObtenerPendientesDeCaja()
+        {
+            var lista = new List<PendienteCaja>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = @"
+                    SELECT c.DNI, cl.Nombre + ' ' + cl.Apellido AS NombreCliente, NULL AS NroFactura,
+                           SUM(ic.Cantidad * ic.PrecioUnitario) AS Total, c.FechaCreacion AS Fecha
+                    FROM Carrito c
+                    INNER JOIN ItemCarrito ic ON ic.IdCarrito = c.Id
+                    LEFT JOIN Cliente cl ON cl.DNI = c.DNI
+                    WHERE c.Estado = @Asociado
+                    GROUP BY c.Id, c.DNI, cl.Nombre, cl.Apellido, c.FechaCreacion
+                    UNION ALL
+                    SELECT f.DNI, f.NombreCliente, f.NroFactura, f.Total, f.FechaHora
+                    FROM Factura f
+                    WHERE f.Estado = @Pendiente
+                    ORDER BY Fecha";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Asociado", Carrito.EstadoAsociado);
+                cmd.Parameters.AddWithValue("@Pendiente", Factura.EstadoPendiente);
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    lista.Add(new PendienteCaja
+                    {
+                        DNI = Convert.ToInt32(reader["DNI"]),
+                        NombreCliente = reader["NombreCliente"] == DBNull.Value ? null : reader["NombreCliente"].ToString(),
+                        NroFactura = reader["NroFactura"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["NroFactura"]),
+                        Total = Convert.ToDecimal(reader["Total"]),
+                        Fecha = Convert.ToDateTime(reader["Fecha"])
+                    });
+            }
+            return lista;
         }
 
         // Última factura generada para ese DNI que todavía no se cobró

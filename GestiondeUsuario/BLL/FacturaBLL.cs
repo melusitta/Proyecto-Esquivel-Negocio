@@ -2,6 +2,7 @@
 using DAL;
 using Servicios;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BLL
@@ -45,6 +46,13 @@ namespace BLL
             if (factura == null)
                 throw new ErrorNegocio("FACTURA_NO_ENCONTRADA");
             return factura;
+        }
+
+        // Clientes esperando en la caja (carritos asociados y facturas sin cobrar)
+        public List<PendienteCaja> ObtenerPendientesDeCaja()
+        {
+            FacturaDAL dal = new FacturaDAL();
+            return dal.ObtenerPendientesDeCaja();
         }
 
         // Factura generada y todavía no cobrada para ese DNI (o null). Sirve para retomar el cobro

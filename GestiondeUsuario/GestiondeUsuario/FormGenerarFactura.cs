@@ -30,6 +30,7 @@ namespace GestiondeUsuario
             Tema.EstiloPrincipal(btnRegistrarCliente);
             Tema.EstiloPrincipal(btnGenerar);
             Tema.EstiloPrincipal(btnCobrar);
+            Tema.EstiloSecundario(btnActualizar);
             lblTotal.ForeColor = Tema.PrincipalOscuro;
             lblFactura.ForeColor = Tema.PrincipalOscuro;
 
@@ -41,6 +42,49 @@ namespace GestiondeUsuario
         private void FormGenerarFactura_FormClosed(object sender, FormClosedEventArgs e)
         {
             GestorIdioma.Instancia.Desuscribir(this);
+        }
+
+        // ---------- Pendientes de caja ----------
+
+        private void CargarPendientes()
+        {
+            var g = GestorIdioma.Instancia;
+            try
+            {
+                var pendientes = FacturaBLL.Instancia.ObtenerPendientesDeCaja();
+                dgvPendientes.DataSource = null;
+                dgvPendientes.DataSource = pendientes.Select(p => new
+                {
+                    p.DNI,
+                    Cliente = p.NombreCliente ?? g.Obtener("FormGenerarFactura", "noRegistrado"),
+                    Estado = p.NroFactura.HasValue
+                        ? string.Format(g.Obtener("FormGenerarFactura", "estFacturaPendiente"), p.NroFactura)
+                        : g.Obtener("FormGenerarFactura", "estCarritoAsociado"),
+                    p.Total
+                }).ToList();
+                dgvPendientes.Columns["Total"].DefaultCellStyle.Format = "N2";
+                Tema.AnchoColumnas(dgvPendientes, ("DNI", 80), ("Cliente", 125), ("Estado", 95), ("Total", 85));
+                TraducirColumnas();
+                dgvPendientes.ClearSelection();   // que no quede elegida una fila que no se buscó
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
+        // Al elegir un cliente de la lista se carga su DNI y se busca
+        private void dgvPendientes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            int dni = Convert.ToInt32(dgvPendientes.Rows[e.RowIndex].Cells["DNI"].Value);
+            txtDNI.Text = dni.ToString();
+            Buscar(dni);
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            CargarPendientes();
         }
 
         // ---------- Paso 8: consultar el DNI ----------
@@ -128,7 +172,10 @@ namespace GestiondeUsuario
             using (var registrar = new FormRegistrarCliente(_dni.Value))
             {
                 if (registrar.ShowDialog(this) == DialogResult.OK)
+                {
                     Buscar(_dni.Value);
+                    CargarPendientes();   // ahora figura con su nombre
+                }
             }
         }
 
@@ -172,6 +219,7 @@ namespace GestiondeUsuario
                 _factura = FacturaBLL.Instancia.Generar(_dni.Value);
                 _carrito = null;
                 MostrarVenta();
+                CargarPendientes();   // pasa de "carrito asociado" a "factura pendiente"
                 MessageBox.Show(string.Format(g.Obtener("FormGenerarFactura", "msgFacturaGenerada"),
                         _factura.NroFactura, _factura.Total.ToString("N2")),
                     g.Obtener("FormGenerarFactura", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -211,6 +259,7 @@ namespace GestiondeUsuario
             txtDNI.Clear();
             MostrarCliente();
             MostrarVenta();
+            CargarPendientes();
             txtDNI.Focus();
         }
 
@@ -251,6 +300,14 @@ namespace GestiondeUsuario
             foreach (var c in columnas)
                 if (dgvCarrito.Columns.Contains(c.Key))
                     dgvCarrito.Columns[c.Key].HeaderText = g.Obtener("FormGenerarFactura", c.Value);
+
+            var columnasPendientes = new Dictionary<string, string>
+            {
+                { "DNI", "colDNI" }, { "Cliente", "colCliente" }, { "Estado", "colEstado" }, { "Total", "colTotal" }
+            };
+            foreach (var c in columnasPendientes)
+                if (dgvPendientes.Columns.Contains(c.Key))
+                    dgvPendientes.Columns[c.Key].HeaderText = g.Obtener("FormGenerarFactura", c.Value);
         }
 
         public void ActualizarIdioma(JObject traducciones)
@@ -264,12 +321,16 @@ namespace GestiondeUsuario
             btnBuscar.Text = t["btnBuscar"]?.ToString();
             grpCliente.Text = t["grpCliente"]?.ToString();
             btnRegistrarCliente.Text = t["btnRegistrarCliente"]?.ToString();
+            grpPendientes.Text = t["grpPendientes"]?.ToString();
+            btnActualizar.Text = t["btnActualizar"]?.ToString();
             grpCarrito.Text = t["grpCarrito"]?.ToString();
             btnGenerar.Text = t["btnGenerar"]?.ToString();
             btnCobrar.Text = t["btnCobrar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             MostrarCliente();
             MostrarVenta();
+            if (dgvPendientes.DataSource != null)
+                CargarPendientes();   // "(no registrado)" y los estados también se traducen
         }
     }
 }

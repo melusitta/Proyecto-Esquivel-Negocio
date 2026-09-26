@@ -348,7 +348,16 @@
     "colCantidad": "수량",
     "colPrecio": "가격",
     "colSubtotal": "소계",
-    "lblTotal": "합계:"
+    "lblTotal": "합계:",
+    "grpPendientes": "계산 대기",
+    "btnActualizar": "새로 고침",
+    "colDNI": "신분증",
+    "colCliente": "고객",
+    "colEstado": "상태",
+    "colTotal": "합계",
+    "noRegistrado": "(미등록)",
+    "estCarritoAsociado": "장바구니",
+    "estFacturaPendiente": "청구서 {0}"
   },
   "FormRegistrarCliente": {
     "tituloForm": "고객 등록",

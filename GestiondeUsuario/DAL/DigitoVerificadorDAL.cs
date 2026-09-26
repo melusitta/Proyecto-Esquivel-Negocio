@@ -71,6 +71,40 @@ namespace DAL
             return ObtenerDatosTabla("SELECT Id, Nombre FROM Familia");
         }
 
+        // ---- Tablas de negocio (PN1) ----
+        public List<List<string>> ObtenerDatosProducto()
+        {
+            return ObtenerDatosTabla(
+                "SELECT Id, CodigoProducto, Nombre, Marca, Color, Modelo, PrecioUnitario, Existencia, Activo FROM Producto");
+        }
+
+        public List<List<string>> ObtenerDatosCliente()
+        {
+            return ObtenerDatosTabla(
+                "SELECT Id, DNI, Nombre, Apellido, Telefono, Email, Direccion, Localidad, CodigoPostal FROM Cliente");
+        }
+
+        public List<List<string>> ObtenerDatosCarrito()
+        {
+            return ObtenerDatosTabla("SELECT Id, DNI, Estado, Vendedor FROM Carrito");
+        }
+
+        public List<List<string>> ObtenerDatosItemCarrito()
+        {
+            return ObtenerDatosTabla("SELECT IdCarrito, IdProducto, Cantidad, PrecioUnitario FROM ItemCarrito");
+        }
+
+        public List<List<string>> ObtenerDatosFactura()
+        {
+            return ObtenerDatosTabla(
+                "SELECT Id, NroFactura, IdCarrito, IdCliente, DNI, Total, Estado, FormaPago, MontoPagado, Cajero FROM Factura");
+        }
+
+        public List<List<string>> ObtenerDatosItemFactura()
+        {
+            return ObtenerDatosTabla("SELECT IdFactura, IdProducto, Cantidad, PrecioUnitario FROM ItemFactura");
+        }
+
         private List<List<string>> ObtenerDatosTabla(string query)
         {
             var filas = new List<List<string>>();

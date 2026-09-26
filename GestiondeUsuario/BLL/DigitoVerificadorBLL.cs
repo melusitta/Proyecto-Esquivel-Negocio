@@ -65,22 +65,36 @@ namespace BLL
             return (dvh, dvv);
         }
 
+        // Tablas protegidas por el dígito verificador y sus datos actuales.
+        // Para sumar una tabla nueva alcanza con agregarla acá.
+        private Dictionary<string, List<List<string>>> ObtenerTablas(DigitoVerificadorDAL dal)
+        {
+            return new Dictionary<string, List<List<string>>>
+            {
+                { "Usuarios",    dal.ObtenerDatosUsuarios() },
+                { "Rol",         dal.ObtenerDatosRol() },
+                { "Patente",     dal.ObtenerDatosPatente() },
+                { "Familia",     dal.ObtenerDatosFamilia() },
+                // Negocio (PN1)
+                { "Producto",    dal.ObtenerDatosProducto() },
+                { "Cliente",     dal.ObtenerDatosCliente() },
+                { "Carrito",     dal.ObtenerDatosCarrito() },
+                { "ItemCarrito", dal.ObtenerDatosItemCarrito() },
+                { "Factura",     dal.ObtenerDatosFactura() },
+                { "ItemFactura", dal.ObtenerDatosItemFactura() }
+            };
+        }
+
         // Recalcula y persiste el DV de todas las tablas
         public void RecalcularYGuardar()
         {
             var dal = new DigitoVerificadorDAL();
 
-            var (dvhU, dvvU) = Calcular(dal.ObtenerDatosUsuarios());
-            dal.GuardarDV("Usuarios", dvhU, dvvU);
-
-            var (dvhR, dvvR) = Calcular(dal.ObtenerDatosRol());
-            dal.GuardarDV("Rol", dvhR, dvvR);
-
-            var (dvhP, dvvP) = Calcular(dal.ObtenerDatosPatente());
-            dal.GuardarDV("Patente", dvhP, dvvP);
-
-            var (dvhF, dvvF) = Calcular(dal.ObtenerDatosFamilia());
-            dal.GuardarDV("Familia", dvhF, dvvF);
+            foreach (var kvp in ObtenerTablas(dal))
+            {
+                var (dvh, dvv) = Calcular(kvp.Value);
+                dal.GuardarDV(kvp.Key, dvh, dvv);
+            }
         }
 
         // Verifica si los DV calculados coinciden con los guardados
@@ -89,15 +103,7 @@ namespace BLL
         {
             var dal = new DigitoVerificadorDAL();
 
-            var tablas = new Dictionary<string, List<List<string>>>
-            {
-                { "Usuarios", dal.ObtenerDatosUsuarios() },
-                { "Rol",      dal.ObtenerDatosRol() },
-                { "Patente",  dal.ObtenerDatosPatente() },
-                { "Familia",  dal.ObtenerDatosFamilia() }
-            };
-
-            foreach (var kvp in tablas)
+            foreach (var kvp in ObtenerTablas(dal))
             {
                 var guardado = dal.ObtenerDV(kvp.Key);
                 if (guardado == null) return false;

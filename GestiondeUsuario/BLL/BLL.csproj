@@ -46,11 +46,15 @@
   <ItemGroup>
     <Compile Include="BackUpRestoreBLL.cs" />
     <Compile Include="BitacoraBLL.cs" />
+    <Compile Include="CarritoBLL.cs" />
+    <Compile Include="ClienteBLL.cs" />
     <Compile Include="DigitoVerificadorBLL.cs" />
     <Compile Include="FamiliaBLL.cs" />
+    <Compile Include="FacturaBLL.cs" />
     <Compile Include="GestorEventosBLL.cs" />
     <Compile Include="PatenteBLL.cs" />
     <Compile Include="PerfilBLL.cs" />
+    <Compile Include="ProductoBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RolBLL.cs" />
     <Compile Include="UsuarioBLL.cs" />

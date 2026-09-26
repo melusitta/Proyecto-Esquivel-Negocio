@@ -280,6 +280,24 @@
     "FAMILIA_YA_INTEGRADA": "이 가족은 이미 통합되어 있습니다.",
     "USUARIO_BLOQUEADO": "사용자가 차단되었습니다.",
     "CONTRASENA_IGUAL_ACTUAL": "새 비밀번호는 현재 비밀번호와 같을 수 없습니다.",
-    "USUARIO_DUPLICADO": "해당 신분증 또는 이메일을 가진 사용자가 이미 존재합니다."
+    "USUARIO_DUPLICADO": "해당 신분증 또는 이메일을 가진 사용자가 이미 존재합니다.",
+    "PRODUCTO_NO_ENCONTRADO": "코드 {0}에 해당하는 활성 상품이 없습니다.",
+    "CANTIDAD_INVALIDA": "수량은 0보다 커야 합니다.",
+    "STOCK_INSUFICIENTE": "'{0}'의 재고가 부족합니다. 남은 수량: {1}.",
+    "CARRITO_NO_ENCONTRADO": "장바구니를 찾을 수 없습니다.",
+    "CARRITO_NO_EDITABLE": "장바구니가 이미 고객에게 연결되어 수정할 수 없습니다.",
+    "CARRITO_VACIO": "장바구니가 비어 있습니다. 상품을 하나 이상 추가하세요.",
+    "CARRITO_NO_ASOCIADO": "신분증 {0}에 대해 청구 대기 중인 장바구니가 없습니다.",
+    "DNI_INVALIDO": "신분증 번호는 최대 8자리 숫자여야 합니다.",
+    "CLIENTE_DATOS_INCOMPLETOS": "고객 정보를 모두 입력하세요.",
+    "EMAIL_INVALIDO": "이메일 형식이 올바르지 않습니다.",
+    "TELEFONO_INVALIDO": "전화번호 형식이 올바르지 않습니다.",
+    "CLIENTE_DUPLICADO": "신분증 {0}의 고객이 이미 존재합니다.",
+    "CLIENTE_NO_REGISTRADO": "신분증 {0}의 고객이 등록되어 있지 않습니다. 청구 전에 등록하세요.",
+    "FACTURA_NO_ENCONTRADA": "청구서를 찾을 수 없습니다.",
+    "FACTURA_YA_PAGADA": "청구서 번호 {0}은(는) 이미 결제되었습니다.",
+    "FORMA_PAGO_INVALIDA": "올바른 결제 방법을 선택하세요.",
+    "MONTO_INCORRECTO": "결제 금액은 청구서 합계({0})와 같아야 합니다.",
+    "PAGO_NO_ACREDITADO": "은행에서 아직 결제를 확인하지 않았습니다."
   }
 }

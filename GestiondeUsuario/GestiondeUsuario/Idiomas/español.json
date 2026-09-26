@@ -280,6 +280,24 @@
     "FAMILIA_YA_INTEGRADA": "Esta familia ya está integrada.",
     "USUARIO_BLOQUEADO": "El usuario está bloqueado.",
     "CONTRASENA_IGUAL_ACTUAL": "La nueva contraseña no puede ser igual a la actual.",
-    "USUARIO_DUPLICADO": "Ya existe un usuario con ese DNI o Email."
+    "USUARIO_DUPLICADO": "Ya existe un usuario con ese DNI o Email.",
+    "PRODUCTO_NO_ENCONTRADO": "No existe un producto activo con el código {0}.",
+    "CANTIDAD_INVALIDA": "La cantidad debe ser mayor a cero.",
+    "STOCK_INSUFICIENTE": "No hay stock suficiente de '{0}'. Disponible: {1}.",
+    "CARRITO_NO_ENCONTRADO": "No se encontró el carrito.",
+    "CARRITO_NO_EDITABLE": "El carrito ya fue asociado al cliente y no se puede modificar.",
+    "CARRITO_VACIO": "El carrito está vacío. Cargá al menos un producto.",
+    "CARRITO_NO_ASOCIADO": "No hay un carrito pendiente de facturar para el DNI {0}.",
+    "DNI_INVALIDO": "El DNI debe ser un número de hasta 8 dígitos.",
+    "CLIENTE_DATOS_INCOMPLETOS": "Completá todos los datos del cliente.",
+    "EMAIL_INVALIDO": "El email no tiene un formato válido.",
+    "TELEFONO_INVALIDO": "El teléfono no tiene un formato válido.",
+    "CLIENTE_DUPLICADO": "Ya existe un cliente con el DNI {0}.",
+    "CLIENTE_NO_REGISTRADO": "El cliente con DNI {0} no está registrado. Registralo antes de facturar.",
+    "FACTURA_NO_ENCONTRADA": "No se encontró la factura.",
+    "FACTURA_YA_PAGADA": "La factura N° {0} ya fue cobrada.",
+    "FORMA_PAGO_INVALIDA": "Seleccioná una forma de pago válida.",
+    "MONTO_INCORRECTO": "El monto pagado debe ser igual al total de la factura ({0}).",
+    "PAGO_NO_ACREDITADO": "El banco todavía no confirmó la acreditación del pago."
   }
 }

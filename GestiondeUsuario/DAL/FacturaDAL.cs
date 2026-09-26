@@ -39,6 +39,13 @@ namespace DAL
             return Obtener("SELECT * FROM Factura WHERE NroFactura = @Valor", nroFactura);
         }
 
+        // Última factura generada para ese DNI que todavía no se cobró
+        public Factura ObtenerPendientePorDNI(int dni)
+        {
+            return Obtener("SELECT TOP 1 * FROM Factura WHERE DNI = @Valor AND Estado = '"
+                + Factura.EstadoPendiente + "' ORDER BY Id DESC", dni);
+        }
+
         private Factura Obtener(string query, int valor)
         {
             Factura factura = null;

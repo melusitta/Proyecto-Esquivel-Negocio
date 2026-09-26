@@ -268,6 +268,14 @@ namespace GestiondeUsuario
             public override Color SeparatorDark => Borde;
         }
 
+        // Reparte el ancho de la grilla según estos pesos (más peso = columna más ancha)
+        public static void AnchoColumnas(DataGridView dgv, params (string columna, float peso)[] pesos)
+        {
+            foreach (var p in pesos)
+                if (dgv.Columns.Contains(p.columna))
+                    dgv.Columns[p.columna].FillWeight = p.peso;
+        }
+
         public static void EstiloGrilla(DataGridView dgv)
         {
             dgv.BackgroundColor = Color.White;

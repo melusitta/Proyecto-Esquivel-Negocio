@@ -47,6 +47,15 @@ namespace BLL
             return factura;
         }
 
+        // Factura generada y todavía no cobrada para ese DNI (o null). Sirve para retomar el cobro
+        // si el cajero cerró la pantalla después de facturar.
+        public Factura ObtenerPendientePorDNI(int dni)
+        {
+            ClienteBLL.ValidarDNI(dni);
+            FacturaDAL dal = new FacturaDAL();
+            return dal.ObtenerPendientePorDNI(dni);
+        }
+
         // Paso 9: genera la factura del carrito asociado al DNI. El cliente tiene que estar registrado
         // (paso 8). Queda Pendiente de pago hasta que se cobre.
         public Factura Generar(int dni)

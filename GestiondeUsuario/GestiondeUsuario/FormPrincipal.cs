@@ -38,6 +38,8 @@ namespace GestiondeUsuario
             bool tieneVerBitacora = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "VerBitacora");
             bool tieneMaestro = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Maestro");
             bool tieneVentas = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Ventas");
+            bool tieneCargarCarrito = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "CargarCarrito");
+            bool tieneFacturar = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Facturar");
             bool tieneCompras = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Compras");
             bool tieneReporte = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Reporte");
             bool tieneAyuda = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Ayuda");
@@ -49,7 +51,10 @@ namespace GestiondeUsuario
             PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
 
             menuMaestro.Enabled = tieneMaestro;
-            menuVenta.Enabled = tieneVentas;
+            // PN1: el Vendedor carga el carrito y el Cajero factura y cobra
+            cargarCarritoToolStripMenuItem.Enabled = tieneCargarCarrito;
+            generarFacturaToolStripMenuItem.Enabled = tieneFacturar;
+            menuVenta.Enabled = tieneVentas || tieneCargarCarrito || tieneFacturar;
             menuCompras.Enabled = tieneCompras;
             menuReporte.Enabled = tieneReporte;
             menuAyuda.Enabled = tieneAyuda;
@@ -120,6 +125,16 @@ namespace GestiondeUsuario
             this.Hide();
         }
 
+        private void cargarCarritoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormCargarCarrito().Show();
+            this.Hide();
+        }
+        private void generarFacturaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormGenerarFactura().Show();
+            this.Hide();
+        }
         private void cambiarIdiomaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormCambiarIdioma().Show();
@@ -139,6 +154,8 @@ namespace GestiondeUsuario
             menuAdmin.Text = t["menuAdmin"]?.ToString();
             menuMaestro.Text = t["menuMaestro"]?.ToString();
             menuVenta.Text = t["menuVenta"]?.ToString();
+            cargarCarritoToolStripMenuItem.Text = t["cargarCarrito"]?.ToString();
+            generarFacturaToolStripMenuItem.Text = t["generarFactura"]?.ToString();
             menuCompras.Text = t["menuCompras"]?.ToString();
             menuReporte.Text = t["menuReporte"]?.ToString();
             menuAyuda.Text = t["menuAyuda"]?.ToString();

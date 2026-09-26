@@ -61,6 +61,36 @@
     <Compile Include="FormBitacora.Designer.cs">
       <DependentUpon>FormBitacora.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCargarCarrito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCargarCarrito.Designer.cs">
+      <DependentUpon>FormCargarCarrito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCobrarVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCobrarVenta.Designer.cs">
+      <DependentUpon>FormCobrarVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormGenerarFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGenerarFactura.Designer.cs">
+      <DependentUpon>FormGenerarFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRegistrarCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRegistrarCliente.Designer.cs">
+      <DependentUpon>FormRegistrarCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSeleccionarProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSeleccionarProductos.Designer.cs">
+      <DependentUpon>FormSeleccionarProductos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCambiarIdioma.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +153,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormBitacora.resx">
       <DependentUpon>FormBitacora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCargarCarrito.resx">
+      <DependentUpon>FormCargarCarrito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCobrarVenta.resx">
+      <DependentUpon>FormCobrarVenta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGenerarFactura.resx">
+      <DependentUpon>FormGenerarFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRegistrarCliente.resx">
+      <DependentUpon>FormRegistrarCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSeleccionarProductos.resx">
+      <DependentUpon>FormSeleccionarProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCambiarIdioma.resx">
       <DependentUpon>FormCambiarIdioma.cs</DependentUpon>

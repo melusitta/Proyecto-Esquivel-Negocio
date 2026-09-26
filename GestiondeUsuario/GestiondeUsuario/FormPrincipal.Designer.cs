@@ -45,6 +45,8 @@
             this.gestionRespaldoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMaestro = new System.Windows.Forms.ToolStripMenuItem();
             this.menuVenta = new System.Windows.Forms.ToolStripMenuItem();
+            this.cargarCarritoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCompras = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReporte = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAyuda = new System.Windows.Forms.ToolStripMenuItem();
@@ -174,9 +176,26 @@
             // 
             // menuVenta
             // 
+            this.menuVenta.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cargarCarritoToolStripMenuItem,
+            this.generarFacturaToolStripMenuItem});
             this.menuVenta.Name = "menuVenta";
             this.menuVenta.Size = new System.Drawing.Size(60, 19);
             this.menuVenta.Text = "Venta";
+            // 
+            // cargarCarritoToolStripMenuItem
+            // 
+            this.cargarCarritoToolStripMenuItem.Name = "cargarCarritoToolStripMenuItem";
+            this.cargarCarritoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cargarCarritoToolStripMenuItem.Text = "Cargar carrito";
+            this.cargarCarritoToolStripMenuItem.Click += new System.EventHandler(this.cargarCarritoToolStripMenuItem_Click);
+            // 
+            // generarFacturaToolStripMenuItem
+            // 
+            this.generarFacturaToolStripMenuItem.Name = "generarFacturaToolStripMenuItem";
+            this.generarFacturaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.generarFacturaToolStripMenuItem.Text = "Generar factura";
+            this.generarFacturaToolStripMenuItem.Click += new System.EventHandler(this.generarFacturaToolStripMenuItem_Click);
             // 
             // menuCompras
             // 
@@ -248,6 +267,8 @@
         private System.Windows.Forms.ToolStripMenuItem bitacoraEventosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuMaestro;
         private System.Windows.Forms.ToolStripMenuItem menuVenta;
+        private System.Windows.Forms.ToolStripMenuItem cargarCarritoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generarFacturaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuCompras;
         private System.Windows.Forms.ToolStripMenuItem menuReporte;
         private System.Windows.Forms.ToolStripMenuItem menuAyuda;

@@ -240,7 +240,7 @@ namespace GestiondeUsuario
             }
             catch (SqlException ex) when (ex.Number == 2627)
             {
-                //
+                
                 MessageBox.Show(g.Obtener("FormGestionFamilias", "msgNombreRepetido"),
                     g.Obtener("FormGestionFamilias", "msgError"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);

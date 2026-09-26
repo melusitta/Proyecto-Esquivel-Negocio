@@ -1,5 +1,6 @@
 {
   "Form1": {
+    "tituloForm": "로그인",
     "titulo": "로그인",
     "lblUsuario": "사용자 이름",
     "lblContraseña": "비밀번호",
@@ -20,6 +21,7 @@
     "msgSistemaNoDisponible": "현재 시스템을 사용할 수 없습니다."
   },
   "FormPrincipal": {
+    "tituloForm": "메인 메뉴",
     "lblBienvenida": "환영합니다",
     "menuUsuario": "사용자",
     "menuAdmin": "관리자",

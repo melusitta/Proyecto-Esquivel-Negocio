@@ -38,6 +38,7 @@
             // 
             this.BackUp.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BackUp.Location = new System.Drawing.Point(45, 95);
+            this.BackUp.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BackUp.Name = "BackUp";
             this.BackUp.Size = new System.Drawing.Size(160, 80);
             this.BackUp.TabIndex = 0;
@@ -49,6 +50,7 @@
             // 
             this.Restore.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Restore.Location = new System.Drawing.Point(225, 95);
+            this.Restore.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.Restore.Name = "Restore";
             this.Restore.Size = new System.Drawing.Size(160, 80);
             this.Restore.TabIndex = 1;
@@ -60,6 +62,7 @@
             // 
             this.Volver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Volver.Location = new System.Drawing.Point(20, 215);
+            this.Volver.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.Volver.Name = "Volver";
             this.Volver.Size = new System.Drawing.Size(110, 32);
             this.Volver.TabIndex = 2;
@@ -73,6 +76,7 @@
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(0, 30);
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(431, 34);
             this.lblTitulo.TabIndex = 3;

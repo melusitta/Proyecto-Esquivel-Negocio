@@ -131,6 +131,8 @@ namespace GestiondeUsuario
             var t = traducciones["FormPrincipal"];
             if (t == null) return;
 
+            this.Text = t["tituloForm"]?.ToString();
+
             lblBienvenida.Text = t["lblBienvenida"]?.ToString() + ", " +
             SessionManager.Instancia.ObtenerUsuarioActivo()?.Nombre + "!";
             usuarioToolStripMenuItem.Text = t["menuUsuario"]?.ToString();

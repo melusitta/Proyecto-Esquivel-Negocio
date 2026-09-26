@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.tlpListas = new System.Windows.Forms.TableLayoutPanel();
             this.lblListaContenido = new System.Windows.Forms.Label();
             this.lblListaFamilias = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
@@ -69,6 +70,9 @@
             this.lstFamilias.FormattingEnabled = true;
             this.lstFamilias.Location = new System.Drawing.Point(20, 85);
             this.lstFamilias.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstFamilias.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstFamilias.IntegralHeight = false;
+            this.lstFamilias.Margin = new System.Windows.Forms.Padding(0, 4, 18, 0);
             this.lstFamilias.Name = "lstFamilias";
             this.lstFamilias.Size = new System.Drawing.Size(230, 250);
             this.lstFamilias.TabIndex = 2;
@@ -79,6 +83,9 @@
             this.lstContenido.FormattingEnabled = true;
             this.lstContenido.Location = new System.Drawing.Point(285, 85);
             this.lstContenido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstContenido.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstContenido.IntegralHeight = false;
+            this.lstContenido.Margin = new System.Windows.Forms.Padding(9, 4, 9, 0);
             this.lstContenido.Name = "lstContenido";
             this.lstContenido.Size = new System.Drawing.Size(230, 250);
             this.lstContenido.TabIndex = 3;
@@ -88,6 +95,7 @@
             this.lblPatentesDisponibles.AutoSize = true;
             this.lblPatentesDisponibles.Location = new System.Drawing.Point(547, 60);
             this.lblPatentesDisponibles.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPatentesDisponibles.Margin = new System.Windows.Forms.Padding(18, 0, 0, 0);
             this.lblPatentesDisponibles.Name = "lblPatentesDisponibles";
             this.lblPatentesDisponibles.Size = new System.Drawing.Size(152, 13);
             this.lblPatentesDisponibles.TabIndex = 4;
@@ -98,6 +106,9 @@
             this.lstDisponibles.FormattingEnabled = true;
             this.lstDisponibles.Location = new System.Drawing.Point(550, 85);
             this.lstDisponibles.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstDisponibles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstDisponibles.IntegralHeight = false;
+            this.lstDisponibles.Margin = new System.Windows.Forms.Padding(18, 4, 0, 0);
             this.lstDisponibles.Name = "lstDisponibles";
             this.lstDisponibles.Size = new System.Drawing.Size(230, 250);
             this.lstDisponibles.TabIndex = 5;
@@ -107,6 +118,7 @@
             this.rbPatente.AutoSize = true;
             this.rbPatente.Location = new System.Drawing.Point(550, 352);
             this.rbPatente.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbPatente.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.rbPatente.Name = "rbPatente";
             this.rbPatente.Size = new System.Drawing.Size(62, 17);
             this.rbPatente.TabIndex = 6;
@@ -120,6 +132,7 @@
             this.rbFamilia.AutoSize = true;
             this.rbFamilia.Location = new System.Drawing.Point(670, 352);
             this.rbFamilia.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbFamilia.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.rbFamilia.Name = "rbFamilia";
             this.rbFamilia.Size = new System.Drawing.Size(57, 17);
             this.rbFamilia.TabIndex = 7;
@@ -132,6 +145,7 @@
             // 
             this.btnAgregar.Location = new System.Drawing.Point(550, 390);
             this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(110, 34);
             this.btnAgregar.TabIndex = 8;
@@ -143,6 +157,7 @@
             // 
             this.btnQuitar.Location = new System.Drawing.Point(670, 390);
             this.btnQuitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQuitar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnQuitar.Name = "btnQuitar";
             this.btnQuitar.Size = new System.Drawing.Size(110, 34);
             this.btnQuitar.TabIndex = 9;
@@ -190,6 +205,7 @@
             // 
             this.btnNuevo.Location = new System.Drawing.Point(20, 350);
             this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnNuevo.Name = "btnNuevo";
             this.btnNuevo.Size = new System.Drawing.Size(91, 34);
             this.btnNuevo.TabIndex = 14;
@@ -201,6 +217,7 @@
             // 
             this.btnModificar.Location = new System.Drawing.Point(121, 350);
             this.btnModificar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(91, 34);
             this.btnModificar.TabIndex = 15;
@@ -212,6 +229,7 @@
             // 
             this.btnEliminar.Location = new System.Drawing.Point(222, 350);
             this.btnEliminar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(91, 34);
             this.btnEliminar.TabIndex = 16;
@@ -223,6 +241,7 @@
             // 
             this.btnAplicar.Location = new System.Drawing.Point(323, 350);
             this.btnAplicar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(91, 34);
             this.btnAplicar.TabIndex = 17;
@@ -234,6 +253,7 @@
             // 
             this.btnCancelar.Location = new System.Drawing.Point(424, 350);
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(91, 34);
             this.btnCancelar.TabIndex = 18;
@@ -245,6 +265,7 @@
             // 
             this.btnVolver.Location = new System.Drawing.Point(20, 480);
             this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(110, 32);
             this.btnVolver.TabIndex = 19;
@@ -269,6 +290,7 @@
             this.panel1.Controls.Add(this.txtNombre);
             this.panel1.Controls.Add(this.lblDescripcion);
             this.panel1.Location = new System.Drawing.Point(20, 398);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(495, 70);
             this.panel1.TabIndex = 21;
@@ -279,6 +301,7 @@
             this.lblListaFamilias.Location = new System.Drawing.Point(17, 60);
             this.lblListaFamilias.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblListaFamilias.Text = "Familias";
+            this.lblListaFamilias.Margin = new System.Windows.Forms.Padding(0, 0, 18, 0);
             this.lblListaFamilias.Name = "lblListaFamilias";
             // 
             // lblListaContenido
@@ -287,7 +310,29 @@
             this.lblListaContenido.Location = new System.Drawing.Point(282, 60);
             this.lblListaContenido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblListaContenido.Text = "Contenido";
+            this.lblListaContenido.Margin = new System.Windows.Forms.Padding(9, 0, 9, 0);
             this.lblListaContenido.Name = "lblListaContenido";
+            // 
+            // tlpListas
+            // 
+            this.tlpListas.Controls.Add(this.lblListaFamilias, 0, 0);
+            this.tlpListas.Controls.Add(this.lblListaContenido, 1, 0);
+            this.tlpListas.Controls.Add(this.lblPatentesDisponibles, 2, 0);
+            this.tlpListas.Controls.Add(this.lstFamilias, 0, 1);
+            this.tlpListas.Controls.Add(this.lstContenido, 1, 1);
+            this.tlpListas.Controls.Add(this.lstDisponibles, 2, 1);
+            this.tlpListas.ColumnCount = 3;
+            this.tlpListas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlpListas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlpListas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlpListas.RowCount = 2;
+            this.tlpListas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.tlpListas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpListas.Location = new System.Drawing.Point(20, 58);
+            this.tlpListas.Size = new System.Drawing.Size(760, 280);
+            this.tlpListas.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
+            this.tlpListas.TabIndex = 30;
+            this.tlpListas.Name = "tlpListas";
             // 
             // FormGestionFamilias
             // 
@@ -306,13 +351,8 @@
             this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.rbFamilia);
             this.Controls.Add(this.rbPatente);
-            this.Controls.Add(this.lstDisponibles);
-            this.Controls.Add(this.lblPatentesDisponibles);
-            this.Controls.Add(this.lstContenido);
-            this.Controls.Add(this.lstFamilias);
             this.Controls.Add(this.lblTitulo);
-            this.Controls.Add(this.lblListaFamilias);
-            this.Controls.Add(this.lblListaContenido);
+            this.Controls.Add(this.tlpListas);
             this.Name = "FormGestionFamilias";
             this.Text = "FormGestionFamilias";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormGestionFamilias_FormClosed);
@@ -349,5 +389,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblListaFamilias;
         private System.Windows.Forms.Label lblListaContenido;
+        private System.Windows.Forms.TableLayoutPanel tlpListas;
     }
 }

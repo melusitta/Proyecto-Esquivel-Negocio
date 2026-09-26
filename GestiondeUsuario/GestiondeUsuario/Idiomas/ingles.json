@@ -1,5 +1,6 @@
 {
   "Form1": {
+    "tituloForm": "Log in",
     "titulo": "Login",
     "lblUsuario": "Username",
     "lblContraseña": "Password",
@@ -21,6 +22,7 @@
     "msgSistemaNoDisponible": "System not available at the moment."
   },
   "FormPrincipal": {
+    "tituloForm": "Main menu",
     "lblBienvenida": "Welcome",
     "menuUsuario": "User",
     "menuAdmin": "Admin",

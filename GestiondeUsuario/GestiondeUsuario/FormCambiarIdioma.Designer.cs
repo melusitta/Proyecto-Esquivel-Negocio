@@ -40,6 +40,7 @@
             this.lblIdiomas.AutoSize = true;
             this.lblIdiomas.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblIdiomas.Location = new System.Drawing.Point(18, 16);
+            this.lblIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblIdiomas.Name = "lblIdiomas";
             this.lblIdiomas.Size = new System.Drawing.Size(72, 20);
             this.lblIdiomas.TabIndex = 1;
@@ -50,6 +51,7 @@
             this.cmbIdiomas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIdiomas.FormattingEnabled = true;
             this.cmbIdiomas.Location = new System.Drawing.Point(20, 65);
+            this.cmbIdiomas.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cmbIdiomas.Name = "cmbIdiomas";
             this.cmbIdiomas.Size = new System.Drawing.Size(340, 25);
             this.cmbIdiomas.TabIndex = 2;
@@ -58,6 +60,7 @@
             // 
             this.btnAceptar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.Location = new System.Drawing.Point(130, 110);
+            this.btnAceptar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(110, 34);
             this.btnAceptar.TabIndex = 3;
@@ -69,6 +72,7 @@
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Location = new System.Drawing.Point(250, 110);
+            this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(110, 34);
             this.btnCancelar.TabIndex = 4;
@@ -80,6 +84,7 @@
             // 
             this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.Location = new System.Drawing.Point(20, 165);
+            this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(100, 30);
             this.btnVolver.TabIndex = 5;

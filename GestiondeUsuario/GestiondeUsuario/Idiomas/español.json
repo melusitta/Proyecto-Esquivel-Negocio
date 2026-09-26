@@ -1,5 +1,6 @@
 {
   "Form1": {
+    "tituloForm": "Iniciar sesión",
     "titulo": "Inicio de Sesión",
     "lblUsuario": "Nombre de Usuario",
     "lblContraseña": "Contraseña",
@@ -20,6 +21,7 @@
     "msgSistemaNoDisponible": "Sistema no disponible en este momento."
   },
   "FormPrincipal": {
+    "tituloForm": "Menú principal",
     "lblBienvenida": "Bienvenido",
     "menuUsuario": "Usuario",
     "menuAdmin": "Admin",
@@ -213,7 +215,7 @@
     "msgNombreRepetido": "Ya existe un rol con ese nombre."
   },
   "FormCambiarIdioma": {
-    "tituloForm": "Cambio de idioma",
+    "tituloForm": "Cambiar idioma",
     "lblIdiomas": "Idiomas",
     "btnAceptar": "Aceptar",
     "btnCancelar": "Cancelar",

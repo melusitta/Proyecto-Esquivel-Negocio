@@ -39,6 +39,7 @@
             this.lblMensaje.AutoSize = false;
             this.lblMensaje.Location = new System.Drawing.Point(30, 25);
             this.lblMensaje.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Size = new System.Drawing.Size(604, 60);
             this.lblMensaje.TabIndex = 0;
@@ -48,6 +49,7 @@
             // 
             this.btnRecalcular.Location = new System.Drawing.Point(87, 105);
             this.btnRecalcular.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecalcular.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnRecalcular.Name = "btnRecalcular";
             this.btnRecalcular.Size = new System.Drawing.Size(150, 38);
             this.btnRecalcular.TabIndex = 1;
@@ -59,6 +61,7 @@
             // 
             this.btnRestore.Location = new System.Drawing.Point(257, 105);
             this.btnRestore.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestore.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(150, 38);
             this.btnRestore.TabIndex = 2;
@@ -70,6 +73,7 @@
             // 
             this.btnSalir.Location = new System.Drawing.Point(427, 105);
             this.btnSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(150, 38);
             this.btnSalir.TabIndex = 3;

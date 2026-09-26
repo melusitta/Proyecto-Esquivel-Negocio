@@ -59,6 +59,7 @@
             this.dgvBitacora.Location = new System.Drawing.Point(20, 60);
             this.dgvBitacora.AllowUserToAddRows = false;
             this.dgvBitacora.AllowUserToDeleteRows = false;
+            this.dgvBitacora.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             this.dgvBitacora.Name = "dgvBitacora";
             this.dgvBitacora.ReadOnly = true;
             this.dgvBitacora.Size = new System.Drawing.Size(760, 230);
@@ -79,6 +80,7 @@
             // 
             this.btnSalir.Location = new System.Drawing.Point(20, 440);
             this.btnSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(110, 34);
             this.btnSalir.TabIndex = 2;
@@ -90,6 +92,7 @@
             // 
             this.txtNombre.Location = new System.Drawing.Point(105, 312);
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.ReadOnly = true;
             this.txtNombre.Size = new System.Drawing.Size(155, 25);
@@ -99,6 +102,7 @@
             // 
             this.txtApellido.Location = new System.Drawing.Point(365, 312);
             this.txtApellido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtApellido.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.ReadOnly = true;
             this.txtApellido.Size = new System.Drawing.Size(155, 25);
@@ -110,6 +114,7 @@
             this.cmbLogin.FormattingEnabled = true;
             this.cmbLogin.Location = new System.Drawing.Point(105, 352);
             this.cmbLogin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbLogin.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.cmbLogin.Name = "cmbLogin";
             this.cmbLogin.Size = new System.Drawing.Size(155, 25);
             this.cmbLogin.TabIndex = 5;
@@ -120,6 +125,7 @@
             this.cmbModulo.FormattingEnabled = true;
             this.cmbModulo.Location = new System.Drawing.Point(105, 392);
             this.cmbModulo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbModulo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.cmbModulo.Name = "cmbModulo";
             this.cmbModulo.Size = new System.Drawing.Size(155, 25);
             this.cmbModulo.TabIndex = 8;
@@ -129,6 +135,7 @@
             this.dtpFechaIni.Location = new System.Drawing.Point(365, 352);
             this.dtpFechaIni.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaIni.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaIni.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.dtpFechaIni.Name = "dtpFechaIni";
             this.dtpFechaIni.ShowCheckBox = true;
             this.dtpFechaIni.Size = new System.Drawing.Size(155, 25);
@@ -138,6 +145,7 @@
             // 
             this.btnImprimir.Location = new System.Drawing.Point(670, 440);
             this.btnImprimir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(110, 34);
             this.btnImprimir.TabIndex = 11;
@@ -149,6 +157,7 @@
             // 
             this.btnLimpiar.Location = new System.Drawing.Point(550, 440);
             this.btnLimpiar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(110, 34);
             this.btnLimpiar.TabIndex = 12;
@@ -160,6 +169,7 @@
             // 
             this.btnAplicar.Location = new System.Drawing.Point(430, 440);
             this.btnAplicar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(110, 34);
             this.btnAplicar.TabIndex = 13;
@@ -173,6 +183,7 @@
             this.lblApellido.Location = new System.Drawing.Point(275, 312);
             this.lblApellido.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblApellido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApellido.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(85, 25);
             this.lblApellido.TabIndex = 14;
@@ -184,6 +195,7 @@
             this.lblNombre.Location = new System.Drawing.Point(15, 312);
             this.lblNombre.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(85, 25);
             this.lblNombre.TabIndex = 15;
@@ -195,6 +207,7 @@
             this.lblLogin.Location = new System.Drawing.Point(15, 352);
             this.lblLogin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblLogin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLogin.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblLogin.Name = "lblLogin";
             this.lblLogin.Size = new System.Drawing.Size(85, 25);
             this.lblLogin.TabIndex = 16;
@@ -206,6 +219,7 @@
             this.lblModulo.Location = new System.Drawing.Point(15, 392);
             this.lblModulo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblModulo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblModulo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblModulo.Name = "lblModulo";
             this.lblModulo.Size = new System.Drawing.Size(85, 25);
             this.lblModulo.TabIndex = 17;
@@ -217,6 +231,7 @@
             this.lblEvento.Location = new System.Drawing.Point(275, 392);
             this.lblEvento.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblEvento.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEvento.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblEvento.Name = "lblEvento";
             this.lblEvento.Size = new System.Drawing.Size(85, 25);
             this.lblEvento.TabIndex = 19;
@@ -228,6 +243,7 @@
             this.cmbEvento.FormattingEnabled = true;
             this.cmbEvento.Location = new System.Drawing.Point(365, 392);
             this.cmbEvento.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbEvento.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.cmbEvento.Name = "cmbEvento";
             this.cmbEvento.Size = new System.Drawing.Size(155, 25);
             this.cmbEvento.TabIndex = 18;
@@ -238,6 +254,7 @@
             this.lblCriticidad.Location = new System.Drawing.Point(535, 392);
             this.lblCriticidad.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblCriticidad.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCriticidad.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblCriticidad.Name = "lblCriticidad";
             this.lblCriticidad.Size = new System.Drawing.Size(85, 25);
             this.lblCriticidad.TabIndex = 21;
@@ -249,6 +266,7 @@
             this.cmbCriticidad.FormattingEnabled = true;
             this.cmbCriticidad.Location = new System.Drawing.Point(625, 392);
             this.cmbCriticidad.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbCriticidad.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.cmbCriticidad.Name = "cmbCriticidad";
             this.cmbCriticidad.Size = new System.Drawing.Size(155, 25);
             this.cmbCriticidad.TabIndex = 20;
@@ -259,6 +277,7 @@
             this.lblFechaIni.Location = new System.Drawing.Point(275, 352);
             this.lblFechaIni.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblFechaIni.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaIni.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblFechaIni.Name = "lblFechaIni";
             this.lblFechaIni.Size = new System.Drawing.Size(85, 25);
             this.lblFechaIni.TabIndex = 22;
@@ -270,6 +289,7 @@
             this.lblFechaFin.Location = new System.Drawing.Point(535, 352);
             this.lblFechaFin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblFechaFin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaFin.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblFechaFin.Name = "lblFechaFin";
             this.lblFechaFin.Size = new System.Drawing.Size(85, 25);
             this.lblFechaFin.TabIndex = 24;
@@ -280,6 +300,7 @@
             this.dtpFechaFin.Location = new System.Drawing.Point(625, 352);
             this.dtpFechaFin.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaFin.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaFin.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.dtpFechaFin.Name = "dtpFechaFin";
             this.dtpFechaFin.ShowCheckBox = true;
             this.dtpFechaFin.Size = new System.Drawing.Size(155, 25);

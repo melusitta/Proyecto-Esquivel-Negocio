@@ -48,6 +48,7 @@
             //
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLogin.Location = new System.Drawing.Point(50, 262);
+            this.btnLogin.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(320, 42);
             this.btnLogin.TabIndex = 2;
@@ -58,6 +59,7 @@
             // txtNombreUsuario
             //
             this.txtNombreUsuario.Location = new System.Drawing.Point(50, 142);
+            this.txtNombreUsuario.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtNombreUsuario.Name = "txtNombreUsuario";
             this.txtNombreUsuario.Size = new System.Drawing.Size(320, 25);
             this.txtNombreUsuario.TabIndex = 0;
@@ -65,6 +67,7 @@
             // txtContraseña
             //
             this.txtContraseña.Location = new System.Drawing.Point(50, 209);
+            this.txtContraseña.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.PasswordChar = '•';
             this.txtContraseña.Size = new System.Drawing.Size(320, 25);
@@ -75,6 +78,7 @@
             //
             this.lblUsuario.AutoSize = true;
             this.lblUsuario.Location = new System.Drawing.Point(47, 118);
+            this.lblUsuario.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblUsuario.Name = "lblUsuario";
             this.lblUsuario.Size = new System.Drawing.Size(125, 19);
             this.lblUsuario.TabIndex = 5;
@@ -84,6 +88,7 @@
             //
             this.lblContraseña.AutoSize = true;
             this.lblContraseña.Location = new System.Drawing.Point(47, 185);
+            this.lblContraseña.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblContraseña.Name = "lblContraseña";
             this.lblContraseña.Size = new System.Drawing.Size(80, 19);
             this.lblContraseña.TabIndex = 6;
@@ -113,6 +118,7 @@
             this.cmbIdioma.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIdioma.FormattingEnabled = true;
             this.cmbIdioma.Location = new System.Drawing.Point(250, 342);
+            this.cmbIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.cmbIdioma.Name = "cmbIdioma";
             this.cmbIdioma.Size = new System.Drawing.Size(120, 25);
             this.cmbIdioma.TabIndex = 3;
@@ -122,6 +128,7 @@
             //
             this.lblIdioma.AutoSize = true;
             this.lblIdioma.Location = new System.Drawing.Point(47, 345);
+            this.lblIdioma.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblIdioma.Name = "lblIdioma";
             this.lblIdioma.Size = new System.Drawing.Size(51, 19);
             this.lblIdioma.TabIndex = 8;
@@ -132,6 +139,7 @@
             this.lblBienvenida.AutoSize = true;
             this.lblBienvenida.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblBienvenida.Location = new System.Drawing.Point(45, 55);
+            this.lblBienvenida.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblBienvenida.Name = "lblBienvenida";
             this.lblBienvenida.Size = new System.Drawing.Size(145, 32);
             this.lblBienvenida.TabIndex = 7;

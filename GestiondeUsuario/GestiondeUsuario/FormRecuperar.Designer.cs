@@ -155,6 +155,7 @@
             this.panel1.Controls.Add(this.lblConfirmarPass);
             this.panel1.Controls.Add(this.lblNuevaPass);
             this.panel1.Location = new System.Drawing.Point(20, 15);
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(510, 200);
             this.panel1.TabIndex = 12;

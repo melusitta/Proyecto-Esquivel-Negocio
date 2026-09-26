@@ -40,6 +40,7 @@
             this.lblMensaje.AutoSize = false;
             this.lblMensaje.Location = new System.Drawing.Point(30, 20);
             this.lblMensaje.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Size = new System.Drawing.Size(600, 40);
             this.lblMensaje.TabIndex = 0;
@@ -50,6 +51,7 @@
             this.lstBackups.FormattingEnabled = true;
             this.lstBackups.Location = new System.Drawing.Point(30, 93);
             this.lstBackups.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstBackups.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             this.lstBackups.Name = "lstBackups";
             this.lstBackups.Size = new System.Drawing.Size(600, 220);
             this.lstBackups.TabIndex = 1;
@@ -58,6 +60,7 @@
             // 
             this.btnRestore.Location = new System.Drawing.Point(500, 330);
             this.btnRestore.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestore.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(130, 36);
             this.btnRestore.TabIndex = 2;
@@ -69,6 +72,7 @@
             // 
             this.btnSalir.Location = new System.Drawing.Point(30, 330);
             this.btnSalir.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(110, 36);
             this.btnSalir.TabIndex = 3;

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 
 namespace GestiondeUsuario
@@ -50,8 +52,11 @@ namespace GestiondeUsuario
             form.BackColor = Fondo;
             form.ForeColor = Texto;
             form.StartPosition = FormStartPosition.CenterScreen;
-            form.FormBorderStyle = FormBorderStyle.FixedSingle;
-            form.MaximizeBox = false;
+            // Se puede agrandar y maximizar, pero no achicar por debajo del tamaño de diseño.
+            // Cómo se acomoda cada control al agrandar lo define su Anchor en el diseñador.
+            form.FormBorderStyle = FormBorderStyle.Sizable;
+            form.MaximizeBox = true;
+            form.MinimumSize = form.Size;
             AplicarControles(form.Controls);
         }
 
@@ -118,6 +123,7 @@ namespace GestiondeUsuario
             btn.FlatAppearance.MouseDownBackColor = PrincipalHover;
             btn.Font = new Font(Fuente, btn.Font.Size, FontStyle.Bold);
             btn.Cursor = Cursors.Hand;
+            Redondear(btn);
         }
 
         public static void EstiloSecundario(Button btn)
@@ -130,6 +136,78 @@ namespace GestiondeUsuario
             btn.FlatAppearance.MouseOverBackColor = PrincipalSuave;
             btn.FlatAppearance.MouseDownBackColor = Borde;
             btn.Cursor = Cursors.Hand;
+            Redondear(btn);
+        }
+
+        // ---------- Botones redondeados ----------
+        // WinForms no tiene botones redondeados: los dibujamos nosotros en el Paint,
+        // tomando los colores que dejaron EstiloPrincipal/EstiloSecundario.
+        public const int RadioBoton = 10;
+        private static readonly ConditionalWeakTable<Button, object> _redondeados = new ConditionalWeakTable<Button, object>();
+
+        private static void Redondear(Button btn)
+        {
+            object marca;
+            if (_redondeados.TryGetValue(btn, out marca)) return; // ya tiene el Paint enganchado
+            _redondeados.Add(btn, null);
+            btn.Paint += PintarBotonRedondeado;
+        }
+
+        private static void PintarBotonRedondeado(object sender, PaintEventArgs e)
+        {
+            var btn = (Button)sender;
+            Graphics g = e.Graphics;
+            Color fondo = btn.Parent?.BackColor ?? Fondo;
+
+            bool encima = btn.Enabled && btn.ClientRectangle.Contains(btn.PointToClient(Cursor.Position));
+            bool presionado = encima && (Control.MouseButtons & MouseButtons.Left) != 0;
+
+            Color relleno = presionado ? btn.FlatAppearance.MouseDownBackColor
+                          : encima ? btn.FlatAppearance.MouseOverBackColor
+                          : btn.BackColor;
+            Color borde = btn.FlatAppearance.BorderColor;
+            Color texto = btn.ForeColor;
+            if (!btn.Enabled)
+            {
+                relleno = Mezclar(relleno, fondo, 0.45);
+                borde = Mezclar(borde, fondo, 0.55);
+                texto = Mezclar(texto, fondo, 0.5);
+            }
+
+            g.Clear(fondo);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            var rect = new RectangleF(0.5f, 0.5f, btn.Width - 1.5f, btn.Height - 1.5f);
+            using (GraphicsPath forma = RectanguloRedondeado(rect, RadioBoton))
+            using (var pincel = new SolidBrush(relleno))
+            using (var lapiz = new Pen(borde, btn.Focused ? 2f : 1f))
+            {
+                g.FillPath(pincel, forma);
+                g.DrawPath(lapiz, forma);
+            }
+
+            TextRenderer.DrawText(g, btn.Text, btn.Font, btn.ClientRectangle, texto,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+        }
+
+        private static GraphicsPath RectanguloRedondeado(RectangleF r, float radio)
+        {
+            float d = radio * 2;
+            var forma = new GraphicsPath();
+            forma.AddArc(r.X, r.Y, d, d, 180, 90);
+            forma.AddArc(r.Right - d, r.Y, d, d, 270, 90);
+            forma.AddArc(r.Right - d, r.Bottom - d, d, d, 0, 90);
+            forma.AddArc(r.X, r.Bottom - d, d, d, 90, 90);
+            forma.CloseFigure();
+            return forma;
+        }
+
+        // Mezcla el color a con b (proporcion = cuánto de b)
+        private static Color Mezclar(Color a, Color b, double proporcion)
+        {
+            return Color.FromArgb(
+                (int)(a.R + (b.R - a.R) * proporcion),
+                (int)(a.G + (b.G - a.G) * proporcion),
+                (int)(a.B + (b.B - a.B) * proporcion));
         }
 
         // Menú lateral del FormPrincipal: fondo lila, ítems a todo el ancho y submenús blancos

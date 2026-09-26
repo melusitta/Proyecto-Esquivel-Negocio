@@ -78,6 +78,7 @@
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsuarios.Location = new System.Drawing.Point(20, 62);
             this.dgvUsuarios.MultiSelect = false;
+            this.dgvUsuarios.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.Size = new System.Drawing.Size(860, 230);
             this.dgvUsuarios.TabIndex = 1;
@@ -89,6 +90,7 @@
             //
             this.txtDNI.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDNI.Location = new System.Drawing.Point(150, 310);
+            this.txtDNI.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtDNI.Name = "txtDNI";
             this.txtDNI.Size = new System.Drawing.Size(260, 25);
             this.txtDNI.TabIndex = 4;
@@ -97,6 +99,7 @@
             //
             this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Location = new System.Drawing.Point(150, 345);
+            this.txtNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(260, 25);
             this.txtNombre.TabIndex = 5;
@@ -105,6 +108,7 @@
             //
             this.txtApellido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtApellido.Location = new System.Drawing.Point(150, 380);
+            this.txtApellido.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtApellido.Name = "txtApellido";
             this.txtApellido.Size = new System.Drawing.Size(260, 25);
             this.txtApellido.TabIndex = 6;
@@ -113,6 +117,7 @@
             //
             this.txtNombreUsuario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombreUsuario.Location = new System.Drawing.Point(150, 415);
+            this.txtNombreUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtNombreUsuario.Name = "txtNombreUsuario";
             this.txtNombreUsuario.Size = new System.Drawing.Size(260, 25);
             this.txtNombreUsuario.TabIndex = 7;
@@ -121,6 +126,7 @@
             //
             this.txtCorreo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCorreo.Location = new System.Drawing.Point(150, 450);
+            this.txtCorreo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(260, 25);
             this.txtCorreo.TabIndex = 8;
@@ -130,6 +136,7 @@
             this.cmbRol.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbRol.FormattingEnabled = true;
             this.cmbRol.Location = new System.Drawing.Point(150, 485);
+            this.cmbRol.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(260, 25);
             this.cmbRol.TabIndex = 9;
@@ -138,6 +145,7 @@
             //
             this.lblDNI.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDNI.Location = new System.Drawing.Point(15, 310);
+            this.lblDNI.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblDNI.Name = "lblDNI";
             this.lblDNI.Size = new System.Drawing.Size(125, 25);
             this.lblDNI.TabIndex = 10;
@@ -148,6 +156,7 @@
             //
             this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.Location = new System.Drawing.Point(15, 345);
+            this.lblNombre.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(125, 25);
             this.lblNombre.TabIndex = 11;
@@ -158,6 +167,7 @@
             //
             this.lblApellido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblApellido.Location = new System.Drawing.Point(15, 380);
+            this.lblApellido.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(125, 25);
             this.lblApellido.TabIndex = 12;
@@ -168,6 +178,7 @@
             //
             this.lblNombreUsuario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreUsuario.Location = new System.Drawing.Point(15, 415);
+            this.lblNombreUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblNombreUsuario.Name = "lblNombreUsuario";
             this.lblNombreUsuario.Size = new System.Drawing.Size(125, 25);
             this.lblNombreUsuario.TabIndex = 13;
@@ -178,6 +189,7 @@
             //
             this.lblCorreo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCorreo.Location = new System.Drawing.Point(15, 450);
+            this.lblCorreo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblCorreo.Name = "lblCorreo";
             this.lblCorreo.Size = new System.Drawing.Size(125, 25);
             this.lblCorreo.TabIndex = 14;
@@ -188,6 +200,7 @@
             //
             this.lblRol.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRol.Location = new System.Drawing.Point(15, 485);
+            this.lblRol.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblRol.Name = "lblRol";
             this.lblRol.Size = new System.Drawing.Size(125, 25);
             this.lblRol.TabIndex = 15;
@@ -198,6 +211,7 @@
             //
             this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.Location = new System.Drawing.Point(720, 310);
+            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(160, 38);
             this.btnAgregar.TabIndex = 16;
@@ -209,6 +223,7 @@
             //
             this.btnModificar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificar.Location = new System.Drawing.Point(720, 354);
+            this.btnModificar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(160, 38);
             this.btnModificar.TabIndex = 17;
@@ -220,6 +235,7 @@
             //
             this.btnDeshabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDeshabilitar.Location = new System.Drawing.Point(720, 442);
+            this.btnDeshabilitar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnDeshabilitar.Name = "btnDeshabilitar";
             this.btnDeshabilitar.Size = new System.Drawing.Size(160, 38);
             this.btnDeshabilitar.TabIndex = 19;
@@ -231,6 +247,7 @@
             //
             this.btnDesbloquear.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDesbloquear.Location = new System.Drawing.Point(720, 398);
+            this.btnDesbloquear.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnDesbloquear.Name = "btnDesbloquear";
             this.btnDesbloquear.Size = new System.Drawing.Size(160, 38);
             this.btnDesbloquear.TabIndex = 18;
@@ -242,6 +259,7 @@
             //
             this.btnAplicar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.Location = new System.Drawing.Point(720, 500);
+            this.btnAplicar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(160, 38);
             this.btnAplicar.TabIndex = 21;
@@ -253,6 +271,7 @@
             //
             this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Location = new System.Drawing.Point(720, 544);
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(160, 38);
             this.btnCancelar.TabIndex = 22;
@@ -265,6 +284,7 @@
             this.rbSi.AutoSize = true;
             this.rbSi.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbSi.Location = new System.Drawing.Point(150, 521);
+            this.rbSi.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.rbSi.Name = "rbSi";
             this.rbSi.Size = new System.Drawing.Size(37, 23);
             this.rbSi.TabIndex = 23;
@@ -277,6 +297,7 @@
             this.rbNo.AutoSize = true;
             this.rbNo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbNo.Location = new System.Drawing.Point(230, 521);
+            this.rbNo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.rbNo.Name = "rbNo";
             this.rbNo.Size = new System.Drawing.Size(43, 23);
             this.rbNo.TabIndex = 24;
@@ -288,6 +309,7 @@
             //
             this.lblActivo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblActivo.Location = new System.Drawing.Point(15, 520);
+            this.lblActivo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblActivo.Name = "lblActivo";
             this.lblActivo.Size = new System.Drawing.Size(125, 25);
             this.lblActivo.TabIndex = 25;
@@ -299,6 +321,7 @@
             this.lblModo.AutoSize = true;
             this.lblModo.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblModo.Location = new System.Drawing.Point(440, 312);
+            this.lblModo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblModo.Name = "lblModo";
             this.lblModo.Size = new System.Drawing.Size(52, 20);
             this.lblModo.TabIndex = 26;
@@ -308,6 +331,7 @@
             //
             this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.Location = new System.Drawing.Point(20, 552);
+            this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnVolver.Name = "btnVolver";
             this.btnVolver.Size = new System.Drawing.Size(110, 32);
             this.btnVolver.TabIndex = 27;
@@ -346,6 +370,7 @@
             this.groupBox1.Controls.Add(this.rbActivos);
             this.groupBox1.Controls.Add(this.rbTodos);
             this.groupBox1.Location = new System.Drawing.Point(600, 10);
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(280, 46);
             this.groupBox1.TabIndex = 28;

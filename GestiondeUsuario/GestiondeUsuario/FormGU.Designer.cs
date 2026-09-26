@@ -59,301 +59,303 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // lblTitulo
-            // 
+            //
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(332, 15);
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(15, 14);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(173, 20);
+            this.lblTitulo.Size = new System.Drawing.Size(212, 30);
             this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "Gestion de Usuarios";
-            // 
+            this.lblTitulo.Text = "Gestión de Usuarios";
+            //
             // dgvUsuarios
-            // 
+            //
             this.dgvUsuarios.AllowUserToAddRows = false;
             this.dgvUsuarios.AllowUserToDeleteRows = false;
+            this.dgvUsuarios.AllowUserToResizeRows = false;
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsuarios.Location = new System.Drawing.Point(12, 52);
+            this.dgvUsuarios.Location = new System.Drawing.Point(20, 62);
+            this.dgvUsuarios.MultiSelect = false;
             this.dgvUsuarios.Name = "dgvUsuarios";
-            this.dgvUsuarios.Size = new System.Drawing.Size(645, 207);
+            this.dgvUsuarios.Size = new System.Drawing.Size(860, 230);
             this.dgvUsuarios.TabIndex = 1;
             this.dgvUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellContentClick);
             this.dgvUsuarios.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvUsuarios_DataError);
             this.dgvUsuarios.SelectionChanged += new System.EventHandler(this.dgvUsuarios_SelectionChanged_1);
-            // 
+            //
             // txtDNI
-            // 
-            this.txtDNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDNI.Location = new System.Drawing.Point(113, 297);
+            //
+            this.txtDNI.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDNI.Location = new System.Drawing.Point(150, 310);
             this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(215, 22);
+            this.txtDNI.Size = new System.Drawing.Size(260, 25);
             this.txtDNI.TabIndex = 4;
-            // 
+            //
             // txtNombre
-            // 
-            this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(113, 330);
+            //
+            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombre.Location = new System.Drawing.Point(150, 345);
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(215, 22);
+            this.txtNombre.Size = new System.Drawing.Size(260, 25);
             this.txtNombre.TabIndex = 5;
-            // 
+            //
             // txtApellido
-            // 
-            this.txtApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtApellido.Location = new System.Drawing.Point(113, 360);
+            //
+            this.txtApellido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtApellido.Location = new System.Drawing.Point(150, 380);
             this.txtApellido.Name = "txtApellido";
-            this.txtApellido.Size = new System.Drawing.Size(215, 22);
+            this.txtApellido.Size = new System.Drawing.Size(260, 25);
             this.txtApellido.TabIndex = 6;
-            // 
+            //
             // txtNombreUsuario
-            // 
-            this.txtNombreUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombreUsuario.Location = new System.Drawing.Point(113, 388);
+            //
+            this.txtNombreUsuario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombreUsuario.Location = new System.Drawing.Point(150, 415);
             this.txtNombreUsuario.Name = "txtNombreUsuario";
-            this.txtNombreUsuario.Size = new System.Drawing.Size(215, 22);
+            this.txtNombreUsuario.Size = new System.Drawing.Size(260, 25);
             this.txtNombreUsuario.TabIndex = 7;
-            // 
+            //
             // txtCorreo
-            // 
-            this.txtCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCorreo.Location = new System.Drawing.Point(113, 416);
+            //
+            this.txtCorreo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCorreo.Location = new System.Drawing.Point(150, 450);
             this.txtCorreo.Name = "txtCorreo";
-            this.txtCorreo.Size = new System.Drawing.Size(215, 22);
+            this.txtCorreo.Size = new System.Drawing.Size(260, 25);
             this.txtCorreo.TabIndex = 8;
-            // 
+            //
             // cmbRol
-            // 
-            this.cmbRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            //
+            this.cmbRol.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbRol.FormattingEnabled = true;
-            this.cmbRol.Location = new System.Drawing.Point(113, 446);
+            this.cmbRol.Location = new System.Drawing.Point(150, 485);
             this.cmbRol.Name = "cmbRol";
-            this.cmbRol.Size = new System.Drawing.Size(215, 24);
+            this.cmbRol.Size = new System.Drawing.Size(260, 25);
             this.cmbRol.TabIndex = 9;
-            // 
+            //
             // lblDNI
-            // 
-            this.lblDNI.AutoSize = true;
-            this.lblDNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDNI.Location = new System.Drawing.Point(66, 302);
+            //
+            this.lblDNI.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDNI.Location = new System.Drawing.Point(15, 310);
             this.lblDNI.Name = "lblDNI";
-            this.lblDNI.Size = new System.Drawing.Size(30, 16);
+            this.lblDNI.Size = new System.Drawing.Size(125, 25);
             this.lblDNI.TabIndex = 10;
             this.lblDNI.Text = "DNI";
-            // 
+            this.lblDNI.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
             // lblNombre
-            // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(48, 335);
+            //
+            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.Location = new System.Drawing.Point(15, 345);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(56, 16);
+            this.lblNombre.Size = new System.Drawing.Size(125, 25);
             this.lblNombre.TabIndex = 11;
             this.lblNombre.Text = "Nombre";
-            // 
+            this.lblNombre.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
             // lblApellido
-            // 
-            this.lblApellido.AutoSize = true;
-            this.lblApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApellido.Location = new System.Drawing.Point(48, 365);
+            //
+            this.lblApellido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApellido.Location = new System.Drawing.Point(15, 380);
             this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(57, 16);
+            this.lblApellido.Size = new System.Drawing.Size(125, 25);
             this.lblApellido.TabIndex = 12;
             this.lblApellido.Text = "Apellido";
-            // 
+            this.lblApellido.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
             // lblNombreUsuario
-            // 
-            this.lblNombreUsuario.AutoSize = true;
-            this.lblNombreUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombreUsuario.Location = new System.Drawing.Point(9, 395);
+            //
+            this.lblNombreUsuario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreUsuario.Location = new System.Drawing.Point(15, 415);
             this.lblNombreUsuario.Name = "lblNombreUsuario";
-            this.lblNombreUsuario.Size = new System.Drawing.Size(106, 16);
+            this.lblNombreUsuario.Size = new System.Drawing.Size(125, 25);
             this.lblNombreUsuario.TabIndex = 13;
             this.lblNombreUsuario.Text = "Nombre Usuario";
-            // 
+            this.lblNombreUsuario.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
             // lblCorreo
-            // 
-            this.lblCorreo.AutoSize = true;
-            this.lblCorreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCorreo.Location = new System.Drawing.Point(54, 425);
+            //
+            this.lblCorreo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCorreo.Location = new System.Drawing.Point(15, 450);
             this.lblCorreo.Name = "lblCorreo";
-            this.lblCorreo.Size = new System.Drawing.Size(48, 16);
+            this.lblCorreo.Size = new System.Drawing.Size(125, 25);
             this.lblCorreo.TabIndex = 14;
             this.lblCorreo.Text = "Correo";
-            // 
+            this.lblCorreo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
             // lblRol
-            // 
-            this.lblRol.AutoSize = true;
-            this.lblRol.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRol.Location = new System.Drawing.Point(66, 455);
+            //
+            this.lblRol.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRol.Location = new System.Drawing.Point(15, 485);
             this.lblRol.Name = "lblRol";
-            this.lblRol.Size = new System.Drawing.Size(28, 16);
+            this.lblRol.Size = new System.Drawing.Size(125, 25);
             this.lblRol.TabIndex = 15;
             this.lblRol.Text = "Rol";
-            // 
+            this.lblRol.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
             // btnAgregar
-            // 
-            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregar.Location = new System.Drawing.Point(672, 273);
+            //
+            this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.Location = new System.Drawing.Point(720, 310);
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(138, 45);
+            this.btnAgregar.Size = new System.Drawing.Size(160, 38);
             this.btnAgregar.TabIndex = 16;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
+            //
             // btnModificar
-            // 
-            this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificar.Location = new System.Drawing.Point(672, 366);
+            //
+            this.btnModificar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnModificar.Location = new System.Drawing.Point(720, 354);
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(138, 45);
+            this.btnModificar.Size = new System.Drawing.Size(160, 38);
             this.btnModificar.TabIndex = 17;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
-            // 
+            //
             // btnDeshabilitar
-            // 
-            this.btnDeshabilitar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeshabilitar.Location = new System.Drawing.Point(672, 506);
+            //
+            this.btnDeshabilitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDeshabilitar.Location = new System.Drawing.Point(720, 442);
             this.btnDeshabilitar.Name = "btnDeshabilitar";
-            this.btnDeshabilitar.Size = new System.Drawing.Size(138, 45);
+            this.btnDeshabilitar.Size = new System.Drawing.Size(160, 38);
             this.btnDeshabilitar.TabIndex = 19;
             this.btnDeshabilitar.Text = "Deshabilitar";
             this.btnDeshabilitar.UseVisualStyleBackColor = true;
             this.btnDeshabilitar.Click += new System.EventHandler(this.btnDeshabilitar_Click);
-            // 
+            //
             // btnDesbloquear
-            // 
-            this.btnDesbloquear.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDesbloquear.Location = new System.Drawing.Point(672, 320);
+            //
+            this.btnDesbloquear.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDesbloquear.Location = new System.Drawing.Point(720, 398);
             this.btnDesbloquear.Name = "btnDesbloquear";
-            this.btnDesbloquear.Size = new System.Drawing.Size(138, 45);
-            this.btnDesbloquear.TabIndex = 20;
+            this.btnDesbloquear.Size = new System.Drawing.Size(160, 38);
+            this.btnDesbloquear.TabIndex = 18;
             this.btnDesbloquear.Text = "Desbloquear";
             this.btnDesbloquear.UseVisualStyleBackColor = true;
             this.btnDesbloquear.Click += new System.EventHandler(this.btnDesbloquear_Click);
-            // 
+            //
             // btnAplicar
-            // 
-            this.btnAplicar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicar.Location = new System.Drawing.Point(672, 412);
+            //
+            this.btnAplicar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicar.Location = new System.Drawing.Point(720, 500);
             this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(138, 45);
+            this.btnAplicar.Size = new System.Drawing.Size(160, 38);
             this.btnAplicar.TabIndex = 21;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = true;
             this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
-            // 
+            //
             // btnCancelar
-            // 
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(672, 459);
+            //
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(720, 544);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(138, 45);
+            this.btnCancelar.Size = new System.Drawing.Size(160, 38);
             this.btnCancelar.TabIndex = 22;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
-            // 
+            //
             // rbSi
-            // 
+            //
             this.rbSi.AutoSize = true;
-            this.rbSi.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbSi.Location = new System.Drawing.Point(113, 483);
+            this.rbSi.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbSi.Location = new System.Drawing.Point(150, 521);
             this.rbSi.Name = "rbSi";
-            this.rbSi.Size = new System.Drawing.Size(37, 20);
+            this.rbSi.Size = new System.Drawing.Size(37, 23);
             this.rbSi.TabIndex = 23;
             this.rbSi.TabStop = true;
             this.rbSi.Text = "Si";
             this.rbSi.UseVisualStyleBackColor = true;
-            // 
+            //
             // rbNo
-            // 
+            //
             this.rbNo.AutoSize = true;
-            this.rbNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbNo.Location = new System.Drawing.Point(204, 483);
+            this.rbNo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbNo.Location = new System.Drawing.Point(230, 521);
             this.rbNo.Name = "rbNo";
-            this.rbNo.Size = new System.Drawing.Size(43, 20);
+            this.rbNo.Size = new System.Drawing.Size(43, 23);
             this.rbNo.TabIndex = 24;
             this.rbNo.TabStop = true;
             this.rbNo.Text = "No";
             this.rbNo.UseVisualStyleBackColor = true;
-            // 
+            //
             // lblActivo
-            // 
-            this.lblActivo.AutoSize = true;
-            this.lblActivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActivo.Location = new System.Drawing.Point(56, 483);
+            //
+            this.lblActivo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblActivo.Location = new System.Drawing.Point(15, 520);
             this.lblActivo.Name = "lblActivo";
-            this.lblActivo.Size = new System.Drawing.Size(44, 16);
+            this.lblActivo.Size = new System.Drawing.Size(125, 25);
             this.lblActivo.TabIndex = 25;
             this.lblActivo.Text = "Activo";
-            // 
+            this.lblActivo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            //
             // lblModo
-            // 
+            //
             this.lblModo.AutoSize = true;
-            this.lblModo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblModo.Location = new System.Drawing.Point(348, 314);
+            this.lblModo.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblModo.Location = new System.Drawing.Point(440, 312);
             this.lblModo.Name = "lblModo";
-            this.lblModo.Size = new System.Drawing.Size(52, 18);
+            this.lblModo.Size = new System.Drawing.Size(52, 20);
             this.lblModo.TabIndex = 26;
             this.lblModo.Text = "label9";
-            // 
+            //
             // btnVolver
-            // 
-            this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Location = new System.Drawing.Point(4, 520);
+            //
+            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.Location = new System.Drawing.Point(20, 552);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(92, 34);
+            this.btnVolver.Size = new System.Drawing.Size(110, 32);
             this.btnVolver.TabIndex = 27;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
-            // 
+            //
             // rbTodos
-            // 
+            //
             this.rbTodos.AutoSize = true;
-            this.rbTodos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbTodos.Location = new System.Drawing.Point(15, 45);
+            this.rbTodos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbTodos.Location = new System.Drawing.Point(140, 15);
             this.rbTodos.Name = "rbTodos";
-            this.rbTodos.Size = new System.Drawing.Size(70, 20);
+            this.rbTodos.Size = new System.Drawing.Size(70, 23);
             this.rbTodos.TabIndex = 3;
             this.rbTodos.TabStop = true;
             this.rbTodos.Text = "Todos";
             this.rbTodos.UseVisualStyleBackColor = true;
             this.rbTodos.CheckedChanged += new System.EventHandler(this.rbTodos_CheckedChanged);
-            // 
+            //
             // rbActivos
-            // 
+            //
             this.rbActivos.AutoSize = true;
-            this.rbActivos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbActivos.Location = new System.Drawing.Point(15, 19);
+            this.rbActivos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbActivos.Location = new System.Drawing.Point(15, 15);
             this.rbActivos.Name = "rbActivos";
-            this.rbActivos.Size = new System.Drawing.Size(76, 20);
+            this.rbActivos.Size = new System.Drawing.Size(76, 23);
             this.rbActivos.TabIndex = 2;
             this.rbActivos.TabStop = true;
             this.rbActivos.Text = "Activos";
             this.rbActivos.UseVisualStyleBackColor = true;
             this.rbActivos.CheckedChanged += new System.EventHandler(this.rbActivos_CheckedChanged);
-            // 
+            //
             // groupBox1
-            // 
+            //
             this.groupBox1.Controls.Add(this.rbActivos);
             this.groupBox1.Controls.Add(this.rbTodos);
-            this.groupBox1.Location = new System.Drawing.Point(671, 78);
+            this.groupBox1.Location = new System.Drawing.Point(600, 10);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(154, 103);
+            this.groupBox1.Size = new System.Drawing.Size(280, 46);
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
-            // 
+            //
             // FormGU
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(838, 560);
+            this.ClientSize = new System.Drawing.Size(900, 600);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblModo);
@@ -381,7 +383,8 @@
             this.Controls.Add(this.dgvUsuarios);
             this.Controls.Add(this.lblTitulo);
             this.Name = "FormGU";
-            this.Text = "FormGU";
+            this.Text = "Gestión de Usuarios";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormGU_FormClosed);
             this.Load += new System.EventHandler(this.FormGU_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.groupBox1.ResumeLayout(false);

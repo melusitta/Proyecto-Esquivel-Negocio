@@ -25,6 +25,9 @@ namespace GestiondeUsuario
 
         private void FormGU_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+            lblModo.ForeColor = Tema.PrincipalOscuro;
+
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
 

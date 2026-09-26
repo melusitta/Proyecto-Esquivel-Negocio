@@ -26,6 +26,11 @@ namespace GestiondeUsuario
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+            pnlMarca.BackColor = Tema.Principal;
+            picLogo.Image = Tema.Logo;
+            lblBienvenida.ForeColor = Tema.PrincipalOscuro;
+
             // Cargamos los idiomas disponibles
             cmbIdioma.Items.Clear();
             cmbIdioma.Items.Add("español");

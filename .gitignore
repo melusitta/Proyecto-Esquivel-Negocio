@@ -1,0 +1,10 @@
+.vs/
+bin/
+obj/
+Debug/
+Release/
+*.msi
+*.exe
+*.cab
+*.user
+*.suo

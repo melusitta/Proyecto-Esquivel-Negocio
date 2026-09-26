@@ -59,9 +59,12 @@ namespace GestiondeUsuario
             this.Close();
         }
 
+        // Vuelve al login cerrando la sesión (antes cerraba todo el programa)
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            UsuarioBLL.Instancia.Logout();
+            new Form1().Show();
+            this.Close();
         }
 
         public void ActualizarIdioma(JObject traducciones)

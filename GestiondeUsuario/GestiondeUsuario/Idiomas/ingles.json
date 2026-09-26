@@ -133,7 +133,7 @@
     "btnAplicar": "Apply",
     "btnLimpiar": "Clear",
     "btnImprimir": "Print",
-    "btnSalir": "Exit",
+    "btnSalir": "Back",
     "colLogin": "Login",
     "colFecha": "Date",
     "colHora": "Time",
@@ -235,7 +235,7 @@
     "lblMensaje": "A data inconsistency was detected. Please select an option to continue.",
     "btnRecalcular": "Recalculate DV",
     "btnRestore": "Restore DB",
-    "btnSalir": "Exit",
+    "btnSalir": "Back",
     "msgRecalculadoOk": "Check digit recalculated successfully. The system accepts the current data as valid."
   },
   "FormRestore": {
@@ -464,6 +464,10 @@
     "fechaPago": "Payment date:",
     "cajero": "Served by:",
     "gracias": "Thank you for your purchase!"
+  },
+  "OjoContrasena": {
+    "mostrar": "Show password",
+    "ocultar": "Hide password"
   },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",

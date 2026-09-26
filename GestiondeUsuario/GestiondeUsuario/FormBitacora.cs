@@ -242,6 +242,8 @@ namespace GestiondeUsuario
 
             PrintPreviewDialog ppd = new PrintPreviewDialog();
             ppd.Document = pd;
+            if (Tema.Icono != null)
+                ppd.Icon = Tema.Icono;
             ppd.ShowDialog();
         }
 

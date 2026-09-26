@@ -25,6 +25,9 @@ namespace GestiondeUsuario
         {
             Tema.Aplicar(this);
             Tema.EstiloPrincipal(btnRecuperar);
+            OjoContrasena.Agregar(txtContraseñaActual);
+            OjoContrasena.Agregar(txtNuevaPass);
+            OjoContrasena.Agregar(txtConfirmarPass);
 
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());

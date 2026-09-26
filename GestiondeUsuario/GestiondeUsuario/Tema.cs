@@ -47,8 +47,27 @@ namespace GestiondeUsuario
             }
         }
 
+        private static Icon _icono;
+
+        // Ícono de las ventanas: cara del pony, desde Recursos\plumy.ico. Devuelve null si no está.
+        public static Icon Icono
+        {
+            get
+            {
+                if (_icono == null)
+                {
+                    string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Recursos", "plumy.ico");
+                    if (File.Exists(ruta))
+                        _icono = new Icon(ruta);
+                }
+                return _icono;
+            }
+        }
+
         public static void Aplicar(Form form)
         {
+            if (Icono != null)
+                form.Icon = Icono;
             form.BackColor = Fondo;
             form.ForeColor = Texto;
             form.StartPosition = FormStartPosition.CenterScreen;
@@ -64,6 +83,10 @@ namespace GestiondeUsuario
         {
             foreach (Control c in controles)
             {
+                // El ojo de las contraseñas se dibuja solo (ver OjoContrasena)
+                if (Equals(c.Tag, OjoContrasena.Marca))
+                    continue;
+
                 // Unificamos la familia de fuente respetando el tamaño y estilo del diseñador
                 c.Font = new Font(Fuente, c.Font.Size, c.Font.Style);
 

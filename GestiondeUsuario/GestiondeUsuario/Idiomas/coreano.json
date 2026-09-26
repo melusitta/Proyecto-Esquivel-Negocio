@@ -133,7 +133,7 @@
     "btnAplicar": "적용",
     "btnLimpiar": "지우기",
     "btnImprimir": "인쇄",
-    "btnSalir": "나가기",
+    "btnSalir": "뒤로",
     "colLogin": "로그인",
     "colFecha": "날짜",
     "colHora": "시간",
@@ -235,7 +235,7 @@
     "lblMensaje": "시스템 데이터에서 불일치가 감지되었습니다. 계속하려면 옵션을 선택하세요.",
     "btnRecalcular": "DV 재계산",
     "btnRestore": "DB 복원",
-    "btnSalir": "종료",
+    "btnSalir": "뒤로",
     "msgRecalculadoOk": "검증 숫자가 성공적으로 재계산되었습니다. 시스템이 현재 데이터를 유효한 것으로 수락합니다."
   },
   "FormRestore": {
@@ -244,7 +244,7 @@
     "lblMensaje": "복원할 백업을 선택하세요. 데이터 손실을 최소화하려면 가장 최근 백업을 권장합니다.",
     "lblBackups": "사용 가능한 백업:",
     "btnRestore": "복원",
-    "btnSalir": "로그인으로 돌아가기",
+    "btnSalir": "뒤로",
     "msgSeleccionarBackup": "먼저 백업을 선택하세요.",
     "msgAtencion": "주의",
     "msgConfirmarRestore": "정말 복원하시겠습니까? 이 백업 이후의 데이터는 손실됩니다.",
@@ -464,6 +464,10 @@
     "fechaPago": "결제일:",
     "cajero": "담당자:",
     "gracias": "구매해 주셔서 감사합니다!"
+  },
+  "OjoContrasena": {
+    "mostrar": "비밀번호 표시",
+    "ocultar": "비밀번호 숨기기"
   },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",

@@ -27,6 +27,9 @@ namespace GestiondeUsuario
         private void Form1_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
+            OjoContrasena.Agregar(txtContraseña);
+            IconoPlumy.Agregar(lblUsuario, IconoPlumy.Tipo.Usuario);
+            IconoPlumy.Agregar(lblContraseña, IconoPlumy.Tipo.Candado);
             pnlMarca.BackColor = Tema.Principal;
             picLogo.Image = Tema.Logo;
             lblBienvenida.ForeColor = Tema.PrincipalOscuro;

@@ -27,6 +27,8 @@ namespace GestiondeUsuario
                 vista.Width = 900;
                 vista.Height = 800;
                 vista.Text = Texto("titulo") + " " + NroFormateado();
+                if (Tema.Icono != null)
+                    vista.Icon = Tema.Icono;
                 vista.ShowDialog(dueño);
             }
         }

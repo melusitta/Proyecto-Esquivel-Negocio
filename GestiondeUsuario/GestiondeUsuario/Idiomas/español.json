@@ -133,7 +133,7 @@
     "btnAplicar": "Aplicar",
     "btnLimpiar": "Limpiar",
     "btnImprimir": "Imprimir",
-    "btnSalir": "Salir",
+    "btnSalir": "Volver",
     "colLogin": "Login",
     "colFecha": "Fecha",
     "colHora": "Hora",
@@ -235,7 +235,7 @@
     "lblMensaje": "Se detectó una inconsistencia en los datos del sistema. Seleccioná una opción para continuar.",
     "btnRecalcular": "Recalcular DV",
     "btnRestore": "Restore BD",
-    "btnSalir": "Salir",
+    "btnSalir": "Volver",
     "msgRecalculadoOk": "Dígito verificador recalculado correctamente. El sistema acepta los datos actuales como válidos."
   },
   "FormRestore": {
@@ -464,6 +464,10 @@
     "fechaPago": "Fecha de pago:",
     "cajero": "Atendido por:",
     "gracias": "¡Gracias por tu compra!"
+  },
+  "OjoContrasena": {
+    "mostrar": "Mostrar contraseña",
+    "ocultar": "Ocultar contraseña"
   },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",

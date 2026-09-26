@@ -13,6 +13,9 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Recursos\plumy.ico</ApplicationIcon>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
@@ -151,7 +154,13 @@
     <Compile Include="FormRestore.Designer.cs">
       <DependentUpon>FormRestore.cs</DependentUpon>
     </Compile>
+    <Compile Include="IconoPlumy.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ImpresionFactura.cs" />
+    <Compile Include="OjoContrasena.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Tema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -223,6 +232,9 @@
     </Content>
     <Content Include="Idiomas\ingles.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Recursos\plumy.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recursos\logo_plumy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

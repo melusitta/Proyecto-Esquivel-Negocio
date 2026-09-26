@@ -38,8 +38,8 @@
             // lblIdiomas
             // 
             this.lblIdiomas.AutoSize = true;
-            this.lblIdiomas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIdiomas.Location = new System.Drawing.Point(152, 32);
+            this.lblIdiomas.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIdiomas.Location = new System.Drawing.Point(18, 16);
             this.lblIdiomas.Name = "lblIdiomas";
             this.lblIdiomas.Size = new System.Drawing.Size(72, 20);
             this.lblIdiomas.TabIndex = 1;
@@ -47,19 +47,19 @@
             // 
             // cmbIdiomas
             // 
-            this.cmbIdiomas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbIdiomas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbIdiomas.FormattingEnabled = true;
-            this.cmbIdiomas.Location = new System.Drawing.Point(83, 73);
+            this.cmbIdiomas.Location = new System.Drawing.Point(20, 65);
             this.cmbIdiomas.Name = "cmbIdiomas";
-            this.cmbIdiomas.Size = new System.Drawing.Size(210, 24);
+            this.cmbIdiomas.Size = new System.Drawing.Size(340, 25);
             this.cmbIdiomas.TabIndex = 2;
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.Location = new System.Drawing.Point(92, 106);
+            this.btnAceptar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Location = new System.Drawing.Point(130, 110);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(81, 23);
+            this.btnAceptar.Size = new System.Drawing.Size(110, 34);
             this.btnAceptar.TabIndex = 3;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -67,10 +67,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(191, 106);
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(250, 110);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(81, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(110, 34);
             this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -78,10 +78,10 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Location = new System.Drawing.Point(12, 162);
+            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.Location = new System.Drawing.Point(20, 165);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(81, 23);
+            this.btnVolver.Size = new System.Drawing.Size(100, 30);
             this.btnVolver.TabIndex = 5;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -91,14 +91,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(386, 208);
+            this.ClientSize = new System.Drawing.Size(380, 210);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.cmbIdiomas);
             this.Controls.Add(this.lblIdiomas);
+            this.AcceptButton = this.btnAceptar;
             this.Name = "FormCambiarIdioma";
             this.Text = "FormCambiarIdioma";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormCambiarIdioma_FormClosed);
             this.Load += new System.EventHandler(this.FormCambiarIdioma_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -109,6 +109,8 @@ namespace GestiondeUsuario
 
         private void FormGestionRespaldo_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
         }

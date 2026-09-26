@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -130,6 +130,64 @@ namespace GestiondeUsuario
             btn.FlatAppearance.MouseOverBackColor = PrincipalSuave;
             btn.FlatAppearance.MouseDownBackColor = Borde;
             btn.Cursor = Cursors.Hand;
+        }
+
+        // Menú lateral del FormPrincipal: fondo lila, ítems a todo el ancho y submenús blancos
+        public static void EstiloMenu(MenuStrip menu)
+        {
+            menu.BackColor = Principal;
+            menu.Renderer = new RendererPlumy();
+            menu.Padding = new Padding(10, 20, 10, 0);
+            int ancho = menu.Width - menu.Padding.Horizontal;
+
+            foreach (ToolStripItem item in menu.Items)
+            {
+                item.Font = new Font(Fuente, 11F, FontStyle.Bold);
+                item.AutoSize = false;
+                item.Size = new Size(ancho, 34);
+                item.TextAlign = ContentAlignment.MiddleLeft;
+                item.Padding = new Padding(8, 0, 0, 0);
+
+                if (item is ToolStripMenuItem menuItem)
+                    menuItem.DropDown.Font = new Font(Fuente, 10F);
+            }
+        }
+
+        private class RendererPlumy : ToolStripProfessionalRenderer
+        {
+            public RendererPlumy() : base(new ColoresPlumy())
+            {
+                RoundedEdges = false;
+            }
+
+            protected override void OnRenderItemText(ToolStripItemTextRenderEventArgs e)
+            {
+                bool enBarra = e.Item.Owner is MenuStrip;
+                if (e.Item.Enabled)
+                    e.TextColor = Texto;
+                else
+                    e.TextColor = enBarra ? ColorTranslator.FromHtml("#E4E4F1") : ColorTranslator.FromHtml("#A9AAC8");
+                base.OnRenderItemText(e);
+            }
+        }
+
+        private class ColoresPlumy : ProfessionalColorTable
+        {
+            public override Color MenuStripGradientBegin => Principal;
+            public override Color MenuStripGradientEnd => Principal;
+            public override Color MenuItemSelected => PrincipalSuave;
+            public override Color MenuItemSelectedGradientBegin => PrincipalSuave;
+            public override Color MenuItemSelectedGradientEnd => PrincipalSuave;
+            public override Color MenuItemPressedGradientBegin => PrincipalSuave;
+            public override Color MenuItemPressedGradientMiddle => PrincipalSuave;
+            public override Color MenuItemPressedGradientEnd => PrincipalSuave;
+            public override Color MenuItemBorder => PrincipalOscuro;
+            public override Color MenuBorder => Borde;
+            public override Color ToolStripDropDownBackground => Color.White;
+            public override Color ImageMarginGradientBegin => Color.White;
+            public override Color ImageMarginGradientMiddle => Color.White;
+            public override Color ImageMarginGradientEnd => Color.White;
+            public override Color SeparatorDark => Borde;
         }
 
         public static void EstiloGrilla(DataGridView dgv)

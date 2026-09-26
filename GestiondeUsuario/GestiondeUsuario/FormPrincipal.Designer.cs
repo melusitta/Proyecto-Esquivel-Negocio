@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.picLogo = new System.Windows.Forms.PictureBox();
+            this.pnlLateral = new System.Windows.Forms.Panel();
             this.lblBienvenida = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,8 +54,8 @@
             // lblBienvenida
             // 
             this.lblBienvenida.AutoSize = true;
-            this.lblBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBienvenida.Location = new System.Drawing.Point(227, 64);
+            this.lblBienvenida.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBienvenida.Location = new System.Drawing.Point(250, 50);
             this.lblBienvenida.Name = "lblBienvenida";
             this.lblBienvenida.Size = new System.Drawing.Size(57, 20);
             this.lblBienvenida.TabIndex = 2;
@@ -61,7 +63,7 @@
             // 
             // menuStrip1
             // 
-            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.usuarioToolStripMenuItem,
             this.menuAdmin,
@@ -71,8 +73,9 @@
             this.menuReporte,
             this.menuAyuda});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(73, 450);
+            this.menuStrip1.Size = new System.Drawing.Size(210, 270);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -193,16 +196,36 @@
             this.menuAyuda.Size = new System.Drawing.Size(60, 19);
             this.menuAyuda.Text = "Ayuda";
             // 
+            // pnlLateral
+            // 
+            this.pnlLateral.Controls.Add(this.menuStrip1);
+            this.pnlLateral.Controls.Add(this.picLogo);
+            this.pnlLateral.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlLateral.Location = new System.Drawing.Point(0, 0);
+            this.pnlLateral.Size = new System.Drawing.Size(210, 480);
+            this.pnlLateral.TabIndex = 5;
+            this.pnlLateral.Name = "pnlLateral";
+            // 
+            // picLogo
+            // 
+            this.picLogo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.picLogo.Location = new System.Drawing.Point(0, 270);
+            this.picLogo.Size = new System.Drawing.Size(210, 210);
+            this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLogo.TabStop = false;
+            this.picLogo.Name = "picLogo";
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(820, 480);
             this.Controls.Add(this.lblBienvenida);
-            this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.pnlLateral);
             this.Name = "FormPrincipal";
-            this.Text = "FormPrincipal";
+            this.Text = "Plumy";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPrincipal_FormClosed);
             this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -230,5 +253,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuAyuda;
         private System.Windows.Forms.ToolStripMenuItem gestionDeRolesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionRespaldoToolStripMenuItem1;
+        private System.Windows.Forms.Panel pnlLateral;
+        private System.Windows.Forms.PictureBox picLogo;
     }
 }

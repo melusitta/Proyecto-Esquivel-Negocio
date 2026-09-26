@@ -23,6 +23,9 @@ namespace GestiondeUsuario
 
         private void FormRecuperar_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+            Tema.EstiloPrincipal(btnRecuperar);
+
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
             Usuario usuarioActivo = SessionManager.Instancia.ObtenerUsuarioActivo();

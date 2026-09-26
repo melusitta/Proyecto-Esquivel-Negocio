@@ -45,8 +45,8 @@
             // lblNuevaPass
             // 
             this.lblNuevaPass.AutoSize = true;
-            this.lblNuevaPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNuevaPass.Location = new System.Drawing.Point(15, 80);
+            this.lblNuevaPass.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNuevaPass.Location = new System.Drawing.Point(7, 75);
             this.lblNuevaPass.Name = "lblNuevaPass";
             this.lblNuevaPass.Size = new System.Drawing.Size(145, 20);
             this.lblNuevaPass.TabIndex = 3;
@@ -55,8 +55,8 @@
             // lblDNI
             // 
             this.lblDNI.AutoSize = true;
-            this.lblDNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDNI.Location = new System.Drawing.Point(15, 21);
+            this.lblDNI.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDNI.Location = new System.Drawing.Point(7, 10);
             this.lblDNI.Name = "lblDNI";
             this.lblDNI.Size = new System.Drawing.Size(41, 20);
             this.lblDNI.TabIndex = 2;
@@ -65,8 +65,8 @@
             // lblConfirmarPass
             // 
             this.lblConfirmarPass.AutoSize = true;
-            this.lblConfirmarPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblConfirmarPass.Location = new System.Drawing.Point(245, 80);
+            this.lblConfirmarPass.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblConfirmarPass.Location = new System.Drawing.Point(267, 75);
             this.lblConfirmarPass.Name = "lblConfirmarPass";
             this.lblConfirmarPass.Size = new System.Drawing.Size(165, 20);
             this.lblConfirmarPass.TabIndex = 4;
@@ -74,35 +74,38 @@
             // 
             // txtDNI
             // 
-            this.txtDNI.Location = new System.Drawing.Point(19, 44);
+            this.txtDNI.Location = new System.Drawing.Point(10, 33);
+            this.txtDNI.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDNI.Name = "txtDNI";
-            this.txtDNI.Size = new System.Drawing.Size(215, 20);
+            this.txtDNI.Size = new System.Drawing.Size(230, 25);
             this.txtDNI.TabIndex = 5;
             // 
             // txtNuevaPass
             // 
-            this.txtNuevaPass.Location = new System.Drawing.Point(19, 103);
+            this.txtNuevaPass.Location = new System.Drawing.Point(10, 98);
+            this.txtNuevaPass.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNuevaPass.Name = "txtNuevaPass";
             this.txtNuevaPass.PasswordChar = '•';
-            this.txtNuevaPass.Size = new System.Drawing.Size(215, 20);
+            this.txtNuevaPass.Size = new System.Drawing.Size(230, 25);
             this.txtNuevaPass.TabIndex = 6;
             this.txtNuevaPass.UseSystemPasswordChar = true;
             // 
             // txtConfirmarPass
             // 
-            this.txtConfirmarPass.Location = new System.Drawing.Point(240, 103);
+            this.txtConfirmarPass.Location = new System.Drawing.Point(270, 98);
+            this.txtConfirmarPass.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConfirmarPass.Name = "txtConfirmarPass";
             this.txtConfirmarPass.PasswordChar = '•';
-            this.txtConfirmarPass.Size = new System.Drawing.Size(215, 20);
+            this.txtConfirmarPass.Size = new System.Drawing.Size(230, 25);
             this.txtConfirmarPass.TabIndex = 7;
             this.txtConfirmarPass.UseSystemPasswordChar = true;
             // 
             // btnVolver
             // 
-            this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Location = new System.Drawing.Point(102, 145);
+            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.Location = new System.Drawing.Point(230, 150);
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(118, 36);
+            this.btnVolver.Size = new System.Drawing.Size(130, 38);
             this.btnVolver.TabIndex = 8;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -110,10 +113,10 @@
             // 
             // btnRecuperar
             // 
-            this.btnRecuperar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRecuperar.Location = new System.Drawing.Point(249, 145);
+            this.btnRecuperar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecuperar.Location = new System.Drawing.Point(370, 150);
             this.btnRecuperar.Name = "btnRecuperar";
-            this.btnRecuperar.Size = new System.Drawing.Size(118, 36);
+            this.btnRecuperar.Size = new System.Drawing.Size(130, 38);
             this.btnRecuperar.TabIndex = 9;
             this.btnRecuperar.Text = "Cambiar";
             this.btnRecuperar.UseVisualStyleBackColor = true;
@@ -122,8 +125,8 @@
             // lblContraseñaActual
             // 
             this.lblContraseñaActual.AutoSize = true;
-            this.lblContraseñaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContraseñaActual.Location = new System.Drawing.Point(245, 21);
+            this.lblContraseñaActual.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContraseñaActual.Location = new System.Drawing.Point(267, 10);
             this.lblContraseñaActual.Name = "lblContraseñaActual";
             this.lblContraseñaActual.Size = new System.Drawing.Size(145, 20);
             this.lblContraseñaActual.TabIndex = 10;
@@ -131,10 +134,11 @@
             // 
             // txtContraseñaActual
             // 
-            this.txtContraseñaActual.Location = new System.Drawing.Point(240, 44);
+            this.txtContraseñaActual.Location = new System.Drawing.Point(270, 33);
+            this.txtContraseñaActual.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContraseñaActual.Name = "txtContraseñaActual";
             this.txtContraseñaActual.PasswordChar = '•';
-            this.txtContraseñaActual.Size = new System.Drawing.Size(215, 20);
+            this.txtContraseñaActual.Size = new System.Drawing.Size(230, 25);
             this.txtContraseñaActual.TabIndex = 11;
             this.txtContraseñaActual.UseSystemPasswordChar = true;
             // 
@@ -150,19 +154,21 @@
             this.panel1.Controls.Add(this.txtConfirmarPass);
             this.panel1.Controls.Add(this.lblConfirmarPass);
             this.panel1.Controls.Add(this.lblNuevaPass);
-            this.panel1.Location = new System.Drawing.Point(33, 12);
+            this.panel1.Location = new System.Drawing.Point(20, 15);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(476, 209);
+            this.panel1.Size = new System.Drawing.Size(510, 200);
             this.panel1.TabIndex = 12;
             // 
             // FormRecuperar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(548, 239);
+            this.ClientSize = new System.Drawing.Size(550, 230);
             this.Controls.Add(this.panel1);
+            this.AcceptButton = this.btnRecuperar;
             this.Name = "FormRecuperar";
             this.Text = "FormRecuperar";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormRecuperar_FormClosed);
             this.Load += new System.EventHandler(this.FormRecuperar_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

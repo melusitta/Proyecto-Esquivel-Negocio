@@ -22,6 +22,9 @@ namespace GestiondeUsuario
 
         private void FormCambiarIdioma_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+            Tema.EstiloTitulo(lblIdiomas);
+
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
 

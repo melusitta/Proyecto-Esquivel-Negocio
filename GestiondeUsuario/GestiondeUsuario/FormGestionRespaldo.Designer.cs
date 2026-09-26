@@ -36,10 +36,10 @@
             // 
             // BackUp
             // 
-            this.BackUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BackUp.Location = new System.Drawing.Point(43, 118);
+            this.BackUp.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BackUp.Location = new System.Drawing.Point(45, 95);
             this.BackUp.Name = "BackUp";
-            this.BackUp.Size = new System.Drawing.Size(158, 83);
+            this.BackUp.Size = new System.Drawing.Size(160, 80);
             this.BackUp.TabIndex = 0;
             this.BackUp.Text = "BackUp";
             this.BackUp.UseVisualStyleBackColor = true;
@@ -47,10 +47,10 @@
             // 
             // Restore
             // 
-            this.Restore.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Restore.Location = new System.Drawing.Point(218, 118);
+            this.Restore.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Restore.Location = new System.Drawing.Point(225, 95);
             this.Restore.Name = "Restore";
-            this.Restore.Size = new System.Drawing.Size(158, 83);
+            this.Restore.Size = new System.Drawing.Size(160, 80);
             this.Restore.TabIndex = 1;
             this.Restore.Text = "Restore";
             this.Restore.UseVisualStyleBackColor = true;
@@ -58,10 +58,10 @@
             // 
             // Volver
             // 
-            this.Volver.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Volver.Location = new System.Drawing.Point(137, 242);
+            this.Volver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Volver.Location = new System.Drawing.Point(20, 215);
             this.Volver.Name = "Volver";
-            this.Volver.Size = new System.Drawing.Size(140, 52);
+            this.Volver.Size = new System.Drawing.Size(110, 32);
             this.Volver.TabIndex = 2;
             this.Volver.Text = "Volver";
             this.Volver.UseVisualStyleBackColor = true;
@@ -69,11 +69,12 @@
             // 
             // lblTitulo
             // 
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(120, 56);
+            this.lblTitulo.AutoSize = false;
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(0, 30);
+            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(186, 24);
+            this.lblTitulo.Size = new System.Drawing.Size(431, 34);
             this.lblTitulo.TabIndex = 3;
             this.lblTitulo.Text = "Gestion de Respaldo";
             // 
@@ -81,13 +82,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 343);
+            this.ClientSize = new System.Drawing.Size(431, 265);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.Volver);
             this.Controls.Add(this.Restore);
             this.Controls.Add(this.BackUp);
             this.Name = "FormGestionRespaldo";
             this.Text = "FormGestionRespaldo";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormGestionRespaldo_FormClosed);
             this.Load += new System.EventHandler(this.FormGestionRespaldo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

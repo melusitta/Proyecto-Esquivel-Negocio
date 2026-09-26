@@ -23,6 +23,12 @@ namespace GestiondeUsuario
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
 
+            Tema.Aplicar(this);
+            pnlLateral.BackColor = Tema.Principal;
+            Tema.EstiloMenu(menuStrip1);
+            picLogo.Image = Tema.Logo;
+            lblBienvenida.ForeColor = Tema.PrincipalOscuro;
+
             GestorIdioma.Instancia.Suscribir(this);
             Usuario usuario = SessionManager.Instancia.ObtenerUsuarioActivo();
             lblBienvenida.Text = "Bienvenido, " + usuario.Nombre + "!";

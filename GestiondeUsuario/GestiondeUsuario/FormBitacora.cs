@@ -25,6 +25,8 @@ namespace GestiondeUsuario
 
         private void FormBitacora_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+
             var g = GestorIdioma.Instancia;
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());

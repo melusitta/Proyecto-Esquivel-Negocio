@@ -24,6 +24,9 @@ namespace GestiondeUsuario
 
         private void FormGestionRoles_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+            lblModo.ForeColor = Tema.PrincipalOscuro;
+
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
 
@@ -345,6 +348,8 @@ namespace GestiondeUsuario
             this.Text = t["tituloForm"]?.ToString();
             lblTitulo.Text = t["lblTitulo"]?.ToString();
             lblPatentesDisponibles.Text = t["lblPatentesDisponibles"]?.ToString();
+            lblListaRoles.Text = t["lblListaRoles"]?.ToString();
+            lblListaContenido.Text = t["lblListaContenido"]?.ToString();
             lblNombre.Text = t["lblNombre"]?.ToString();
             lblDescripcion.Text = t["lblDescripcion"]?.ToString();
             rbPatente.Text = t["rbPatente"]?.ToString();

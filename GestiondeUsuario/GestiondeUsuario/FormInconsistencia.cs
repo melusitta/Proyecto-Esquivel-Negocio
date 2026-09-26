@@ -15,6 +15,9 @@ namespace GestiondeUsuario
 
         private void FormInconsistencia_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+            Tema.EstiloPrincipal(btnRecalcular);
+
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(
                 SessionManager.Instancia.ObtenerIdioma());

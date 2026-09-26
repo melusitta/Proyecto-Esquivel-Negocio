@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.lblListaContenido = new System.Windows.Forms.Label();
+            this.lblListaFamilias = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.lstFamilias = new System.Windows.Forms.ListBox();
             this.lstContenido = new System.Windows.Forms.ListBox();
@@ -55,8 +57,8 @@
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(301, 18);
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(18, 14);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(168, 20);
             this.lblTitulo.TabIndex = 1;
@@ -65,24 +67,27 @@
             // lstFamilias
             // 
             this.lstFamilias.FormattingEnabled = true;
-            this.lstFamilias.Location = new System.Drawing.Point(39, 73);
+            this.lstFamilias.Location = new System.Drawing.Point(20, 85);
+            this.lstFamilias.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstFamilias.Name = "lstFamilias";
-            this.lstFamilias.Size = new System.Drawing.Size(219, 264);
+            this.lstFamilias.Size = new System.Drawing.Size(230, 250);
             this.lstFamilias.TabIndex = 2;
             this.lstFamilias.SelectedIndexChanged += new System.EventHandler(this.lstFamilias_SelectedIndexChanged);
             // 
             // lstContenido
             // 
             this.lstContenido.FormattingEnabled = true;
-            this.lstContenido.Location = new System.Drawing.Point(291, 73);
+            this.lstContenido.Location = new System.Drawing.Point(285, 85);
+            this.lstContenido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstContenido.Name = "lstContenido";
-            this.lstContenido.Size = new System.Drawing.Size(219, 264);
+            this.lstContenido.Size = new System.Drawing.Size(230, 250);
             this.lstContenido.TabIndex = 3;
             // 
             // lblPatentesDisponibles
             // 
             this.lblPatentesDisponibles.AutoSize = true;
-            this.lblPatentesDisponibles.Location = new System.Drawing.Point(577, 48);
+            this.lblPatentesDisponibles.Location = new System.Drawing.Point(547, 60);
+            this.lblPatentesDisponibles.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPatentesDisponibles.Name = "lblPatentesDisponibles";
             this.lblPatentesDisponibles.Size = new System.Drawing.Size(152, 13);
             this.lblPatentesDisponibles.TabIndex = 4;
@@ -91,15 +96,17 @@
             // lstDisponibles
             // 
             this.lstDisponibles.FormattingEnabled = true;
-            this.lstDisponibles.Location = new System.Drawing.Point(539, 73);
+            this.lstDisponibles.Location = new System.Drawing.Point(550, 85);
+            this.lstDisponibles.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstDisponibles.Name = "lstDisponibles";
-            this.lstDisponibles.Size = new System.Drawing.Size(219, 264);
+            this.lstDisponibles.Size = new System.Drawing.Size(230, 250);
             this.lstDisponibles.TabIndex = 5;
             // 
             // rbPatente
             // 
             this.rbPatente.AutoSize = true;
-            this.rbPatente.Location = new System.Drawing.Point(610, 358);
+            this.rbPatente.Location = new System.Drawing.Point(550, 352);
+            this.rbPatente.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbPatente.Name = "rbPatente";
             this.rbPatente.Size = new System.Drawing.Size(62, 17);
             this.rbPatente.TabIndex = 6;
@@ -111,7 +118,8 @@
             // rbFamilia
             // 
             this.rbFamilia.AutoSize = true;
-            this.rbFamilia.Location = new System.Drawing.Point(610, 387);
+            this.rbFamilia.Location = new System.Drawing.Point(670, 352);
+            this.rbFamilia.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbFamilia.Name = "rbFamilia";
             this.rbFamilia.Size = new System.Drawing.Size(57, 17);
             this.rbFamilia.TabIndex = 7;
@@ -122,9 +130,10 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(556, 413);
+            this.btnAgregar.Location = new System.Drawing.Point(550, 390);
+            this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.Size = new System.Drawing.Size(110, 34);
             this.btnAgregar.TabIndex = 8;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
@@ -132,9 +141,10 @@
             // 
             // btnQuitar
             // 
-            this.btnQuitar.Location = new System.Drawing.Point(637, 413);
+            this.btnQuitar.Location = new System.Drawing.Point(670, 390);
+            this.btnQuitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnQuitar.Name = "btnQuitar";
-            this.btnQuitar.Size = new System.Drawing.Size(75, 23);
+            this.btnQuitar.Size = new System.Drawing.Size(110, 34);
             this.btnQuitar.TabIndex = 9;
             this.btnQuitar.Text = "Quitar";
             this.btnQuitar.UseVisualStyleBackColor = true;
@@ -143,7 +153,8 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(18, 13);
+            this.lblNombre.Location = new System.Drawing.Point(0, 5);
+            this.lblNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(47, 13);
             this.lblNombre.TabIndex = 10;
@@ -151,15 +162,17 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(90, 10);
+            this.txtNombre.Location = new System.Drawing.Point(100, 2);
+            this.txtNombre.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(100, 20);
+            this.txtNombre.Size = new System.Drawing.Size(395, 25);
             this.txtNombre.TabIndex = 11;
             // 
             // lblDescripcion
             // 
             this.lblDescripcion.AutoSize = true;
-            this.lblDescripcion.Location = new System.Drawing.Point(18, 45);
+            this.lblDescripcion.Location = new System.Drawing.Point(0, 40);
+            this.lblDescripcion.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDescripcion.Name = "lblDescripcion";
             this.lblDescripcion.Size = new System.Drawing.Size(66, 13);
             this.lblDescripcion.TabIndex = 12;
@@ -167,16 +180,18 @@
             // 
             // txtDescripcion
             // 
-            this.txtDescripcion.Location = new System.Drawing.Point(90, 42);
+            this.txtDescripcion.Location = new System.Drawing.Point(100, 37);
+            this.txtDescripcion.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(100, 20);
+            this.txtDescripcion.Size = new System.Drawing.Size(395, 25);
             this.txtDescripcion.TabIndex = 13;
             // 
             // btnNuevo
             // 
-            this.btnNuevo.Location = new System.Drawing.Point(54, 357);
+            this.btnNuevo.Location = new System.Drawing.Point(20, 350);
+            this.btnNuevo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(75, 23);
+            this.btnNuevo.Size = new System.Drawing.Size(91, 34);
             this.btnNuevo.TabIndex = 14;
             this.btnNuevo.Text = "Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
@@ -184,9 +199,10 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(154, 357);
+            this.btnModificar.Location = new System.Drawing.Point(121, 350);
+            this.btnModificar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(75, 23);
+            this.btnModificar.Size = new System.Drawing.Size(91, 34);
             this.btnModificar.TabIndex = 15;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
@@ -194,9 +210,10 @@
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(251, 357);
+            this.btnEliminar.Location = new System.Drawing.Point(222, 350);
+            this.btnEliminar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminar.Size = new System.Drawing.Size(91, 34);
             this.btnEliminar.TabIndex = 16;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
@@ -204,9 +221,10 @@
             // 
             // btnAplicar
             // 
-            this.btnAplicar.Location = new System.Drawing.Point(341, 357);
+            this.btnAplicar.Location = new System.Drawing.Point(323, 350);
+            this.btnAplicar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.Size = new System.Drawing.Size(75, 23);
+            this.btnAplicar.Size = new System.Drawing.Size(91, 34);
             this.btnAplicar.TabIndex = 17;
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = true;
@@ -214,9 +232,10 @@
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(435, 357);
+            this.btnCancelar.Location = new System.Drawing.Point(424, 350);
+            this.btnCancelar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(91, 34);
             this.btnCancelar.TabIndex = 18;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -224,9 +243,10 @@
             // 
             // btnVolver
             // 
-            this.btnVolver.Location = new System.Drawing.Point(12, 454);
+            this.btnVolver.Location = new System.Drawing.Point(20, 480);
+            this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.Size = new System.Drawing.Size(75, 23);
+            this.btnVolver.Size = new System.Drawing.Size(110, 32);
             this.btnVolver.TabIndex = 19;
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -235,7 +255,8 @@
             // lblModo
             // 
             this.lblModo.AutoSize = true;
-            this.lblModo.Location = new System.Drawing.Point(179, 413);
+            this.lblModo.Location = new System.Drawing.Point(300, 22);
+            this.lblModo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblModo.Name = "lblModo";
             this.lblModo.Size = new System.Drawing.Size(35, 13);
             this.lblModo.TabIndex = 20;
@@ -247,16 +268,32 @@
             this.panel1.Controls.Add(this.lblNombre);
             this.panel1.Controls.Add(this.txtNombre);
             this.panel1.Controls.Add(this.lblDescripcion);
-            this.panel1.Location = new System.Drawing.Point(324, 396);
+            this.panel1.Location = new System.Drawing.Point(20, 398);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 81);
+            this.panel1.Size = new System.Drawing.Size(495, 70);
             this.panel1.TabIndex = 21;
+            // 
+            // lblListaFamilias
+            // 
+            this.lblListaFamilias.AutoSize = true;
+            this.lblListaFamilias.Location = new System.Drawing.Point(17, 60);
+            this.lblListaFamilias.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListaFamilias.Text = "Familias";
+            this.lblListaFamilias.Name = "lblListaFamilias";
+            // 
+            // lblListaContenido
+            // 
+            this.lblListaContenido.AutoSize = true;
+            this.lblListaContenido.Location = new System.Drawing.Point(282, 60);
+            this.lblListaContenido.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListaContenido.Text = "Contenido";
+            this.lblListaContenido.Name = "lblListaContenido";
             // 
             // FormGestionFamilias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 487);
+            this.ClientSize = new System.Drawing.Size(800, 525);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnQuitar);
             this.Controls.Add(this.btnAgregar);
@@ -274,8 +311,11 @@
             this.Controls.Add(this.lstContenido);
             this.Controls.Add(this.lstFamilias);
             this.Controls.Add(this.lblTitulo);
+            this.Controls.Add(this.lblListaFamilias);
+            this.Controls.Add(this.lblListaContenido);
             this.Name = "FormGestionFamilias";
             this.Text = "FormGestionFamilias";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormGestionFamilias_FormClosed);
             this.Load += new System.EventHandler(this.FormGestionFamilias_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -307,5 +347,7 @@
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblModo;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblListaFamilias;
+        private System.Windows.Forms.Label lblListaContenido;
     }
 }

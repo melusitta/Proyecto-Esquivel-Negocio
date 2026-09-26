@@ -23,6 +23,9 @@ namespace GestiondeUsuario
 
         private void FormRestore_Load(object sender, EventArgs e)
         {
+            Tema.Aplicar(this);
+            Tema.EstiloPrincipal(btnRestore);
+
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(
                 SessionManager.Instancia.ObtenerIdioma());

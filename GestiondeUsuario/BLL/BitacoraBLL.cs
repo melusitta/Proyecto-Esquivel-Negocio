@@ -24,17 +24,50 @@ namespace BLL
             }
         }
 
+        // Regla: el Admin ve toda la bitácora; cualquier otro usuario, solo sus propios eventos
+        public bool PuedeVerTodaLaBitacora()
+        {
+            return SessionManager.Instancia.ObtenerUsuarioActivo()?.Rol == "Admin";
+        }
+
+        // Login al que queda restringida la consulta (null = sin restricción)
+        private string LoginRestringido()
+        {
+            return PuedeVerTodaLaBitacora() ? null : SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "";
+        }
+
         public List<Bitacora> ObtenerFiltrado(string login, DateTime? fechaIni,
             DateTime? fechaFin, string modulo, string evento, int? criticidad)
         {
+            // Aunque la pantalla pida otro login, un usuario que no es Admin solo recibe lo suyo
+            string restringido = LoginRestringido();
+            if (restringido != null)
+                login = restringido;
+
             BitacoraDAL dal = new BitacoraDAL();
             return dal.ObtenerFiltrado(login, fechaIni, fechaFin, modulo, evento, criticidad);
         }
 
         public List<string> ObtenerLogins()
         {
+            string restringido = LoginRestringido();
+            if (restringido != null)
+                return new List<string> { restringido };
             BitacoraDAL dal = new BitacoraDAL();
             return dal.ObtenerLogins();
+        }
+
+        // Módulos y eventos que realmente hay registrados (se actualizan solos al sumar funciones nuevas)
+        public List<string> ObtenerModulos()
+        {
+            BitacoraDAL dal = new BitacoraDAL();
+            return dal.ObtenerValoresDistintos("Modulo", LoginRestringido());
+        }
+
+        public List<string> ObtenerEventos()
+        {
+            BitacoraDAL dal = new BitacoraDAL();
+            return dal.ObtenerValoresDistintos("Accion", LoginRestringido());
         }
     }
 }

@@ -2,6 +2,7 @@
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,11 +29,24 @@ namespace BLL
             return dal.ObtenerTodos();
         }
 
+        // Guarda y traduce el nombre repetido (restricción UNIQUE de la base) a un error de negocio
+        private static bool Guardar(Func<bool> guardar)
+        {
+            try
+            {
+                return guardar();
+            }
+            catch (SqlException ex) when (ex.Number == 2627 || ex.Number == 2601)
+            {
+                throw new ErrorNegocio("ROL_DUPLICADO");
+            }
+        }
+
         public bool Insertar(Rol r)
         {
             if (string.IsNullOrEmpty(r.Nombre)) return false;
             RolDAL dal = new RolDAL();
-            bool ok = dal.Insertar(r);
+            bool ok = Guardar(() => dal.Insertar(r));
             if (ok)
                 GestorEventosBLL.Instancia.Notificar(
                     SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Admin",
@@ -45,7 +59,7 @@ namespace BLL
         {
             if (string.IsNullOrEmpty(r.Nombre)) return false;
             RolDAL dal = new RolDAL();
-            bool ok = dal.Modificar(r);
+            bool ok = Guardar(() => dal.Modificar(r));
             if (ok)
                 GestorEventosBLL.Instancia.Notificar(
                     SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Admin",

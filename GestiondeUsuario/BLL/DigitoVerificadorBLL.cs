@@ -1,4 +1,5 @@
 ﻿using DAL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -115,6 +116,15 @@ namespace BLL
             }
 
             return true;
+        }
+
+        // Reparación pedida por el Admin desde la pantalla de inconsistencia: recalcula y queda en la bitácora
+        public void RepararInconsistencia()
+        {
+            RecalcularYGuardar();
+            GestorEventosBLL.Instancia.Notificar(
+                SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Admin",
+                "Recálculo de dígito verificador", "Administrador", 5);
         }
 
         public void InicializarSiEsNecesario()

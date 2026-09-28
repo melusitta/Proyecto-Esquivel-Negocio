@@ -74,6 +74,10 @@ namespace BLL
 
         public bool CambiarContraseña(int dni, string contraseñaActual, string nuevaPass)
         {
+            // Política de contraseña segura: la hace cumplir la BLL, sin importar qué pantalla la use
+            if (nuevaPass == null || !Encriptador.ContraseñaSegura(nuevaPass))
+                throw new ErrorNegocio("CONTRASENA_INSEGURA");
+
             UsuarioDAL dal = new UsuarioDAL();
             Usuario usuario = dal.ObtenerPorDNI(dni);
             if (usuario == null) return false;
@@ -97,9 +101,9 @@ namespace BLL
         {
             if (string.IsNullOrEmpty(nuevoUsuario.Nombre)) return false;
             if (string.IsNullOrEmpty(nuevoUsuario.Email)) return false;
-            if (string.IsNullOrEmpty(nuevoUsuario.Contraseña)) return false;
 
-            // Contraseña inicial = solo DNI
+            // Reglas del alta: el nombre de usuario es Apellido + DNI y la contraseña inicial es el DNI
+            nuevoUsuario.NombreUsuario = nuevoUsuario.Apellido + nuevoUsuario.DNI.ToString();
             nuevoUsuario.Contraseña = Encriptador.Encriptar(nuevoUsuario.DNI.ToString());
 
             UsuarioDAL dal = new UsuarioDAL();
@@ -158,7 +162,12 @@ namespace BLL
         public bool Deshabilitar(int id)
         {
             UsuarioDAL dal = new UsuarioDAL();
-            bool ok = dal.Deshabilitar(id);
+            Usuario usuario = dal.ObtenerPorId(id);
+            if (usuario == null) return false;
+
+            // Al deshabilitar se resetea la contraseña al DNI (igual que al habilitar y desbloquear)
+            string passReseteada = Encriptador.Encriptar(usuario.DNI.ToString());
+            bool ok = dal.Deshabilitar(id, passReseteada);
             if (ok)
             {
                 GestorEventosBLL.Instancia.Notificar(
@@ -218,7 +227,12 @@ namespace BLL
         public bool ActualizarIdioma(int id, string idioma)
         {
             UsuarioDAL dal = new UsuarioDAL();
-            return dal.ActualizarIdioma(id, idioma);
+            bool ok = dal.ActualizarIdioma(id, idioma);
+            if (ok)
+                GestorEventosBLL.Instancia.Notificar(
+                    SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Desconocido",
+                    "Cambiar Idioma", "Usuarios", 4);
+            return ok;
         }
     }
 }

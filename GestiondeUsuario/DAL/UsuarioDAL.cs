@@ -99,29 +99,19 @@ namespace DAL
             }
         }
 
-        public bool Deshabilitar(int id)
+        public bool Deshabilitar(int id, string contraseñaReseteada)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // Obtenemos DNI para resetear contraseña
-                string queryDNI = "SELECT DNI FROM Usuarios WHERE Id = @Id";
-                SqlCommand cmdDNI = new SqlCommand(queryDNI, con);
-                cmdDNI.Parameters.AddWithValue("@Id", id);
-                con.Open();
-                object result = cmdDNI.ExecuteScalar();
-                if (result == null) return false;
-                int dni = Convert.ToInt32(result);
-
-                string passReseteada = Servicios.Encriptador.Encriptar(dni.ToString());
-
-                string query = @"UPDATE Usuarios SET 
+                string query = @"UPDATE Usuarios SET
                  Activo = 0,
                  Contraseña = @Contraseña,
                  PrimerIngreso = 1
                  WHERE Id = @Id";
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Contraseña", passReseteada);
+                cmd.Parameters.AddWithValue("@Contraseña", contraseñaReseteada);
                 cmd.Parameters.AddWithValue("@Id", id);
+                con.Open();
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
@@ -218,7 +208,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Email", u.Email);
                 cmd.Parameters.AddWithValue("@Contraseña", u.Contraseña);
                 cmd.Parameters.AddWithValue("@DNI", u.DNI);
-                cmd.Parameters.AddWithValue("@NombreUsuario", u.Apellido + u.DNI.ToString());
+                cmd.Parameters.AddWithValue("@NombreUsuario", u.NombreUsuario);
                 cmd.Parameters.Add("@FechaCreacion", SqlDbType.DateTime).Value = DateTime.UtcNow;
                 cmd.Parameters.AddWithValue("@Activo", true);
                 cmd.Parameters.AddWithValue("@Rol", u.Rol);

@@ -36,13 +36,10 @@ namespace GestiondeUsuario
             {
                 CargarCombos();
 
-                // Si es usuario General bloqueamos login y lo forzamos a ver solo el suyo
-                string rol = SessionManager.Instancia.ObtenerUsuarioActivo()?.Rol ?? "General";
-                if (rol != "Admin")
+                // La regla la aplica la BLL; acá solo se refleja: el combo queda fijo en el propio usuario
+                if (!BitacoraBLL.Instancia.PuedeVerTodaLaBitacora())
                 {
-                    string nombreUsuario = SessionManager.Instancia
-                        .ObtenerUsuarioActivo()?.NombreUsuario ?? "";
-                    cmbLogin.SelectedItem = nombreUsuario;
+                    cmbLogin.SelectedIndex = cmbLogin.Items.Count - 1;
                     cmbLogin.Enabled = false;
                 }
 
@@ -73,51 +70,17 @@ namespace GestiondeUsuario
                 cmbLogin.Items.Add(l);
             cmbLogin.SelectedIndex = 0;
 
-            // Módulo según rol
+            // Módulos y eventos: los que hay registrados (la BLL ya los limita a lo que puede ver el usuario)
             cmbModulo.Items.Clear();
             cmbModulo.Items.Add("");
-            string rol = SessionManager.Instancia.ObtenerUsuarioActivo()?.Rol ?? "General";
-            if (rol == "Admin")
-            {
-                cmbModulo.Items.Add("Administrador");
-                cmbModulo.Items.Add("Usuarios");
-                cmbModulo.Items.Add("Roles");
-                cmbModulo.Items.Add("Familias");
-            }
-            else
-            {
-                cmbModulo.Items.Add("Usuarios");
-            }
+            foreach (var m in BitacoraBLL.Instancia.ObtenerModulos())
+                cmbModulo.Items.Add(m);
             cmbModulo.SelectedIndex = 0;
 
-            // Eventos
             cmbEvento.Items.Clear();
             cmbEvento.Items.Add("");
-            if (rol == "Admin")
-            {
-                cmbEvento.Items.Add("Crear Usuario");
-                cmbEvento.Items.Add("Modificar Usuario");
-                cmbEvento.Items.Add("Deshabilitar Usuario");
-                cmbEvento.Items.Add("Habilitar Usuario");
-                cmbEvento.Items.Add("Desbloquear Usuario");
-                cmbEvento.Items.Add("Crear Rol");
-                cmbEvento.Items.Add("Modificar Rol");
-                cmbEvento.Items.Add("Eliminar Rol");
-                cmbEvento.Items.Add("Crear Familia");
-                cmbEvento.Items.Add("Modificar Familia");
-                cmbEvento.Items.Add("Eliminar Familia");
-                cmbEvento.Items.Add("Agregar Patente a Familia");
-                cmbEvento.Items.Add("Agregar Familia a Familia");
-                cmbEvento.Items.Add("Agregar Patente a Rol");
-                cmbEvento.Items.Add("Agregar Familia a Rol");
-            }
-            cmbEvento.Items.Add("Login");
-            cmbEvento.Items.Add("Logout");
-            cmbEvento.Items.Add("Cambiar Clave");
-            cmbEvento.Items.Add("Login fallido");
-            cmbEvento.Items.Add("Login fallido - usuario no existe");
-            cmbEvento.Items.Add("Intento en cuenta bloqueada");
-            cmbEvento.Items.Add("Cambiar Idioma");
+            foreach (var ev in BitacoraBLL.Instancia.ObtenerEventos())
+                cmbEvento.Items.Add(ev);
             cmbEvento.SelectedIndex = 0;
 
             // Criticidad

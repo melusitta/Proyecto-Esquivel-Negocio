@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -240,13 +239,6 @@ namespace GestiondeUsuario
                     lblModo.Text = GestorIdioma.Instancia.Obtener("FormGestionFamilias", "lblModoInicial");
                 }
             }
-            }
-            catch (SqlException ex) when (ex.Number == 2627)
-            {
-                
-                MessageBox.Show(g.Obtener("FormGestionFamilias", "msgNombreRepetido"),
-                    g.Obtener("FormGestionFamilias", "msgError"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {

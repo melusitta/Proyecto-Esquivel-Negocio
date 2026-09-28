@@ -63,13 +63,6 @@ namespace GestiondeUsuario
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (!Encriptador.ContraseñaSegura(txtNuevaPass.Text))
-            {
-                MessageBox.Show(g.Obtener("FormRecuperar", "msgContraseñaInsegura"),
-                    g.Obtener("FormRecuperar", "msgContraseñaInseguraTitulo"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
             try
             {
                 bool ok = UsuarioBLL.Instancia.CambiarContraseña(
@@ -90,6 +83,12 @@ namespace GestiondeUsuario
                         g.Obtener("FormRecuperar", "msgError"),
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+            catch (ErrorNegocio ex) when (ex.Codigo == "CONTRASENA_INSEGURA")
+            {
+                MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex),
+                    g.Obtener("FormRecuperar", "msgContraseñaInseguraTitulo"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {

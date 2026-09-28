@@ -97,6 +97,29 @@ namespace DAL
             return lista;
         }
 
+        // Valores distintos de una columna (Modulo o Accion), opcionalmente solo de un usuario
+        public List<string> ObtenerValoresDistintos(string columna, string login)
+        {
+            if (columna != "Modulo" && columna != "Accion")
+                throw new ArgumentException("Columna no permitida: " + columna);
+
+            var lista = new List<string>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = "SELECT DISTINCT " + columna + " FROM Bitacora"
+                    + (login != null ? " WHERE Usuario = @Login" : "")
+                    + " ORDER BY " + columna;
+                SqlCommand cmd = new SqlCommand(query, con);
+                if (login != null)
+                    cmd.Parameters.AddWithValue("@Login", login);
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    lista.Add(reader[columna].ToString());
+            }
+            return lista;
+        }
+
         public List<string> ObtenerLogins()
         {
             var lista = new List<string>();

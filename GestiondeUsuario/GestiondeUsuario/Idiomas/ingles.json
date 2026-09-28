@@ -115,7 +115,6 @@
     "msgAtencion": "Attention",
     "msgNoCoinciden": "Passwords do not match.",
     "msgError": "Error",
-    "msgContraseñaInsegura": "Password must have at least 8 characters, including uppercase letters and numbers.",
     "msgContraseñaInseguraTitulo": "Insecure Password",
     "msgExito": "Password updated successfully.",
     "msgExitoTitulo": "Success",
@@ -180,8 +179,7 @@
     "msgCreadaExito": "Family created successfully.",
     "msgModificadaExito": "Family modified successfully.",
     "msgError": "Error",
-    "msgSeleccionarElemento": "Please select an element to add.",
-    "msgNombreRepetido": "A family with that name already exists."
+    "msgSeleccionarElemento": "Please select an element to add."
   },
   "FormGestionRoles": {
     "tituloForm": "Role Management",
@@ -215,7 +213,6 @@
     "msgCreadoExito": "Role created successfully.",
     "msgModificadoExito": "Role modified successfully.",
     "msgError": "Error",
-    "msgNombreRepetido": "A role with that name already exists.",
     "msgSeleccionarElemento": "Please select an element to add."
   },
   "FormCambiarIdioma": {
@@ -554,6 +551,9 @@
     "TARJETA_VENCIMIENTO_INVALIDO": "The expiry date must use the MM/YY format (for example, 08/28).",
     "TARJETA_VENCIDA": "The card has expired.",
     "TARJETA_TITULAR_VACIO": "Enter the cardholder's name.",
-    "PAGO_RECHAZADO": "The bank declined the card payment."
+    "PAGO_RECHAZADO": "The bank declined the card payment.",
+    "CONTRASENA_INSEGURA": "Password must have at least 8 characters, including uppercase letters and numbers.",
+    "FAMILIA_DUPLICADA": "A family with that name already exists.",
+    "ROL_DUPLICADO": "A role with that name already exists."
   }
 }

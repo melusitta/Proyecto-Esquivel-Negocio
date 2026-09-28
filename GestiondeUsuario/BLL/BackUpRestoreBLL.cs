@@ -1,4 +1,5 @@
 ﻿using DAL;
+using Servicios;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,6 +45,9 @@ namespace BLL
         {
             BackUpRestoreDAL dal = new BackUpRestoreDAL();
             dal.RealizarRestore(rutaArchivo);
+            GestorEventosBLL.Instancia.Notificar(
+                SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Admin",
+                "Restore BD", "Administrador", 5);
         }
     }
 }

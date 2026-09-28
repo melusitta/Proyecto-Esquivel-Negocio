@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -232,10 +231,10 @@ namespace GestiondeUsuario
                     }
                 }
             }
-            catch (SqlException ex) when (ex.Number == 2627)
+            catch (Exception ex)
             {
-                MessageBox.Show(g.Obtener("FormGestionRoles", "msgNombreRepetido"),
-                    g.Obtener("FormGestionRoles", "msgError"),
+                // Incluye el nombre repetido (ROL_DUPLICADO), que ahora lo informa la BLL
+                MessageBox.Show(GestorIdioma.Instancia.TraducirError(ex), g.Obtener("FormGestionRoles", "msgError"),
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

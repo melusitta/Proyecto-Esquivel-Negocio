@@ -236,7 +236,6 @@ namespace GestiondeUsuario
                     DNI = dni,
                     Rol = cmbRol.SelectedItem.ToString(),
                     IdRol = rolSeleccionado != null ? rolSeleccionado.Id : 0,
-                    Contraseña = txtApellido.Text + txtDNI.Text,
                     Activo = true,
                     PrimerIngreso = true
                 };
@@ -247,7 +246,7 @@ namespace GestiondeUsuario
                     if (ok)
                     {
                         MessageBox.Show(
-                        g.Obtener("FormGU", "msgUsuarioCreado") + nuevo.Apellido + dni.ToString(),
+                        g.Obtener("FormGU", "msgUsuarioCreado") + nuevo.NombreUsuario,
                         g.Obtener("FormGU", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                        CargarGrilla();
                        LimpiarCampos();

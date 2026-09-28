@@ -63,13 +63,6 @@ namespace GestiondeUsuario
             var usuario = SessionManager.Instancia.ObtenerUsuarioActivo();
             UsuarioBLL.Instancia.ActualizarIdioma(usuario.Id, idioma);
 
-            // Registramos en bitácora
-            GestorEventosBLL.Instancia.Notificar(
-            SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Desconocido",
-            "Cambiar Idioma",  // sin concatenar el idioma
-            "Usuarios",
-            4);
-
             MessageBox.Show(g.Obtener("FormCambiarIdioma", "msgExito") + idioma,
              g.Obtener("FormCambiarIdioma", "msgExitoTitulo"),
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

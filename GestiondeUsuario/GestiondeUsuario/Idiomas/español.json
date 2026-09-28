@@ -115,7 +115,6 @@
     "msgAtencion": "Atención",
     "msgNoCoinciden": "Las contraseñas no coinciden.",
     "msgError": "Error",
-    "msgContraseñaInsegura": "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números.",
     "msgContraseñaInseguraTitulo": "Contraseña insegura",
     "msgExito": "Contraseña actualizada correctamente.",
     "msgExitoTitulo": "Éxito",
@@ -180,8 +179,7 @@
     "msgCreadaExito": "Familia creada exitosamente.",
     "msgModificadaExito": "Familia modificada exitosamente.",
     "msgError": "Error",
-    "msgSeleccionarElemento": "Seleccioná un elemento para agregar.",
-    "msgNombreRepetido": "Ya existe una familia con ese nombre."
+    "msgSeleccionarElemento": "Seleccioná un elemento para agregar."
   },
   "FormGestionRoles": {
     "tituloForm": "Gestión de Roles",
@@ -215,8 +213,7 @@
     "msgCreadoExito": "Rol creado exitosamente.",
     "msgModificadoExito": "Rol modificado exitosamente.",
     "msgError": "Error",
-    "msgSeleccionarElemento": "Seleccioná un elemento para agregar.",
-    "msgNombreRepetido": "Ya existe un rol con ese nombre."
+    "msgSeleccionarElemento": "Seleccioná un elemento para agregar."
   },
   "FormCambiarIdioma": {
     "tituloForm": "Cambiar idioma",
@@ -554,6 +551,9 @@
     "TARJETA_VENCIMIENTO_INVALIDO": "El vencimiento debe tener el formato MM/AA (por ejemplo, 08/28).",
     "TARJETA_VENCIDA": "La tarjeta está vencida.",
     "TARJETA_TITULAR_VACIO": "Ingresá el nombre del titular de la tarjeta.",
-    "PAGO_RECHAZADO": "El banco rechazó el pago con tarjeta."
+    "PAGO_RECHAZADO": "El banco rechazó el pago con tarjeta.",
+    "CONTRASENA_INSEGURA": "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números.",
+    "FAMILIA_DUPLICADA": "Ya existe una familia con ese nombre.",
+    "ROL_DUPLICADO": "Ya existe un rol con ese nombre."
   }
 }

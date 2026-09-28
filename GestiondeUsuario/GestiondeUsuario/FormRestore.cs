@@ -69,9 +69,6 @@ namespace GestiondeUsuario
                 {
                     string rutaCompleta = lstBackups.SelectedItem.ToString();
                     BackUpRestoreBLL.Instancia.RealizarRestore(rutaCompleta);
-                    GestorEventosBLL.Instancia.Notificar(
-                        SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Admin",
-                        "Restore BD", "Administrador", 5);
                     MessageBox.Show(
                         g.Obtener("FormRestore", "msgRestoreOk"),
                         g.Obtener("FormRestore", "msgExito"),

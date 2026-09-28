@@ -53,6 +53,7 @@
     <Compile Include="Producto.cs" />
     <Compile Include="ProductoVendido.cs" />
     <Compile Include="ReporteProductosVendidos.cs" />
+    <Compile Include="Tarjeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

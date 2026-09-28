@@ -105,9 +105,9 @@ namespace BLL
             return dal.ObtenerPorId(idFactura);
         }
 
-        // Pasos 10 a 15: cobra la factura. pagoAcreditado simula la confirmación del banco.
-        // El monto tiene que ser igual al total. Al cobrar se descuenta el stock (todo o nada).
-        public bool Cobrar(int idFactura, decimal monto, string formaPago, bool pagoAcreditado)
+        // Revisa que la factura se pueda cobrar con ese monto y forma de pago (sin cobrarla).
+        // La usa Cobrar y también PagoBLL, antes de pedirle la aprobación al banco.
+        public Factura ValidarCobro(int idFactura, decimal monto, string formaPago)
         {
             Factura factura = ObtenerPorId(idFactura);
             if (factura.Estado == Factura.EstadoPagada)
@@ -116,6 +116,15 @@ namespace BLL
                 throw new ErrorNegocio("FORMA_PAGO_INVALIDA");
             if (monto != factura.Total)
                 throw new ErrorNegocio("MONTO_INCORRECTO", factura.Total.ToString("N2"));
+            return factura;
+        }
+
+        // Pasos 10 a 15: cobra la factura. pagoAcreditado es la confirmación del banco
+        // (con tarjeta la da PagoBLL; con efectivo o transferencia, el cajero).
+        // El monto tiene que ser igual al total. Al cobrar se descuenta el stock (todo o nada).
+        public bool Cobrar(int idFactura, decimal monto, string formaPago, bool pagoAcreditado)
+        {
+            Factura factura = ValidarCobro(idFactura, monto, formaPago);
             if (!pagoAcreditado)
                 throw new ErrorNegocio("PAGO_NO_ACREDITADO");
             ValidarStock(factura.Items.ToArray());

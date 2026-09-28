@@ -401,7 +401,11 @@
     "colPrecio": "Price",
     "colSubtotal": "Subtotal",
     "lblTotal": "Total:",
-    "msgPreguntaImprimir": "Do you want to print the invoice?"
+    "msgPreguntaImprimir": "Do you want to print the invoice?",
+    "lblNumeroTarjeta": "Card number:",
+    "lblVencimiento": "Expiry:",
+    "lblCVV": "CVV:",
+    "lblTitular": "Cardholder:"
   },
   "FormGestionProductos": {
     "tituloForm": "Product Management",
@@ -544,6 +548,12 @@
     "PRODUCTO_DATOS_INCOMPLETOS": "Enter the product's name, brand, color and model.",
     "PRECIO_INVALIDO": "The price must be greater than zero.",
     "EXISTENCIA_INVALIDA": "The stock cannot be negative.",
-    "FECHAS_INVALIDAS": "The \"from\" date cannot be later than the \"to\" date."
+    "FECHAS_INVALIDAS": "The \"from\" date cannot be later than the \"to\" date.",
+    "TARJETA_NUMERO_INVALIDO": "The card number must have exactly 16 digits.",
+    "TARJETA_CVV_INVALIDO": "The CVV must have exactly 3 digits.",
+    "TARJETA_VENCIMIENTO_INVALIDO": "The expiry date must use the MM/YY format (for example, 08/28).",
+    "TARJETA_VENCIDA": "The card has expired.",
+    "TARJETA_TITULAR_VACIO": "Enter the cardholder's name.",
+    "PAGO_RECHAZADO": "The bank declined the card payment."
   }
 }

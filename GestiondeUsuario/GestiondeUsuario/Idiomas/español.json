@@ -401,7 +401,11 @@
     "colPrecio": "Precio",
     "colSubtotal": "Subtotal",
     "lblTotal": "Total:",
-    "msgPreguntaImprimir": "¿Querés imprimir la factura?"
+    "msgPreguntaImprimir": "¿Querés imprimir la factura?",
+    "lblNumeroTarjeta": "N° de tarjeta:",
+    "lblVencimiento": "Vencimiento:",
+    "lblCVV": "CVV:",
+    "lblTitular": "Titular:"
   },
   "FormGestionProductos": {
     "tituloForm": "Gestión de Productos",
@@ -544,6 +548,12 @@
     "PRODUCTO_DATOS_INCOMPLETOS": "Completá nombre, marca, color y modelo del producto.",
     "PRECIO_INVALIDO": "El precio debe ser mayor a cero.",
     "EXISTENCIA_INVALIDA": "La existencia no puede ser negativa.",
-    "FECHAS_INVALIDAS": "La fecha \"desde\" no puede ser posterior a la fecha \"hasta\"."
+    "FECHAS_INVALIDAS": "La fecha \"desde\" no puede ser posterior a la fecha \"hasta\".",
+    "TARJETA_NUMERO_INVALIDO": "El número de tarjeta debe tener exactamente 16 dígitos.",
+    "TARJETA_CVV_INVALIDO": "El CVV debe tener exactamente 3 dígitos.",
+    "TARJETA_VENCIMIENTO_INVALIDO": "El vencimiento debe tener el formato MM/AA (por ejemplo, 08/28).",
+    "TARJETA_VENCIDA": "La tarjeta está vencida.",
+    "TARJETA_TITULAR_VACIO": "Ingresá el nombre del titular de la tarjeta.",
+    "PAGO_RECHAZADO": "El banco rechazó el pago con tarjeta."
   }
 }

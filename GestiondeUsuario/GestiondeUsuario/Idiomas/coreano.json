@@ -401,7 +401,11 @@
     "colPrecio": "가격",
     "colSubtotal": "소계",
     "lblTotal": "합계:",
-    "msgPreguntaImprimir": "청구서를 인쇄하시겠습니까?"
+    "msgPreguntaImprimir": "청구서를 인쇄하시겠습니까?",
+    "lblNumeroTarjeta": "카드 번호:",
+    "lblVencimiento": "유효기간:",
+    "lblCVV": "CVV:",
+    "lblTitular": "카드 소유자:"
   },
   "FormGestionProductos": {
     "tituloForm": "상품 관리",
@@ -544,6 +548,12 @@
     "PRODUCTO_DATOS_INCOMPLETOS": "상품의 이름, 브랜드, 색상, 모델을 입력하세요.",
     "PRECIO_INVALIDO": "가격은 0보다 커야 합니다.",
     "EXISTENCIA_INVALIDA": "재고는 음수가 될 수 없습니다.",
-    "FECHAS_INVALIDAS": "시작 날짜는 종료 날짜보다 늦을 수 없습니다."
+    "FECHAS_INVALIDAS": "시작 날짜는 종료 날짜보다 늦을 수 없습니다.",
+    "TARJETA_NUMERO_INVALIDO": "카드 번호는 정확히 16자리여야 합니다.",
+    "TARJETA_CVV_INVALIDO": "CVV는 정확히 3자리여야 합니다.",
+    "TARJETA_VENCIMIENTO_INVALIDO": "유효기간은 MM/YY 형식이어야 합니다(예: 08/28).",
+    "TARJETA_VENCIDA": "카드가 만료되었습니다.",
+    "TARJETA_TITULAR_VACIO": "카드 소유자 이름을 입력하세요.",
+    "PAGO_RECHAZADO": "은행에서 카드 결제를 거절했습니다."
   }
 }

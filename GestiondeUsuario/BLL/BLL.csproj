@@ -52,6 +52,7 @@
     <Compile Include="FamiliaBLL.cs" />
     <Compile Include="FacturaBLL.cs" />
     <Compile Include="GestorEventosBLL.cs" />
+    <Compile Include="PagoBLL.cs" />
     <Compile Include="PatenteBLL.cs" />
     <Compile Include="PerfilBLL.cs" />
     <Compile Include="ProductoBLL.cs" />

@@ -65,6 +65,9 @@ namespace GestiondeUsuario
         private void FormCobrarVenta_FormClosed(object sender, FormClosedEventArgs e)
         {
             GestorIdioma.Instancia.Desuscribir(this);
+            // Los datos de la tarjeta no se guardan en ningún lado: se borran de la pantalla al cerrar
+            txtNumeroTarjeta.Clear();
+            txtCVV.Clear();
         }
 
         private void MostrarFactura()
@@ -91,7 +94,13 @@ namespace GestiondeUsuario
             string formaPago = (cmbFormaPago.SelectedItem as OpcionPago)?.Codigo ?? "";
             try
             {
-                FacturaBLL.Instancia.Cobrar(_factura.Id, monto, formaPago, chkAcreditado.Checked);
+                // Débito / Crédito: la BLL valida la tarjeta y le pide la aprobación al banco.
+                // Efectivo / Transferencia: el cajero confirma la acreditación a mano, como hasta ahora.
+                bool pagoAcreditado = PagoBLL.EsPagoConTarjeta(formaPago)
+                    ? PagoBLL.Instancia.AutorizarPagoConTarjeta(_factura.Id, monto, formaPago, LeerTarjeta())
+                    : chkAcreditado.Checked;
+
+                FacturaBLL.Instancia.Cobrar(_factura.Id, monto, formaPago, pagoAcreditado);
 
                 // Paso 15: el cajero entrega la factura. Se ofrece imprimirla (ya figura como pagada)
                 DialogResult imprimir = MessageBox.Show(
@@ -108,6 +117,40 @@ namespace GestiondeUsuario
             {
                 MostrarError(ex);
             }
+        }
+
+        // ---------- Pago con tarjeta ----------
+
+        // Con tarjeta se muestran sus datos; con efectivo o transferencia, el tilde de acreditación manual
+        private void cmbFormaPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool tarjeta = PagoBLL.EsPagoConTarjeta((cmbFormaPago.SelectedItem as OpcionPago)?.Codigo);
+            pnlTarjeta.Visible = tarjeta;
+            chkAcreditado.Visible = !tarjeta;
+        }
+
+        // Datos que cargó el cajero; las validaciones las hace PagoBLL
+        private Tarjeta LeerTarjeta()
+        {
+            return new Tarjeta
+            {
+                Numero = txtNumeroTarjeta.Text.Trim(),
+                Vencimiento = txtVencimiento.Text.Trim(),
+                CVV = txtCVV.Text.Trim(),
+                Titular = txtTitular.Text.Trim()
+            };
+        }
+
+        private void txtSoloNumeros_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+                e.Handled = true;
+        }
+
+        private void txtVencimiento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != '/')
+                e.Handled = true;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
@@ -156,6 +199,10 @@ namespace GestiondeUsuario
             lblFormaPago.Text = t["lblFormaPago"]?.ToString();
             lblMonto.Text = t["lblMonto"]?.ToString();
             chkAcreditado.Text = t["chkAcreditado"]?.ToString();
+            lblNumeroTarjeta.Text = t["lblNumeroTarjeta"]?.ToString();
+            lblVencimiento.Text = t["lblVencimiento"]?.ToString();
+            lblCVV.Text = t["lblCVV"]?.ToString();
+            lblTitular.Text = t["lblTitular"]?.ToString();
             btnCobrar.Text = t["btnCobrar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             CargarFormasPago();

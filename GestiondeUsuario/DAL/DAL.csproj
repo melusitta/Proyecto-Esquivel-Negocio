@@ -51,6 +51,7 @@
     <Compile Include="CarritoDAL.cs" />
     <Compile Include="ClienteDAL.cs" />
     <Compile Include="BackUpRestoreDAL.cs" />
+    <Compile Include="BancoDAL.cs" />
     <Compile Include="BitacoraDAL.cs" />
     <Compile Include="ConexionDAL.cs" />
     <Compile Include="DigitoVerificadorDAL.cs" />

@@ -445,7 +445,8 @@
     "msgConfirmar": "Confirm",
     "msgExito": "Success",
     "msgAtencion": "Attention",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnSerializar": "Serialize XML"
   },
   "ImpresionFactura": {
     "titulo": "INVOICE",
@@ -509,6 +510,20 @@
     "msgAtencion": "Attention",
     "msgError": "Error"
   },
+  "FormSerializarProductos": {
+    "tituloForm": "Serialize products",
+    "grpXml": "XML file content",
+    "btnSerializar": "Serialize",
+    "btnDeserializar": "Deserialize",
+    "btnLimpiar": "Clear",
+    "btnVolver": "Back",
+    "lblOrigenBase": "Showing: products from the database",
+    "lblOrigenArchivo": "Showing: content of \"{0}\" (read only, not saved to the database)",
+    "filtroXml": "XML files",
+    "msgSerializado": "{0} products were serialized to \"{1}\".",
+    "msgExito": "Success",
+    "msgError": "Error"
+  },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",
     "PATENTE_YA_EN_ROL": "This patent is already assigned directly to the role.",
@@ -554,6 +569,9 @@
     "PAGO_RECHAZADO": "The bank declined the card payment.",
     "CONTRASENA_INSEGURA": "Password must have at least 8 characters, including uppercase letters and numbers.",
     "FAMILIA_DUPLICADA": "A family with that name already exists.",
-    "ROL_DUPLICADO": "A role with that name already exists."
+    "ROL_DUPLICADO": "A role with that name already exists.",
+    "ARCHIVO_NO_ENCONTRADO": "The file \"{0}\" was not found.",
+    "XML_INVALIDO": "The file \"{0}\" does not have the expected product XML format.",
+    "RUTA_ARCHIVO_VACIA": "Choose a file."
   }
 }

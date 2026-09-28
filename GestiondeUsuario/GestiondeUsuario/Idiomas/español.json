@@ -445,7 +445,8 @@
     "msgConfirmar": "Confirmar",
     "msgExito": "Éxito",
     "msgAtencion": "Atención",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnSerializar": "Serializar XML"
   },
   "ImpresionFactura": {
     "titulo": "FACTURA",
@@ -509,6 +510,20 @@
     "msgAtencion": "Atención",
     "msgError": "Error"
   },
+  "FormSerializarProductos": {
+    "tituloForm": "Serializar productos",
+    "grpXml": "Contenido del archivo XML",
+    "btnSerializar": "Serializar",
+    "btnDeserializar": "Deserializar",
+    "btnLimpiar": "Limpiar",
+    "btnVolver": "Volver",
+    "lblOrigenBase": "Mostrando: productos de la base de datos",
+    "lblOrigenArchivo": "Mostrando: contenido de \"{0}\" (solo lectura, no se guardó en la base de datos)",
+    "filtroXml": "Archivos XML",
+    "msgSerializado": "Se serializaron {0} productos en \"{1}\".",
+    "msgExito": "Éxito",
+    "msgError": "Error"
+  },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",
     "PATENTE_YA_EN_ROL": "Esta patente ya está asignada directamente al rol.",
@@ -554,6 +569,9 @@
     "PAGO_RECHAZADO": "El banco rechazó el pago con tarjeta.",
     "CONTRASENA_INSEGURA": "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas y números.",
     "FAMILIA_DUPLICADA": "Ya existe una familia con ese nombre.",
-    "ROL_DUPLICADO": "Ya existe un rol con ese nombre."
+    "ROL_DUPLICADO": "Ya existe un rol con ese nombre.",
+    "ARCHIVO_NO_ENCONTRADO": "No se encontró el archivo \"{0}\".",
+    "XML_INVALIDO": "El archivo \"{0}\" no tiene el formato XML de productos esperado.",
+    "RUTA_ARCHIVO_VACIA": "Elegí un archivo."
   }
 }

@@ -57,6 +57,7 @@
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
+            this.btnSerializar = new System.Windows.Forms.Button();
             this.grpFiltro.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCodigo)).BeginInit();
@@ -396,12 +397,25 @@
             this.btnVolver.TabIndex = 28;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
+            // btnSerializar
+            // 
+            this.btnSerializar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.btnSerializar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSerializar.Location = new System.Drawing.Point(500, 546);
+            this.btnSerializar.Size = new System.Drawing.Size(190, 38);
+            this.btnSerializar.Text = "Serializar XML";
+            this.btnSerializar.UseVisualStyleBackColor = true;
+            this.btnSerializar.Name = "btnSerializar";
+            this.btnSerializar.TabIndex = 29;
+            this.btnSerializar.Click += new System.EventHandler(this.btnSerializar_Click);
+            // 
             // FormGestionProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(900, 610);
             this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.btnSerializar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAplicar);
             this.Controls.Add(this.btnBaja);
@@ -474,5 +488,6 @@
         private System.Windows.Forms.Button btnAplicar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnVolver;
+        private System.Windows.Forms.Button btnSerializar;
     }
 }

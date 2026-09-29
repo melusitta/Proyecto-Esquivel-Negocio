@@ -482,3 +482,6 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+
+# Scripts SQL: se guardan solo localmente
+Scripts/*.sql

@@ -48,7 +48,7 @@
     "generarFactura": "Generate invoice",
     "gestionProductos": "Product management",
     "productosMasVendidos": "Best-selling products",
-    "registrarCliente": "Register customer"
+    "gestionClientes": "Customer management"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -390,7 +390,8 @@
     "colDireccion": "Address",
     "colLocalidad": "City",
     "colCodigoPostal": "ZIP",
-    "colFechaAlta": "Since"
+    "colFechaAlta": "Since",
+    "tituloGestion": "Customer management"
   },
   "FormCobrarVenta": {
     "tituloForm": "Charge sale",

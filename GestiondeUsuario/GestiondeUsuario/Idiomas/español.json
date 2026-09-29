@@ -48,7 +48,7 @@
     "generarFactura": "Generar factura",
     "gestionProductos": "Gestión de productos",
     "productosMasVendidos": "Productos más vendidos",
-    "registrarCliente": "Registrar cliente"
+    "gestionClientes": "Gestión de clientes"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -390,7 +390,8 @@
     "colDireccion": "Dirección",
     "colLocalidad": "Localidad",
     "colCodigoPostal": "CP",
-    "colFechaAlta": "Alta"
+    "colFechaAlta": "Alta",
+    "tituloGestion": "Gestión de clientes"
   },
   "FormCobrarVenta": {
     "tituloForm": "Cobrar venta",

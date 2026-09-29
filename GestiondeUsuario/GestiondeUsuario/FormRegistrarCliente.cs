@@ -9,8 +9,8 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CU04 Registrar cliente. Se abre desde Maestro (con la lista de clientes y la serialización XML, A03)
-    // o como diálogo desde Generar factura con el DNI que buscó el cajero.
+    // Desde Maestro es "Gestión de clientes": lista de clientes, alta y serialización XML (A03).
+    // Desde Generar factura es "Registrar cliente": diálogo del cajero con el DNI que buscó.
     public partial class FormRegistrarCliente : Form, IObservadorIdioma
     {
         private readonly int _dni;
@@ -219,8 +219,9 @@ namespace GestiondeUsuario
             var t = traducciones["FormRegistrarCliente"];
             if (t == null) return;
 
-            this.Text = t["tituloForm"]?.ToString();
-            lblTitulo.Text = t["tituloForm"]?.ToString();
+            string titulo = (_desdeFactura ? t["tituloForm"] : t["tituloGestion"])?.ToString();
+            this.Text = titulo;
+            lblTitulo.Text = titulo;
             lblDatos.Text = t["lblDatos"]?.ToString();
             lblDNI.Text = t["lblDNI"]?.ToString();
             lblNombre.Text = t["lblNombre"]?.ToString();

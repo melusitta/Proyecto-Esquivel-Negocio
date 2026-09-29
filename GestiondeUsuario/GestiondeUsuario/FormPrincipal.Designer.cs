@@ -45,7 +45,7 @@
             this.gestionRespaldoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMaestro = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrarClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarCarritoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -175,7 +175,7 @@
             // 
             this.menuMaestro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestionProductosToolStripMenuItem,
-            this.registrarClienteToolStripMenuItem});
+            this.gestionClientesToolStripMenuItem});
             this.menuMaestro.Name = "menuMaestro";
             this.menuMaestro.Size = new System.Drawing.Size(60, 19);
             this.menuMaestro.Text = "Maestro";
@@ -187,12 +187,12 @@
             this.gestionProductosToolStripMenuItem.Text = "Gestión de productos";
             this.gestionProductosToolStripMenuItem.Click += new System.EventHandler(this.gestionProductosToolStripMenuItem_Click);
             // 
-            // registrarClienteToolStripMenuItem
+            // gestionClientesToolStripMenuItem
             // 
-            this.registrarClienteToolStripMenuItem.Name = "registrarClienteToolStripMenuItem";
-            this.registrarClienteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.registrarClienteToolStripMenuItem.Text = "Registrar cliente";
-            this.registrarClienteToolStripMenuItem.Click += new System.EventHandler(this.registrarClienteToolStripMenuItem_Click);
+            this.gestionClientesToolStripMenuItem.Name = "gestionClientesToolStripMenuItem";
+            this.gestionClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gestionClientesToolStripMenuItem.Text = "Gestión de clientes";
+            this.gestionClientesToolStripMenuItem.Click += new System.EventHandler(this.gestionClientesToolStripMenuItem_Click);
             // 
             // menuVenta
             // 
@@ -296,7 +296,7 @@
         private System.Windows.Forms.ToolStripMenuItem bitacoraEventosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuMaestro;
         private System.Windows.Forms.ToolStripMenuItem gestionProductosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem registrarClienteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestionClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuVenta;
         private System.Windows.Forms.ToolStripMenuItem cargarCarritoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarFacturaToolStripMenuItem;

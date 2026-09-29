@@ -48,7 +48,7 @@
     "generarFactura": "청구서 발행",
     "gestionProductos": "상품 관리",
     "productosMasVendidos": "가장 많이 팔린 상품",
-    "registrarCliente": "고객 등록"
+    "gestionClientes": "고객 관리"
   },
   "FormGU": {
     "tituloForm": "사용자 관리",
@@ -390,7 +390,8 @@
     "colDireccion": "주소",
     "colLocalidad": "도시",
     "colCodigoPostal": "우편번호",
-    "colFechaAlta": "등록일"
+    "colFechaAlta": "등록일",
+    "tituloGestion": "고객 관리"
   },
   "FormCobrarVenta": {
     "tituloForm": "판매 결제",

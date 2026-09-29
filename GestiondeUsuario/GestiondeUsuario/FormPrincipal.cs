@@ -53,7 +53,7 @@ namespace GestiondeUsuario
             PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
 
             gestionProductosToolStripMenuItem.Enabled = tieneGestionProductos;
-            registrarClienteToolStripMenuItem.Enabled = tieneFacturar;   // CU04 Registrar cliente: Administrador y Cajero
+            gestionClientesToolStripMenuItem.Enabled = tieneFacturar;   // Gestión de clientes: Administrador y Cajero
             menuMaestro.Enabled = tieneMaestro || tieneGestionProductos || tieneFacturar;
             // PN1: el Vendedor carga el carrito y el Cajero factura y cobra
             cargarCarritoToolStripMenuItem.Enabled = tieneCargarCarrito;
@@ -136,7 +136,7 @@ namespace GestiondeUsuario
             this.Hide();
         }
 
-        private void registrarClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void gestionClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormRegistrarCliente().Show();
             this.Hide();
@@ -181,7 +181,7 @@ namespace GestiondeUsuario
             menuAdmin.Text = t["menuAdmin"]?.ToString();
             menuMaestro.Text = t["menuMaestro"]?.ToString();
             gestionProductosToolStripMenuItem.Text = t["gestionProductos"]?.ToString();
-            registrarClienteToolStripMenuItem.Text = t["registrarCliente"]?.ToString();
+            gestionClientesToolStripMenuItem.Text = t["gestionClientes"]?.ToString();
             menuVenta.Text = t["menuVenta"]?.ToString();
             cargarCarritoToolStripMenuItem.Text = t["cargarCarrito"]?.ToString();
             generarFacturaToolStripMenuItem.Text = t["generarFactura"]?.ToString();

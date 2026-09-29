@@ -44,9 +44,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BE\BE.csproj">
+    <ProjectReference Include="..\BEME40\BEME40.csproj">
       <Project>{c6511024-b170-4940-93e1-db812ad2c5b5}</Project>
-      <Name>BE</Name>
+      <Name>BEME40</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

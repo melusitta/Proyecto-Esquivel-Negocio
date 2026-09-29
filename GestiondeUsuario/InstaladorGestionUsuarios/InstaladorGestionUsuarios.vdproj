@@ -408,7 +408,7 @@
         {
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_12AAED90B6214BA0954D214731BFEF6D"
             {
-            "SourcePath" = "8:..\\GestiondeUsuario\\Idiomas\\español.json"
+            "SourcePath" = "8:..\\UIME40\\Idiomas\\español.json"
             "TargetName" = "8:español.json"
             "Tag" = "8:"
             "Folder" = "8:_BA2937EC6E604586ABEDF2424AE91F0D"
@@ -455,11 +455,11 @@
                 {
                     "_326CC4933F6FDF56032C7952C8D503C8"
                     {
-                    "Name" = "8:Servicios.dll"
+                    "Name" = "8:ServiciosME40.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:Servicios.dll"
+            "SourcePath" = "8:ServiciosME40.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F65AB9C9D4F2472893242AACB64B7AAD"
@@ -517,11 +517,11 @@
                 {
                     "_57934998748CE53400F05356F586F670"
                     {
-                    "Name" = "8:BE.dll"
+                    "Name" = "8:BEME40.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:BE.dll"
+            "SourcePath" = "8:BEME40.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F65AB9C9D4F2472893242AACB64B7AAD"
@@ -579,11 +579,11 @@
                 {
                     "_90C5ABEBA0B26B307F65B427D466F6B3"
                     {
-                    "Name" = "8:DAL.dll"
+                    "Name" = "8:DALME40.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:DAL.dll"
+            "SourcePath" = "8:DALME40.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F65AB9C9D4F2472893242AACB64B7AAD"
@@ -610,11 +610,11 @@
                 {
                     "_A551E0D7D8A813FC329CD6F0A12570FA"
                     {
-                    "Name" = "8:BLL.dll"
+                    "Name" = "8:BLLME40.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:BLL.dll"
+            "SourcePath" = "8:BLLME40.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F65AB9C9D4F2472893242AACB64B7AAD"
@@ -703,11 +703,11 @@
                 {
                     "_DD13AB395F80E5CD232B4C489DCFEBE6"
                     {
-                    "Name" = "8:DAL.dll"
+                    "Name" = "8:DALME40.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:DAL.dll"
+            "SourcePath" = "8:DALME40.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F65AB9C9D4F2472893242AACB64B7AAD"
@@ -727,7 +727,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F8C4D163603F4E798BB3BC0FEB1A0E63"
             {
-            "SourcePath" = "8:..\\GestiondeUsuario\\Idiomas\\coreano.json"
+            "SourcePath" = "8:..\\UIME40\\Idiomas\\coreano.json"
             "TargetName" = "8:coreano.json"
             "Tag" = "8:"
             "Folder" = "8:_BA2937EC6E604586ABEDF2424AE91F0D"
@@ -747,7 +747,7 @@
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_FCFBB429E2F34AB895546B60D5B1AB13"
             {
-            "SourcePath" = "8:..\\GestiondeUsuario\\Idiomas\\ingles.json"
+            "SourcePath" = "8:..\\UIME40\\Idiomas\\ingles.json"
             "TargetName" = "8:ingles.json"
             "Tag" = "8:"
             "Folder" = "8:_BA2937EC6E604586ABEDF2424AE91F0D"
@@ -1354,7 +1354,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_0124B4050B584B39B1C795611067303A"
             {
-            "SourcePath" = "8:..\\GestiondeUsuario\\obj\\Debug\\GestiondeUsuario.exe"
+            "SourcePath" = "8:..\\UIME40\\obj\\Debug\\GestionNegocio.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F65AB9C9D4F2472893242AACB64B7AAD"

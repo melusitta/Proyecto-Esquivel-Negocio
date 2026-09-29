@@ -77,7 +77,7 @@ namespace InstaladorDB
                     Console.WriteLine("Base de datos creada exitosamente, sin errores.");
                 }
 
-                Console.WriteLine("\nIMPORTANTE: usá esta connection string en GestiondeUsuario.exe.config:");
+                Console.WriteLine("\nIMPORTANTE: usá esta connection string en GestionNegocio.exe.config:");
                 Console.WriteLine(connStr.Replace("Initial Catalog=master", "Initial Catalog=GestionUsuarios"));
             }
             catch (Exception ex)

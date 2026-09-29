@@ -7,7 +7,7 @@
     <ProjectGuid>{B4C1F45D-5B32-4035-9257-B3C6E479AD2C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>GestiondeUsuario</RootNamespace>
-    <AssemblyName>GestiondeUsuario</AssemblyName>
+    <AssemblyName>GestionNegocio</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -264,17 +264,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BE\BE.csproj">
+    <ProjectReference Include="..\BEME40\BEME40.csproj">
       <Project>{c6511024-b170-4940-93e1-db812ad2c5b5}</Project>
-      <Name>BE</Name>
+      <Name>BEME40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BLL\BLL.csproj">
+    <ProjectReference Include="..\BLLME40\BLLME40.csproj">
       <Project>{e1c3eaf6-2a3b-4adb-b406-1bfd3139c450}</Project>
-      <Name>BLL</Name>
+      <Name>BLLME40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Servicios\Servicios.csproj">
+    <ProjectReference Include="..\ServiciosME40\ServiciosME40.csproj">
       <Project>{62d7ff82-53e7-41c4-bfdc-3eb3c51fc1d9}</Project>
-      <Name>Servicios</Name>
+      <Name>ServiciosME40</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

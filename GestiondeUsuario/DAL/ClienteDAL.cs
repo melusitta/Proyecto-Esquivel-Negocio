@@ -1,5 +1,6 @@
 ﻿using BE;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace DAL
@@ -39,6 +40,21 @@ namespace DAL
                     cliente = MapearCliente(reader);
             }
             return cliente;
+        }
+
+        public List<Cliente> ObtenerTodos()
+        {
+            var lista = new List<Cliente>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Cliente ORDER BY Apellido, Nombre";
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    lista.Add(MapearCliente(reader));
+            }
+            return lista;
         }
 
         public bool Insertar(Cliente c)

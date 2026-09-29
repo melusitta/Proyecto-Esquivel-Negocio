@@ -47,7 +47,8 @@
     "msgSesionActivaTitulo": "Sesión activa",
     "generarFactura": "Generar factura",
     "gestionProductos": "Gestión de productos",
-    "productosMasVendidos": "Productos más vendidos"
+    "productosMasVendidos": "Productos más vendidos",
+    "registrarCliente": "Registrar cliente"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -372,7 +373,24 @@
     "msgExito": "Éxito",
     "msgAtencion": "Atención",
     "msgError": "Error",
-    "btnVolver": "Volver"
+    "btnVolver": "Volver",
+    "lblDatos": "Datos del cliente",
+    "lblClientes": "Clientes registrados (seleccioná los que querés serializar)",
+    "lblDeserializado": "Archivo deserializado",
+    "btnSerializar": "Serializar",
+    "btnDeserializar": "Deserializar",
+    "filtroXml": "Archivos XML",
+    "msgSerializado": "Serialización realizada con éxito.",
+    "msgArchivoVacio": "(el archivo no tiene clientes)",
+    "colDNI": "DNI",
+    "colNombre": "Nombre",
+    "colApellido": "Apellido",
+    "colTelefono": "Teléfono",
+    "colEmail": "Email",
+    "colDireccion": "Dirección",
+    "colLocalidad": "Localidad",
+    "colCodigoPostal": "CP",
+    "colFechaAlta": "Alta"
   },
   "FormCobrarVenta": {
     "tituloForm": "Cobrar venta",
@@ -571,8 +589,9 @@
     "FAMILIA_DUPLICADA": "Ya existe una familia con ese nombre.",
     "ROL_DUPLICADO": "Ya existe un rol con ese nombre.",
     "ARCHIVO_NO_ENCONTRADO": "No se encontró el archivo \"{0}\".",
-    "XML_INVALIDO": "El archivo \"{0}\" no tiene el formato XML de productos esperado.",
+    "XML_INVALIDO": "El archivo \"{0}\" no tiene el formato XML esperado.",
     "RUTA_ARCHIVO_VACIA": "Elegí un archivo.",
-    "FECHA_FUTURA": "No se pueden elegir fechas futuras: la fecha máxima es hoy."
+    "FECHA_FUTURA": "No se pueden elegir fechas futuras: la fecha máxima es hoy.",
+    "SIN_CLIENTES_SELECCIONADOS": "Seleccioná en la grilla al menos un cliente para serializar."
   }
 }

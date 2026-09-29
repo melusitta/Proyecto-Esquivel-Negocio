@@ -47,7 +47,8 @@
     "msgSesionActivaTitulo": "활성 세션",
     "generarFactura": "청구서 발행",
     "gestionProductos": "상품 관리",
-    "productosMasVendidos": "가장 많이 팔린 상품"
+    "productosMasVendidos": "가장 많이 팔린 상품",
+    "registrarCliente": "고객 등록"
   },
   "FormGU": {
     "tituloForm": "사용자 관리",
@@ -372,7 +373,24 @@
     "msgExito": "성공",
     "msgAtencion": "주의",
     "msgError": "오류",
-    "btnVolver": "뒤로"
+    "btnVolver": "뒤로",
+    "lblDatos": "고객 정보",
+    "lblClientes": "등록된 고객 (직렬화할 고객을 선택하세요)",
+    "lblDeserializado": "역직렬화된 파일",
+    "btnSerializar": "직렬화",
+    "btnDeserializar": "역직렬화",
+    "filtroXml": "XML 파일",
+    "msgSerializado": "직렬화가 완료되었습니다.",
+    "msgArchivoVacio": "(파일에 고객이 없습니다)",
+    "colDNI": "신분증",
+    "colNombre": "이름",
+    "colApellido": "성",
+    "colTelefono": "전화",
+    "colEmail": "이메일",
+    "colDireccion": "주소",
+    "colLocalidad": "도시",
+    "colCodigoPostal": "우편번호",
+    "colFechaAlta": "등록일"
   },
   "FormCobrarVenta": {
     "tituloForm": "판매 결제",
@@ -571,8 +589,9 @@
     "FAMILIA_DUPLICADA": "같은 이름의 가족이 이미 존재합니다.",
     "ROL_DUPLICADO": "같은 이름의 역할이 이미 존재합니다.",
     "ARCHIVO_NO_ENCONTRADO": "\"{0}\" 파일을 찾을 수 없습니다.",
-    "XML_INVALIDO": "\"{0}\" 파일이 예상한 상품 XML 형식이 아닙니다.",
+    "XML_INVALIDO": "\"{0}\" 파일이 예상한 XML 형식이 아닙니다.",
     "RUTA_ARCHIVO_VACIA": "파일을 선택하세요.",
-    "FECHA_FUTURA": "미래 날짜는 선택할 수 없습니다. 최대 날짜는 오늘입니다."
+    "FECHA_FUTURA": "미래 날짜는 선택할 수 없습니다. 최대 날짜는 오늘입니다.",
+    "SIN_CLIENTES_SELECCIONADOS": "직렬화할 고객을 표에서 한 명 이상 선택하세요."
   }
 }

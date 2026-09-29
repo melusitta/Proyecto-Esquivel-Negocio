@@ -1,6 +1,7 @@
 ﻿using BE;
 using DAL;
 using Servicios;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 
@@ -73,6 +74,44 @@ namespace BLL
                     throw new ErrorNegocio("CLIENTE_DUPLICADO", c.DNI);
                 throw;
             }
+        }
+
+        public List<Cliente> ObtenerTodos()
+        {
+            ClienteDAL dal = new ClienteDAL();
+            return dal.ObtenerTodos();
+        }
+
+        // ---------- A03 Serialización XML (CU04 Registrar cliente) ----------
+
+        private const string RaizXml = "Clientes";
+
+        // Guarda en el archivo los clientes que el usuario seleccionó en la grilla
+        public void Serializar(List<Cliente> seleccionados, string ruta)
+        {
+            if (seleccionados == null || seleccionados.Count == 0)
+                throw new ErrorNegocio("SIN_CLIENTES_SELECCIONADOS");
+            if (string.IsNullOrWhiteSpace(ruta))
+                throw new ErrorNegocio("RUTA_ARCHIVO_VACIA");
+            Serializador.SerializarXml(seleccionados, ruta, RaizXml);
+            Notificar("Serializar clientes", 1);
+        }
+
+        // Solo lee el archivo y devuelve los clientes para mostrarlos: NO se guarda nada en la base
+        public List<Cliente> Deserializar(string ruta)
+        {
+            if (string.IsNullOrWhiteSpace(ruta))
+                throw new ErrorNegocio("RUTA_ARCHIVO_VACIA");
+            List<Cliente> clientes = Serializador.DeserializarXml<List<Cliente>>(ruta, RaizXml);
+            Notificar("Deserializar clientes", 1);
+            return clientes ?? new List<Cliente>();
+        }
+
+        private void Notificar(string accion, int criticidad)
+        {
+            GestorEventosBLL.Instancia.Notificar(
+                SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Desconocido",
+                accion, "Ventas", criticidad);
         }
 
         // DNI argentino: número positivo de hasta 8 dígitos

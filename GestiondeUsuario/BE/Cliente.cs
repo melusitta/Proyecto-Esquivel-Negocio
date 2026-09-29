@@ -19,5 +19,11 @@ namespace BE
         {
             get { return Nombre + " " + Apellido; }
         }
+
+        public override string ToString()
+        {
+            return "DNI " + DNI + " - " + Apellido + ", " + Nombre + " - " + Email + " - " + Telefono +
+                   " - " + Direccion + ", " + Localidad + " (" + CodigoPostal + ")";
+        }
     }
 }

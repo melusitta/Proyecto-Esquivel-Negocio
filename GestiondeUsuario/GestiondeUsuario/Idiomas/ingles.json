@@ -47,7 +47,8 @@
     "msgSesionActivaTitulo": "Active session",
     "generarFactura": "Generate invoice",
     "gestionProductos": "Product management",
-    "productosMasVendidos": "Best-selling products"
+    "productosMasVendidos": "Best-selling products",
+    "registrarCliente": "Register customer"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -372,7 +373,24 @@
     "msgExito": "Success",
     "msgAtencion": "Attention",
     "msgError": "Error",
-    "btnVolver": "Back"
+    "btnVolver": "Back",
+    "lblDatos": "Customer details",
+    "lblClientes": "Registered customers (select the ones you want to serialize)",
+    "lblDeserializado": "Deserialized file",
+    "btnSerializar": "Serialize",
+    "btnDeserializar": "Deserialize",
+    "filtroXml": "XML files",
+    "msgSerializado": "Serialization completed successfully.",
+    "msgArchivoVacio": "(the file has no customers)",
+    "colDNI": "ID",
+    "colNombre": "First name",
+    "colApellido": "Last name",
+    "colTelefono": "Phone",
+    "colEmail": "Email",
+    "colDireccion": "Address",
+    "colLocalidad": "City",
+    "colCodigoPostal": "ZIP",
+    "colFechaAlta": "Since"
   },
   "FormCobrarVenta": {
     "tituloForm": "Charge sale",
@@ -571,8 +589,9 @@
     "FAMILIA_DUPLICADA": "A family with that name already exists.",
     "ROL_DUPLICADO": "A role with that name already exists.",
     "ARCHIVO_NO_ENCONTRADO": "The file \"{0}\" was not found.",
-    "XML_INVALIDO": "The file \"{0}\" does not have the expected product XML format.",
+    "XML_INVALIDO": "The file \"{0}\" does not have the expected XML format.",
     "RUTA_ARCHIVO_VACIA": "Choose a file.",
-    "FECHA_FUTURA": "Future dates are not allowed: the latest date is today."
+    "FECHA_FUTURA": "Future dates are not allowed: the latest date is today.",
+    "SIN_CLIENTES_SELECCIONADOS": "Select at least one customer in the grid to serialize."
   }
 }

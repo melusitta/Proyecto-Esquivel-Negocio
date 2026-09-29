@@ -44,6 +44,12 @@ namespace BLL
             if (restringido != null)
                 login = restringido;
 
+            if ((fechaIni.HasValue && fechaIni.Value.Date > DateTime.Today) ||
+                (fechaFin.HasValue && fechaFin.Value.Date > DateTime.Today))
+                throw new ErrorNegocio("FECHA_FUTURA");
+            if (fechaIni.HasValue && fechaFin.HasValue && fechaIni.Value.Date > fechaFin.Value.Date)
+                throw new ErrorNegocio("FECHAS_INVALIDAS");
+
             BitacoraDAL dal = new BitacoraDAL();
             return dal.ObtenerFiltrado(login, fechaIni, fechaFin, modulo, evento, criticidad);
         }

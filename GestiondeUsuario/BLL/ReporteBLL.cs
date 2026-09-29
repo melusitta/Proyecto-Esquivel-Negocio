@@ -45,6 +45,9 @@ namespace BLL
                 default:
                     throw new ArgumentException("El período personalizado no tiene fechas fijas");
             }
+            // Período en curso: se consulta hasta hoy. Si todavía no empezó, queda en el futuro y el reporte lo rechaza.
+            if (desde <= DateTime.Today && hasta > DateTime.Today)
+                hasta = DateTime.Today;
         }
 
         // Tercer domingo de agosto
@@ -62,6 +65,8 @@ namespace BLL
         {
             desde = desde.Date;
             hasta = hasta.Date;
+            if (desde > DateTime.Today || hasta > DateTime.Today)
+                throw new ErrorNegocio("FECHA_FUTURA");
             if (desde > hasta)
                 throw new ErrorNegocio("FECHAS_INVALIDAS");
 

@@ -28,12 +28,9 @@ namespace BLL
             UsuarioDAL dal = new UsuarioDAL();
             Usuario usuario = dal.ObtenerPorNombreUsuario(nombreUsuario);
 
+            // Usuario inexistente: no se registra en la bitácora (solo se auditan usuarios reales)
             if (usuario == null)
-            {
-                GestorEventosBLL.Instancia.Notificar(nombreUsuario,
-                    "Login fallido - usuario no existe", "Usuarios", 1);
                 return false;
-            }
 
             if (usuario.Bloqueado)
             {

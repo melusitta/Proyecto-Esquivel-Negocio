@@ -572,6 +572,7 @@
     "ROL_DUPLICADO": "A role with that name already exists.",
     "ARCHIVO_NO_ENCONTRADO": "The file \"{0}\" was not found.",
     "XML_INVALIDO": "The file \"{0}\" does not have the expected product XML format.",
-    "RUTA_ARCHIVO_VACIA": "Choose a file."
+    "RUTA_ARCHIVO_VACIA": "Choose a file.",
+    "FECHA_FUTURA": "Future dates are not allowed: the latest date is today."
   }
 }

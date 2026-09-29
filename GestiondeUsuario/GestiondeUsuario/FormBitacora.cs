@@ -178,16 +178,15 @@ namespace GestiondeUsuario
         private void btnAplicar_Click(object sender, EventArgs e)
         {
             var g = GestorIdioma.Instancia;
-            if (dtpFechaIni.Checked && dtpFechaFin.Checked)
+            try
             {
-                if (dtpFechaIni.Value.Date > dtpFechaFin.Value.Date)
-                {
-                    MessageBox.Show(g.Obtener("FormBitacora", "msgFechasInvalidas"),
-                    g.Obtener("FormBitacora", "msgFechasInvalidasTitulo"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                CargarGrilla();   // la BLL valida las fechas (futuras o desde > hasta)
             }
-            CargarGrilla();
+            catch (Exception ex)
+            {
+                MessageBox.Show(g.TraducirError(ex), g.Obtener("FormBitacora", "msgFechasInvalidasTitulo"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnSalir_Click(object sender, EventArgs e)

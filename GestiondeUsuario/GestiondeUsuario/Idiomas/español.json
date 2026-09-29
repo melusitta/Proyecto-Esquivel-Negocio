@@ -572,6 +572,7 @@
     "ROL_DUPLICADO": "Ya existe un rol con ese nombre.",
     "ARCHIVO_NO_ENCONTRADO": "No se encontró el archivo \"{0}\".",
     "XML_INVALIDO": "El archivo \"{0}\" no tiene el formato XML de productos esperado.",
-    "RUTA_ARCHIVO_VACIA": "Elegí un archivo."
+    "RUTA_ARCHIVO_VACIA": "Elegí un archivo.",
+    "FECHA_FUTURA": "No se pueden elegir fechas futuras: la fecha máxima es hoy."
   }
 }

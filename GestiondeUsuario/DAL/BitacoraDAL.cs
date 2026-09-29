@@ -125,7 +125,8 @@ namespace DAL
             var lista = new List<string>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT DISTINCT Usuario FROM Bitacora ORDER BY Usuario";
+                string query = @"SELECT DISTINCT b.Usuario FROM Bitacora b
+                    JOIN Usuarios u ON u.NombreUsuario = b.Usuario ORDER BY b.Usuario";
                 SqlCommand cmd = new SqlCommand(query, con);
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();

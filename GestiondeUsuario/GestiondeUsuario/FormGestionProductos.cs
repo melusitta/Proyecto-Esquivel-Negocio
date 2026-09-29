@@ -258,13 +258,6 @@ namespace GestiondeUsuario
             return false;
         }
 
-        // Serializar / deserializar productos en XML (pantalla propia del caso de uso)
-        private void btnSerializar_Click(object sender, EventArgs e)
-        {
-            new FormSerializarProductos().Show();
-            this.Close();
-        }
-
         private void btnVolver_Click(object sender, EventArgs e)
         {
             new FormPrincipal().Show();
@@ -317,7 +310,6 @@ namespace GestiondeUsuario
             btnAplicar.Text = t["btnAplicar"]?.ToString();
             btnCancelar.Text = t["btnCancelar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
-            btnSerializar.Text = t["btnSerializar"]?.ToString();
             ActualizarBotonBaja(ProductoSeleccionado());
             TraducirColumnas();
             MostrarModo();

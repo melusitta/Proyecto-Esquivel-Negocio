@@ -464,8 +464,7 @@
     "msgConfirmar": "Confirm",
     "msgExito": "Success",
     "msgAtencion": "Attention",
-    "msgError": "Error",
-    "btnSerializar": "Serialize XML"
+    "msgError": "Error"
   },
   "ImpresionFactura": {
     "titulo": "INVOICE",
@@ -527,20 +526,6 @@
     "ejeMonto": "Amount ($)",
     "msgGenerarPrimero": "Generate the report before printing it.",
     "msgAtencion": "Attention",
-    "msgError": "Error"
-  },
-  "FormSerializarProductos": {
-    "tituloForm": "Serialize products",
-    "grpXml": "XML file content",
-    "btnSerializar": "Serialize",
-    "btnDeserializar": "Deserialize",
-    "btnLimpiar": "Clear",
-    "btnVolver": "Back",
-    "lblOrigenBase": "Showing: products from the database",
-    "lblOrigenArchivo": "Showing: content of \"{0}\" (read only, not saved to the database)",
-    "filtroXml": "XML files",
-    "msgSerializado": "{0} products were serialized to \"{1}\".",
-    "msgExito": "Success",
     "msgError": "Error"
   },
   "Errores": {

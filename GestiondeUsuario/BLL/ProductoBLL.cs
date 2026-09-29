@@ -112,32 +112,6 @@ namespace BLL
             return ok;
         }
 
-        // ---------- Serialización XML (menú Maestro) ----------
-
-        private const string RaizXml = "Productos";
-
-        // Guarda en el archivo todos los productos de la base (activos e inactivos). Devuelve cuántos se serializaron.
-        public int Serializar(string ruta)
-        {
-            if (string.IsNullOrWhiteSpace(ruta))
-                throw new ErrorNegocio("RUTA_ARCHIVO_VACIA");
-            ProductoDAL dal = new ProductoDAL();
-            List<Producto> productos = dal.ObtenerTodos();
-            Serializador.SerializarXml(productos, ruta, RaizXml);
-            Notificar("Serializar Productos", 1);
-            return productos.Count;
-        }
-
-        // Solo lee el archivo y devuelve lo que contiene para mostrarlo: NO se guarda nada en la base.
-        public List<Producto> Deserializar(string ruta)
-        {
-            if (string.IsNullOrWhiteSpace(ruta))
-                throw new ErrorNegocio("RUTA_ARCHIVO_VACIA");
-            List<Producto> productos = Serializador.DeserializarXml<List<Producto>>(ruta, RaizXml);
-            Notificar("Deserializar Productos", 1);
-            return productos ?? new List<Producto>();
-        }
-
         private void Validar(Producto p)
         {
             if (p.CodigoProducto <= 0)
@@ -156,18 +130,12 @@ namespace BLL
             p.Modelo = p.Modelo.Trim();
         }
 
-        // Para cambios en la tabla Producto: bitácora y recálculo del dígito verificador
         private void Registrar(string accion, int criticidad)
-        {
-            Notificar(accion, criticidad);
-            DigitoVerificadorBLL.Instancia.RecalcularYGuardar();
-        }
-
-        private void Notificar(string accion, int criticidad)
         {
             GestorEventosBLL.Instancia.Notificar(
                 SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Desconocido",
                 accion, "Productos", criticidad);
+            DigitoVerificadorBLL.Instancia.RecalcularYGuardar();
         }
 
         // Características del producto (nombre, marca, color, modelo, precio y existencia)

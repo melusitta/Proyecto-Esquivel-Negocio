@@ -464,8 +464,7 @@
     "msgConfirmar": "확인",
     "msgExito": "성공",
     "msgAtencion": "주의",
-    "msgError": "오류",
-    "btnSerializar": "XML 직렬화"
+    "msgError": "오류"
   },
   "ImpresionFactura": {
     "titulo": "청구서",
@@ -527,20 +526,6 @@
     "ejeMonto": "금액 ($)",
     "msgGenerarPrimero": "인쇄하기 전에 보고서를 생성하세요.",
     "msgAtencion": "주의",
-    "msgError": "오류"
-  },
-  "FormSerializarProductos": {
-    "tituloForm": "상품 직렬화",
-    "grpXml": "XML 파일 내용",
-    "btnSerializar": "직렬화",
-    "btnDeserializar": "역직렬화",
-    "btnLimpiar": "지우기",
-    "btnVolver": "뒤로",
-    "lblOrigenBase": "표시 중: 데이터베이스의 상품",
-    "lblOrigenArchivo": "표시 중: \"{0}\"의 내용 (읽기 전용, 데이터베이스에 저장되지 않음)",
-    "filtroXml": "XML 파일",
-    "msgSerializado": "상품 {0}개를 \"{1}\"에 직렬화했습니다.",
-    "msgExito": "성공",
     "msgError": "오류"
   },
   "Errores": {

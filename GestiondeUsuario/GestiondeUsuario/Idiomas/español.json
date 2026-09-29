@@ -464,8 +464,7 @@
     "msgConfirmar": "Confirmar",
     "msgExito": "Éxito",
     "msgAtencion": "Atención",
-    "msgError": "Error",
-    "btnSerializar": "Serializar XML"
+    "msgError": "Error"
   },
   "ImpresionFactura": {
     "titulo": "FACTURA",
@@ -527,20 +526,6 @@
     "ejeMonto": "Monto ($)",
     "msgGenerarPrimero": "Generá el reporte antes de imprimirlo.",
     "msgAtencion": "Atención",
-    "msgError": "Error"
-  },
-  "FormSerializarProductos": {
-    "tituloForm": "Serializar productos",
-    "grpXml": "Contenido del archivo XML",
-    "btnSerializar": "Serializar",
-    "btnDeserializar": "Deserializar",
-    "btnLimpiar": "Limpiar",
-    "btnVolver": "Volver",
-    "lblOrigenBase": "Mostrando: productos de la base de datos",
-    "lblOrigenArchivo": "Mostrando: contenido de \"{0}\" (solo lectura, no se guardó en la base de datos)",
-    "filtroXml": "Archivos XML",
-    "msgSerializado": "Se serializaron {0} productos en \"{1}\".",
-    "msgExito": "Éxito",
     "msgError": "Error"
   },
   "Errores": {

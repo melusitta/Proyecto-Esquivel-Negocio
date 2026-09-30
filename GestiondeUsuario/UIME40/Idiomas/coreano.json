@@ -530,6 +530,11 @@
     "msgAtencion": "주의",
     "msgError": "오류"
   },
+  "Impresion": {
+    "msgPdfTitulo": "PDF로 저장됨",
+    "msgPdfGuardado": "설치된 프린터가 없어 다운로드 폴더에 PDF로 저장했습니다:\n{0}",
+    "msgPdfError": "PDF를 저장할 수 없습니다."
+  },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",
     "PATENTE_YA_EN_ROL": "이 특허는 이미 역할에 직접 할당되어 있습니다.",

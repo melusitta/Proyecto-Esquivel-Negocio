@@ -200,13 +200,13 @@ namespace GestiondeUsuario
             _printY = 50;
             _printRowIndex = 0;
             PrintDocument pd = new PrintDocument();
+            // La vista previa y la impresión recorren el documento cada una desde el principio
+            pd.BeginPrint += (s, ev) => { _printY = 50; _printRowIndex = 0; };
             pd.PrintPage += new PrintPageEventHandler(ImprimirBitacora);
 
-            PrintPreviewDialog ppd = new PrintPreviewDialog();
-            ppd.Document = pd;
-            if (Tema.Icono != null)
-                ppd.Icon = Tema.Icono;
-            ppd.ShowDialog();
+            // Sin impresora instalada se guarda como PDF en Descargas
+            string titulo = GestorIdioma.Instancia.Obtener("FormBitacora", "tituloForm");
+            Impresion.MostrarOGuardarPdf(pd, this, titulo, titulo + "_" + DateTime.Now.ToString("yyyy-MM-dd_HHmm"));
         }
 
         private void ImprimirBitacora(object sender, PrintPageEventArgs e)
@@ -230,7 +230,7 @@ namespace GestiondeUsuario
                 e.Graphics.DrawString("Hora", fontHeader, Brushes.Black, x + 200, _printY);
                 e.Graphics.DrawString("Módulo", fontHeader, Brushes.Black, x + 260, _printY);
                 e.Graphics.DrawString("Evento", fontHeader, Brushes.Black, x + 350, _printY);
-                e.Graphics.DrawString("Criticidad", fontHeader, Brushes.Black, x + 500, _printY);
+                e.Graphics.DrawString("Criticidad", fontHeader, Brushes.Black, x + 610, _printY);
                 _printY += 20;
                 e.Graphics.DrawLine(Pens.Black, x, _printY, 760, _printY);
                 _printY += 10;
@@ -252,7 +252,7 @@ namespace GestiondeUsuario
                 e.Graphics.DrawString(fila.Cells["Hora"].Value?.ToString() ?? "", fontData, Brushes.Black, x + 200, _printY);
                 e.Graphics.DrawString(fila.Cells["Modulo"].Value?.ToString() ?? "", fontData, Brushes.Black, x + 260, _printY);
                 e.Graphics.DrawString(fila.Cells["Evento"].Value?.ToString() ?? "", fontData, Brushes.Black, x + 350, _printY);
-                e.Graphics.DrawString(fila.Cells["Criticidad"].Value?.ToString() ?? "", fontData, Brushes.Black, x + 500, _printY);
+                e.Graphics.DrawString(fila.Cells["Criticidad"].Value?.ToString() ?? "", fontData, Brushes.Black, x + 630, _printY);
                 _printY += 18;
                 _printRowIndex++;
             }

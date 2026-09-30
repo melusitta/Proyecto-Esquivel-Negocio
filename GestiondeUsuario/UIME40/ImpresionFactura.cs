@@ -18,19 +18,12 @@ namespace GestiondeUsuario
             _factura = factura;
         }
 
+        // Vista previa para imprimir; sin impresora instalada se guarda como PDF en Descargas
         public void MostrarVistaPrevia(IWin32Window dueño)
         {
             using (PrintDocument documento = CrearDocumento())
-            using (var vista = new PrintPreviewDialog())
-            {
-                vista.Document = documento;
-                vista.Width = 900;
-                vista.Height = 800;
-                vista.Text = Texto("titulo") + " " + NroFormateado();
-                if (Tema.Icono != null)
-                    vista.Icon = Tema.Icono;
-                vista.ShowDialog(dueño);
-            }
+                Impresion.MostrarOGuardarPdf(documento, dueño, Texto("titulo") + " " + NroFormateado(),
+                    Texto("titulo") + "_" + NroFormateado());
         }
 
         public PrintDocument CrearDocumento()

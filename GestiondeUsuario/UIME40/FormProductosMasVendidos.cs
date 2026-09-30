@@ -244,16 +244,11 @@ namespace GestiondeUsuario
                     g.Obtener("FormProductosMasVendidos", "msgAtencion"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            // Sin impresora instalada se guarda como PDF en Descargas
+            string titulo = g.Obtener("FormProductosMasVendidos", "tituloForm");
             using (PrintDocument documento = CrearDocumento())
-            using (var vista = new PrintPreviewDialog())
-            {
-                vista.Document = documento;
-                vista.Width = 900;
-                vista.Height = 800;
-                if (Tema.Icono != null)
-                    vista.Icon = Tema.Icono;
-                vista.ShowDialog(this);
-            }
+                Impresion.MostrarOGuardarPdf(documento, this, titulo,
+                    titulo + "_" + _reporte.Desde.ToString("yyyy-MM-dd") + "_" + _reporte.Hasta.ToString("yyyy-MM-dd"));
         }
 
         public PrintDocument CrearDocumento()

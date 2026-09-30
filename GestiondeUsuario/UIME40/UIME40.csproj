@@ -164,6 +164,7 @@
     <Compile Include="IconoPlumy.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Impresion.cs" />
     <Compile Include="ImpresionFactura.cs" />
     <Compile Include="OjoContrasena.cs">
       <SubType>Component</SubType>

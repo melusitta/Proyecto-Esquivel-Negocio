@@ -530,6 +530,11 @@
     "msgAtencion": "Atención",
     "msgError": "Error"
   },
+  "Impresion": {
+    "msgPdfTitulo": "Guardado como PDF",
+    "msgPdfGuardado": "No hay ninguna impresora instalada, así que se guardó como PDF en Descargas:\n{0}",
+    "msgPdfError": "No se pudo guardar el PDF."
+  },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",
     "PATENTE_YA_EN_ROL": "Esta patente ya está asignada directamente al rol.",

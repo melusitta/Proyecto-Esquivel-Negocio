@@ -530,6 +530,11 @@
     "msgAtencion": "Attention",
     "msgError": "Error"
   },
+  "Impresion": {
+    "msgPdfTitulo": "Saved as PDF",
+    "msgPdfGuardado": "No printer is installed, so it was saved as a PDF in Downloads:\n{0}",
+    "msgPdfError": "The PDF could not be saved."
+  },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",
     "PATENTE_YA_EN_ROL": "This patent is already assigned directly to the role.",

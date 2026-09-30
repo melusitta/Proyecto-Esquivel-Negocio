@@ -124,8 +124,13 @@ namespace BLL
             return ok;
         }
 
-        private bool TienePatenteRecursivo(int idFamilia, int idPatente, FamiliaDAL dal)
+        // "visitadas" corta el recorrido si hubiera un ciclo en los datos
+        private bool TienePatenteRecursivo(int idFamilia, int idPatente, FamiliaDAL dal, HashSet<int> visitadas = null)
         {
+            visitadas = visitadas ?? new HashSet<int>();
+            if (!visitadas.Add(idFamilia))
+                return false;
+
             var patentes = dal.ObtenerPatentes(idFamilia);
             if (patentes.Any(p => p.Id == idPatente))
                 return true;
@@ -133,7 +138,22 @@ namespace BLL
             var familiasIntegradas = dal.ObtenerFamiliasIntegradas(idFamilia);
             foreach (var f in familiasIntegradas)
             {
-                if (TienePatenteRecursivo(f.Id, idPatente, dal))
+                if (TienePatenteRecursivo(f.Id, idPatente, dal, visitadas))
+                    return true;
+            }
+            return false;
+        }
+
+        // ¿La familia "idContenedora" incluye, directa o indirectamente, a "idBuscada"?
+        private bool ContieneFamilia(int idContenedora, int idBuscada, FamiliaDAL dal, HashSet<int> visitadas)
+        {
+            if (idContenedora == idBuscada)
+                return true;
+            if (!visitadas.Add(idContenedora))
+                return false;
+            foreach (var f in dal.ObtenerFamiliasIntegradas(idContenedora))
+            {
+                if (ContieneFamilia(f.Id, idBuscada, dal, visitadas))
                     return true;
             }
             return false;
@@ -148,6 +168,16 @@ namespace BLL
             var familias = dal.ObtenerFamiliasIntegradas(idFamilia);
             if (familias.Any(f => f.Id == idFamiliaIntegrada))
                 throw new ErrorNegocio("FAMILIA_YA_INTEGRADA");
+
+            // Composite sin ciclos: si la familia a integrar ya contiene (directa o indirectamente)
+            // a la familia destino, integrarla armaría un ciclo (ej.: Ventas -> Vendedor -> Ventas)
+            if (ContieneFamilia(idFamiliaIntegrada, idFamilia, dal, new HashSet<int>()))
+            {
+                var todas = dal.ObtenerTodos();
+                throw new ErrorNegocio("FAMILIA_CICLO",
+                    todas.FirstOrDefault(f => f.Id == idFamiliaIntegrada)?.Nombre,
+                    todas.FirstOrDefault(f => f.Id == idFamilia)?.Nombre);
+            }
 
             bool ok = dal.AgregarFamilia(idFamilia, idFamiliaIntegrada);
             if (ok)

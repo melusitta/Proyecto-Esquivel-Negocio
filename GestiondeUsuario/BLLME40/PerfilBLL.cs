@@ -35,17 +35,23 @@ namespace BLL
                 return true;
 
             var familias = RolBLL.Instancia.ObtenerFamilias(rol.Id);
+            var visitadas = new HashSet<int>();
             foreach (var familia in familias)
             {
-                if (TienePermisoEnFamilia(familia.Id, nombrePatente))
+                if (TienePermisoEnFamilia(familia.Id, nombrePatente, visitadas))
                     return true;
             }
 
             return false;
         }
 
-        private bool TienePermisoEnFamilia(int idFamilia, string nombrePatente)
+        // "visitadas" evita recorrer dos veces la misma familia: si hubiera un ciclo en los datos
+        // (ej.: Ventas -> Vendedor -> Ventas) el recorrido termina en vez de desbordar la pila
+        private bool TienePermisoEnFamilia(int idFamilia, string nombrePatente, HashSet<int> visitadas)
         {
+            if (!visitadas.Add(idFamilia))
+                return false;
+
             FamiliaDAL dal = new FamiliaDAL();
 
             var patentes = dal.ObtenerPatentes(idFamilia);
@@ -55,7 +61,7 @@ namespace BLL
             var familiasIntegradas = dal.ObtenerFamiliasIntegradas(idFamilia);
             foreach (var familia in familiasIntegradas)
             {
-                if (TienePermisoEnFamilia(familia.Id, nombrePatente))
+                if (TienePermisoEnFamilia(familia.Id, nombrePatente, visitadas))
                     return true;
             }
 

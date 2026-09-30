@@ -578,6 +578,7 @@
     "XML_INVALIDO": "The file \"{0}\" does not have the expected XML format.",
     "RUTA_ARCHIVO_VACIA": "Choose a file.",
     "FECHA_FUTURA": "Future dates are not allowed: the latest date is today.",
-    "SIN_CLIENTES_SELECCIONADOS": "Select at least one customer in the grid to serialize."
+    "SIN_CLIENTES_SELECCIONADOS": "Select at least one customer in the grid to serialize.",
+    "FAMILIA_CICLO": "Cannot add \"{0}\" to \"{1}\": \"{0}\" already includes \"{1}\" and it would create a cycle."
   }
 }

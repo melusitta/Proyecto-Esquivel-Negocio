@@ -116,8 +116,13 @@ namespace BLL
             DigitoVerificadorBLL.Instancia.RecalcularYGuardar();
             return ok;
         }
-        private bool TienePatenteRecursivo(int idFamilia, int idPatente, FamiliaDAL familiaDAL)
+        // "visitadas" corta el recorrido si hubiera un ciclo en los datos
+        private bool TienePatenteRecursivo(int idFamilia, int idPatente, FamiliaDAL familiaDAL, HashSet<int> visitadas = null)
         {
+            visitadas = visitadas ?? new HashSet<int>();
+            if (!visitadas.Add(idFamilia))
+                return false;
+
             var patentes = familiaDAL.ObtenerPatentes(idFamilia);
             if (patentes.Any(p => p.Id == idPatente))
                 return true;
@@ -125,7 +130,7 @@ namespace BLL
             var familiasIntegradas = familiaDAL.ObtenerFamiliasIntegradas(idFamilia);
             foreach (var f in familiasIntegradas)
             {
-                if (TienePatenteRecursivo(f.Id, idPatente, familiaDAL))
+                if (TienePatenteRecursivo(f.Id, idPatente, familiaDAL, visitadas))
                     return true;
             }
             return false;

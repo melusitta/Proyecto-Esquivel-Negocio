@@ -578,6 +578,7 @@
     "XML_INVALIDO": "El archivo \"{0}\" no tiene el formato XML esperado.",
     "RUTA_ARCHIVO_VACIA": "Elegí un archivo.",
     "FECHA_FUTURA": "No se pueden elegir fechas futuras: la fecha máxima es hoy.",
-    "SIN_CLIENTES_SELECCIONADOS": "Seleccioná en la grilla al menos un cliente para serializar."
+    "SIN_CLIENTES_SELECCIONADOS": "Seleccioná en la grilla al menos un cliente para serializar.",
+    "FAMILIA_CICLO": "No se puede integrar \"{0}\" en \"{1}\": \"{0}\" ya incluye a \"{1}\" y se formaría un ciclo."
   }
 }

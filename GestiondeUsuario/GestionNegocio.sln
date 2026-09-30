@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALME40", "DALME40\DALME40.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiciosME40", "ServiciosME40\ServiciosME40.csproj", "{62D7FF82-53E7-41C4-BFDC-3EB3C51FC1D9}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstaladorGestionUsuarios", "InstaladorGestionUsuarios\InstaladorGestionUsuarios.vdproj", "{D7DC33A0-724A-5873-9CFA-8F58375FB8B0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstaladorDB", "InstaladorDB\InstaladorDB.csproj", "{1B0C1E93-B353-41E5-8BBF-40E820B9AD87}"
 EndProject
 Global
@@ -43,8 +41,6 @@ Global
 		{62D7FF82-53E7-41C4-BFDC-3EB3C51FC1D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62D7FF82-53E7-41C4-BFDC-3EB3C51FC1D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62D7FF82-53E7-41C4-BFDC-3EB3C51FC1D9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D7DC33A0-724A-5873-9CFA-8F58375FB8B0}.Debug|Any CPU.ActiveCfg = Debug
-		{D7DC33A0-724A-5873-9CFA-8F58375FB8B0}.Release|Any CPU.ActiveCfg = Release
 		{1B0C1E93-B353-41E5-8BBF-40E820B9AD87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1B0C1E93-B353-41E5-8BBF-40E820B9AD87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B0C1E93-B353-41E5-8BBF-40E820B9AD87}.Release|Any CPU.ActiveCfg = Release|Any CPU

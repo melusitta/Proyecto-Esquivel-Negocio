@@ -114,7 +114,7 @@ namespace BLL
                 accion, "Ventas", criticidad);
         }
 
-        // DNI argentino: número positivo de hasta 8 dígitos
+        // DNI: numero positivo de hasta 8 dígitos
         public static void ValidarDNI(int dni)
         {
             if (dni <= 0 || dni > 99999999)

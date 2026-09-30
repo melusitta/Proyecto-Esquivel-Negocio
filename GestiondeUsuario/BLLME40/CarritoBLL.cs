@@ -80,6 +80,26 @@ namespace BLL
             return ok;
         }
 
+        // Resta una unidad del producto. Si era la última, el producto sale del carrito.
+        // Devuelve la cantidad que queda (0 si se quitó).
+        public int QuitarUnidad(int idCarrito, int idProducto)
+        {
+            Carrito carrito = ObtenerAbierto(idCarrito);
+            ItemCarrito item = carrito.Items.FirstOrDefault(i => i.Producto.Id == idProducto);
+            if (item == null)
+                throw new ErrorNegocio("PRODUCTO_NO_EN_CARRITO");
+
+            CarritoDAL dal = new CarritoDAL();
+            int queda = item.Cantidad - 1;
+            if (queda > 0)
+                dal.GuardarItem(idCarrito, idProducto, queda, item.PrecioUnitario);   // mantiene el precio informado
+            else
+                dal.EliminarItem(idCarrito, idProducto);
+            GestorEventosBLL.Instancia.Notificar(UsuarioActivo(), "Quitar unidad del carrito", "Ventas", 1);
+            DigitoVerificadorBLL.Instancia.RecalcularYGuardar();
+            return queda;
+        }
+
         // Paso 7: el vendedor asocia el carrito al DNI del cliente y el cliente pasa a la caja
         public bool AsociarCliente(int idCarrito, int dni)
         {

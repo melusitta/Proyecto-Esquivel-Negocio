@@ -120,12 +120,12 @@ namespace BLL
         }
 
         // Pasos 10 a 15: cobra la factura. pagoAcreditado es la confirmación del banco
-        // (con tarjeta la da PagoBLL; con efectivo o transferencia, el cajero).
+        // (con tarjeta la da PagoBLL; con transferencia, el cajero). El efectivo no la necesita.
         // El monto tiene que ser igual al total. Al cobrar se descuenta el stock (todo o nada).
         public bool Cobrar(int idFactura, decimal monto, string formaPago, bool pagoAcreditado)
         {
             Factura factura = ValidarCobro(idFactura, monto, formaPago);
-            if (!pagoAcreditado)
+            if (PagoBLL.RequiereConfirmacionBanco(formaPago) && !pagoAcreditado)
                 throw new ErrorNegocio("PAGO_NO_ACREDITADO");
             ValidarStock(factura.Items.ToArray());
 

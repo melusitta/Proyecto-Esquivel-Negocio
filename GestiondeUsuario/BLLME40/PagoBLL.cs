@@ -26,6 +26,13 @@ namespace BLL
             return formaPago == "Debito" || formaPago == "Credito";
         }
 
+        // El efectivo se cobra en mano y no pasa por el banco. La transferencia la confirma el banco
+        // (el cajero lo verifica) y la tarjeta la autoriza el banco con AutorizarPagoConTarjeta.
+        public static bool RequiereConfirmacionBanco(string formaPago)
+        {
+            return formaPago != "Efectivo";
+        }
+
         public void ValidarTarjeta(Tarjeta t)
         {
             if (!Regex.IsMatch(t.Numero ?? "", @"^\d{16}$"))

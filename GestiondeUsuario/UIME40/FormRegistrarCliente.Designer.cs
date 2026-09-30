@@ -49,6 +49,7 @@
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.lblClientes = new System.Windows.Forms.Label();
             this.dgvClientes = new System.Windows.Forms.DataGridView();
+            this.btnSeleccionarTodos = new System.Windows.Forms.Button();
             this.btnSerializar = new System.Windows.Forms.Button();
             this.btnDeserializar = new System.Windows.Forms.Button();
             this.lblDeserializado = new System.Windows.Forms.Label();
@@ -264,28 +265,40 @@
             this.dgvClientes.Name = "dgvClientes";
             this.dgvClientes.TabIndex = 20;
             // 
+            // btnSeleccionarTodos
+            // 
+            this.btnSeleccionarTodos.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.btnSeleccionarTodos.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSeleccionarTodos.Location = new System.Drawing.Point(480, 390);
+            this.btnSeleccionarTodos.Size = new System.Drawing.Size(150, 38);
+            this.btnSeleccionarTodos.Text = "Seleccionar todos";
+            this.btnSeleccionarTodos.UseVisualStyleBackColor = true;
+            this.btnSeleccionarTodos.Name = "btnSeleccionarTodos";
+            this.btnSeleccionarTodos.TabIndex = 21;
+            this.btnSeleccionarTodos.Click += new System.EventHandler(this.btnSeleccionarTodos_Click);
+            // 
             // btnSerializar
             // 
             this.btnSerializar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnSerializar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSerializar.Location = new System.Drawing.Point(480, 390);
+            this.btnSerializar.Location = new System.Drawing.Point(640, 390);
             this.btnSerializar.Size = new System.Drawing.Size(150, 38);
             this.btnSerializar.Text = "Serializar";
             this.btnSerializar.UseVisualStyleBackColor = true;
             this.btnSerializar.Name = "btnSerializar";
-            this.btnSerializar.TabIndex = 21;
+            this.btnSerializar.TabIndex = 22;
             this.btnSerializar.Click += new System.EventHandler(this.btnSerializar_Click);
             // 
             // btnDeserializar
             // 
             this.btnDeserializar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnDeserializar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeserializar.Location = new System.Drawing.Point(640, 390);
+            this.btnDeserializar.Location = new System.Drawing.Point(800, 390);
             this.btnDeserializar.Size = new System.Drawing.Size(150, 38);
             this.btnDeserializar.Text = "Deserializar";
             this.btnDeserializar.UseVisualStyleBackColor = true;
             this.btnDeserializar.Name = "btnDeserializar";
-            this.btnDeserializar.TabIndex = 22;
+            this.btnDeserializar.TabIndex = 23;
             this.btnDeserializar.Click += new System.EventHandler(this.btnDeserializar_Click);
             // 
             // lblDeserializado
@@ -296,7 +309,7 @@
             this.lblDeserializado.AutoSize = true;
             this.lblDeserializado.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblDeserializado.Name = "lblDeserializado";
-            this.lblDeserializado.TabIndex = 23;
+            this.lblDeserializado.TabIndex = 24;
             // 
             // lstDeserializado
             // 
@@ -309,7 +322,7 @@
             this.lstDeserializado.Location = new System.Drawing.Point(480, 465);
             this.lstDeserializado.Size = new System.Drawing.Size(600, 130);
             this.lstDeserializado.Name = "lstDeserializado";
-            this.lstDeserializado.TabIndex = 24;
+            this.lstDeserializado.TabIndex = 25;
             // 
             // btnVolver
             // 
@@ -320,7 +333,7 @@
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.TabIndex = 25;
+            this.btnVolver.TabIndex = 26;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // FormRegistrarCliente
@@ -333,6 +346,7 @@
             this.Controls.Add(this.lblDeserializado);
             this.Controls.Add(this.btnDeserializar);
             this.Controls.Add(this.btnSerializar);
+            this.Controls.Add(this.btnSeleccionarTodos);
             this.Controls.Add(this.dgvClientes);
             this.Controls.Add(this.lblClientes);
             this.Controls.Add(this.btnRegistrar);
@@ -387,6 +401,7 @@
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Label lblClientes;
         private System.Windows.Forms.DataGridView dgvClientes;
+        private System.Windows.Forms.Button btnSeleccionarTodos;
         private System.Windows.Forms.Button btnSerializar;
         private System.Windows.Forms.Button btnDeserializar;
         private System.Windows.Forms.Label lblDeserializado;

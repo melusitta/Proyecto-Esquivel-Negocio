@@ -32,6 +32,7 @@
             this.btnSeleccionarProductos = new System.Windows.Forms.Button();
             this.lblCarrito = new System.Windows.Forms.Label();
             this.dgvCarrito = new System.Windows.Forms.DataGridView();
+            this.btnQuitarUnidad = new System.Windows.Forms.Button();
             this.btnQuitar = new System.Windows.Forms.Button();
             this.lblTotal = new System.Windows.Forms.Label();
             this.lblDNI = new System.Windows.Forms.Label();
@@ -85,16 +86,28 @@
             this.dgvCarrito.Name = "dgvCarrito";
             this.dgvCarrito.TabIndex = 3;
             // 
+            // btnQuitarUnidad
+            // 
+            this.btnQuitarUnidad.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.btnQuitarUnidad.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQuitarUnidad.Location = new System.Drawing.Point(20, 377);
+            this.btnQuitarUnidad.Size = new System.Drawing.Size(170, 34);
+            this.btnQuitarUnidad.Text = "Quitar una unidad";
+            this.btnQuitarUnidad.UseVisualStyleBackColor = true;
+            this.btnQuitarUnidad.Name = "btnQuitarUnidad";
+            this.btnQuitarUnidad.TabIndex = 4;
+            this.btnQuitarUnidad.Click += new System.EventHandler(this.btnQuitarUnidad_Click);
+            // 
             // btnQuitar
             // 
             this.btnQuitar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnQuitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnQuitar.Location = new System.Drawing.Point(20, 377);
+            this.btnQuitar.Location = new System.Drawing.Point(200, 377);
             this.btnQuitar.Size = new System.Drawing.Size(170, 34);
             this.btnQuitar.Text = "Quitar producto";
             this.btnQuitar.UseVisualStyleBackColor = true;
             this.btnQuitar.Name = "btnQuitar";
-            this.btnQuitar.TabIndex = 4;
+            this.btnQuitar.TabIndex = 5;
             this.btnQuitar.Click += new System.EventHandler(this.btnQuitar_Click);
             // 
             // lblTotal
@@ -106,7 +119,7 @@
             this.lblTotal.Size = new System.Drawing.Size(300, 30);
             this.lblTotal.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.TabIndex = 5;
+            this.lblTotal.TabIndex = 6;
             // 
             // lblDNI
             // 
@@ -116,7 +129,7 @@
             this.lblDNI.AutoSize = true;
             this.lblDNI.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblDNI.Name = "lblDNI";
-            this.lblDNI.TabIndex = 6;
+            this.lblDNI.TabIndex = 7;
             // 
             // txtDNI
             // 
@@ -126,7 +139,7 @@
             this.txtDNI.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtDNI.MaxLength = 8;
             this.txtDNI.Name = "txtDNI";
-            this.txtDNI.TabIndex = 7;
+            this.txtDNI.TabIndex = 8;
             this.txtDNI.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDNI_KeyPress);
             // 
             // btnAsociar
@@ -138,7 +151,7 @@
             this.btnAsociar.Text = "Asociar carrito y enviar a caja";
             this.btnAsociar.UseVisualStyleBackColor = true;
             this.btnAsociar.Name = "btnAsociar";
-            this.btnAsociar.TabIndex = 8;
+            this.btnAsociar.TabIndex = 9;
             this.btnAsociar.Click += new System.EventHandler(this.btnAsociar_Click);
             // 
             // btnVolver
@@ -150,7 +163,7 @@
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.TabIndex = 9;
+            this.btnVolver.TabIndex = 10;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // FormCargarCarrito
@@ -164,6 +177,7 @@
             this.Controls.Add(this.lblDNI);
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.btnQuitar);
+            this.Controls.Add(this.btnQuitarUnidad);
             this.Controls.Add(this.dgvCarrito);
             this.Controls.Add(this.lblCarrito);
             this.Controls.Add(this.btnSeleccionarProductos);
@@ -184,6 +198,7 @@
         private System.Windows.Forms.Button btnSeleccionarProductos;
         private System.Windows.Forms.Label lblCarrito;
         private System.Windows.Forms.DataGridView dgvCarrito;
+        private System.Windows.Forms.Button btnQuitarUnidad;
         private System.Windows.Forms.Button btnQuitar;
         private System.Windows.Forms.Label lblTotal;
         private System.Windows.Forms.Label lblDNI;

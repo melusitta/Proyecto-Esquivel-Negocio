@@ -287,7 +287,8 @@
     "colCantidad": "Quantity",
     "colPrecio": "Price",
     "colSubtotal": "Subtotal",
-    "lblTotal": "Total:"
+    "lblTotal": "Total:",
+    "btnQuitarUnidad": "Remove one unit"
   },
   "FormSeleccionarProductos": {
     "tituloForm": "Select products",
@@ -391,7 +392,8 @@
     "colLocalidad": "City",
     "colCodigoPostal": "ZIP",
     "colFechaAlta": "Since",
-    "tituloGestion": "Customer management"
+    "tituloGestion": "Customer management",
+    "btnSeleccionarTodos": "Select all"
   },
   "FormCobrarVenta": {
     "tituloForm": "Charge sale",
@@ -579,6 +581,7 @@
     "RUTA_ARCHIVO_VACIA": "Choose a file.",
     "FECHA_FUTURA": "Future dates are not allowed: the latest date is today.",
     "SIN_CLIENTES_SELECCIONADOS": "Select at least one customer in the grid to serialize.",
-    "FAMILIA_CICLO": "Cannot add \"{0}\" to \"{1}\": \"{0}\" already includes \"{1}\" and it would create a cycle."
+    "FAMILIA_CICLO": "Cannot add \"{0}\" to \"{1}\": \"{0}\" already includes \"{1}\" and it would create a cycle.",
+    "PRODUCTO_NO_EN_CARRITO": "That product is no longer in the cart."
   }
 }

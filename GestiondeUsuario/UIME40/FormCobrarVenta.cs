@@ -95,7 +95,7 @@ namespace GestiondeUsuario
             try
             {
                 // Débito / Crédito: la BLL valida la tarjeta y le pide la aprobación al banco.
-                // Efectivo / Transferencia: el cajero confirma la acreditación a mano, como hasta ahora.
+                // Transferencia: el cajero confirma que el banco la acreditó. Efectivo: no pasa por el banco.
                 bool pagoAcreditado = PagoBLL.EsPagoConTarjeta(formaPago)
                     ? PagoBLL.Instancia.AutorizarPagoConTarjeta(_factura.Id, monto, formaPago, LeerTarjeta())
                     : chkAcreditado.Checked;
@@ -121,12 +121,15 @@ namespace GestiondeUsuario
 
         // ---------- Pago con tarjeta ----------
 
-        // Con tarjeta se muestran sus datos; con efectivo o transferencia, el tilde de acreditación manual
+        // Con tarjeta se muestran sus datos; con transferencia, el tilde de "el banco confirmó el pago".
+        // Con efectivo no se muestra nada extra.
         private void cmbFormaPago_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool tarjeta = PagoBLL.EsPagoConTarjeta((cmbFormaPago.SelectedItem as OpcionPago)?.Codigo);
+            string formaPago = (cmbFormaPago.SelectedItem as OpcionPago)?.Codigo;
+            bool tarjeta = PagoBLL.EsPagoConTarjeta(formaPago);
             pnlTarjeta.Visible = tarjeta;
-            chkAcreditado.Visible = !tarjeta;
+            chkAcreditado.Visible = !tarjeta && PagoBLL.RequiereConfirmacionBanco(formaPago);
+            chkAcreditado.Checked = false;
         }
 
         // Datos que cargó el cajero; las validaciones las hace PagoBLL

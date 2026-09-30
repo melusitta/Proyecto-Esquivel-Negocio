@@ -287,7 +287,8 @@
     "colCantidad": "수량",
     "colPrecio": "가격",
     "colSubtotal": "소계",
-    "lblTotal": "합계:"
+    "lblTotal": "합계:",
+    "btnQuitarUnidad": "한 개 빼기"
   },
   "FormSeleccionarProductos": {
     "tituloForm": "상품 선택",
@@ -391,7 +392,8 @@
     "colLocalidad": "도시",
     "colCodigoPostal": "우편번호",
     "colFechaAlta": "등록일",
-    "tituloGestion": "고객 관리"
+    "tituloGestion": "고객 관리",
+    "btnSeleccionarTodos": "모두 선택"
   },
   "FormCobrarVenta": {
     "tituloForm": "판매 결제",
@@ -579,6 +581,7 @@
     "RUTA_ARCHIVO_VACIA": "파일을 선택하세요.",
     "FECHA_FUTURA": "미래 날짜는 선택할 수 없습니다. 최대 날짜는 오늘입니다.",
     "SIN_CLIENTES_SELECCIONADOS": "직렬화할 고객을 표에서 한 명 이상 선택하세요.",
-    "FAMILIA_CICLO": "\"{0}\"을(를) \"{1}\"에 넣을 수 없습니다. \"{0}\"이(가) 이미 \"{1}\"을(를) 포함하고 있어 순환이 생깁니다."
+    "FAMILIA_CICLO": "\"{0}\"을(를) \"{1}\"에 넣을 수 없습니다. \"{0}\"이(가) 이미 \"{1}\"을(를) 포함하고 있어 순환이 생깁니다.",
+    "PRODUCTO_NO_EN_CARRITO": "해당 상품은 더 이상 장바구니에 없습니다."
   }
 }

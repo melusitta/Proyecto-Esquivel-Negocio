@@ -78,6 +78,43 @@ namespace GestiondeUsuario
             }
         }
 
+        // Resta de a una unidad; el producto sigue seleccionado para poder seguir restando
+        private void btnQuitarUnidad_Click(object sender, EventArgs e)
+        {
+            var g = GestorIdioma.Instancia;
+            if (_carrito == null || dgvCarrito.CurrentRow == null)
+            {
+                MessageBox.Show(g.Obtener("FormCargarCarrito", "msgSeleccionarItem"),
+                    g.Obtener("FormCargarCarrito", "msgAtencion"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                int idProducto = Convert.ToInt32(dgvCarrito.CurrentRow.Cells["IdProducto"].Value);
+                int queda = CarritoBLL.Instancia.QuitarUnidad(_carrito.Id, idProducto);
+                MostrarCarrito();
+                if (queda > 0)
+                    SeleccionarProducto(idProducto);
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
+        private void SeleccionarProducto(int idProducto)
+        {
+            foreach (DataGridViewRow fila in dgvCarrito.Rows)
+            {
+                if (Convert.ToInt32(fila.Cells["IdProducto"].Value) == idProducto)
+                {
+                    dgvCarrito.CurrentCell = fila.Cells["Producto"];
+                    fila.Selected = true;
+                    return;
+                }
+            }
+        }
+
         private void MostrarCarrito()
         {
             if (_carrito != null)
@@ -184,6 +221,7 @@ namespace GestiondeUsuario
             btnSeleccionarProductos.Text = t["btnSeleccionarProductos"]?.ToString();
             lblCarrito.Text = t["lblCarrito"]?.ToString();
             btnQuitar.Text = t["btnQuitar"]?.ToString();
+            btnQuitarUnidad.Text = t["btnQuitarUnidad"]?.ToString();
             lblDNI.Text = t["lblDNI"]?.ToString();
             btnAsociar.Text = t["btnAsociar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();

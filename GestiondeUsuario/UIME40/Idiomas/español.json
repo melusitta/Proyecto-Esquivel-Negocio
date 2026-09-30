@@ -287,7 +287,8 @@
     "colCantidad": "Cantidad",
     "colPrecio": "Precio",
     "colSubtotal": "Subtotal",
-    "lblTotal": "Total:"
+    "lblTotal": "Total:",
+    "btnQuitarUnidad": "Quitar una unidad"
   },
   "FormSeleccionarProductos": {
     "tituloForm": "Seleccionar productos",
@@ -391,7 +392,8 @@
     "colLocalidad": "Localidad",
     "colCodigoPostal": "CP",
     "colFechaAlta": "Alta",
-    "tituloGestion": "Gestión de clientes"
+    "tituloGestion": "Gestión de clientes",
+    "btnSeleccionarTodos": "Seleccionar todos"
   },
   "FormCobrarVenta": {
     "tituloForm": "Cobrar venta",
@@ -579,6 +581,7 @@
     "RUTA_ARCHIVO_VACIA": "Elegí un archivo.",
     "FECHA_FUTURA": "No se pueden elegir fechas futuras: la fecha máxima es hoy.",
     "SIN_CLIENTES_SELECCIONADOS": "Seleccioná en la grilla al menos un cliente para serializar.",
-    "FAMILIA_CICLO": "No se puede integrar \"{0}\" en \"{1}\": \"{0}\" ya incluye a \"{1}\" y se formaría un ciclo."
+    "FAMILIA_CICLO": "No se puede integrar \"{0}\" en \"{1}\": \"{0}\" ya incluye a \"{1}\" y se formaría un ciclo.",
+    "PRODUCTO_NO_EN_CARRITO": "Ese producto ya no está en el carrito."
   }
 }

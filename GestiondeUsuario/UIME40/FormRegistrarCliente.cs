@@ -122,6 +122,14 @@ namespace GestiondeUsuario
 
         // ---------- A03 Serialización ----------
 
+        // Paso 3: selecciona de una vez todos los clientes de la grilla
+        private void btnSeleccionarTodos_Click(object sender, EventArgs e)
+        {
+            // Primero el foco: al recibirlo la grilla se posiciona en una fila y eso borraría la selección
+            dgvClientes.Focus();
+            dgvClientes.SelectAll();
+        }
+
         // Pasos 3 a 7: serializa los clientes seleccionados en la grilla
         private void btnSerializar_Click(object sender, EventArgs e)
         {
@@ -234,6 +242,7 @@ namespace GestiondeUsuario
             lblClientes.Text = t["lblClientes"]?.ToString();
             lblDeserializado.Text = t["lblDeserializado"]?.ToString();
             btnRegistrar.Text = t["btnRegistrar"]?.ToString();
+            btnSeleccionarTodos.Text = t["btnSeleccionarTodos"]?.ToString();
             btnSerializar.Text = t["btnSerializar"]?.ToString();
             btnDeserializar.Text = t["btnDeserializar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();

@@ -14,6 +14,14 @@ namespace GestiondeUsuario
         private enum Modo { Inicial, Agregar, Modificar }
         private Modo _modo = Modo.Inicial;
 
+        // Opción del combo de proveedor habitual (Id null = sin proveedor)
+        private class OpcionProveedor
+        {
+            public int? Id { get; set; }
+            public string Texto { get; set; }
+            public override string ToString() { return Texto; }
+        }
+
         public FormGestionProductos()
         {
             InitializeComponent();
@@ -26,8 +34,41 @@ namespace GestiondeUsuario
 
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
+            CargarCombos();
             CargarGrilla();
             CambiarModo(Modo.Inicial);
+        }
+
+        private void CargarCombos()
+        {
+            try
+            {
+                cmbCategoria.Items.Clear();
+                foreach (string c in ProductoBLL.Instancia.ObtenerCategorias())
+                    cmbCategoria.Items.Add(c);
+
+                int? seleccionado = (cmbProveedor.SelectedItem as OpcionProveedor)?.Id;
+                cmbProveedor.Items.Clear();
+                cmbProveedor.Items.Add(new OpcionProveedor { Id = null, Texto = GestorIdioma.Instancia.Obtener("FormGestionProductos", "sinProveedor") });
+                foreach (Proveedor p in ProveedorBLL.Instancia.ObtenerTodos())
+                    cmbProveedor.Items.Add(new OpcionProveedor { Id = p.Id, Texto = p.RazonSocial });
+                SeleccionarProveedor(seleccionado);
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
+        private void SeleccionarProveedor(int? idProveedor)
+        {
+            for (int i = 0; i < cmbProveedor.Items.Count; i++)
+                if (((OpcionProveedor)cmbProveedor.Items[i]).Id == idProveedor)
+                {
+                    cmbProveedor.SelectedIndex = i;
+                    return;
+                }
+            cmbProveedor.SelectedIndex = cmbProveedor.Items.Count > 0 ? 0 : -1;
         }
 
         private void FormGestionProductos_FormClosed(object sender, FormClosedEventArgs e)
@@ -43,11 +84,13 @@ namespace GestiondeUsuario
             {
                 dgvProductos.DataSource = null;
                 dgvProductos.DataSource = ProductoBLL.Instancia.ObtenerParaABM(rbTodos.Checked, txtBuscar.Text);
-                if (dgvProductos.Columns.Contains("Id")) dgvProductos.Columns["Id"].Visible = false;
+                foreach (string oculta in new[] { "Id", "IdProveedorHabitual", "NecesitaReposicion" })
+                    if (dgvProductos.Columns.Contains(oculta)) dgvProductos.Columns[oculta].Visible = false;
                 if (dgvProductos.Columns.Contains("PrecioUnitario"))
                     dgvProductos.Columns["PrecioUnitario"].DefaultCellStyle.Format = "N2";
-                Tema.AnchoColumnas(dgvProductos, ("CodigoProducto", 60), ("Nombre", 180), ("Marca", 90), ("Color", 80),
-                    ("Modelo", 120), ("PrecioUnitario", 85), ("Existencia", 80), ("Activo", 55));
+                Tema.AnchoColumnas(dgvProductos, ("CodigoProducto", 55), ("Nombre", 165), ("Marca", 80), ("Color", 65),
+                    ("Modelo", 100), ("PrecioUnitario", 75), ("Existencia", 65), ("Activo", 45),
+                    ("Categoria", 80), ("StockMinimo", 65), ("ProveedorHabitual", 120));
                 TraducirColumnas();
                 MostrarSeleccionado();
             }
@@ -79,6 +122,9 @@ namespace GestiondeUsuario
             txtModelo.Text = p.Modelo;
             nudPrecio.Value = Math.Min(p.PrecioUnitario, nudPrecio.Maximum);
             nudExistencia.Value = Math.Min(p.Existencia, nudExistencia.Maximum);
+            cmbCategoria.Text = p.Categoria ?? "";
+            nudStockMinimo.Value = Math.Min(p.StockMinimo, nudStockMinimo.Maximum);
+            SeleccionarProveedor(p.IdProveedorHabitual);
             ActualizarBotonBaja(p);
         }
 
@@ -130,6 +176,9 @@ namespace GestiondeUsuario
             txtModelo.Enabled = editando;
             nudPrecio.Enabled = editando;
             nudExistencia.Enabled = editando;
+            cmbCategoria.Enabled = editando;
+            nudStockMinimo.Enabled = editando;
+            cmbProveedor.Enabled = editando;
 
             btnAgregar.Enabled = !editando;
             btnModificar.Enabled = !editando;
@@ -161,6 +210,9 @@ namespace GestiondeUsuario
             txtModelo.Clear();
             nudPrecio.Value = 0;
             nudExistencia.Value = 0;
+            cmbCategoria.Text = "";
+            nudStockMinimo.Value = 0;
+            SeleccionarProveedor(null);
         }
 
         // ---------- Botonera ----------
@@ -218,7 +270,10 @@ namespace GestiondeUsuario
                 Color = txtColor.Text,
                 Modelo = txtModelo.Text,
                 PrecioUnitario = nudPrecio.Value,
-                Existencia = (int)nudExistencia.Value
+                Existencia = (int)nudExistencia.Value,
+                Categoria = cmbCategoria.Text,
+                StockMinimo = (int)nudStockMinimo.Value,
+                IdProveedorHabitual = (cmbProveedor.SelectedItem as OpcionProveedor)?.Id
             };
             try
             {
@@ -235,6 +290,7 @@ namespace GestiondeUsuario
                     MessageBox.Show(g.Obtener("FormGestionProductos", _modo == Modo.Agregar ? "msgCreado" : "msgModificado"),
                         g.Obtener("FormGestionProductos", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CambiarModo(Modo.Inicial);
+                    CargarCombos();
                     CargarGrilla();
                 }
             }
@@ -280,7 +336,8 @@ namespace GestiondeUsuario
             {
                 { "CodigoProducto", "colCodigo" }, { "Nombre", "colNombre" }, { "Marca", "colMarca" },
                 { "Color", "colColor" }, { "Modelo", "colModelo" }, { "PrecioUnitario", "colPrecio" },
-                { "Existencia", "colExistencia" }, { "Activo", "colActivo" }
+                { "Existencia", "colExistencia" }, { "Activo", "colActivo" },
+                { "Categoria", "colCategoria" }, { "StockMinimo", "colStockMinimo" }, { "ProveedorHabitual", "colProveedor" }
             };
             foreach (var c in columnas)
                 if (dgvProductos.Columns.Contains(c.Key))
@@ -305,6 +362,11 @@ namespace GestiondeUsuario
             lblModelo.Text = t["lblModelo"]?.ToString();
             lblPrecio.Text = t["lblPrecio"]?.ToString();
             lblExistencia.Text = t["lblExistencia"]?.ToString();
+            lblCategoria.Text = t["lblCategoria"]?.ToString();
+            lblStockMinimo.Text = t["lblStockMinimo"]?.ToString();
+            lblProveedor.Text = t["lblProveedor"]?.ToString();
+            if (cmbProveedor.Items.Count > 0)
+                CargarCombos();   // el texto "(sin proveedor)" cambia con el idioma
             btnAgregar.Text = t["btnAgregar"]?.ToString();
             btnModificar.Text = t["btnModificar"]?.ToString();
             btnAplicar.Text = t["btnAplicar"]?.ToString();

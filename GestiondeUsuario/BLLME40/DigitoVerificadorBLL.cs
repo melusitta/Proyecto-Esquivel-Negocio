@@ -82,7 +82,18 @@ namespace BLL
                 { "Carrito",     dal.ObtenerDatosCarrito() },
                 { "ItemCarrito", dal.ObtenerDatosItemCarrito() },
                 { "Factura",     dal.ObtenerDatosFactura() },
-                { "ItemFactura", dal.ObtenerDatosItemFactura() }
+                { "ItemFactura", dal.ObtenerDatosItemFactura() },
+                // Compras (PN2)
+                { "Proveedor",        dal.ObtenerDatosProveedor() },
+                { "SolicitudCompra",  dal.ObtenerDatosSolicitudCompra() },
+                { "ItemSolicitud",    dal.ObtenerDatosItemSolicitud() },
+                { "Cotizacion",       dal.ObtenerDatosCotizacion() },
+                { "ItemCotizacion",   dal.ObtenerDatosItemCotizacion() },
+                { "OrdenCompra",      dal.ObtenerDatosOrdenCompra() },
+                { "ItemOrdenCompra",  dal.ObtenerDatosItemOrdenCompra() },
+                { "FacturaProveedor", dal.ObtenerDatosFacturaProveedor() },
+                { "Recepcion",        dal.ObtenerDatosRecepcion() },
+                { "ItemRecepcion",    dal.ObtenerDatosItemRecepcion() }
             };
         }
 

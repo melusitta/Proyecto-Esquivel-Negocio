@@ -41,8 +41,10 @@ namespace GestiondeUsuario
             {
                 dgvProductos.DataSource = null;
                 dgvProductos.DataSource = ProductoBLL.Instancia.Buscar(texto);
-                if (dgvProductos.Columns.Contains("Id")) dgvProductos.Columns["Id"].Visible = false;
-                if (dgvProductos.Columns.Contains("Activo")) dgvProductos.Columns["Activo"].Visible = false;
+                // Los datos de reposición (PN2) no le sirven al vendedor
+                foreach (string oculta in new[] { "Id", "Activo", "Categoria", "StockMinimo", "IdProveedorHabitual",
+                                                  "ProveedorHabitual", "NecesitaReposicion" })
+                    if (dgvProductos.Columns.Contains(oculta)) dgvProductos.Columns[oculta].Visible = false;
                 if (dgvProductos.Columns.Contains("PrecioUnitario"))
                     dgvProductos.Columns["PrecioUnitario"].DefaultCellStyle.Format = "N2";
                 Tema.AnchoColumnas(dgvProductos, ("CodigoProducto", 60), ("Nombre", 180), ("Marca", 90), ("Color", 80),

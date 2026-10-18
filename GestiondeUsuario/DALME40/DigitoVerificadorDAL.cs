@@ -75,7 +75,8 @@ namespace DAL
         public List<List<string>> ObtenerDatosProducto()
         {
             return ObtenerDatosTabla(
-                "SELECT Id, CodigoProducto, Nombre, Marca, Color, Modelo, PrecioUnitario, Existencia, Activo FROM Producto");
+                "SELECT Id, CodigoProducto, Nombre, Marca, Color, Modelo, PrecioUnitario, Existencia, Activo, " +
+                "Categoria, StockMinimo, IdProveedorHabitual FROM Producto");
         }
 
         public List<List<string>> ObtenerDatosCliente()
@@ -103,6 +104,61 @@ namespace DAL
         public List<List<string>> ObtenerDatosItemFactura()
         {
             return ObtenerDatosTabla("SELECT IdFactura, IdProducto, Cantidad, PrecioUnitario FROM ItemFactura");
+        }
+
+        // ---- Tablas de compras (PN2) ----
+        public List<List<string>> ObtenerDatosProveedor()
+        {
+            return ObtenerDatosTabla(
+                "SELECT Id, CUIT, RazonSocial, Contacto, Telefono, Email, Rubro, CondicionesEntrega, PlazoEntregaDias, FormaPago, Estado, Activo FROM Proveedor");
+        }
+
+        public List<List<string>> ObtenerDatosSolicitudCompra()
+        {
+            return ObtenerDatosTabla("SELECT Id, NroSolicitud, CreadaPor, Prioridad, Estado, Supervisor FROM SolicitudCompra");
+        }
+
+        public List<List<string>> ObtenerDatosItemSolicitud()
+        {
+            return ObtenerDatosTabla("SELECT IdSolicitud, IdProducto, IdProveedor, Cantidad FROM ItemSolicitud");
+        }
+
+        public List<List<string>> ObtenerDatosCotizacion()
+        {
+            return ObtenerDatosTabla("SELECT Id, IdSolicitud, IdProveedor, PlazoEntregaDias, FormaPago, Estado FROM Cotizacion");
+        }
+
+        public List<List<string>> ObtenerDatosItemCotizacion()
+        {
+            return ObtenerDatosTabla(
+                "SELECT IdCotizacion, IdProducto, PrecioUnitario, Marca, Presentacion, CantidadDisponible FROM ItemCotizacion");
+        }
+
+        public List<List<string>> ObtenerDatosOrdenCompra()
+        {
+            return ObtenerDatosTabla(
+                "SELECT Id, NroOrden, IdSolicitud, IdCotizacion, IdProveedor, Total, Estado, Supervisor FROM OrdenCompra");
+        }
+
+        public List<List<string>> ObtenerDatosItemOrdenCompra()
+        {
+            return ObtenerDatosTabla("SELECT IdOrdenCompra, IdProducto, Cantidad, PrecioUnitario FROM ItemOrdenCompra");
+        }
+
+        public List<List<string>> ObtenerDatosFacturaProveedor()
+        {
+            return ObtenerDatosTabla(
+                "SELECT Id, IdOrdenCompra, IdProveedor, NroFactura, Importe, Impuestos, MontoAbonado, NroComprobante, Estado FROM FacturaProveedor");
+        }
+
+        public List<List<string>> ObtenerDatosRecepcion()
+        {
+            return ObtenerDatosTabla("SELECT Id, IdOrdenCompra, Responsable FROM Recepcion");
+        }
+
+        public List<List<string>> ObtenerDatosItemRecepcion()
+        {
+            return ObtenerDatosTabla("SELECT IdRecepcion, IdProducto, CantidadRecibida, Estado, Ubicacion FROM ItemRecepcion");
         }
 
         private List<List<string>> ObtenerDatosTabla(string query)

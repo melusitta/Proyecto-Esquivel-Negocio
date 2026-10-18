@@ -55,6 +55,14 @@ namespace BLL
             return lista.ToList();
         }
 
+        // Categorías que ya se usan (para sugerirlas en el ABM)
+        public List<string> ObtenerCategorias()
+        {
+            return new ProductoDAL().ObtenerTodos()
+                .Select(p => p.Categoria).Where(c => !string.IsNullOrWhiteSpace(c))
+                .Distinct().OrderBy(c => c).ToList();
+        }
+
         public bool Crear(Producto p)
         {
             Validar(p);
@@ -123,6 +131,17 @@ namespace BLL
                 throw new ErrorNegocio("PRECIO_INVALIDO");
             if (p.Existencia < 0)
                 throw new ErrorNegocio("EXISTENCIA_INVALIDA");
+
+            // Datos de reposición (PN2)
+            p.Categoria = string.IsNullOrWhiteSpace(p.Categoria) ? "General" : p.Categoria.Trim();
+            if (p.StockMinimo < 0)
+                throw new ErrorNegocio("STOCK_MINIMO_INVALIDO");
+            if (p.IdProveedorHabitual.HasValue)
+            {
+                Proveedor proveedor = new ProveedorDAL().ObtenerPorId(p.IdProveedorHabitual.Value);
+                if (proveedor == null || !proveedor.Activo)
+                    throw new ErrorNegocio("PROVEEDOR_NO_ENCONTRADO");
+            }
 
             p.Nombre = p.Nombre.Trim();
             p.Marca = p.Marca.Trim();

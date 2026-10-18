@@ -58,9 +58,14 @@
     <Compile Include="FamiliaDAL.cs" />
     <Compile Include="PatenteDAL.cs" />
     <Compile Include="FacturaDAL.cs" />
+    <Compile Include="FacturaProveedorDAL.cs" />
+    <Compile Include="OrdenCompraDAL.cs" />
     <Compile Include="ProductoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReporteDAL.cs" />
+    <Compile Include="ProveedorDAL.cs" />
+    <Compile Include="RecepcionDAL.cs" />
+    <Compile Include="SolicitudCompraDAL.cs" />
     <Compile Include="RolDAL.cs" />
     <Compile Include="UsuarioDAL.cs" />
   </ItemGroup>

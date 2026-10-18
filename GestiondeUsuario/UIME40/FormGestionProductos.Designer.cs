@@ -44,12 +44,18 @@
             this.txtMarca = new System.Windows.Forms.TextBox();
             this.lblColor = new System.Windows.Forms.Label();
             this.txtColor = new System.Windows.Forms.TextBox();
+            this.lblCategoria = new System.Windows.Forms.Label();
+            this.cmbCategoria = new System.Windows.Forms.ComboBox();
             this.lblModelo = new System.Windows.Forms.Label();
             this.txtModelo = new System.Windows.Forms.TextBox();
             this.lblPrecio = new System.Windows.Forms.Label();
             this.nudPrecio = new System.Windows.Forms.NumericUpDown();
             this.lblExistencia = new System.Windows.Forms.Label();
             this.nudExistencia = new System.Windows.Forms.NumericUpDown();
+            this.lblStockMinimo = new System.Windows.Forms.Label();
+            this.nudStockMinimo = new System.Windows.Forms.NumericUpDown();
+            this.lblProveedor = new System.Windows.Forms.Label();
+            this.cmbProveedor = new System.Windows.Forms.ComboBox();
             this.lblModo = new System.Windows.Forms.Label();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
@@ -62,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCodigo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStockMinimo)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitulo
@@ -173,7 +180,6 @@
             this.nudCodigo.Size = new System.Drawing.Size(120, 25);
             this.nudCodigo.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
             this.nudCodigo.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
-            this.nudCodigo.ThousandsSeparator = false;
             this.nudCodigo.Name = "nudCodigo";
             this.nudCodigo.TabIndex = 9;
             // 
@@ -243,6 +249,27 @@
             this.txtColor.Name = "txtColor";
             this.txtColor.TabIndex = 15;
             // 
+            // lblCategoria
+            // 
+            this.lblCategoria.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCategoria.Location = new System.Drawing.Point(15, 500);
+            this.lblCategoria.Text = "Categoría:";
+            this.lblCategoria.AutoSize = false;
+            this.lblCategoria.Size = new System.Drawing.Size(110, 25);
+            this.lblCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.lblCategoria.Name = "lblCategoria";
+            this.lblCategoria.TabIndex = 16;
+            // 
+            // cmbCategoria
+            // 
+            this.cmbCategoria.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbCategoria.Location = new System.Drawing.Point(130, 500);
+            this.cmbCategoria.Size = new System.Drawing.Size(240, 25);
+            this.cmbCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.cmbCategoria.Name = "cmbCategoria";
+            this.cmbCategoria.TabIndex = 17;
+            // 
             // lblModelo
             // 
             this.lblModelo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -253,7 +280,7 @@
             this.lblModelo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblModelo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblModelo.Name = "lblModelo";
-            this.lblModelo.TabIndex = 16;
+            this.lblModelo.TabIndex = 18;
             // 
             // txtModelo
             // 
@@ -263,7 +290,7 @@
             this.txtModelo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.txtModelo.MaxLength = 50;
             this.txtModelo.Name = "txtModelo";
-            this.txtModelo.TabIndex = 17;
+            this.txtModelo.TabIndex = 19;
             // 
             // lblPrecio
             // 
@@ -275,7 +302,7 @@
             this.lblPrecio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblPrecio.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblPrecio.Name = "lblPrecio";
-            this.lblPrecio.TabIndex = 18;
+            this.lblPrecio.TabIndex = 20;
             // 
             // nudPrecio
             // 
@@ -288,7 +315,7 @@
             this.nudPrecio.ThousandsSeparator = true;
             this.nudPrecio.DecimalPlaces = 2;
             this.nudPrecio.Name = "nudPrecio";
-            this.nudPrecio.TabIndex = 19;
+            this.nudPrecio.TabIndex = 21;
             // 
             // lblExistencia
             // 
@@ -300,7 +327,7 @@
             this.lblExistencia.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblExistencia.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblExistencia.Name = "lblExistencia";
-            this.lblExistencia.TabIndex = 20;
+            this.lblExistencia.TabIndex = 22;
             // 
             // nudExistencia
             // 
@@ -312,17 +339,63 @@
             this.nudExistencia.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             this.nudExistencia.ThousandsSeparator = true;
             this.nudExistencia.Name = "nudExistencia";
-            this.nudExistencia.TabIndex = 21;
+            this.nudExistencia.TabIndex = 23;
+            // 
+            // lblStockMinimo
+            // 
+            this.lblStockMinimo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStockMinimo.Location = new System.Drawing.Point(385, 465);
+            this.lblStockMinimo.Text = "Stock mínimo:";
+            this.lblStockMinimo.AutoSize = false;
+            this.lblStockMinimo.Size = new System.Drawing.Size(110, 25);
+            this.lblStockMinimo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblStockMinimo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.lblStockMinimo.Name = "lblStockMinimo";
+            this.lblStockMinimo.TabIndex = 24;
+            // 
+            // nudStockMinimo
+            // 
+            this.nudStockMinimo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.nudStockMinimo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudStockMinimo.Location = new System.Drawing.Point(500, 465);
+            this.nudStockMinimo.Size = new System.Drawing.Size(190, 25);
+            this.nudStockMinimo.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
+            this.nudStockMinimo.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
+            this.nudStockMinimo.ThousandsSeparator = true;
+            this.nudStockMinimo.Name = "nudStockMinimo";
+            this.nudStockMinimo.TabIndex = 25;
+            // 
+            // lblProveedor
+            // 
+            this.lblProveedor.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProveedor.Location = new System.Drawing.Point(385, 500);
+            this.lblProveedor.Text = "Proveedor:";
+            this.lblProveedor.AutoSize = false;
+            this.lblProveedor.Size = new System.Drawing.Size(110, 25);
+            this.lblProveedor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblProveedor.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.lblProveedor.Name = "lblProveedor";
+            this.lblProveedor.TabIndex = 26;
+            // 
+            // cmbProveedor
+            // 
+            this.cmbProveedor.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbProveedor.Location = new System.Drawing.Point(500, 500);
+            this.cmbProveedor.Size = new System.Drawing.Size(190, 25);
+            this.cmbProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProveedor.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.cmbProveedor.Name = "cmbProveedor";
+            this.cmbProveedor.TabIndex = 27;
             // 
             // lblModo
             // 
             this.lblModo.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblModo.Location = new System.Drawing.Point(500, 470);
+            this.lblModo.Location = new System.Drawing.Point(130, 540);
             this.lblModo.Text = "Seleccioná una opción";
             this.lblModo.AutoSize = true;
             this.lblModo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.lblModo.Name = "lblModo";
-            this.lblModo.TabIndex = 22;
+            this.lblModo.TabIndex = 28;
             // 
             // btnAgregar
             // 
@@ -333,7 +406,7 @@
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.TabIndex = 23;
+            this.btnAgregar.TabIndex = 29;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnModificar
@@ -345,7 +418,7 @@
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
             this.btnModificar.Name = "btnModificar";
-            this.btnModificar.TabIndex = 24;
+            this.btnModificar.TabIndex = 30;
             this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnBaja
@@ -357,7 +430,7 @@
             this.btnBaja.Text = "Dar de baja";
             this.btnBaja.UseVisualStyleBackColor = true;
             this.btnBaja.Name = "btnBaja";
-            this.btnBaja.TabIndex = 25;
+            this.btnBaja.TabIndex = 31;
             this.btnBaja.Click += new System.EventHandler(this.btnBaja_Click);
             // 
             // btnAplicar
@@ -369,7 +442,7 @@
             this.btnAplicar.Text = "Aplicar";
             this.btnAplicar.UseVisualStyleBackColor = true;
             this.btnAplicar.Name = "btnAplicar";
-            this.btnAplicar.TabIndex = 26;
+            this.btnAplicar.TabIndex = 32;
             this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
             // 
             // btnCancelar
@@ -381,7 +454,7 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.TabIndex = 27;
+            this.btnCancelar.TabIndex = 33;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnVolver
@@ -393,7 +466,7 @@
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.TabIndex = 28;
+            this.btnVolver.TabIndex = 34;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // FormGestionProductos
@@ -408,12 +481,18 @@
             this.Controls.Add(this.btnModificar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.lblModo);
+            this.Controls.Add(this.cmbProveedor);
+            this.Controls.Add(this.lblProveedor);
+            this.Controls.Add(this.nudStockMinimo);
+            this.Controls.Add(this.lblStockMinimo);
             this.Controls.Add(this.nudExistencia);
             this.Controls.Add(this.lblExistencia);
             this.Controls.Add(this.nudPrecio);
             this.Controls.Add(this.lblPrecio);
             this.Controls.Add(this.txtModelo);
             this.Controls.Add(this.lblModelo);
+            this.Controls.Add(this.cmbCategoria);
+            this.Controls.Add(this.lblCategoria);
             this.Controls.Add(this.txtColor);
             this.Controls.Add(this.lblColor);
             this.Controls.Add(this.txtMarca);
@@ -438,6 +517,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCodigo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrecio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudExistencia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStockMinimo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -461,12 +541,18 @@
         private System.Windows.Forms.TextBox txtMarca;
         private System.Windows.Forms.Label lblColor;
         private System.Windows.Forms.TextBox txtColor;
+        private System.Windows.Forms.Label lblCategoria;
+        private System.Windows.Forms.ComboBox cmbCategoria;
         private System.Windows.Forms.Label lblModelo;
         private System.Windows.Forms.TextBox txtModelo;
         private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.NumericUpDown nudPrecio;
         private System.Windows.Forms.Label lblExistencia;
         private System.Windows.Forms.NumericUpDown nudExistencia;
+        private System.Windows.Forms.Label lblStockMinimo;
+        private System.Windows.Forms.NumericUpDown nudStockMinimo;
+        private System.Windows.Forms.Label lblProveedor;
+        private System.Windows.Forms.ComboBox cmbProveedor;
         private System.Windows.Forms.Label lblModo;
         private System.Windows.Forms.Button btnAgregar;
         private System.Windows.Forms.Button btnModificar;

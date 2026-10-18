@@ -11,7 +11,7 @@ namespace DAL
 
         internal static Producto MapearProducto(SqlDataReader reader)
         {
-            return new Producto()
+            var p = new Producto()
             {
                 Id = Convert.ToInt32(reader["Id"]),
                 CodigoProducto = Convert.ToInt32(reader["CodigoProducto"]),
@@ -23,6 +23,44 @@ namespace DAL
                 Existencia = Convert.ToInt32(reader["Existencia"]),
                 Activo = Convert.ToBoolean(reader["Activo"])
             };
+            // Datos de reposición (PN2): solo si la consulta los trae
+            if (TieneColumna(reader, "Categoria"))
+                p.Categoria = reader["Categoria"].ToString();
+            if (TieneColumna(reader, "StockMinimo"))
+                p.StockMinimo = Convert.ToInt32(reader["StockMinimo"]);
+            if (TieneColumna(reader, "IdProveedorHabitual") && reader["IdProveedorHabitual"] != DBNull.Value)
+                p.IdProveedorHabitual = Convert.ToInt32(reader["IdProveedorHabitual"]);
+            if (TieneColumna(reader, "ProveedorHabitual") && reader["ProveedorHabitual"] != DBNull.Value)
+                p.ProveedorHabitual = reader["ProveedorHabitual"].ToString();
+            return p;
+        }
+
+        internal static bool TieneColumna(SqlDataReader reader, string columna)
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+                if (string.Equals(reader.GetName(i), columna, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            return false;
+        }
+
+        // PN2 CUN-006: productos activos con stock en el mínimo o por debajo, con su proveedor habitual
+        public List<Producto> ObtenerAReponer()
+        {
+            List<Producto> lista = new List<Producto>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = @"SELECT p.*, pr.RazonSocial AS ProveedorHabitual
+                    FROM Producto p
+                    LEFT JOIN Proveedor pr ON pr.Id = p.IdProveedorHabitual
+                    WHERE p.Activo = 1 AND p.Existencia <= p.StockMinimo
+                    ORDER BY (p.Existencia - p.StockMinimo), p.Nombre";
+                SqlCommand cmd = new SqlCommand(query, con);
+                con.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    lista.Add(MapearProducto(reader));
+            }
+            return lista;
         }
 
         public List<Producto> ObtenerActivos()
@@ -84,7 +122,9 @@ namespace DAL
             List<Producto> lista = new List<Producto>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Producto ORDER BY Nombre";
+                string query = @"SELECT p.*, pr.RazonSocial AS ProveedorHabitual
+                    FROM Producto p LEFT JOIN Proveedor pr ON pr.Id = p.IdProveedorHabitual
+                    ORDER BY p.Nombre";
                 SqlCommand cmd = new SqlCommand(query, con);
                 con.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -113,8 +153,10 @@ namespace DAL
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string query = @"INSERT INTO Producto
-                    (CodigoProducto, Nombre, Marca, Color, Modelo, PrecioUnitario, Existencia, Activo)
-                    VALUES (@Codigo, @Nombre, @Marca, @Color, @Modelo, @Precio, @Existencia, 1)";
+                    (CodigoProducto, Nombre, Marca, Color, Modelo, PrecioUnitario, Existencia, Activo,
+                     Categoria, StockMinimo, IdProveedorHabitual)
+                    VALUES (@Codigo, @Nombre, @Marca, @Color, @Modelo, @Precio, @Existencia, 1,
+                     @Categoria, @StockMinimo, @IdProveedor)";
                 SqlCommand cmd = new SqlCommand(query, con);
                 CargarParametros(cmd, p);
                 con.Open();
@@ -128,7 +170,8 @@ namespace DAL
             {
                 string query = @"UPDATE Producto SET
                     CodigoProducto = @Codigo, Nombre = @Nombre, Marca = @Marca, Color = @Color,
-                    Modelo = @Modelo, PrecioUnitario = @Precio, Existencia = @Existencia
+                    Modelo = @Modelo, PrecioUnitario = @Precio, Existencia = @Existencia,
+                    Categoria = @Categoria, StockMinimo = @StockMinimo, IdProveedorHabitual = @IdProveedor
                     WHERE Id = @Id";
                 SqlCommand cmd = new SqlCommand(query, con);
                 CargarParametros(cmd, p);
@@ -161,6 +204,9 @@ namespace DAL
             cmd.Parameters.AddWithValue("@Modelo", p.Modelo);
             cmd.Parameters.AddWithValue("@Precio", p.PrecioUnitario);
             cmd.Parameters.AddWithValue("@Existencia", p.Existencia);
+            cmd.Parameters.AddWithValue("@Categoria", p.Categoria);
+            cmd.Parameters.AddWithValue("@StockMinimo", p.StockMinimo);
+            cmd.Parameters.AddWithValue("@IdProveedor", (object)p.IdProveedorHabitual ?? DBNull.Value);
         }
 
         public Producto ObtenerPorId(int id)

@@ -12,6 +12,17 @@
         public int Existencia { get; set; }
         public bool Activo { get; set; }
 
+        // PN2: datos de reposición
+        public string Categoria { get; set; }
+        public int StockMinimo { get; set; }
+        public int? IdProveedorHabitual { get; set; }
+        public string ProveedorHabitual { get; set; }   // razón social, solo para mostrar
+
+        public bool NecesitaReposicion
+        {
+            get { return Activo && Existencia <= StockMinimo; }
+        }
+
         public override string ToString()
         {
             return CodigoProducto + " - " + Nombre;

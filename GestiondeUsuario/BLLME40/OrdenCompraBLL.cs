@@ -24,6 +24,28 @@ namespace BLL
             }
         }
 
+        // Solicitudes con las que trabaja CUN-009: las enviadas (para cotizar y generar órdenes) y las cerradas
+        // que todavía tienen órdenes sin enviar al proveedor (paso 7)
+        public List<SolicitudCompra> ObtenerSolicitudesEnCurso()
+        {
+            SolicitudCompraDAL solicitudes = new SolicitudCompraDAL();
+            OrdenCompraDAL ordenes = new OrdenCompraDAL();
+            var lista = solicitudes.ObtenerPorEstado(SolicitudCompra.EstadoEnviada);
+            lista.AddRange(solicitudes.ObtenerPorEstado(SolicitudCompra.EstadoCerrada)
+                .Where(s => ordenes.ObtenerPorSolicitud(s.Id).Any(o => o.Estado == OrdenCompra.EstadoEmitida)));
+            return lista.OrderBy(s => s.NroSolicitud).ToList();
+        }
+
+        // Id de producto -> proveedor al que ya se le pidió en esta solicitud
+        public Dictionary<int, string> ProductosPedidos(int idSolicitud)
+        {
+            var pedidos = new Dictionary<int, string>();
+            foreach (OrdenCompra o in ObtenerPorSolicitud(idSolicitud))
+                foreach (ItemOrdenCompra i in o.Items)
+                    pedidos[i.Producto.Id] = o.Proveedor.RazonSocial;
+            return pedidos;
+        }
+
         // ---------- Cotizaciones (paso 4) ----------
 
         public int RegistrarCotizacion(Cotizacion c)

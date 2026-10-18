@@ -149,6 +149,48 @@
     <Compile Include="FormProductosMasVendidos.Designer.cs">
       <DependentUpon>FormProductosMasVendidos.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormSeleccionarProductosAReponer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSeleccionarProductosAReponer.Designer.cs">
+      <DependentUpon>FormSeleccionarProductosAReponer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormPreRegistrarProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPreRegistrarProveedor.Designer.cs">
+      <DependentUpon>FormPreRegistrarProveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormGenerarSolicitudCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGenerarSolicitudCompra.Designer.cs">
+      <DependentUpon>FormGenerarSolicitudCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormGenerarOrdenCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGenerarOrdenCompra.Designer.cs">
+      <DependentUpon>FormGenerarOrdenCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormCompletarRegistroProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCompletarRegistroProveedor.Designer.cs">
+      <DependentUpon>FormCompletarRegistroProveedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormGestionarPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGestionarPago.Designer.cs">
+      <DependentUpon>FormGestionarPago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRegistrarProductosRecibidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRegistrarProductosRecibidos.Designer.cs">
+      <DependentUpon>FormRegistrarProductosRecibidos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRecuperar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +207,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Impresion.cs" />
+    <Compile Include="TextosCompras.cs" />
     <Compile Include="ImpresionFactura.cs" />
     <Compile Include="OjoContrasena.cs">
       <SubType>Component</SubType>
@@ -219,6 +262,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormProductosMasVendidos.resx">
       <DependentUpon>FormProductosMasVendidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSeleccionarProductosAReponer.resx">
+      <DependentUpon>FormSeleccionarProductosAReponer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPreRegistrarProveedor.resx">
+      <DependentUpon>FormPreRegistrarProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGenerarSolicitudCompra.resx">
+      <DependentUpon>FormGenerarSolicitudCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGenerarOrdenCompra.resx">
+      <DependentUpon>FormGenerarOrdenCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormCompletarRegistroProveedor.resx">
+      <DependentUpon>FormCompletarRegistroProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGestionarPago.resx">
+      <DependentUpon>FormGestionarPago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRegistrarProductosRecibidos.resx">
+      <DependentUpon>FormRegistrarProductosRecibidos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRecuperar.resx">
       <DependentUpon>FormRecuperar.cs</DependentUpon>

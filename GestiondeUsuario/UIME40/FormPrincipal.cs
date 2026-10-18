@@ -42,6 +42,9 @@ namespace GestiondeUsuario
             bool tieneFacturar = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Facturar");
             bool tieneGestionProductos = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionProductos");
             bool tieneCompras = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Compras");
+            bool tieneReponerProductos = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "ReponerProductos");
+            bool tieneGestionarCompras = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionarCompras");
+            bool tieneRecibirMercaderia = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "RecibirMercaderia");
             bool tieneReporte = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Reporte");
             bool tieneReportesVentas = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "ReportesVentas");
             bool tieneAyuda = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Ayuda");
@@ -59,7 +62,13 @@ namespace GestiondeUsuario
             cargarCarritoToolStripMenuItem.Enabled = tieneCargarCarrito;
             generarFacturaToolStripMenuItem.Enabled = tieneFacturar;
             menuVenta.Enabled = tieneVentas || tieneCargarCarrito || tieneFacturar;
-            menuCompras.Enabled = tieneCompras;
+            reponerProductosToolStripMenuItem.Enabled = tieneReponerProductos;
+            generarSolicitudCompraToolStripMenuItem.Enabled = tieneGestionarCompras;
+            generarOrdenCompraToolStripMenuItem.Enabled = tieneGestionarCompras;
+            completarRegistroProveedorToolStripMenuItem.Enabled = tieneGestionarCompras;
+            gestionarPagoToolStripMenuItem.Enabled = tieneGestionarCompras;
+            registrarProductosRecibidosToolStripMenuItem.Enabled = tieneRecibirMercaderia;
+            menuCompras.Enabled = tieneCompras || tieneReponerProductos || tieneGestionarCompras || tieneRecibirMercaderia;
             productosMasVendidosToolStripMenuItem.Enabled = tieneReportesVentas;
             menuReporte.Enabled = tieneReporte || tieneReportesVentas;
             menuAyuda.Enabled = tieneAyuda;
@@ -147,6 +156,42 @@ namespace GestiondeUsuario
             new FormGestionProductos().Show();
             this.Hide();
         }
+        private void reponerProductosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormSeleccionarProductosAReponer().Show();
+            this.Hide();
+        }
+
+        private void generarSolicitudCompraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormGenerarSolicitudCompra().Show();
+            this.Hide();
+        }
+
+        private void generarOrdenCompraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormGenerarOrdenCompra().Show();
+            this.Hide();
+        }
+
+        private void completarRegistroProveedorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormCompletarRegistroProveedor().Show();
+            this.Hide();
+        }
+
+        private void gestionarPagoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormGestionarPago().Show();
+            this.Hide();
+        }
+
+        private void registrarProductosRecibidosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormRegistrarProductosRecibidos().Show();
+            this.Hide();
+        }
+
         private void productosMasVendidosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormProductosMasVendidos().Show();
@@ -186,6 +231,12 @@ namespace GestiondeUsuario
             cargarCarritoToolStripMenuItem.Text = t["cargarCarrito"]?.ToString();
             generarFacturaToolStripMenuItem.Text = t["generarFactura"]?.ToString();
             menuCompras.Text = t["menuCompras"]?.ToString();
+            reponerProductosToolStripMenuItem.Text = t["reponerProductos"]?.ToString();
+            generarSolicitudCompraToolStripMenuItem.Text = t["generarSolicitudCompra"]?.ToString();
+            generarOrdenCompraToolStripMenuItem.Text = t["generarOrdenCompra"]?.ToString();
+            completarRegistroProveedorToolStripMenuItem.Text = t["completarRegistroProveedor"]?.ToString();
+            gestionarPagoToolStripMenuItem.Text = t["gestionarPago"]?.ToString();
+            registrarProductosRecibidosToolStripMenuItem.Text = t["registrarProductosRecibidos"]?.ToString();
             menuReporte.Text = t["menuReporte"]?.ToString();
             productosMasVendidosToolStripMenuItem.Text = t["productosMasVendidos"]?.ToString();
             menuAyuda.Text = t["menuAyuda"]?.ToString();

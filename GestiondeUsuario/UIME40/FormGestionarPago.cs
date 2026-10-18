@@ -138,9 +138,12 @@ namespace GestiondeUsuario
             try
             {
                 FacturaProveedor registrada = PagoProveedorBLL.Instancia.GestionarPago(factura);
-                MessageBox.Show(string.Format(T("msgPagoRegistrado"), o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial,
-                        registrada.MontoAbonado.ToString("N2"), registrada.NroComprobante),
-                    T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Paso 9: se envía el comprobante de pago al proveedor
+                ImpresionCompras.InformarEnvio(this,
+                    string.Format(T("msgPagoRegistrado"), o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial,
+                        registrada.MontoAbonado.ToString("N2"), registrada.NroComprobante), T("msgExito"),
+                    () => new List<string> { ImpresionCompras.Comprobante(o, registrada)
+                        .GuardarPdf(ImpresionCompras.NombreArchivo("archivoComprobante", o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial)) });
                 CargarOrdenes();
             }
             catch (Exception ex)

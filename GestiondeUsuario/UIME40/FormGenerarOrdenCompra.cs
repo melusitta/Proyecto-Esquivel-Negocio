@@ -417,8 +417,10 @@ namespace GestiondeUsuario
             try
             {
                 OrdenCompra orden = OrdenCompraBLL.Instancia.EnviarOrden(Convert.ToInt32(fila.Cells["Id"].Value));
-                MessageBox.Show(string.Format(T("msgOrdenEnviada"), orden.NroOrden.ToString("D6"), orden.Proveedor.RazonSocial),
-                    T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ImpresionCompras.InformarEnvio(this,
+                    string.Format(T("msgOrdenEnviada"), orden.NroOrden.ToString("D6"), orden.Proveedor.RazonSocial), T("msgExito"),
+                    () => new List<string> { ImpresionCompras.Orden(orden)
+                        .GuardarPdf(ImpresionCompras.NombreArchivo("archivoOrden", orden.NroOrden.ToString("D6"), orden.Proveedor.RazonSocial)) });
                 CargarSolicitudes(_solicitud.Id);
                 tabCompra.SelectedTab = tabOrdenes;
             }

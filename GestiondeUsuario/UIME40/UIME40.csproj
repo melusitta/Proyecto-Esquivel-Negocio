@@ -208,6 +208,7 @@
     </Compile>
     <Compile Include="Impresion.cs" />
     <Compile Include="TextosCompras.cs" />
+    <Compile Include="ImpresionCompras.cs" />
     <Compile Include="ImpresionFactura.cs" />
     <Compile Include="OjoContrasena.cs">
       <SubType>Component</SubType>

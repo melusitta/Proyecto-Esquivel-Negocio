@@ -130,9 +130,13 @@ namespace GestiondeUsuario
             {
                 string prioridad = (cmbPrioridad.SelectedItem as OpcionCodigo)?.Codigo;
                 SolicitudCompra s = SolicitudCompraBLL.Instancia.GenerarSolicitud(id.Value, cantidades, prioridad);
-                string proveedores = string.Join(", ", SolicitudCompraBLL.Instancia.ProveedoresDe(s).Select(p => p.RazonSocial));
-                MessageBox.Show(string.Format(T("msgEnviada"), s.NroSolicitud.ToString("D6"), proveedores),
-                    T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                List<Proveedor> proveedores = SolicitudCompraBLL.Instancia.ProveedoresDe(s);
+                // Cada proveedor recibe su PDF con los productos que se le asignaron
+                ImpresionCompras.InformarEnvio(this,
+                    string.Format(T("msgEnviada"), s.NroSolicitud.ToString("D6"), string.Join(", ", proveedores.Select(p => p.RazonSocial))),
+                    T("msgExito"),
+                    () => proveedores.Select(p => ImpresionCompras.Solicitud(s, ProveedorBLL.Instancia.ObtenerPorId(p.Id))
+                        .GuardarPdf(ImpresionCompras.NombreArchivo("archivoSolicitud", s.NroSolicitud.ToString("D6"), p.RazonSocial))).ToList());
                 CargarSolicitudes();
             }
             catch (Exception ex)

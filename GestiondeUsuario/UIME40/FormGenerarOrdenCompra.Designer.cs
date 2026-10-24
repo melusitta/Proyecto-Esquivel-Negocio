@@ -61,6 +61,7 @@
             this.btnGenerarOrden = new System.Windows.Forms.Button();
             this.lblOrdenes = new System.Windows.Forms.Label();
             this.dgvOrdenes = new System.Windows.Forms.DataGridView();
+            this.btnGestionarPago = new System.Windows.Forms.Button();
             this.btnEnviarOrden = new System.Windows.Forms.Button();
             this.btnVolver = new System.Windows.Forms.Button();
             this.tabCompra.SuspendLayout();
@@ -170,6 +171,7 @@
             // 
             this.tabOrdenes.Controls.Add(this.lblOrdenes);
             this.tabOrdenes.Controls.Add(this.dgvOrdenes);
+            this.tabOrdenes.Controls.Add(this.btnGestionarPago);
             this.tabOrdenes.Controls.Add(this.btnEnviarOrden);
             this.tabOrdenes.Location = new System.Drawing.Point(4, 27);
             this.tabOrdenes.Padding = new System.Windows.Forms.Padding(3);
@@ -476,6 +478,18 @@
             this.dgvOrdenes.Name = "dgvOrdenes";
             this.dgvOrdenes.TabIndex = 32;
             // 
+            // btnGestionarPago
+            // 
+            this.btnGestionarPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnGestionarPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGestionarPago.Location = new System.Drawing.Point(580, 482);
+            this.btnGestionarPago.Size = new System.Drawing.Size(250, 40);
+            this.btnGestionarPago.Text = "Gestionar pago";
+            this.btnGestionarPago.UseVisualStyleBackColor = true;
+            this.btnGestionarPago.Name = "btnGestionarPago";
+            this.btnGestionarPago.TabIndex = 33;
+            this.btnGestionarPago.Click += new System.EventHandler(this.btnGestionarPago_Click);
+            // 
             // btnEnviarOrden
             // 
             this.btnEnviarOrden.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
@@ -485,7 +499,7 @@
             this.btnEnviarOrden.Text = "Enviar orden al proveedor";
             this.btnEnviarOrden.UseVisualStyleBackColor = true;
             this.btnEnviarOrden.Name = "btnEnviarOrden";
-            this.btnEnviarOrden.TabIndex = 33;
+            this.btnEnviarOrden.TabIndex = 34;
             this.btnEnviarOrden.Click += new System.EventHandler(this.btnEnviarOrden_Click);
             // 
             // btnVolver
@@ -497,7 +511,7 @@
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.TabIndex = 34;
+            this.btnVolver.TabIndex = 35;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
             // FormGenerarOrdenCompra
@@ -571,6 +585,7 @@
         private System.Windows.Forms.Button btnGenerarOrden;
         private System.Windows.Forms.Label lblOrdenes;
         private System.Windows.Forms.DataGridView dgvOrdenes;
+        private System.Windows.Forms.Button btnGestionarPago;
         private System.Windows.Forms.Button btnEnviarOrden;
         private System.Windows.Forms.Button btnVolver;
     }

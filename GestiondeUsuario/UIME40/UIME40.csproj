@@ -149,17 +149,17 @@
     <Compile Include="FormProductosMasVendidos.Designer.cs">
       <DependentUpon>FormProductosMasVendidos.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormSeleccionarProductosAReponer.cs">
+    <Compile Include="FormSeleccionarProductosStockMinimo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSeleccionarProductosAReponer.Designer.cs">
-      <DependentUpon>FormSeleccionarProductosAReponer.cs</DependentUpon>
+    <Compile Include="FormSeleccionarProductosStockMinimo.Designer.cs">
+      <DependentUpon>FormSeleccionarProductosStockMinimo.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPreRegistrarProveedor.cs">
+    <Compile Include="FormRealizarPreRegistro.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPreRegistrarProveedor.Designer.cs">
-      <DependentUpon>FormPreRegistrarProveedor.cs</DependentUpon>
+    <Compile Include="FormRealizarPreRegistro.Designer.cs">
+      <DependentUpon>FormRealizarPreRegistro.cs</DependentUpon>
     </Compile>
     <Compile Include="FormGenerarSolicitudCompra.cs">
       <SubType>Form</SubType>
@@ -264,11 +264,11 @@
     <EmbeddedResource Include="FormProductosMasVendidos.resx">
       <DependentUpon>FormProductosMasVendidos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSeleccionarProductosAReponer.resx">
-      <DependentUpon>FormSeleccionarProductosAReponer.cs</DependentUpon>
+    <EmbeddedResource Include="FormSeleccionarProductosStockMinimo.resx">
+      <DependentUpon>FormSeleccionarProductosStockMinimo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPreRegistrarProveedor.resx">
-      <DependentUpon>FormPreRegistrarProveedor.cs</DependentUpon>
+    <EmbeddedResource Include="FormRealizarPreRegistro.resx">
+      <DependentUpon>FormRealizarPreRegistro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormGenerarSolicitudCompra.resx">
       <DependentUpon>FormGenerarSolicitudCompra.cs</DependentUpon>

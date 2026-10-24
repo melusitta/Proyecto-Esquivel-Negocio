@@ -49,11 +49,8 @@
     "gestionProductos": "Gestión de productos",
     "productosMasVendidos": "Productos más vendidos",
     "gestionClientes": "Gestión de clientes",
-    "reponerProductos": "Seleccionar productos a reponer",
     "generarSolicitudCompra": "Generar solicitud de compra",
     "generarOrdenCompra": "Generar orden de compra",
-    "completarRegistroProveedor": "Completar registro de proveedor",
-    "gestionarPago": "Gestionar pago",
     "registrarProductosRecibidos": "Registrar productos recibidos"
   },
   "FormGU": {
@@ -568,12 +565,10 @@
     "fp_Efectivo": "Efectivo",
     "fp_Cuentacorriente": "Cuenta corriente"
   },
-  "FormSeleccionarProductosAReponer": {
-    "tituloForm": "Seleccionar productos a reponer",
+  "FormSeleccionarProductosStockMinimo": {
+    "tituloForm": "Seleccionar productos stock mínimo",
     "lblProductos": "Productos con stock mínimo: marcá los que querés reponer y asignales un proveedor",
     "lblProveedores": "Proveedores disponibles",
-    "btnPreRegistrar": "Pre-registrar proveedor",
-    "btnCrearSolicitud": "Crear solicitud de reposición",
     "lblSeleccion": "{0} de {1} productos seleccionados",
     "colReponer": "Reponer",
     "colCodigo": "Código",
@@ -594,13 +589,14 @@
     "colProvFormaPago": "Forma de pago",
     "colProvCondicionesComerciales": "Condiciones",
     "colProvEstado": "Estado",
-    "msgSolicitudCreada": "Solicitud N° {0} creada con {1} productos. El supervisor ya puede generarla y enviarla.",
     "btnVolver": "Volver",
     "msgExito": "Éxito",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnRealizarPreRegistro": "Realizar pre-registro",
+    "btnAgregar": "Agregar a la solicitud"
   },
-  "FormPreRegistrarProveedor": {
-    "tituloForm": "Pre-registrar proveedor",
+  "FormRealizarPreRegistro": {
+    "tituloForm": "Realizar pre-registro",
     "lblCUIT": "CUIT:",
     "lblRazonSocial": "Razón social:",
     "lblContacto": "Contacto:",
@@ -608,26 +604,22 @@
     "lblEmail": "Email:",
     "lblCondiciones": "Condiciones:",
     "lblAyuda": "CUIT con o sin guiones (11 dígitos)",
-    "btnPreRegistrar": "Pre-registrar proveedor",
     "msgPreRegistrado": "{0} quedó pre-registrado. El supervisor va a completar su registro.",
     "btnVolver": "Volver",
     "msgExito": "Éxito",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnRealizarPreRegistro": "Realizar pre-registro"
   },
   "FormGenerarSolicitudCompra": {
     "tituloForm": "Generar solicitud de compra",
-    "lblSolicitudes": "Solicitudes armadas por el encargado de compras",
     "lblItems": "Productos de la solicitud (podés ajustar las cantidades)",
+    "btnSeleccionar": "Seleccionar productos stock mínimo",
+    "btnQuitar": "Quitar producto",
     "lblPrioridad": "Prioridad:",
+    "lblResumen": "{0} productos para {1} proveedores",
+    "sinProductos": "Todavía no seleccionaste productos",
     "btnGenerar": "Generar y enviar solicitud",
-    "lblFecha": "Fecha: {0}",
-    "sinSolicitudes": "No hay solicitudes pendientes",
-    "colSolId": "Id",
-    "colSolNro": "N°",
-    "colSolFecha": "Fecha",
-    "colSolCreadaPor": "Armada por",
-    "colSolProductos": "Productos",
-    "colSolProveedores": "Proveedores",
+    "btnVolver": "Volver",
     "colCodigo": "Código",
     "colProducto": "Producto",
     "colProveedor": "Proveedor",
@@ -635,7 +627,6 @@
     "colStockMinimo": "Mínimo",
     "colCantidad": "Cantidad",
     "msgEnviada": "Solicitud N° {0} generada y enviada a: {1}.",
-    "btnVolver": "Volver",
     "msgExito": "Éxito",
     "msgError": "Error"
   },
@@ -699,7 +690,8 @@
     "msgAtencion": "Atención",
     "btnVolver": "Volver",
     "msgExito": "Éxito",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnGestionarPago": "Gestionar pago"
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "Completar registro de proveedor",
@@ -728,7 +720,7 @@
   },
   "FormGestionarPago": {
     "tituloForm": "Gestionar pago",
-    "lblOrdenes": "Órdenes de compra enviadas, pendientes de pago",
+    "lblOrdenes": "Orden de compra a pagar",
     "lblItems": "Detalle de la orden",
     "grpFactura": "Factura del proveedor",
     "grpPago": "Pago",

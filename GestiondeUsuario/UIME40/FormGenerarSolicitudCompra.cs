@@ -9,10 +9,13 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CUN-008 Generar solicitud de compra (Supervisor).
-    // Paso 3: toma la solicitud que armó el encargado de compras, fija cantidades y prioridad y la envía a los proveedores.
+    // CUN-006 Generar solicitud de compra (Encargado de compras).
+    // Incluye CU-007 Seleccionar productos stock mínimo (paso 1); desde ahí se extiende a CUN-008 Realizar pre-registro.
+    // Paso 3: fija las cantidades y la prioridad, y la solicitud queda enviada a los proveedores (con su PDF).
     public partial class FormGenerarSolicitudCompra : Form, IObservadorIdioma
     {
+        private List<ItemSolicitud> _items = new List<ItemSolicitud>();
+
         public FormGenerarSolicitudCompra()
         {
             InitializeComponent();
@@ -22,12 +25,13 @@ namespace GestiondeUsuario
         {
             Tema.Aplicar(this);
             Tema.EstiloPrincipal(btnGenerar);
-            lblFecha.ForeColor = Tema.PrincipalOscuro;
+            Tema.EstiloPrincipal(btnSeleccionar);
+            lblResumen.ForeColor = Tema.PrincipalOscuro;
             CrearColumnasItems();
 
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
-            CargarSolicitudes();
+            MostrarItems();
         }
 
         private void FormGenerarSolicitudCompra_FormClosed(object sender, FormClosedEventArgs e)
@@ -49,63 +53,53 @@ namespace GestiondeUsuario
             dgvItems.Columns.Add(new DataGridViewTextBoxColumn { Name = "Cantidad", FillWeight = 70 });
         }
 
-        private void CargarSolicitudes()
-        {
-            try
-            {
-                List<SolicitudCompra> borradores = SolicitudCompraBLL.Instancia.ObtenerBorradores();
-                dgvSolicitudes.DataSource = null;
-                dgvSolicitudes.DataSource = borradores.Select(s => new
-                {
-                    s.Id,
-                    Nro = s.NroSolicitud.ToString("D6"),
-                    Fecha = s.FechaCreacion.ToString("dd/MM/yyyy HH:mm"),
-                    s.CreadaPor,
-                    Productos = s.Items.Count,
-                    Proveedores = SolicitudCompraBLL.Instancia.ProveedoresDe(s).Count
-                }).ToList();
-                dgvSolicitudes.Columns["Id"].Visible = false;
-                TraducirColumnas();
-                MostrarSolicitud();
-            }
-            catch (Exception ex)
-            {
-                MostrarError(ex);
-            }
-        }
-
-        private int? IdSeleccionada()
-        {
-            DataGridViewRow fila = dgvSolicitudes.SelectedRows.Count > 0 ? dgvSolicitudes.SelectedRows[0] : dgvSolicitudes.CurrentRow;
-            return fila == null ? (int?)null : Convert.ToInt32(fila.Cells["Id"].Value);
-        }
-
-        private void dgvSolicitudes_SelectionChanged(object sender, EventArgs e)
-        {
-            MostrarSolicitud();
-        }
-
-        private void MostrarSolicitud()
+        private void MostrarItems()
         {
             dgvItems.Rows.Clear();
-            int? id = IdSeleccionada();
-            btnGenerar.Enabled = id.HasValue;
-            lblFecha.Text = id.HasValue ? string.Format(T("lblFecha"), DateTime.Today.ToString("dd/MM/yyyy")) : T("sinSolicitudes");
-            if (!id.HasValue) return;
-            try
+            foreach (ItemSolicitud i in _items)
             {
-                SolicitudCompra s = SolicitudCompraBLL.Instancia.ObtenerPorId(id.Value);
-                foreach (ItemSolicitud i in s.Items)
+                int fila = dgvItems.Rows.Add(i.Producto.CodigoProducto, i.Producto.Nombre, i.Proveedor.RazonSocial,
+                    i.Producto.Existencia, i.Producto.StockMinimo, i.Cantidad);
+                dgvItems.Rows[fila].Tag = i;
+            }
+            int proveedores = _items.Select(i => i.Proveedor.Id).Distinct().Count();
+            lblResumen.Text = _items.Count == 0 ? T("sinProductos") : string.Format(T("lblResumen"), _items.Count, proveedores);
+            btnGenerar.Enabled = btnQuitar.Enabled = _items.Count > 0;
+        }
+
+        // Las cantidades editadas en la grilla pasan a los ítems (si no es número queda 0 y la BLL lo rechaza)
+        private void LeerCantidades()
+        {
+            dgvItems.EndEdit();
+            foreach (DataGridViewRow fila in dgvItems.Rows)
+            {
+                int cantidad;
+                int.TryParse(Convert.ToString(fila.Cells["Cantidad"].Value), out cantidad);
+                ((ItemSolicitud)fila.Tag).Cantidad = cantidad;
+            }
+        }
+
+        // Include CU-007: elegir los productos con stock mínimo y su proveedor
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            LeerCantidades();
+            using (var seleccionar = new FormSeleccionarProductosStockMinimo(_items))
+            {
+                if (seleccionar.ShowDialog(this) == DialogResult.OK)
                 {
-                    int fila = dgvItems.Rows.Add(i.Producto.CodigoProducto, i.Producto.Nombre, i.Proveedor.RazonSocial,
-                        i.Producto.Existencia, i.Producto.StockMinimo, i.Cantidad);
-                    dgvItems.Rows[fila].Tag = i.Producto.Id;
+                    _items = seleccionar.Seleccion;
+                    MostrarItems();
                 }
             }
-            catch (Exception ex)
-            {
-                MostrarError(ex);
-            }
+        }
+
+        private void btnQuitar_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow fila = dgvItems.SelectedRows.Count > 0 ? dgvItems.SelectedRows[0] : dgvItems.CurrentRow;
+            if (fila == null) return;
+            LeerCantidades();
+            _items.Remove((ItemSolicitud)fila.Tag);
+            MostrarItems();
         }
 
         private void dgvItems_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -113,31 +107,22 @@ namespace GestiondeUsuario
             e.ThrowException = false;
         }
 
-        // Paso 3: genera la solicitud (cantidades + prioridad) y queda enviada a los proveedores
+        // Paso 3: genera la solicitud y queda enviada; cada proveedor recibe su PDF con sus productos
         private void btnGenerar_Click(object sender, EventArgs e)
         {
-            int? id = IdSeleccionada();
-            if (!id.HasValue) return;
-            dgvItems.EndEdit();
-            var cantidades = new Dictionary<int, int>();
-            foreach (DataGridViewRow fila in dgvItems.Rows)
-            {
-                int cantidad;
-                int.TryParse(Convert.ToString(fila.Cells["Cantidad"].Value), out cantidad);   // si no es número queda 0 y la BLL lo rechaza
-                cantidades[(int)fila.Tag] = cantidad;
-            }
+            LeerCantidades();
             try
             {
                 string prioridad = (cmbPrioridad.SelectedItem as OpcionCodigo)?.Codigo;
-                SolicitudCompra s = SolicitudCompraBLL.Instancia.GenerarSolicitud(id.Value, cantidades, prioridad);
+                SolicitudCompra s = SolicitudCompraBLL.Instancia.GenerarSolicitud(_items, prioridad);
                 List<Proveedor> proveedores = SolicitudCompraBLL.Instancia.ProveedoresDe(s);
-                // Cada proveedor recibe su PDF con los productos que se le asignaron
+                _items = new List<ItemSolicitud>();
+                MostrarItems();
                 ImpresionCompras.InformarEnvio(this,
                     string.Format(T("msgEnviada"), s.NroSolicitud.ToString("D6"), string.Join(", ", proveedores.Select(p => p.RazonSocial))),
                     T("msgExito"),
                     () => proveedores.Select(p => ImpresionCompras.Solicitud(s, ProveedorBLL.Instancia.ObtenerPorId(p.Id))
                         .GuardarPdf(ImpresionCompras.NombreArchivo("archivoSolicitud", s.NroSolicitud.ToString("D6"), p.RazonSocial))).ToList());
-                CargarSolicitudes();
             }
             catch (Exception ex)
             {
@@ -169,8 +154,6 @@ namespace GestiondeUsuario
 
         private void TraducirColumnas()
         {
-            foreach (DataGridViewColumn c in dgvSolicitudes.Columns)
-                c.HeaderText = T("colSol" + c.Name);
             foreach (DataGridViewColumn c in dgvItems.Columns)
                 c.HeaderText = T("col" + c.Name);
         }
@@ -182,13 +165,16 @@ namespace GestiondeUsuario
 
             this.Text = t["tituloForm"]?.ToString();
             lblTitulo.Text = t["tituloForm"]?.ToString();
-            lblSolicitudes.Text = t["lblSolicitudes"]?.ToString();
             lblItems.Text = t["lblItems"]?.ToString();
             lblPrioridad.Text = t["lblPrioridad"]?.ToString();
+            btnSeleccionar.Text = t["btnSeleccionar"]?.ToString();
+            btnQuitar.Text = t["btnQuitar"]?.ToString();
             btnGenerar.Text = t["btnGenerar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             CargarPrioridades();
             TraducirColumnas();
+            if (dgvItems.Columns.Count > 0)
+                MostrarItems();
         }
     }
 }

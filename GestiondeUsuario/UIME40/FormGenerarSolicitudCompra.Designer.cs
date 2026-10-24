@@ -29,16 +29,15 @@
         private void InitializeComponent()
         {
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblSolicitudes = new System.Windows.Forms.Label();
-            this.dgvSolicitudes = new System.Windows.Forms.DataGridView();
             this.lblItems = new System.Windows.Forms.Label();
             this.dgvItems = new System.Windows.Forms.DataGridView();
+            this.btnSeleccionar = new System.Windows.Forms.Button();
+            this.btnQuitar = new System.Windows.Forms.Button();
             this.lblPrioridad = new System.Windows.Forms.Label();
             this.cmbPrioridad = new System.Windows.Forms.ComboBox();
-            this.lblFecha = new System.Windows.Forms.Label();
+            this.lblResumen = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnGenerar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSolicitudes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,38 +50,14 @@
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.TabIndex = 0;
             // 
-            // lblSolicitudes
-            // 
-            this.lblSolicitudes.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSolicitudes.Location = new System.Drawing.Point(20, 60);
-            this.lblSolicitudes.Text = "Solicitudes armadas por el encargado de compras";
-            this.lblSolicitudes.AutoSize = true;
-            this.lblSolicitudes.Name = "lblSolicitudes";
-            this.lblSolicitudes.TabIndex = 1;
-            // 
-            // dgvSolicitudes
-            // 
-            this.dgvSolicitudes.AllowUserToAddRows = false;
-            this.dgvSolicitudes.AllowUserToDeleteRows = false;
-            this.dgvSolicitudes.AllowUserToResizeRows = false;
-            this.dgvSolicitudes.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
-            this.dgvSolicitudes.Location = new System.Drawing.Point(20, 85);
-            this.dgvSolicitudes.MultiSelect = false;
-            this.dgvSolicitudes.ReadOnly = true;
-            this.dgvSolicitudes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvSolicitudes.Size = new System.Drawing.Size(960, 150);
-            this.dgvSolicitudes.Name = "dgvSolicitudes";
-            this.dgvSolicitudes.TabIndex = 2;
-            this.dgvSolicitudes.SelectionChanged += new System.EventHandler(this.dgvSolicitudes_SelectionChanged);
-            // 
             // lblItems
             // 
             this.lblItems.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblItems.Location = new System.Drawing.Point(20, 250);
+            this.lblItems.Location = new System.Drawing.Point(20, 60);
             this.lblItems.Text = "Productos de la solicitud (podés ajustar las cantidades)";
             this.lblItems.AutoSize = true;
             this.lblItems.Name = "lblItems";
-            this.lblItems.TabIndex = 3;
+            this.lblItems.TabIndex = 1;
             // 
             // dgvItems
             // 
@@ -90,19 +65,43 @@
             this.dgvItems.AllowUserToDeleteRows = false;
             this.dgvItems.AllowUserToResizeRows = false;
             this.dgvItems.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
-            this.dgvItems.Location = new System.Drawing.Point(20, 275);
+            this.dgvItems.Location = new System.Drawing.Point(20, 85);
             this.dgvItems.MultiSelect = false;
             this.dgvItems.ReadOnly = false;
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvItems.Size = new System.Drawing.Size(960, 260);
+            this.dgvItems.Size = new System.Drawing.Size(960, 380);
             this.dgvItems.Name = "dgvItems";
-            this.dgvItems.TabIndex = 4;
+            this.dgvItems.TabIndex = 2;
             this.dgvItems.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvItems_DataError);
+            // 
+            // btnSeleccionar
+            // 
+            this.btnSeleccionar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.btnSeleccionar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSeleccionar.Location = new System.Drawing.Point(20, 478);
+            this.btnSeleccionar.Size = new System.Drawing.Size(300, 38);
+            this.btnSeleccionar.Text = "Seleccionar productos stock mínimo";
+            this.btnSeleccionar.UseVisualStyleBackColor = true;
+            this.btnSeleccionar.Name = "btnSeleccionar";
+            this.btnSeleccionar.TabIndex = 3;
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
+            // 
+            // btnQuitar
+            // 
+            this.btnQuitar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.btnQuitar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnQuitar.Location = new System.Drawing.Point(330, 478);
+            this.btnQuitar.Size = new System.Drawing.Size(170, 38);
+            this.btnQuitar.Text = "Quitar producto";
+            this.btnQuitar.UseVisualStyleBackColor = true;
+            this.btnQuitar.Name = "btnQuitar";
+            this.btnQuitar.TabIndex = 4;
+            this.btnQuitar.Click += new System.EventHandler(this.btnQuitar_Click);
             // 
             // lblPrioridad
             // 
             this.lblPrioridad.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrioridad.Location = new System.Drawing.Point(20, 553);
+            this.lblPrioridad.Location = new System.Drawing.Point(20, 533);
             this.lblPrioridad.Text = "Prioridad:";
             this.lblPrioridad.AutoSize = false;
             this.lblPrioridad.Size = new System.Drawing.Size(90, 25);
@@ -114,28 +113,28 @@
             // cmbPrioridad
             // 
             this.cmbPrioridad.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbPrioridad.Location = new System.Drawing.Point(115, 553);
+            this.cmbPrioridad.Location = new System.Drawing.Point(115, 533);
             this.cmbPrioridad.Size = new System.Drawing.Size(150, 25);
             this.cmbPrioridad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPrioridad.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.cmbPrioridad.Name = "cmbPrioridad";
             this.cmbPrioridad.TabIndex = 6;
             // 
-            // lblFecha
+            // lblResumen
             // 
-            this.lblFecha.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha.Location = new System.Drawing.Point(290, 556);
-            this.lblFecha.Text = "";
-            this.lblFecha.AutoSize = true;
-            this.lblFecha.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
-            this.lblFecha.Name = "lblFecha";
-            this.lblFecha.TabIndex = 7;
+            this.lblResumen.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResumen.Location = new System.Drawing.Point(290, 536);
+            this.lblResumen.Text = "";
+            this.lblResumen.AutoSize = true;
+            this.lblResumen.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.lblResumen.Name = "lblResumen";
+            this.lblResumen.TabIndex = 7;
             // 
             // btnVolver
             // 
             this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Location = new System.Drawing.Point(20, 600);
+            this.btnVolver.Location = new System.Drawing.Point(20, 582);
             this.btnVolver.Size = new System.Drawing.Size(110, 34);
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -147,7 +146,7 @@
             // 
             this.btnGenerar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnGenerar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGenerar.Location = new System.Drawing.Point(690, 594);
+            this.btnGenerar.Location = new System.Drawing.Point(690, 576);
             this.btnGenerar.Size = new System.Drawing.Size(290, 40);
             this.btnGenerar.Text = "Generar y enviar solicitud";
             this.btnGenerar.UseVisualStyleBackColor = true;
@@ -159,22 +158,21 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 650);
+            this.ClientSize = new System.Drawing.Size(1000, 630);
             this.Controls.Add(this.btnGenerar);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.lblFecha);
+            this.Controls.Add(this.lblResumen);
             this.Controls.Add(this.cmbPrioridad);
             this.Controls.Add(this.lblPrioridad);
+            this.Controls.Add(this.btnQuitar);
+            this.Controls.Add(this.btnSeleccionar);
             this.Controls.Add(this.dgvItems);
             this.Controls.Add(this.lblItems);
-            this.Controls.Add(this.dgvSolicitudes);
-            this.Controls.Add(this.lblSolicitudes);
             this.Controls.Add(this.lblTitulo);
             this.Name = "FormGenerarSolicitudCompra";
             this.Text = "Generar solicitud de compra";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormGenerarSolicitudCompra_FormClosed);
             this.Load += new System.EventHandler(this.FormGenerarSolicitudCompra_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSolicitudes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -184,13 +182,13 @@
         #endregion
 
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.Label lblSolicitudes;
-        private System.Windows.Forms.DataGridView dgvSolicitudes;
         private System.Windows.Forms.Label lblItems;
         private System.Windows.Forms.DataGridView dgvItems;
+        private System.Windows.Forms.Button btnSeleccionar;
+        private System.Windows.Forms.Button btnQuitar;
         private System.Windows.Forms.Label lblPrioridad;
         private System.Windows.Forms.ComboBox cmbPrioridad;
-        private System.Windows.Forms.Label lblFecha;
+        private System.Windows.Forms.Label lblResumen;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGenerar;
     }

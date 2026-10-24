@@ -1,6 +1,6 @@
 ﻿namespace GestiondeUsuario
 {
-    partial class FormPreRegistrarProveedor
+    partial class FormRealizarPreRegistro
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -43,14 +43,14 @@
             this.txtCondiciones = new System.Windows.Forms.TextBox();
             this.lblAyuda = new System.Windows.Forms.Label();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.btnPreRegistrar = new System.Windows.Forms.Button();
+            this.btnRealizarPreRegistro = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblTitulo
             // 
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(18, 14);
-            this.lblTitulo.Text = "Pre-registrar proveedor";
+            this.lblTitulo.Text = "Realizar pre-registro";
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.TabIndex = 0;
@@ -209,24 +209,24 @@
             this.btnVolver.TabIndex = 14;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // btnPreRegistrar
+            // btnRealizarPreRegistro
             // 
-            this.btnPreRegistrar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
-            this.btnPreRegistrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreRegistrar.Location = new System.Drawing.Point(290, 346);
-            this.btnPreRegistrar.Size = new System.Drawing.Size(220, 38);
-            this.btnPreRegistrar.Text = "Pre-registrar proveedor";
-            this.btnPreRegistrar.UseVisualStyleBackColor = true;
-            this.btnPreRegistrar.Name = "btnPreRegistrar";
-            this.btnPreRegistrar.TabIndex = 15;
-            this.btnPreRegistrar.Click += new System.EventHandler(this.btnPreRegistrar_Click);
+            this.btnRealizarPreRegistro.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnRealizarPreRegistro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRealizarPreRegistro.Location = new System.Drawing.Point(290, 346);
+            this.btnRealizarPreRegistro.Size = new System.Drawing.Size(220, 38);
+            this.btnRealizarPreRegistro.Text = "Realizar pre-registro";
+            this.btnRealizarPreRegistro.UseVisualStyleBackColor = true;
+            this.btnRealizarPreRegistro.Name = "btnRealizarPreRegistro";
+            this.btnRealizarPreRegistro.TabIndex = 15;
+            this.btnRealizarPreRegistro.Click += new System.EventHandler(this.btnRealizarPreRegistro_Click);
             // 
-            // FormPreRegistrarProveedor
+            // FormRealizarPreRegistro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(540, 400);
-            this.Controls.Add(this.btnPreRegistrar);
+            this.Controls.Add(this.btnRealizarPreRegistro);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblAyuda);
             this.Controls.Add(this.txtCondiciones);
@@ -242,10 +242,10 @@
             this.Controls.Add(this.txtCUIT);
             this.Controls.Add(this.lblCUIT);
             this.Controls.Add(this.lblTitulo);
-            this.Name = "FormPreRegistrarProveedor";
-            this.Text = "Pre-registrar proveedor";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPreRegistrarProveedor_FormClosed);
-            this.Load += new System.EventHandler(this.FormPreRegistrarProveedor_Load);
+            this.Name = "FormRealizarPreRegistro";
+            this.Text = "Realizar pre-registro";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormRealizarPreRegistro_FormClosed);
+            this.Load += new System.EventHandler(this.FormRealizarPreRegistro_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -268,6 +268,6 @@
         private System.Windows.Forms.TextBox txtCondiciones;
         private System.Windows.Forms.Label lblAyuda;
         private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.Button btnPreRegistrar;
+        private System.Windows.Forms.Button btnRealizarPreRegistro;
     }
 }

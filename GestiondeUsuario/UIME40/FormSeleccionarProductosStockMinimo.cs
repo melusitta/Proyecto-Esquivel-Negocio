@@ -9,22 +9,31 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CUN-006 Seleccionar productos a reponer (Encargado de compras).
-    // Paso 1: elige los productos con stock mínimo, analiza los proveedores y asigna uno a cada producto.
-    // Si el proveedor no está, se extiende a CUN-007 Pre-registrar proveedor (paso 2).
-    public partial class FormSeleccionarProductosAReponer : Form, IObservadorIdioma
+    // CU-007 Seleccionar productos stock mínimo (Encargado de compras). Lo incluye CUN-006 Generar solicitud de compra,
+    // que lo abre como diálogo. Paso 1: elige los productos con stock mínimo, analiza los proveedores y le asigna
+    // uno a cada producto. Si el proveedor no está, se extiende a CUN-008 Realizar pre-registro (paso 2).
+    public partial class FormSeleccionarProductosStockMinimo : Form, IObservadorIdioma
     {
         private List<Proveedor> _proveedores = new List<Proveedor>();
+        private readonly List<ItemSolicitud> _yaElegidos;
 
-        public FormSeleccionarProductosAReponer()
+        // Lo seleccionado y validado, para la solicitud (con DialogResult.OK)
+        public List<ItemSolicitud> Seleccion { get; private set; }
+
+        public FormSeleccionarProductosStockMinimo() : this(new List<ItemSolicitud>())
         {
-            InitializeComponent();
         }
 
-        private void FormSeleccionarProductosAReponer_Load(object sender, EventArgs e)
+        public FormSeleccionarProductosStockMinimo(List<ItemSolicitud> yaElegidos)
+        {
+            InitializeComponent();
+            _yaElegidos = yaElegidos ?? new List<ItemSolicitud>();
+        }
+
+        private void FormSeleccionarProductosStockMinimo_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
-            Tema.EstiloPrincipal(btnCrearSolicitud);
+            Tema.EstiloPrincipal(btnAgregar);
             lblSeleccion.ForeColor = Tema.PrincipalOscuro;
             CrearColumnas();
 
@@ -34,17 +43,17 @@ namespace GestiondeUsuario
             CargarProductos();
         }
 
-        private void FormSeleccionarProductosAReponer_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormSeleccionarProductosStockMinimo_FormClosed(object sender, FormClosedEventArgs e)
         {
             GestorIdioma.Instancia.Desuscribir(this);
         }
 
         private string T(string clave)
         {
-            return GestorIdioma.Instancia.Obtener("FormSeleccionarProductosAReponer", clave);
+            return GestorIdioma.Instancia.Obtener("FormSeleccionarProductosStockMinimo", clave);
         }
 
-        // ---------- Productos a reponer ----------
+        // ---------- Productos con stock mínimo ----------
 
         private void CrearColumnas()
         {
@@ -77,13 +86,16 @@ namespace GestiondeUsuario
                 dgvProductos.Rows.Clear();
                 foreach (Producto p in SolicitudCompraBLL.Instancia.ObtenerProductosAReponer())
                 {
-                    int fila = dgvProductos.Rows.Add(false, p.CodigoProducto, p.Nombre, p.Categoria, p.Existencia,
-                        p.StockMinimo, p.ProveedorHabitual ?? "", null, SolicitudCompraBLL.CantidadSugerida(p));
+                    // Lo que ya estaba en la solicitud vuelve marcado, con su proveedor y cantidad
+                    ItemSolicitud elegido = _yaElegidos.FirstOrDefault(i => i.Producto.Id == p.Id);
+                    int fila = dgvProductos.Rows.Add(elegido != null, p.CodigoProducto, p.Nombre, p.Categoria, p.Existencia,
+                        p.StockMinimo, p.ProveedorHabitual ?? "", null, elegido?.Cantidad ?? SolicitudCompraBLL.CantidadSugerida(p));
                     DataGridViewRow row = dgvProductos.Rows[fila];
                     row.Tag = p;
                     // Por defecto se le asigna su proveedor habitual
-                    if (p.IdProveedorHabitual.HasValue && _proveedores.Any(x => x.Id == p.IdProveedorHabitual.Value))
-                        row.Cells["Proveedor"].Value = p.IdProveedorHabitual.Value;
+                    int? idProveedor = elegido?.Proveedor?.Id ?? p.IdProveedorHabitual;
+                    if (idProveedor.HasValue && _proveedores.Any(x => x.Id == idProveedor.Value))
+                        row.Cells["Proveedor"].Value = idProveedor.Value;
                 }
                 MostrarSeleccion();
             }
@@ -156,8 +168,8 @@ namespace GestiondeUsuario
             lblSeleccion.Text = string.Format(T("lblSeleccion"), FilasMarcadas().Count, dgvProductos.Rows.Count);
         }
 
-        // Paso 1: queda una solicitud en Borrador para que el supervisor la genere
-        private void btnCrearSolicitud_Click(object sender, EventArgs e)
+        // La BLL revisa la selección; si está bien vuelve a la solicitud
+        private void btnAgregar_Click(object sender, EventArgs e)
         {
             dgvProductos.EndEdit();
             var items = new List<ItemSolicitud>();
@@ -175,10 +187,9 @@ namespace GestiondeUsuario
             }
             try
             {
-                SolicitudCompra s = SolicitudCompraBLL.Instancia.CrearSolicitud(items);
-                MessageBox.Show(string.Format(T("msgSolicitudCreada"), s.NroSolicitud.ToString("D6"), s.Items.Count),
-                    T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CargarProductos();
+                Seleccion = SolicitudCompraBLL.Instancia.ValidarSeleccion(items);
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -186,10 +197,10 @@ namespace GestiondeUsuario
             }
         }
 
-        // Paso 2 (extend): pre-registrar un proveedor que no está
-        private void btnPreRegistrar_Click(object sender, EventArgs e)
+        // Paso 2 (extend): realizar el pre-registro de un proveedor que no está
+        private void btnRealizarPreRegistro_Click(object sender, EventArgs e)
         {
-            using (var preRegistro = new FormPreRegistrarProveedor())
+            using (var preRegistro = new FormRealizarPreRegistro())
             {
                 if (preRegistro.ShowDialog(this) == DialogResult.OK)
                     CargarProveedores();
@@ -198,7 +209,7 @@ namespace GestiondeUsuario
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
-            new FormPrincipal().Show();
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -219,15 +230,15 @@ namespace GestiondeUsuario
 
         public void ActualizarIdioma(JObject traducciones)
         {
-            var t = traducciones["FormSeleccionarProductosAReponer"];
+            var t = traducciones["FormSeleccionarProductosStockMinimo"];
             if (t == null) return;
 
             this.Text = t["tituloForm"]?.ToString();
             lblTitulo.Text = t["tituloForm"]?.ToString();
             lblProductos.Text = t["lblProductos"]?.ToString();
             lblProveedores.Text = t["lblProveedores"]?.ToString();
-            btnPreRegistrar.Text = t["btnPreRegistrar"]?.ToString();
-            btnCrearSolicitud.Text = t["btnCrearSolicitud"]?.ToString();
+            btnRealizarPreRegistro.Text = t["btnRealizarPreRegistro"]?.ToString();
+            btnAgregar.Text = t["btnAgregar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             TraducirColumnas();
             if (dgvProveedores.DataSource != null)

@@ -25,14 +25,14 @@ namespace BLL
         }
 
         // Solicitudes con las que trabaja CUN-009: las enviadas (para cotizar y generar órdenes) y las cerradas
-        // que todavía tienen órdenes sin enviar al proveedor (paso 7)
+        // que todavía tienen órdenes sin enviar (paso 7) o sin pagar (CUN-011, incluido en CUN-009)
         public List<SolicitudCompra> ObtenerSolicitudesEnCurso()
         {
             SolicitudCompraDAL solicitudes = new SolicitudCompraDAL();
             OrdenCompraDAL ordenes = new OrdenCompraDAL();
             var lista = solicitudes.ObtenerPorEstado(SolicitudCompra.EstadoEnviada);
             lista.AddRange(solicitudes.ObtenerPorEstado(SolicitudCompra.EstadoCerrada)
-                .Where(s => ordenes.ObtenerPorSolicitud(s.Id).Any(o => o.Estado == OrdenCompra.EstadoEmitida)));
+                .Where(s => ordenes.ObtenerPorSolicitud(s.Id).Any(o => o.Estado == OrdenCompra.EstadoEmitida || o.Estado == OrdenCompra.EstadoEnviada)));
             return lista.OrderBy(s => s.NroSolicitud).ToList();
         }
 

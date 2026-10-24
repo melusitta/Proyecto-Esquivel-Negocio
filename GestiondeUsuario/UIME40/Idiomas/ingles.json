@@ -49,11 +49,8 @@
     "gestionProductos": "Product management",
     "productosMasVendidos": "Best-selling products",
     "gestionClientes": "Customer management",
-    "reponerProductos": "Select products to restock",
     "generarSolicitudCompra": "Generate purchase request",
     "generarOrdenCompra": "Generate purchase order",
-    "completarRegistroProveedor": "Complete supplier registration",
-    "gestionarPago": "Manage payment",
     "registrarProductosRecibidos": "Register received products"
   },
   "FormGU": {
@@ -568,12 +565,10 @@
     "fp_Efectivo": "Cash",
     "fp_Cuentacorriente": "Credit account"
   },
-  "FormSeleccionarProductosAReponer": {
-    "tituloForm": "Select products to restock",
+  "FormSeleccionarProductosStockMinimo": {
+    "tituloForm": "Select minimum-stock products",
     "lblProductos": "Products at minimum stock: tick the ones to restock and assign them a supplier",
     "lblProveedores": "Available suppliers",
-    "btnPreRegistrar": "Pre-register supplier",
-    "btnCrearSolicitud": "Create restock request",
     "lblSeleccion": "{0} of {1} products selected",
     "colReponer": "Restock",
     "colCodigo": "Code",
@@ -594,12 +589,13 @@
     "colProvFormaPago": "Payment method",
     "colProvCondicionesComerciales": "Terms",
     "colProvEstado": "Status",
-    "msgSolicitudCreada": "Request No. {0} created with {1} products. The supervisor can now generate and send it.",
     "btnVolver": "Back",
     "msgExito": "Success",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnRealizarPreRegistro": "Pre-register supplier",
+    "btnAgregar": "Add to request"
   },
-  "FormPreRegistrarProveedor": {
+  "FormRealizarPreRegistro": {
     "tituloForm": "Pre-register supplier",
     "lblCUIT": "CUIT:",
     "lblRazonSocial": "Company name:",
@@ -608,26 +604,22 @@
     "lblEmail": "Email:",
     "lblCondiciones": "Terms:",
     "lblAyuda": "CUIT with or without dashes (11 digits)",
-    "btnPreRegistrar": "Pre-register supplier",
     "msgPreRegistrado": "{0} is now pre-registered. The supervisor will complete its registration.",
     "btnVolver": "Back",
     "msgExito": "Success",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnRealizarPreRegistro": "Pre-register supplier"
   },
   "FormGenerarSolicitudCompra": {
     "tituloForm": "Generate purchase request",
-    "lblSolicitudes": "Requests prepared by the purchasing officer",
     "lblItems": "Products in the request (you can adjust the quantities)",
+    "btnSeleccionar": "Select minimum-stock products",
+    "btnQuitar": "Remove product",
     "lblPrioridad": "Priority:",
+    "lblResumen": "{0} products for {1} suppliers",
+    "sinProductos": "No products selected yet",
     "btnGenerar": "Generate and send request",
-    "lblFecha": "Date: {0}",
-    "sinSolicitudes": "There are no pending requests",
-    "colSolId": "Id",
-    "colSolNro": "No.",
-    "colSolFecha": "Date",
-    "colSolCreadaPor": "Prepared by",
-    "colSolProductos": "Products",
-    "colSolProveedores": "Suppliers",
+    "btnVolver": "Back",
     "colCodigo": "Code",
     "colProducto": "Product",
     "colProveedor": "Supplier",
@@ -635,7 +627,6 @@
     "colStockMinimo": "Minimum",
     "colCantidad": "Quantity",
     "msgEnviada": "Request No. {0} generated and sent to: {1}.",
-    "btnVolver": "Back",
     "msgExito": "Success",
     "msgError": "Error"
   },
@@ -699,7 +690,8 @@
     "msgAtencion": "Attention",
     "btnVolver": "Back",
     "msgExito": "Success",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnGestionarPago": "Manage payment"
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "Complete supplier registration",
@@ -728,7 +720,7 @@
   },
   "FormGestionarPago": {
     "tituloForm": "Manage payment",
-    "lblOrdenes": "Sent purchase orders, pending payment",
+    "lblOrdenes": "Purchase order to pay",
     "lblItems": "Order details",
     "grpFactura": "Supplier invoice",
     "grpPago": "Payment",

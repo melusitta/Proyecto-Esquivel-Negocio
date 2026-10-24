@@ -7,39 +7,40 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CUN-007 Pre-registrar proveedor (Encargado de compras). Extiende CUN-006: se abre como diálogo
-    // cuando el proveedor que se quiere asignar no está. El supervisor completa después su registro (CUN-010).
-    public partial class FormPreRegistrarProveedor : Form, IObservadorIdioma
+    // CUN-008 Realizar pre-registro (Encargado de compras). Extiende CUN-006 Generar solicitud de compra:
+    // se abre como diálogo desde CU-007 cuando el proveedor que se quiere asignar no está.
+    // El supervisor completa después su registro (CUN-010).
+    public partial class FormRealizarPreRegistro : Form, IObservadorIdioma
     {
         public int IdProveedor { get; private set; }
 
-        public FormPreRegistrarProveedor()
+        public FormRealizarPreRegistro()
         {
             InitializeComponent();
         }
 
-        private void FormPreRegistrarProveedor_Load(object sender, EventArgs e)
+        private void FormRealizarPreRegistro_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
-            Tema.EstiloPrincipal(btnPreRegistrar);
+            Tema.EstiloPrincipal(btnRealizarPreRegistro);
             lblAyuda.ForeColor = Tema.PrincipalOscuro;
-            this.AcceptButton = btnPreRegistrar;
+            this.AcceptButton = btnRealizarPreRegistro;
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
             txtCUIT.Focus();
         }
 
-        private void FormPreRegistrarProveedor_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormRealizarPreRegistro_FormClosed(object sender, FormClosedEventArgs e)
         {
             GestorIdioma.Instancia.Desuscribir(this);
         }
 
         private string T(string clave)
         {
-            return GestorIdioma.Instancia.Obtener("FormPreRegistrarProveedor", clave);
+            return GestorIdioma.Instancia.Obtener("FormRealizarPreRegistro", clave);
         }
 
-        private void btnPreRegistrar_Click(object sender, EventArgs e)
+        private void btnRealizarPreRegistro_Click(object sender, EventArgs e)
         {
             var proveedor = new Proveedor
             {
@@ -72,7 +73,7 @@ namespace GestiondeUsuario
 
         public void ActualizarIdioma(JObject traducciones)
         {
-            var t = traducciones["FormPreRegistrarProveedor"];
+            var t = traducciones["FormRealizarPreRegistro"];
             if (t == null) return;
 
             this.Text = t["tituloForm"]?.ToString();
@@ -84,7 +85,7 @@ namespace GestiondeUsuario
             lblEmail.Text = t["lblEmail"]?.ToString();
             lblCondiciones.Text = t["lblCondiciones"]?.ToString();
             lblAyuda.Text = t["lblAyuda"]?.ToString();
-            btnPreRegistrar.Text = t["btnPreRegistrar"]?.ToString();
+            btnRealizarPreRegistro.Text = t["btnRealizarPreRegistro"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
         }
     }

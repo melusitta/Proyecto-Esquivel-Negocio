@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    // PN2: proveedores (CUN-007 Pre-registrar proveedor, CUN-010 Completar registro de proveedor)
+    // PN2: proveedores (CUN-008 Realizar pre-registro, CUN-010 Completar registro de proveedor)
     public class ProveedorDAL
     {
         private string connectionString = ConexionDAL.ConnectionString;

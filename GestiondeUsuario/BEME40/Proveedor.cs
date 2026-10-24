@@ -2,7 +2,7 @@
 
 namespace BE
 {
-    // PN2: lo pre-registra el encargado de compras (CUN-007) y el supervisor completa su registro (CUN-010)
+    // PN2: lo pre-registra el encargado de compras (CUN-008 Realizar pre-registro) y el supervisor completa su registro (CUN-010)
     public class Proveedor
     {
         public const string EstadoPreRegistrado = "PreRegistrado";

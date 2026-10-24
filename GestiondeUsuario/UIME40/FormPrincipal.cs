@@ -62,11 +62,8 @@ namespace GestiondeUsuario
             cargarCarritoToolStripMenuItem.Enabled = tieneCargarCarrito;
             generarFacturaToolStripMenuItem.Enabled = tieneFacturar;
             menuVenta.Enabled = tieneVentas || tieneCargarCarrito || tieneFacturar;
-            reponerProductosToolStripMenuItem.Enabled = tieneReponerProductos;
-            generarSolicitudCompraToolStripMenuItem.Enabled = tieneGestionarCompras;
+            generarSolicitudCompraToolStripMenuItem.Enabled = tieneReponerProductos;
             generarOrdenCompraToolStripMenuItem.Enabled = tieneGestionarCompras;
-            completarRegistroProveedorToolStripMenuItem.Enabled = tieneGestionarCompras;
-            gestionarPagoToolStripMenuItem.Enabled = tieneGestionarCompras;
             registrarProductosRecibidosToolStripMenuItem.Enabled = tieneRecibirMercaderia;
             menuCompras.Enabled = tieneCompras || tieneReponerProductos || tieneGestionarCompras || tieneRecibirMercaderia;
             productosMasVendidosToolStripMenuItem.Enabled = tieneReportesVentas;
@@ -156,12 +153,6 @@ namespace GestiondeUsuario
             new FormGestionProductos().Show();
             this.Hide();
         }
-        private void reponerProductosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new FormSeleccionarProductosAReponer().Show();
-            this.Hide();
-        }
-
         private void generarSolicitudCompraToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormGenerarSolicitudCompra().Show();
@@ -171,18 +162,6 @@ namespace GestiondeUsuario
         private void generarOrdenCompraToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormGenerarOrdenCompra().Show();
-            this.Hide();
-        }
-
-        private void completarRegistroProveedorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new FormCompletarRegistroProveedor().Show();
-            this.Hide();
-        }
-
-        private void gestionarPagoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            new FormGestionarPago().Show();
             this.Hide();
         }
 
@@ -231,11 +210,8 @@ namespace GestiondeUsuario
             cargarCarritoToolStripMenuItem.Text = t["cargarCarrito"]?.ToString();
             generarFacturaToolStripMenuItem.Text = t["generarFactura"]?.ToString();
             menuCompras.Text = t["menuCompras"]?.ToString();
-            reponerProductosToolStripMenuItem.Text = t["reponerProductos"]?.ToString();
             generarSolicitudCompraToolStripMenuItem.Text = t["generarSolicitudCompra"]?.ToString();
             generarOrdenCompraToolStripMenuItem.Text = t["generarOrdenCompra"]?.ToString();
-            completarRegistroProveedorToolStripMenuItem.Text = t["completarRegistroProveedor"]?.ToString();
-            gestionarPagoToolStripMenuItem.Text = t["gestionarPago"]?.ToString();
             registrarProductosRecibidosToolStripMenuItem.Text = t["registrarProductosRecibidos"]?.ToString();
             menuReporte.Text = t["menuReporte"]?.ToString();
             productosMasVendidosToolStripMenuItem.Text = t["productosMasVendidos"]?.ToString();

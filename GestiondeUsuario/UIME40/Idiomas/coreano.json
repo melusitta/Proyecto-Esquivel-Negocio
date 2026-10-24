@@ -49,11 +49,8 @@
     "gestionProductos": "상품 관리",
     "productosMasVendidos": "가장 많이 팔린 상품",
     "gestionClientes": "고객 관리",
-    "reponerProductos": "보충할 상품 선택",
     "generarSolicitudCompra": "구매 요청 생성",
     "generarOrdenCompra": "구매 주문 생성",
-    "completarRegistroProveedor": "공급업체 등록 완료",
-    "gestionarPago": "결제 관리",
     "registrarProductosRecibidos": "입고 상품 등록"
   },
   "FormGU": {
@@ -568,12 +565,10 @@
     "fp_Efectivo": "현금",
     "fp_Cuentacorriente": "외상 거래"
   },
-  "FormSeleccionarProductosAReponer": {
-    "tituloForm": "보충할 상품 선택",
+  "FormSeleccionarProductosStockMinimo": {
+    "tituloForm": "최소 재고 상품 선택",
     "lblProductos": "최소 재고 상품: 보충할 상품을 선택하고 공급업체를 지정하세요",
     "lblProveedores": "이용 가능한 공급업체",
-    "btnPreRegistrar": "공급업체 사전 등록",
-    "btnCrearSolicitud": "보충 요청 만들기",
     "lblSeleccion": "{1}개 중 {0}개 선택됨",
     "colReponer": "보충",
     "colCodigo": "코드",
@@ -594,12 +589,13 @@
     "colProvFormaPago": "결제 방법",
     "colProvCondicionesComerciales": "거래 조건",
     "colProvEstado": "상태",
-    "msgSolicitudCreada": "상품 {1}개로 요청 번호 {0}이(가) 생성되었습니다. 이제 관리자가 생성하고 발송할 수 있습니다.",
     "btnVolver": "뒤로",
     "msgExito": "성공",
-    "msgError": "오류"
+    "msgError": "오류",
+    "btnRealizarPreRegistro": "공급업체 사전 등록",
+    "btnAgregar": "요청에 추가"
   },
-  "FormPreRegistrarProveedor": {
+  "FormRealizarPreRegistro": {
     "tituloForm": "공급업체 사전 등록",
     "lblCUIT": "CUIT:",
     "lblRazonSocial": "상호:",
@@ -608,26 +604,22 @@
     "lblEmail": "이메일:",
     "lblCondiciones": "거래 조건:",
     "lblAyuda": "CUIT는 하이픈 포함 또는 미포함 (11자리)",
-    "btnPreRegistrar": "공급업체 사전 등록",
     "msgPreRegistrado": "{0}이(가) 사전 등록되었습니다. 관리자가 등록을 완료합니다.",
     "btnVolver": "뒤로",
     "msgExito": "성공",
-    "msgError": "오류"
+    "msgError": "오류",
+    "btnRealizarPreRegistro": "공급업체 사전 등록"
   },
   "FormGenerarSolicitudCompra": {
     "tituloForm": "구매 요청 생성",
-    "lblSolicitudes": "구매 담당자가 작성한 요청",
     "lblItems": "요청 상품 (수량 조정 가능)",
+    "btnSeleccionar": "최소 재고 상품 선택",
+    "btnQuitar": "상품 빼기",
     "lblPrioridad": "우선순위:",
+    "lblResumen": "공급업체 {1}곳, 상품 {0}개",
+    "sinProductos": "아직 선택한 상품이 없습니다",
     "btnGenerar": "요청 생성 및 발송",
-    "lblFecha": "날짜: {0}",
-    "sinSolicitudes": "대기 중인 요청이 없습니다",
-    "colSolId": "Id",
-    "colSolNro": "번호",
-    "colSolFecha": "날짜",
-    "colSolCreadaPor": "작성자",
-    "colSolProductos": "상품",
-    "colSolProveedores": "공급업체",
+    "btnVolver": "뒤로",
     "colCodigo": "코드",
     "colProducto": "상품",
     "colProveedor": "공급업체",
@@ -635,7 +627,6 @@
     "colStockMinimo": "최소",
     "colCantidad": "수량",
     "msgEnviada": "요청 번호 {0}이(가) 생성되어 다음에 발송되었습니다: {1}.",
-    "btnVolver": "뒤로",
     "msgExito": "성공",
     "msgError": "오류"
   },
@@ -699,7 +690,8 @@
     "msgAtencion": "주의",
     "btnVolver": "뒤로",
     "msgExito": "성공",
-    "msgError": "오류"
+    "msgError": "오류",
+    "btnGestionarPago": "결제 관리"
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "공급업체 등록 완료",
@@ -728,7 +720,7 @@
   },
   "FormGestionarPago": {
     "tituloForm": "결제 관리",
-    "lblOrdenes": "발송된 구매 주문 (결제 대기)",
+    "lblOrdenes": "결제할 구매 주문",
     "lblItems": "주문 상세",
     "grpFactura": "공급업체 청구서",
     "grpPago": "결제",

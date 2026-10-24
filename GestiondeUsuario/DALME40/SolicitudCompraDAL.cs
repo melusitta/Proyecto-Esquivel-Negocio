@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    // PN2: solicitudes de compra (CUN-006 la crea como Borrador, CUN-008 la envía)
+    // PN2: solicitudes de compra (CUN-006 Generar solicitud de compra)
     public class SolicitudCompraDAL
     {
         private string connectionString = ConexionDAL.ConnectionString;
@@ -112,7 +112,7 @@ namespace DAL
             return ids;
         }
 
-        // Crea la solicitud en Borrador con número correlativo. Devuelve el Id.
+        // CUN-006: crea la solicitud ya enviada a los proveedores, con número correlativo. Devuelve el Id.
         public int Crear(SolicitudCompra s)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
@@ -125,12 +125,15 @@ namespace DAL
                         "SELECT ISNULL(MAX(NroSolicitud), 0) + 1 FROM SolicitudCompra WITH (UPDLOCK, HOLDLOCK)", con, tx);
                     s.NroSolicitud = Convert.ToInt32(cmdNro.ExecuteScalar());
 
-                    SqlCommand cmd = new SqlCommand(@"INSERT INTO SolicitudCompra (NroSolicitud, FechaCreacion, CreadaPor, Estado)
-                        VALUES (@Nro, @Fecha, @CreadaPor, @Estado); SELECT CAST(SCOPE_IDENTITY() AS INT);", con, tx);
+                    SqlCommand cmd = new SqlCommand(@"INSERT INTO SolicitudCompra
+                        (NroSolicitud, FechaCreacion, CreadaPor, Prioridad, Estado, FechaEnvio)
+                        VALUES (@Nro, @Fecha, @CreadaPor, @Prioridad, @Estado, @FechaEnvio); SELECT CAST(SCOPE_IDENTITY() AS INT);", con, tx);
                     cmd.Parameters.AddWithValue("@Nro", s.NroSolicitud);
                     cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = s.FechaCreacion;
                     cmd.Parameters.AddWithValue("@CreadaPor", s.CreadaPor);
-                    cmd.Parameters.AddWithValue("@Estado", SolicitudCompra.EstadoBorrador);
+                    cmd.Parameters.AddWithValue("@Prioridad", s.Prioridad);
+                    cmd.Parameters.AddWithValue("@Estado", SolicitudCompra.EstadoEnviada);
+                    cmd.Parameters.Add("@FechaEnvio", SqlDbType.DateTime).Value = s.FechaEnvio ?? s.FechaCreacion;
                     s.Id = Convert.ToInt32(cmd.ExecuteScalar());
 
                     foreach (ItemSolicitud item in s.Items)
@@ -145,49 +148,6 @@ namespace DAL
                     }
                     tx.Commit();
                     return s.Id;
-                }
-                catch
-                {
-                    tx.Rollback();
-                    throw;
-                }
-            }
-        }
-
-        // Fija cantidades y prioridad y la marca Enviada. Devuelve false si ya no estaba en Borrador.
-        public bool Enviar(SolicitudCompra s)
-        {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                con.Open();
-                SqlTransaction tx = con.BeginTransaction();
-                try
-                {
-                    SqlCommand cmd = new SqlCommand(@"UPDATE SolicitudCompra
-                        SET Prioridad = @Prioridad, Estado = @Enviada, FechaEnvio = @Fecha, Supervisor = @Supervisor
-                        WHERE Id = @Id AND Estado = @Borrador", con, tx);
-                    cmd.Parameters.AddWithValue("@Prioridad", s.Prioridad);
-                    cmd.Parameters.AddWithValue("@Enviada", SolicitudCompra.EstadoEnviada);
-                    cmd.Parameters.AddWithValue("@Borrador", SolicitudCompra.EstadoBorrador);
-                    cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = s.FechaEnvio.Value;
-                    cmd.Parameters.AddWithValue("@Supervisor", s.Supervisor);
-                    cmd.Parameters.AddWithValue("@Id", s.Id);
-                    if (cmd.ExecuteNonQuery() == 0)
-                    {
-                        tx.Rollback();
-                        return false;
-                    }
-                    foreach (ItemSolicitud item in s.Items)
-                    {
-                        SqlCommand cmdItem = new SqlCommand(@"UPDATE ItemSolicitud SET Cantidad = @Cantidad
-                            WHERE IdSolicitud = @IdSolicitud AND IdProducto = @IdProducto", con, tx);
-                        cmdItem.Parameters.AddWithValue("@Cantidad", item.Cantidad);
-                        cmdItem.Parameters.AddWithValue("@IdSolicitud", s.Id);
-                        cmdItem.Parameters.AddWithValue("@IdProducto", item.Producto.Id);
-                        cmdItem.ExecuteNonQuery();
-                    }
-                    tx.Commit();
-                    return true;
                 }
                 catch
                 {

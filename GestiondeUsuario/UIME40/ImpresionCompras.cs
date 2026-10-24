@@ -71,7 +71,7 @@ namespace GestiondeUsuario
             d.ColumnasProductos(false);
             foreach (ItemSolicitud i in s.Items.Where(i => i.Proveedor.Id == proveedor.Id))
                 d._filas.Add(new[] { i.Producto.CodigoProducto.ToString(), i.Producto.Nombre, i.Producto.Marca, i.Cantidad.ToString() });
-            d._pie.Add(Tuple.Create(T("solicitadoPor"), s.Supervisor));
+            d._pie.Add(Tuple.Create(T("solicitadoPor"), s.CreadaPor));
             return d;
         }
 

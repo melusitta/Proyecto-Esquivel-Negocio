@@ -1,6 +1,6 @@
 ﻿namespace GestiondeUsuario
 {
-    partial class FormSeleccionarProductosAReponer
+    partial class FormSeleccionarProductosStockMinimo
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -35,8 +35,8 @@
             this.dgvProveedores = new System.Windows.Forms.DataGridView();
             this.btnVolver = new System.Windows.Forms.Button();
             this.lblSeleccion = new System.Windows.Forms.Label();
-            this.btnPreRegistrar = new System.Windows.Forms.Button();
-            this.btnCrearSolicitud = new System.Windows.Forms.Button();
+            this.btnRealizarPreRegistro = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).BeginInit();
             this.SuspendLayout();
@@ -45,7 +45,7 @@
             // 
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(18, 14);
-            this.lblTitulo.Text = "Seleccionar productos a reponer";
+            this.lblTitulo.Text = "Seleccionar productos stock mínimo";
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.TabIndex = 0;
@@ -123,37 +123,37 @@
             this.lblSeleccion.Name = "lblSeleccion";
             this.lblSeleccion.TabIndex = 6;
             // 
-            // btnPreRegistrar
+            // btnRealizarPreRegistro
             // 
-            this.btnPreRegistrar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
-            this.btnPreRegistrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreRegistrar.Location = new System.Drawing.Point(640, 641);
-            this.btnPreRegistrar.Size = new System.Drawing.Size(230, 38);
-            this.btnPreRegistrar.Text = "Pre-registrar proveedor";
-            this.btnPreRegistrar.UseVisualStyleBackColor = true;
-            this.btnPreRegistrar.Name = "btnPreRegistrar";
-            this.btnPreRegistrar.TabIndex = 7;
-            this.btnPreRegistrar.Click += new System.EventHandler(this.btnPreRegistrar_Click);
+            this.btnRealizarPreRegistro.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnRealizarPreRegistro.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRealizarPreRegistro.Location = new System.Drawing.Point(640, 641);
+            this.btnRealizarPreRegistro.Size = new System.Drawing.Size(230, 38);
+            this.btnRealizarPreRegistro.Text = "Realizar pre-registro";
+            this.btnRealizarPreRegistro.UseVisualStyleBackColor = true;
+            this.btnRealizarPreRegistro.Name = "btnRealizarPreRegistro";
+            this.btnRealizarPreRegistro.TabIndex = 7;
+            this.btnRealizarPreRegistro.Click += new System.EventHandler(this.btnRealizarPreRegistro_Click);
             // 
-            // btnCrearSolicitud
+            // btnAgregar
             // 
-            this.btnCrearSolicitud.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
-            this.btnCrearSolicitud.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCrearSolicitud.Location = new System.Drawing.Point(880, 641);
-            this.btnCrearSolicitud.Size = new System.Drawing.Size(250, 38);
-            this.btnCrearSolicitud.Text = "Crear solicitud de reposición";
-            this.btnCrearSolicitud.UseVisualStyleBackColor = true;
-            this.btnCrearSolicitud.Name = "btnCrearSolicitud";
-            this.btnCrearSolicitud.TabIndex = 8;
-            this.btnCrearSolicitud.Click += new System.EventHandler(this.btnCrearSolicitud_Click);
+            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnAgregar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.Location = new System.Drawing.Point(880, 641);
+            this.btnAgregar.Size = new System.Drawing.Size(250, 38);
+            this.btnAgregar.Text = "Agregar a la solicitud";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.TabIndex = 8;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
-            // FormSeleccionarProductosAReponer
+            // FormSeleccionarProductosStockMinimo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1150, 700);
-            this.Controls.Add(this.btnCrearSolicitud);
-            this.Controls.Add(this.btnPreRegistrar);
+            this.Controls.Add(this.btnAgregar);
+            this.Controls.Add(this.btnRealizarPreRegistro);
             this.Controls.Add(this.lblSeleccion);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.dgvProveedores);
@@ -161,10 +161,10 @@
             this.Controls.Add(this.dgvProductos);
             this.Controls.Add(this.lblProductos);
             this.Controls.Add(this.lblTitulo);
-            this.Name = "FormSeleccionarProductosAReponer";
-            this.Text = "Seleccionar productos a reponer";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSeleccionarProductosAReponer_FormClosed);
-            this.Load += new System.EventHandler(this.FormSeleccionarProductosAReponer_Load);
+            this.Name = "FormSeleccionarProductosStockMinimo";
+            this.Text = "Seleccionar productos stock mínimo";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormSeleccionarProductosStockMinimo_FormClosed);
+            this.Load += new System.EventHandler(this.FormSeleccionarProductosStockMinimo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProveedores)).EndInit();
             this.ResumeLayout(false);
@@ -181,7 +181,7 @@
         private System.Windows.Forms.DataGridView dgvProveedores;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Label lblSeleccion;
-        private System.Windows.Forms.Button btnPreRegistrar;
-        private System.Windows.Forms.Button btnCrearSolicitud;
+        private System.Windows.Forms.Button btnRealizarPreRegistro;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

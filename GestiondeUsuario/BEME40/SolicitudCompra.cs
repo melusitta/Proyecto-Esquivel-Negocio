@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace BE
 {
-    // PN2: la arma el encargado de compras con los productos a reponer (Borrador, CUN-006);
-    // el supervisor fija cantidades y prioridad y la envía (Enviada, CUN-008);
+    // PN2: el encargado de compras la genera con los productos a reponer y la envía (Enviada, CUN-006);
     // queda Cerrada cuando todos sus productos tienen orden de compra (CUN-009)
     public class SolicitudCompra
     {

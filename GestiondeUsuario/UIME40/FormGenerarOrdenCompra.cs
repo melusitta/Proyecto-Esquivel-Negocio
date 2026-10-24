@@ -15,7 +15,7 @@ namespace GestiondeUsuario
     // 1. Cotizaciones: carga las que remitieron los proveedores (paso 4).
     // 2. Comparar y generar orden: elige el proveedor y genera la orden (paso 5). Si el proveedor está
     //    pre-registrado se extiende a CUN-010 Completar registro de proveedor (paso 6).
-    // 3. Órdenes de compra: envía la orden al proveedor (paso 7).
+    // 3. Órdenes de compra: envía la orden al proveedor (paso 7) e incluye CUN-011 Gestionar pago (pasos 8 y 9).
     public partial class FormGenerarOrdenCompra : Form, IObservadorIdioma
     {
         private SolicitudCompra _solicitud;
@@ -40,6 +40,7 @@ namespace GestiondeUsuario
             Tema.EstiloPrincipal(btnRegistrarCotizacion);
             Tema.EstiloPrincipal(btnGenerarOrden);
             Tema.EstiloPrincipal(btnEnviarOrden);
+            Tema.EstiloPrincipal(btnGestionarPago);
             foreach (TabPage pagina in tabCompra.TabPages)
             {
                 pagina.UseVisualStyleBackColor = false;
@@ -377,6 +378,7 @@ namespace GestiondeUsuario
         {
             dgvOrdenes.DataSource = null;
             btnEnviarOrden.Enabled = false;
+            btnGestionarPago.Enabled = false;
             if (_solicitud == null) return;
             dgvOrdenes.DataSource = OrdenCompraBLL.Instancia.ObtenerPorSolicitud(_solicitud.Id).Select(o => new
             {
@@ -407,7 +409,22 @@ namespace GestiondeUsuario
         private void dgvOrdenes_SelectionChanged(object sender, EventArgs e)
         {
             DataGridViewRow fila = OrdenSeleccionada();
-            btnEnviarOrden.Enabled = fila != null && Convert.ToString(fila.Cells["CodigoEstado"].Value) == OrdenCompra.EstadoEmitida;
+            string estado = fila == null ? null : Convert.ToString(fila.Cells["CodigoEstado"].Value);
+            btnEnviarOrden.Enabled = estado == OrdenCompra.EstadoEmitida;
+            btnGestionarPago.Enabled = estado == OrdenCompra.EstadoEnviada;
+        }
+
+        // Include CUN-011 Gestionar pago: se paga la orden enviada elegida
+        private void btnGestionarPago_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow fila = OrdenSeleccionada();
+            if (fila == null) return;
+            using (var pago = new FormGestionarPago(Convert.ToInt32(fila.Cells["Id"].Value)))
+            {
+                if (pago.ShowDialog(this) != DialogResult.OK) return;
+            }
+            CargarSolicitudes(_solicitud.Id);
+            tabCompra.SelectedTab = tabOrdenes;
         }
 
         private void btnEnviarOrden_Click(object sender, EventArgs e)
@@ -485,6 +502,7 @@ namespace GestiondeUsuario
             btnGenerarOrden.Text = t["btnGenerarOrden"]?.ToString();
             lblOrdenes.Text = t["lblOrdenes"]?.ToString();
             btnEnviarOrden.Text = t["btnEnviarOrden"]?.ToString();
+            btnGestionarPago.Text = t["btnGestionarPago"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             CargarFormasPago();
             TraducirColumnas();

@@ -50,11 +50,8 @@
             this.cargarCarritoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCompras = new System.Windows.Forms.ToolStripMenuItem();
-            this.reponerProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarSolicitudCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarOrdenCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.completarRegistroProveedorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gestionarPagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarProductosRecibidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReporte = new System.Windows.Forms.ToolStripMenuItem();
             this.productosMasVendidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -226,22 +223,12 @@
             // menuCompras
             // 
             this.menuCompras.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reponerProductosToolStripMenuItem,
             this.generarSolicitudCompraToolStripMenuItem,
             this.generarOrdenCompraToolStripMenuItem,
-            this.completarRegistroProveedorToolStripMenuItem,
-            this.gestionarPagoToolStripMenuItem,
             this.registrarProductosRecibidosToolStripMenuItem});
             this.menuCompras.Name = "menuCompras";
             this.menuCompras.Size = new System.Drawing.Size(60, 19);
             this.menuCompras.Text = "Compras";
-            // 
-            // reponerProductosToolStripMenuItem
-            // 
-            this.reponerProductosToolStripMenuItem.Name = "reponerProductosToolStripMenuItem";
-            this.reponerProductosToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.reponerProductosToolStripMenuItem.Text = "Seleccionar productos a reponer";
-            this.reponerProductosToolStripMenuItem.Click += new System.EventHandler(this.reponerProductosToolStripMenuItem_Click);
             // 
             // generarSolicitudCompraToolStripMenuItem
             // 
@@ -256,20 +243,6 @@
             this.generarOrdenCompraToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.generarOrdenCompraToolStripMenuItem.Text = "Generar orden de compra";
             this.generarOrdenCompraToolStripMenuItem.Click += new System.EventHandler(this.generarOrdenCompraToolStripMenuItem_Click);
-            // 
-            // completarRegistroProveedorToolStripMenuItem
-            // 
-            this.completarRegistroProveedorToolStripMenuItem.Name = "completarRegistroProveedorToolStripMenuItem";
-            this.completarRegistroProveedorToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.completarRegistroProveedorToolStripMenuItem.Text = "Completar registro de proveedor";
-            this.completarRegistroProveedorToolStripMenuItem.Click += new System.EventHandler(this.completarRegistroProveedorToolStripMenuItem_Click);
-            // 
-            // gestionarPagoToolStripMenuItem
-            // 
-            this.gestionarPagoToolStripMenuItem.Name = "gestionarPagoToolStripMenuItem";
-            this.gestionarPagoToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.gestionarPagoToolStripMenuItem.Text = "Gestionar pago";
-            this.gestionarPagoToolStripMenuItem.Click += new System.EventHandler(this.gestionarPagoToolStripMenuItem_Click);
             // 
             // registrarProductosRecibidosToolStripMenuItem
             // 
@@ -356,11 +329,8 @@
         private System.Windows.Forms.ToolStripMenuItem cargarCarritoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarFacturaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuCompras;
-        private System.Windows.Forms.ToolStripMenuItem reponerProductosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarSolicitudCompraToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarOrdenCompraToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem completarRegistroProveedorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem gestionarPagoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarProductosRecibidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuReporte;
         private System.Windows.Forms.ToolStripMenuItem productosMasVendidosToolStripMenuItem;

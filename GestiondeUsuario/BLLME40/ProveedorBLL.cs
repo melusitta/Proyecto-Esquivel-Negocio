@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace BLL
 {
-    // PN2: CUN-007 Pre-registrar proveedor (Encargado de compras) y CUN-010 Completar registro de proveedor (Supervisor)
+    // PN2: CUN-008 Realizar pre-registro (Encargado de compras) y CUN-010 Completar registro de proveedor (Supervisor)
     public class ProveedorBLL
     {
         private static ProveedorBLL _instancia;

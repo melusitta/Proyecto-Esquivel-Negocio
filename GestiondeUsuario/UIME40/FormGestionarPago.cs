@@ -9,16 +9,23 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CUN-011 Gestionar pago (Supervisor).
+    // CUN-011 Gestionar pago (Supervisor). Lo incluye CUN-009 Generar orden de compra, que lo abre como
+    // diálogo con la orden enviada que se va a pagar.
     // Paso 8: el proveedor entrega la factura; paso 9: el supervisor paga la orden y registra la factura
-    // con el comprobante (estado Pagado).
+    // con el comprobante (estado Pagado), que se le envía al proveedor en PDF.
     public partial class FormGestionarPago : Form, IObservadorIdioma
     {
+        private readonly int? _idOrden;
         private List<OrdenCompra> _ordenes = new List<OrdenCompra>();
 
         public FormGestionarPago()
         {
             InitializeComponent();
+        }
+
+        public FormGestionarPago(int idOrden) : this()
+        {
+            _idOrden = idOrden;
         }
 
         private void FormGestionarPago_Load(object sender, EventArgs e)
@@ -47,7 +54,8 @@ namespace GestiondeUsuario
         {
             try
             {
-                _ordenes = OrdenCompraBLL.Instancia.ObtenerPorEstado(OrdenCompra.EstadoEnviada);
+                _ordenes = OrdenCompraBLL.Instancia.ObtenerPorEstado(OrdenCompra.EstadoEnviada)
+                    .Where(o => !_idOrden.HasValue || o.Id == _idOrden.Value).ToList();
                 dgvOrdenes.DataSource = null;
                 dgvOrdenes.DataSource = _ordenes.Select(o => new
                 {
@@ -144,6 +152,12 @@ namespace GestiondeUsuario
                         registrada.MontoAbonado.ToString("N2"), registrada.NroComprobante), T("msgExito"),
                     () => new List<string> { ImpresionCompras.Comprobante(o, registrada)
                         .GuardarPdf(ImpresionCompras.NombreArchivo("archivoComprobante", o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial)) });
+                if (_idOrden.HasValue)
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                    return;
+                }
                 CargarOrdenes();
             }
             catch (Exception ex)
@@ -154,6 +168,12 @@ namespace GestiondeUsuario
 
         private void btnVolver_Click(object sender, EventArgs e)
         {
+            if (this.Modal)
+            {
+                this.DialogResult = DialogResult.Cancel;
+                this.Close();
+                return;
+            }
             new FormPrincipal().Show();
             this.Close();
         }

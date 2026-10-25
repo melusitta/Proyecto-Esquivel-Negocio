@@ -14,6 +14,7 @@ namespace GestiondeUsuario
     // ve sus productos con cantidades y precios acordados, completa fecha de emisión y condiciones y genera la
     // orden (paso 5), que se le envía al proveedor en PDF (paso 7). Después se abre "Pagar" (include CUN-010).
     // 3.1: si el proveedor no tiene datos bancarios se avisa y con "Registrar" se extiende a CUN-009 (paso 6).
+    // Si la cotización no conviene, se descarta y sus productos se pueden pedir en otra solicitud.
     public partial class FormGenerarOrdenCompra : Form, IObservadorIdioma
     {
         private List<Cotizacion> _cotizaciones = new List<Cotizacion>();
@@ -118,7 +119,7 @@ namespace GestiondeUsuario
                 lblInfoCotizacion.Text = T("sinCotizaciones");
                 lblEstadoProveedor.Text = lblTotalOrden.Text = "";
                 btnRegistrar.Visible = false;
-                btnGenerar.Enabled = false;
+                btnGenerar.Enabled = btnDescartar.Enabled = false;
                 return;
             }
             try
@@ -160,6 +161,7 @@ namespace GestiondeUsuario
                 txtPago.Text = TextosCompras.FormaPago(c.FormaPago)
                     + (string.IsNullOrEmpty(_proveedor.CondicionesComerciales) ? "" : " - " + _proveedor.CondicionesComerciales);
                 btnGenerar.Enabled = registrado && items.Count > 0;
+                btnDescartar.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -212,6 +214,27 @@ namespace GestiondeUsuario
             ActualizarOrdenesSinPagar();
         }
 
+        // La cotización no conviene: se descarta y no se genera la orden
+        private void btnDescartar_Click(object sender, EventArgs e)
+        {
+            Cotizacion c = CotizacionElegida();
+            if (c == null) return;
+            if (MessageBox.Show(string.Format(T("msgPreguntaDescartar"), c.Proveedor.RazonSocial), T("msgAtencion"),
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+            try
+            {
+                OrdenCompraBLL.Instancia.DescartarCotizacion(c.Id);
+                MessageBox.Show(string.Format(T("msgDescartada"), c.Proveedor.RazonSocial), T("msgExito"),
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                CargarCotizaciones(null);
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
         // Órdenes enviadas cuyo pago quedó pendiente (se cerró "Pagar" sin pagar)
         private void ActualizarOrdenesSinPagar()
         {
@@ -260,6 +283,7 @@ namespace GestiondeUsuario
             lblEntrega.Text = t["lblEntrega"]?.ToString();
             lblPago.Text = t["lblPago"]?.ToString();
             btnGenerar.Text = t["btnGenerar"]?.ToString();
+            btnDescartar.Text = t["btnDescartar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             TraducirColumnas();
             if (IsHandleCreated)

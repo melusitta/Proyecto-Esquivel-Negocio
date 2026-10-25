@@ -57,7 +57,7 @@ namespace GestiondeUsuario
             dgvItems.Columns.Add(new DataGridViewTextBoxColumn { Name = "Producto", FillWeight = 180, ReadOnly = true });
             dgvItems.Columns.Add(new DataGridViewTextBoxColumn { Name = "Pedido", FillWeight = 60, ReadOnly = true });
             dgvItems.Columns.Add(new DataGridViewTextBoxColumn { Name = "Precio", FillWeight = 85 });
-            dgvItems.Columns.Add(new DataGridViewTextBoxColumn { Name = "Marca", FillWeight = 100 });
+            dgvItems.Columns.Add(new DataGridViewTextBoxColumn { Name = "Marca", FillWeight = 100, ReadOnly = true });
             dgvItems.Columns.Add(new DataGridViewTextBoxColumn { Name = "Presentacion", FillWeight = 110 });
             dgvItems.Columns.Add(new DataGridViewTextBoxColumn { Name = "Disponible", FillWeight = 75 });
         }
@@ -122,7 +122,8 @@ namespace GestiondeUsuario
             if (s == null || p == null) return;
             foreach (ItemSolicitud i in OrdenCompraBLL.Instancia.ItemsPedidosA(s.Id, p.Id))
             {
-                int fila = dgvItems.Rows.Add(false, i.Producto.Nombre, i.Cantidad, "", "", "", "");
+                // La marca es la del producto y no se edita
+                int fila = dgvItems.Rows.Add(false, i.Producto.Nombre, i.Cantidad, "", i.Producto.Marca, "", "");
                 dgvItems.Rows[fila].Tag = i.Producto;
             }
             nudPlazo.Value = 0;
@@ -160,7 +161,6 @@ namespace GestiondeUsuario
                 {
                     Producto = (Producto)fila.Tag,
                     PrecioUnitario = precio,
-                    Marca = Convert.ToString(fila.Cells["Marca"].Value),
                     Presentacion = Convert.ToString(fila.Cells["Presentacion"].Value),
                     CantidadDisponible = disponible
                 });

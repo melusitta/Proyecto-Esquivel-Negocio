@@ -563,7 +563,8 @@
     "fp_Transferencia": "Transferencia",
     "fp_Cheque": "Cheque",
     "fp_Efectivo": "Efectivo",
-    "fp_Cuentacorriente": "Cuenta corriente"
+    "fp_Cuentacorriente": "Cuenta corriente",
+    "estado_Rechazada": "Rechazada"
   },
   "FormRegistrarCotizacion": {
     "tituloForm": "Registrar cotización",
@@ -675,7 +676,10 @@
     "msgAtencion": "Atención",
     "btnVolver": "Volver",
     "msgExito": "Éxito",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnDescartar": "Descartar cotización",
+    "msgPreguntaDescartar": "¿Descartar la cotización de {0}? No se genera la orden y sus productos quedan para pedirlos en otra solicitud.",
+    "msgDescartada": "Cotización de {0} descartada. Sus productos vuelven a aparecer en \"Generar solicitud de compra\"."
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "Completar registro proveedor",
@@ -875,7 +879,7 @@
     "PRIORIDAD_INVALIDA": "Elegí la prioridad: Baja, Media o Alta.",
     "COTIZACION_DUPLICADA": "Ya hay una cotización de \"{0}\" para esta solicitud.",
     "COTIZACION_SIN_PRODUCTOS": "La cotización tiene que incluir al menos un producto.",
-    "COTIZACION_DATOS_INCOMPLETOS": "Completá marca y presentación de cada producto cotizado.",
+    "COTIZACION_DATOS_INCOMPLETOS": "Completá la presentación de cada producto cotizado.",
     "COTIZACION_NO_ENCONTRADA": "La cotización no existe.",
     "COTIZACION_YA_ACEPTADA": "La cotización de \"{0}\" ya tiene una orden de compra.",
     "PRODUCTO_NO_EN_SOLICITUD": "\"{0}\" no está en la solicitud de compra.",
@@ -901,6 +905,8 @@
     "PRODUCTO_NO_PEDIDO_A_PROVEEDOR": "\"{0}\" no se le pidió a {1}: no lo puede cotizar.",
     "FECHA_EMISION_ANTERIOR_COTIZACION": "La fecha de emisión no puede ser anterior a la cotización ({0}).",
     "RECEPCION_DISCREPANCIA_SIN_COMENTARIO": "Lo recibido no coincide con la orden (faltantes o productos dañados): describí la discrepancia en el comentario.",
-    "COMENTARIO_DEMASIADO_LARGO": "El comentario no puede superar los {0} caracteres."
+    "COMENTARIO_DEMASIADO_LARGO": "El comentario no puede superar los {0} caracteres.",
+    "COTIZACION_YA_RESUELTA": "La cotización de \"{0}\" ya tiene orden de compra o fue descartada.",
+    "COTIZACION_DESCARTADA": "La cotización de \"{0}\" fue descartada: no se puede generar la orden de compra."
   }
 }

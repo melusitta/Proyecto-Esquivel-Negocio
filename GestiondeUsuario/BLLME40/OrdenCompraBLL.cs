@@ -67,9 +67,10 @@ namespace BLL
                 if (pedido.Proveedor.Id != proveedor.Id)
                     throw new ErrorNegocio("PRODUCTO_NO_PEDIDO_A_PROVEEDOR", pedido.Producto.Nombre, proveedor.RazonSocial);
                 item.Producto = pedido.Producto;
-                item.Marca = item.Marca?.Trim();
+                // La marca es siempre la del producto: el proveedor cotiza ese mismo producto
+                item.Marca = pedido.Producto.Marca;
                 item.Presentacion = item.Presentacion?.Trim();
-                if (string.IsNullOrEmpty(item.Marca) || string.IsNullOrEmpty(item.Presentacion))
+                if (string.IsNullOrEmpty(item.Presentacion))
                     throw new ErrorNegocio("COTIZACION_DATOS_INCOMPLETOS");
                 if (item.PrecioUnitario <= 0)
                     throw new ErrorNegocio("PRECIO_INVALIDO");
@@ -98,6 +99,19 @@ namespace BLL
         public List<Cotizacion> ObtenerCotizacionesRecibidas()
         {
             return new OrdenCompraDAL().ObtenerCotizacionesRecibidas();
+        }
+
+        // Paso 5: si la cotización no le conviene (por ejemplo, es cara) el supervisor la descarta en vez de
+        // generar la orden. Sus productos quedan sin pedir y vuelven a estar disponibles para otra solicitud.
+        public void DescartarCotizacion(int idCotizacion)
+        {
+            OrdenCompraDAL dal = new OrdenCompraDAL();
+            Cotizacion c = dal.ObtenerCotizacion(idCotizacion);
+            if (c == null)
+                throw new ErrorNegocio("COTIZACION_NO_ENCONTRADA");
+            if (c.Estado != Cotizacion.EstadoRecibida || !dal.Descartar(c.Id, c.IdSolicitud))
+                throw new ErrorNegocio("COTIZACION_YA_RESUELTA", c.Proveedor.RazonSocial);
+            Registrar("Descartar cotización", 2);
         }
 
         // ---------- Orden de compra (pasos 5 y 7) ----------
@@ -131,6 +145,8 @@ namespace BLL
             Cotizacion c = dal.ObtenerCotizacion(idCotizacion);
             if (c == null)
                 throw new ErrorNegocio("COTIZACION_NO_ENCONTRADA");
+            if (c.Estado == Cotizacion.EstadoRechazada)
+                throw new ErrorNegocio("COTIZACION_DESCARTADA", c.Proveedor.RazonSocial);
             if (c.Estado != Cotizacion.EstadoRecibida)
                 throw new ErrorNegocio("COTIZACION_YA_ACEPTADA", c.Proveedor.RazonSocial);
             SolicitudCompra s = SolicitudCompraBLL.Instancia.ObtenerPorId(c.IdSolicitud);

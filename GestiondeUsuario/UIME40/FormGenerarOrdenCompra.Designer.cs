@@ -46,6 +46,7 @@
             this.txtPago = new System.Windows.Forms.TextBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnOrdenesSinPagar = new System.Windows.Forms.Button();
+            this.btnDescartar = new System.Windows.Forms.Button();
             this.btnGenerar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             this.SuspendLayout();
@@ -251,6 +252,18 @@
             this.btnOrdenesSinPagar.TabIndex = 17;
             this.btnOrdenesSinPagar.Click += new System.EventHandler(this.btnOrdenesSinPagar_Click);
             // 
+            // btnDescartar
+            // 
+            this.btnDescartar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnDescartar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDescartar.Location = new System.Drawing.Point(650, 640);
+            this.btnDescartar.Size = new System.Drawing.Size(210, 40);
+            this.btnDescartar.Text = "Descartar cotización";
+            this.btnDescartar.UseVisualStyleBackColor = true;
+            this.btnDescartar.Name = "btnDescartar";
+            this.btnDescartar.TabIndex = 18;
+            this.btnDescartar.Click += new System.EventHandler(this.btnDescartar_Click);
+            // 
             // btnGenerar
             // 
             this.btnGenerar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
@@ -260,7 +273,7 @@
             this.btnGenerar.Text = "Generar";
             this.btnGenerar.UseVisualStyleBackColor = true;
             this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.TabIndex = 18;
+            this.btnGenerar.TabIndex = 19;
             this.btnGenerar.Click += new System.EventHandler(this.btnGenerar_Click);
             // 
             // FormGenerarOrdenCompra
@@ -269,6 +282,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1100, 700);
             this.Controls.Add(this.btnGenerar);
+            this.Controls.Add(this.btnDescartar);
             this.Controls.Add(this.btnOrdenesSinPagar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.txtPago);
@@ -317,6 +331,7 @@
         private System.Windows.Forms.TextBox txtPago;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnOrdenesSinPagar;
+        private System.Windows.Forms.Button btnDescartar;
         private System.Windows.Forms.Button btnGenerar;
     }
 }

@@ -563,7 +563,8 @@
     "fp_Transferencia": "Bank transfer",
     "fp_Cheque": "Check",
     "fp_Efectivo": "Cash",
-    "fp_Cuentacorriente": "Credit account"
+    "fp_Cuentacorriente": "Credit account",
+    "estado_Rechazada": "Rejected"
   },
   "FormRegistrarCotizacion": {
     "tituloForm": "Register quote",
@@ -675,7 +676,10 @@
     "msgAtencion": "Attention",
     "btnVolver": "Back",
     "msgExito": "Success",
-    "msgError": "Error"
+    "msgError": "Error",
+    "btnDescartar": "Discard quote",
+    "msgPreguntaDescartar": "Discard the quote from {0}? No order is generated and its products remain to be requested in another request.",
+    "msgDescartada": "Quote from {0} discarded. Its products appear again in \"Generate purchase request\"."
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "Complete supplier registration",
@@ -875,7 +879,7 @@
     "PRIORIDAD_INVALIDA": "Choose the priority: Low, Medium or High.",
     "COTIZACION_DUPLICADA": "There is already a quote from \"{0}\" for this request.",
     "COTIZACION_SIN_PRODUCTOS": "The quote must include at least one product.",
-    "COTIZACION_DATOS_INCOMPLETOS": "Fill in the brand and packaging of each quoted product.",
+    "COTIZACION_DATOS_INCOMPLETOS": "Fill in the packaging of each quoted product.",
     "COTIZACION_NO_ENCONTRADA": "The quote does not exist.",
     "COTIZACION_YA_ACEPTADA": "The quote from \"{0}\" already has a purchase order.",
     "PRODUCTO_NO_EN_SOLICITUD": "\"{0}\" is not in the purchase request.",
@@ -901,6 +905,8 @@
     "PRODUCTO_NO_PEDIDO_A_PROVEEDOR": "\"{0}\" was not requested from {1}: it cannot quote it.",
     "FECHA_EMISION_ANTERIOR_COTIZACION": "The issue date cannot be earlier than the quote ({0}).",
     "RECEPCION_DISCREPANCIA_SIN_COMENTARIO": "What was received does not match the order (missing or damaged products): describe the discrepancy in the comment.",
-    "COMENTARIO_DEMASIADO_LARGO": "The comment cannot exceed {0} characters."
+    "COMENTARIO_DEMASIADO_LARGO": "The comment cannot exceed {0} characters.",
+    "COTIZACION_YA_RESUELTA": "The quote from \"{0}\" already has a purchase order or was discarded.",
+    "COTIZACION_DESCARTADA": "The quote from \"{0}\" was discarded: the purchase order cannot be generated."
   }
 }

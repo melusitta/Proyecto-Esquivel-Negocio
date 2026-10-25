@@ -202,14 +202,7 @@ namespace DAL
                         cmdItem.ExecuteNonQuery();
                     }
 
-                    SqlCommand cmdCerrar = new SqlCommand(@"UPDATE SolicitudCompra SET Estado = @Cerrada
-                        WHERE Id = @IdSolicitud AND NOT EXISTS (
-                            SELECT 1 FROM ItemSolicitud i WHERE i.IdSolicitud = @IdSolicitud AND NOT EXISTS (
-                                SELECT 1 FROM ItemOrdenCompra io INNER JOIN OrdenCompra oc ON oc.Id = io.IdOrdenCompra
-                                WHERE oc.IdSolicitud = @IdSolicitud AND io.IdProducto = i.IdProducto))", con, tx);
-                    cmdCerrar.Parameters.AddWithValue("@Cerrada", SolicitudCompra.EstadoCerrada);
-                    cmdCerrar.Parameters.AddWithValue("@IdSolicitud", o.IdSolicitud);
-                    cmdCerrar.ExecuteNonQuery();
+                    CerrarSiCompleta(o.IdSolicitud, con, tx);
 
                     tx.Commit();
                     return o.Id;
@@ -220,6 +213,55 @@ namespace DAL
                     throw;
                 }
             }
+        }
+
+        // La cotización Recibida pasa a Rechazada y la solicitud se cierra si ya no le queda nada pendiente.
+        // Devuelve false si la cotización ya no estaba Recibida.
+        public bool Descartar(int idCotizacion, int idSolicitud)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlTransaction tx = con.BeginTransaction();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(
+                        "UPDATE Cotizacion SET Estado = @Rechazada WHERE Id = @Id AND Estado = @Recibida", con, tx);
+                    cmd.Parameters.AddWithValue("@Rechazada", Cotizacion.EstadoRechazada);
+                    cmd.Parameters.AddWithValue("@Recibida", Cotizacion.EstadoRecibida);
+                    cmd.Parameters.AddWithValue("@Id", idCotizacion);
+                    if (cmd.ExecuteNonQuery() == 0)
+                    {
+                        tx.Rollback();
+                        return false;
+                    }
+                    CerrarSiCompleta(idSolicitud, con, tx);
+                    tx.Commit();
+                    return true;
+                }
+                catch
+                {
+                    tx.Rollback();
+                    throw;
+                }
+            }
+        }
+
+        // La solicitud queda Cerrada cuando cada producto tiene orden de compra o la cotización de su proveedor
+        // fue descartada (ese producto se puede volver a pedir en otra solicitud)
+        private static void CerrarSiCompleta(int idSolicitud, SqlConnection con, SqlTransaction tx)
+        {
+            SqlCommand cmd = new SqlCommand(@"UPDATE SolicitudCompra SET Estado = @Cerrada
+                WHERE Id = @IdSolicitud AND NOT EXISTS (
+                    SELECT 1 FROM ItemSolicitud i WHERE i.IdSolicitud = @IdSolicitud
+                    AND NOT EXISTS (SELECT 1 FROM ItemOrdenCompra io INNER JOIN OrdenCompra oc ON oc.Id = io.IdOrdenCompra
+                                    WHERE oc.IdSolicitud = @IdSolicitud AND io.IdProducto = i.IdProducto)
+                    AND NOT EXISTS (SELECT 1 FROM Cotizacion c
+                                    WHERE c.IdSolicitud = @IdSolicitud AND c.IdProveedor = i.IdProveedor AND c.Estado = @Rechazada))", con, tx);
+            cmd.Parameters.AddWithValue("@Cerrada", SolicitudCompra.EstadoCerrada);
+            cmd.Parameters.AddWithValue("@Rechazada", Cotizacion.EstadoRechazada);
+            cmd.Parameters.AddWithValue("@IdSolicitud", idSolicitud);
+            cmd.ExecuteNonQuery();
         }
 
         public OrdenCompra ObtenerPorId(int id)

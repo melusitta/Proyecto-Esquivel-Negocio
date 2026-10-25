@@ -93,9 +93,12 @@ namespace DAL
             var ids = new HashSet<int>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+                // Lo descartado (cotización Rechazada) deja de estar en reposición y se puede volver a pedir
                 string query = @"SELECT i.IdProducto FROM ItemSolicitud i
                         INNER JOIN SolicitudCompra s ON s.Id = i.IdSolicitud
                         WHERE s.Estado IN (@Borrador, @Enviada)
+                        AND NOT EXISTS (SELECT 1 FROM Cotizacion c WHERE c.IdSolicitud = i.IdSolicitud
+                                        AND c.IdProveedor = i.IdProveedor AND c.Estado = @Rechazada)
                     UNION
                     SELECT io.IdProducto FROM ItemOrdenCompra io
                         INNER JOIN OrdenCompra o ON o.Id = io.IdOrdenCompra
@@ -104,6 +107,7 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Borrador", SolicitudCompra.EstadoBorrador);
                 cmd.Parameters.AddWithValue("@Enviada", SolicitudCompra.EstadoEnviada);
                 cmd.Parameters.AddWithValue("@Recibida", OrdenCompra.EstadoRecibida);
+                cmd.Parameters.AddWithValue("@Rechazada", Cotizacion.EstadoRechazada);
                 con.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                     while (reader.Read())

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BE
 {
     // PN2 paso 4: cotización que remite un proveedor para una solicitud de compra.
-    // El supervisor la carga y compara dentro de CUN-009 Generar orden de compra.
+    // El supervisor la registra y la elige dentro de CUN-008 Generar orden de compra.
     public class Cotizacion
     {
         public const string EstadoRecibida = "Recibida";

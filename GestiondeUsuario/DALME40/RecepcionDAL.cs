@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    // PN2: recepción de la mercadería en el depósito (CUN-012 Registrar productos recibidos)
+    // PN2: recepción de la mercadería en el depósito (CUN-011 Registrar productos recibidos)
     public class RecepcionDAL
     {
         private string connectionString = ConexionDAL.ConnectionString;
@@ -31,11 +31,12 @@ namespace DAL
                         return false;
                     }
 
-                    SqlCommand cmd = new SqlCommand(@"INSERT INTO Recepcion (IdOrdenCompra, Fecha, Responsable)
-                        VALUES (@IdOrden, @Fecha, @Responsable); SELECT CAST(SCOPE_IDENTITY() AS INT);", con, tx);
+                    SqlCommand cmd = new SqlCommand(@"INSERT INTO Recepcion (IdOrdenCompra, Fecha, Responsable, Comentario)
+                        VALUES (@IdOrden, @Fecha, @Responsable, @Comentario); SELECT CAST(SCOPE_IDENTITY() AS INT);", con, tx);
                     cmd.Parameters.AddWithValue("@IdOrden", r.IdOrdenCompra);
                     cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = r.Fecha;
                     cmd.Parameters.AddWithValue("@Responsable", r.Responsable);
+                    cmd.Parameters.AddWithValue("@Comentario", (object)r.Comentario ?? DBNull.Value);
                     r.Id = Convert.ToInt32(cmd.ExecuteScalar());
 
                     foreach (ItemRecepcion item in r.Items)

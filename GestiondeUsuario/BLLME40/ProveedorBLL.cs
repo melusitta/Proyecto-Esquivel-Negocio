@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace BLL
 {
-    // PN2: CUN-008 Realizar pre-registro (Encargado de compras) y CUN-010 Completar registro de proveedor (Supervisor)
+    // PN2: CUN-007 Realizar pre-registro (Encargado de compras) y CUN-009 Completar registro proveedor (Supervisor)
     public class ProveedorBLL
     {
         private static ProveedorBLL _instancia;
@@ -39,10 +39,16 @@ namespace BLL
             return p;
         }
 
-        // Paso 2: el encargado de compras carga los datos básicos; queda PreRegistrado
+        // Paso 2: el encargado de compras carga los datos básicos (y, si los tiene, los comerciales); queda PreRegistrado
         public int PreRegistrar(Proveedor p)
         {
             ValidarDatosBasicos(p);
+            p.Rubro = string.IsNullOrWhiteSpace(p.Rubro) ? null : p.Rubro.Trim();
+            p.CondicionesEntrega = string.IsNullOrWhiteSpace(p.CondicionesEntrega) ? null : p.CondicionesEntrega.Trim();
+            if (p.PlazoEntregaDias < 0)
+                throw new ErrorNegocio("PLAZO_INVALIDO");
+            if (p.FormaPago != null && !FormasPago.Contains(p.FormaPago))
+                throw new ErrorNegocio("FORMA_PAGO_INVALIDA");
             ProveedorDAL dal = new ProveedorDAL();
             if (dal.ObtenerPorCUIT(p.CUIT) != null)
                 throw new ErrorNegocio("PROVEEDOR_DUPLICADO", p.CUIT);
@@ -58,37 +64,22 @@ namespace BLL
             return p.Id;
         }
 
-        // Paso 6: el supervisor completa los datos comerciales y el proveedor queda Registrado
-        public bool CompletarRegistro(Proveedor p)
+        // Paso 6: el supervisor carga CBU y banco del proveedor, que queda Registrado
+        public void CompletarRegistro(int idProveedor, string cbu, string banco)
         {
-            ObtenerPorId(p.Id);
-            ValidarDatosBasicos(p);
-            ProveedorDAL dal = new ProveedorDAL();
-            Proveedor otro = dal.ObtenerPorCUIT(p.CUIT);
-            if (otro != null && otro.Id != p.Id)
-                throw new ErrorNegocio("PROVEEDOR_DUPLICADO", p.CUIT);
+            Proveedor p = ObtenerPorId(idProveedor);
+            if (p.TieneDatosBancarios)
+                throw new ErrorNegocio("PROVEEDOR_YA_TIENE_DATOS_BANCARIOS", p.RazonSocial);
+            banco = banco?.Trim();
+            if (string.IsNullOrEmpty(cbu?.Trim()) || string.IsNullOrEmpty(banco))
+                throw new ErrorNegocio("DATOS_BANCARIOS_INCOMPLETOS");
+            string cbuValido = NormalizarCBU(cbu);
+            if (cbuValido == null)
+                throw new ErrorNegocio("CBU_INVALIDO");
 
-            p.Rubro = p.Rubro?.Trim();
-            p.CondicionesEntrega = p.CondicionesEntrega?.Trim();
-            if (string.IsNullOrEmpty(p.Rubro) || string.IsNullOrEmpty(p.CondicionesEntrega) || p.PlazoEntregaDias == null)
-                throw new ErrorNegocio("PROVEEDOR_DATOS_COMERCIALES_INCOMPLETOS");
-            if (p.PlazoEntregaDias < 0)
-                throw new ErrorNegocio("PLAZO_INVALIDO");
-            if (!FormasPago.Contains(p.FormaPago))
-                throw new ErrorNegocio("FORMA_PAGO_INVALIDA");
-
-            bool ok;
-            try
-            {
-                ok = dal.CompletarRegistro(p);
-            }
-            catch (SqlException ex) when (ex.Number == 2627 || ex.Number == 2601)
-            {
-                throw new ErrorNegocio("PROVEEDOR_DUPLICADO", p.CUIT);
-            }
-            if (ok)
-                Registrar("Completar registro de proveedor", 3);
-            return ok;
+            if (!new ProveedorDAL().CompletarRegistro(p.Id, cbuValido, banco))
+                throw new ErrorNegocio("PROVEEDOR_YA_TIENE_DATOS_BANCARIOS", p.RazonSocial);
+            Registrar("Completar registro proveedor", 3);
         }
 
         private void ValidarDatosBasicos(Proveedor p)
@@ -129,6 +120,28 @@ namespace BLL
             if (verificador == 10 || verificador != digitos[10] - '0')
                 return null;
             return digitos.Substring(0, 2) + "-" + digitos.Substring(2, 8) + "-" + digitos.Substring(10);
+        }
+
+        // CBU: 22 dígitos en dos bloques (banco y sucursal; cuenta), cada uno con su dígito verificador.
+        // Devuelve los 22 dígitos, o null si no es válido.
+        public static string NormalizarCBU(string cbu)
+        {
+            string digitos = Regex.Replace(cbu ?? "", @"[\s\-]", "");
+            if (!Regex.IsMatch(digitos, @"^\d{22}$"))
+                return null;
+            if (DigitoCBU(digitos.Substring(0, 7), new[] { 7, 1, 3, 9, 7, 1, 3 }) != digitos[7] - '0')
+                return null;
+            if (DigitoCBU(digitos.Substring(8, 13), new[] { 3, 9, 7, 1, 3, 9, 7, 1, 3, 9, 7, 1, 3 }) != digitos[21] - '0')
+                return null;
+            return digitos;
+        }
+
+        private static int DigitoCBU(string bloque, int[] pesos)
+        {
+            int suma = 0;
+            for (int i = 0; i < bloque.Length; i++)
+                suma += (bloque[i] - '0') * pesos[i];
+            return (10 - suma % 10) % 10;
         }
 
         private void Registrar(string accion, int criticidad)

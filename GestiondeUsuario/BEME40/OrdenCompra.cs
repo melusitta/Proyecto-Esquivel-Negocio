@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace BE
 {
-    // PN2: Emitida (CUN-009) -> Enviada (paso 7) -> Pagada (CUN-011, incluido en CUN-009) -> Recibida (CUN-012)
+    // PN2: Enviada (CUN-008: se genera y se envía al proveedor) -> Pagada (CUN-010, incluido en CUN-008)
+    // -> Recibida (CUN-011). Emitida queda de las versiones anteriores.
     public class OrdenCompra
     {
         public const string EstadoEmitida = "Emitida";

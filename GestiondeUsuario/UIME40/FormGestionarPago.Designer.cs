@@ -51,7 +51,7 @@
             this.lblComprobante = new System.Windows.Forms.Label();
             this.txtComprobante = new System.Windows.Forms.TextBox();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.btnRegistrarPago = new System.Windows.Forms.Button();
+            this.btnPagar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             this.grpFactura.SuspendLayout();
@@ -342,24 +342,24 @@
             this.btnVolver.TabIndex = 22;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // btnRegistrarPago
+            // btnPagar
             // 
-            this.btnRegistrarPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
-            this.btnRegistrarPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegistrarPago.Location = new System.Drawing.Point(800, 626);
-            this.btnRegistrarPago.Size = new System.Drawing.Size(240, 38);
-            this.btnRegistrarPago.Text = "Registrar pago";
-            this.btnRegistrarPago.UseVisualStyleBackColor = true;
-            this.btnRegistrarPago.Name = "btnRegistrarPago";
-            this.btnRegistrarPago.TabIndex = 23;
-            this.btnRegistrarPago.Click += new System.EventHandler(this.btnRegistrarPago_Click);
+            this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnPagar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPagar.Location = new System.Drawing.Point(840, 626);
+            this.btnPagar.Size = new System.Drawing.Size(200, 38);
+            this.btnPagar.Text = "Pagar";
+            this.btnPagar.UseVisualStyleBackColor = true;
+            this.btnPagar.Name = "btnPagar";
+            this.btnPagar.TabIndex = 23;
+            this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
             // 
             // FormGestionarPago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1060, 680);
-            this.Controls.Add(this.btnRegistrarPago);
+            this.Controls.Add(this.btnPagar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.grpPago);
             this.Controls.Add(this.grpFactura);
@@ -411,6 +411,6 @@
         private System.Windows.Forms.Label lblComprobante;
         private System.Windows.Forms.TextBox txtComprobante;
         private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.Button btnRegistrarPago;
+        private System.Windows.Forms.Button btnPagar;
     }
 }

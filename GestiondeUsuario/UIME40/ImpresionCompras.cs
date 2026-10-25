@@ -13,6 +13,7 @@ namespace GestiondeUsuario
 {
     // PN2: documentos que se envían al proveedor (pasos 3, 7 y 9): solicitud de compra, orden de compra
     // y comprobante de pago. Se guardan como PDF en Descargas\Plumy - Compras para mandarlos.
+    // También el recibo de la mercadería recibida en el depósito (paso 11).
     public class ImpresionCompras
     {
         // ---------- Contenido del documento ----------
@@ -117,6 +118,29 @@ namespace GestiondeUsuario
             d._totales.Add(Tuple.Create(T("impuestos"), "$ " + f.Impuestos.ToString("N2")));
             d._totales.Add(Tuple.Create(T("montoAbonado"), "$ " + f.MontoAbonado.ToString("N2")));
             d._pie.Add(Tuple.Create(T("pagadoPor"), f.Supervisor));
+            return d;
+        }
+
+        // Paso 11: recibo de lo que entró al depósito
+        public static ImpresionCompras Recibo(OrdenCompra o, Recepcion r)
+        {
+            var d = new ImpresionCompras
+            {
+                _titulo = T("tituloRecibo"),
+                _numero = o.NroOrden.ToString("D6"),
+                _fecha = r.Fecha.ToString("dd/MM/yyyy HH:mm"),
+                _nota = r.Comentario == null ? null : T("discrepancias") + " " + r.Comentario
+            };
+            d.DatosProveedor(o.Proveedor);
+            d._datos.Add(Tuple.Create(T("ordenRef"), o.NroOrden.ToString("D6")));
+            d._columnas = new[] { T("colCodigo"), T("colProducto"), T("colPedido"), T("colRecibido"), T("colEstado"), T("colUbicacion") };
+            d._anchos = new[] { 0.10f, 0.32f, 0.11f, 0.12f, 0.13f, 0.22f };
+            d._numericas = new[] { false, false, true, true, false, false };
+            foreach (ItemRecepcion i in r.Items)
+                d._filas.Add(new[] { i.Producto.CodigoProducto.ToString(), i.Producto.Nombre,
+                                     o.Items.First(p => p.Producto.Id == i.Producto.Id).Cantidad.ToString(),
+                                     i.CantidadRecibida.ToString(), TextosCompras.Estado(i.Estado), i.Ubicacion });
+            d._pie.Add(Tuple.Create(T("recibidoPor"), r.Responsable));
             return d;
         }
 

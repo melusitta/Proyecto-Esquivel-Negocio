@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    // PN2: cotizaciones de los proveedores y órdenes de compra (CUN-009 Generar orden de compra)
+    // PN2: cotizaciones de los proveedores y órdenes de compra (CUN-008 Generar orden de compra)
     public class OrdenCompraDAL
     {
         private string connectionString = ConexionDAL.ConnectionString;
@@ -62,20 +62,30 @@ namespace DAL
             return LeerCotizaciones("SELECT * FROM Cotizacion WHERE IdSolicitud = @Valor ORDER BY FechaRecepcion", idSolicitud);
         }
 
+        // Cotizaciones que todavía no tienen orden, de solicitudes enviadas
+        public List<Cotizacion> ObtenerCotizacionesRecibidas()
+        {
+            return LeerCotizaciones(@"SELECT c.* FROM Cotizacion c INNER JOIN SolicitudCompra s ON s.Id = c.IdSolicitud
+                WHERE c.Estado = @Recibida AND s.Estado = @Enviada ORDER BY c.FechaRecepcion", null);
+        }
+
         public Cotizacion ObtenerCotizacion(int idCotizacion)
         {
             var lista = LeerCotizaciones("SELECT * FROM Cotizacion WHERE Id = @Valor", idCotizacion);
             return lista.Count > 0 ? lista[0] : null;
         }
 
-        private List<Cotizacion> LeerCotizaciones(string query, int valor)
+        private List<Cotizacion> LeerCotizaciones(string query, int? valor)
         {
             var lista = new List<Cotizacion>();
             var idsProveedor = new List<int>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@Valor", valor);
+                if (valor.HasValue)
+                    cmd.Parameters.AddWithValue("@Valor", valor.Value);
+                cmd.Parameters.AddWithValue("@Recibida", Cotizacion.EstadoRecibida);
+                cmd.Parameters.AddWithValue("@Enviada", SolicitudCompra.EstadoEnviada);
                 con.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
                     while (reader.Read())
@@ -136,8 +146,9 @@ namespace DAL
             return ids;
         }
 
-        // Genera la orden en una transacción: número correlativo, cabecera y detalle; la cotización
-        // pasa a Aceptada y la solicitud se cierra si ya tiene orden para todos sus productos.
+        // Genera la orden en una transacción: número correlativo, cabecera y detalle. La orden queda Enviada
+        // (se le manda al proveedor al generarla), la cotización pasa a Aceptada y la solicitud se cierra
+        // si ya tiene orden para todos sus productos.
         // Devuelve el Id de la orden, o 0 si la cotización ya había sido aceptada.
         public int Generar(OrdenCompra o)
         {
@@ -164,8 +175,8 @@ namespace DAL
 
                     SqlCommand cmd = new SqlCommand(@"INSERT INTO OrdenCompra
                         (NroOrden, IdSolicitud, IdCotizacion, IdProveedor, FechaEmision, CondicionesEntrega,
-                         CondicionesPago, Total, Estado, Supervisor)
-                        VALUES (@Nro, @IdSolicitud, @IdCotizacion, @IdProveedor, @Fecha, @Entrega, @Pago, @Total, @Estado, @Supervisor);
+                         CondicionesPago, Total, Estado, Supervisor, FechaEnvio)
+                        VALUES (@Nro, @IdSolicitud, @IdCotizacion, @IdProveedor, @Fecha, @Entrega, @Pago, @Total, @Estado, @Supervisor, @FechaEnvio);
                         SELECT CAST(SCOPE_IDENTITY() AS INT);", con, tx);
                     cmd.Parameters.AddWithValue("@Nro", o.NroOrden);
                     cmd.Parameters.AddWithValue("@IdSolicitud", o.IdSolicitud);
@@ -175,8 +186,9 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Entrega", o.CondicionesEntrega);
                     cmd.Parameters.AddWithValue("@Pago", o.CondicionesPago);
                     cmd.Parameters.AddWithValue("@Total", o.Total);
-                    cmd.Parameters.AddWithValue("@Estado", OrdenCompra.EstadoEmitida);
+                    cmd.Parameters.AddWithValue("@Estado", OrdenCompra.EstadoEnviada);
                     cmd.Parameters.AddWithValue("@Supervisor", o.Supervisor);
+                    cmd.Parameters.Add("@FechaEnvio", SqlDbType.DateTime).Value = o.FechaEnvio ?? DateTime.Now;
                     o.Id = Convert.ToInt32(cmd.ExecuteScalar());
 
                     foreach (ItemOrdenCompra item in o.Items)
@@ -276,22 +288,6 @@ namespace DAL
             for (int i = 0; i < lista.Count; i++)
                 lista[i].Proveedor = proveedores.ObtenerPorId(idsProveedor[i]);
             return lista;
-        }
-
-        // Paso 7: la orden Emitida pasa a Enviada. Devuelve false si ya no estaba Emitida.
-        public bool MarcarEnviada(int idOrden, DateTime fecha)
-        {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(@"UPDATE OrdenCompra SET Estado = @Enviada, FechaEnvio = @Fecha
-                    WHERE Id = @Id AND Estado = @Emitida", con);
-                cmd.Parameters.AddWithValue("@Enviada", OrdenCompra.EstadoEnviada);
-                cmd.Parameters.AddWithValue("@Emitida", OrdenCompra.EstadoEmitida);
-                cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = fecha;
-                cmd.Parameters.AddWithValue("@Id", idOrden);
-                con.Open();
-                return cmd.ExecuteNonQuery() > 0;
-            }
         }
     }
 }

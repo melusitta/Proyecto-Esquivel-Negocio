@@ -34,8 +34,11 @@
             this.lblComparacion = new System.Windows.Forms.Label();
             this.lblItems = new System.Windows.Forms.Label();
             this.dgvItems = new System.Windows.Forms.DataGridView();
+            this.lblComentario = new System.Windows.Forms.Label();
+            this.txtComentario = new System.Windows.Forms.TextBox();
             this.btnVolver = new System.Windows.Forms.Button();
-            this.btnRegistrar = new System.Windows.Forms.Button();
+            this.btnImprimirRecibo = new System.Windows.Forms.Button();
+            this.btnConfirmar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             this.SuspendLayout();
@@ -103,42 +106,79 @@
             this.dgvItems.MultiSelect = false;
             this.dgvItems.ReadOnly = false;
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvItems.Size = new System.Drawing.Size(1020, 260);
+            this.dgvItems.Size = new System.Drawing.Size(1020, 230);
             this.dgvItems.Name = "dgvItems";
             this.dgvItems.TabIndex = 5;
             this.dgvItems.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvItems_DataError);
+            // 
+            // lblComentario
+            // 
+            this.lblComentario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblComentario.Location = new System.Drawing.Point(20, 552);
+            this.lblComentario.Text = "Comentario de la recepción (discrepancias con la orden o la factura):";
+            this.lblComentario.AutoSize = true;
+            this.lblComentario.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
+            this.lblComentario.Name = "lblComentario";
+            this.lblComentario.TabIndex = 6;
+            // 
+            // txtComentario
+            // 
+            this.txtComentario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtComentario.Location = new System.Drawing.Point(20, 577);
+            this.txtComentario.Size = new System.Drawing.Size(1020, 52);
+            this.txtComentario.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
+            this.txtComentario.MaxLength = 500;
+            this.txtComentario.Multiline = true;
+            this.txtComentario.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtComentario.Name = "txtComentario";
+            this.txtComentario.TabIndex = 7;
             // 
             // btnVolver
             // 
             this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Location = new System.Drawing.Point(20, 600);
+            this.btnVolver.Location = new System.Drawing.Point(20, 656);
             this.btnVolver.Size = new System.Drawing.Size(110, 34);
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
             this.btnVolver.Name = "btnVolver";
-            this.btnVolver.TabIndex = 6;
+            this.btnVolver.TabIndex = 8;
             this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
             // 
-            // btnRegistrar
+            // btnImprimirRecibo
             // 
-            this.btnRegistrar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
-            this.btnRegistrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRegistrar.Location = new System.Drawing.Point(780, 596);
-            this.btnRegistrar.Size = new System.Drawing.Size(260, 38);
-            this.btnRegistrar.Text = "Registrar recepción";
-            this.btnRegistrar.UseVisualStyleBackColor = true;
-            this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.TabIndex = 7;
-            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
+            this.btnImprimirRecibo.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnImprimirRecibo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimirRecibo.Location = new System.Drawing.Point(560, 652);
+            this.btnImprimirRecibo.Size = new System.Drawing.Size(210, 38);
+            this.btnImprimirRecibo.Text = "Imprimir recibo";
+            this.btnImprimirRecibo.UseVisualStyleBackColor = true;
+            this.btnImprimirRecibo.Name = "btnImprimirRecibo";
+            this.btnImprimirRecibo.TabIndex = 9;
+            this.btnImprimirRecibo.Click += new System.EventHandler(this.btnImprimirRecibo_Click);
+            // 
+            // btnConfirmar
+            // 
+            this.btnConfirmar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnConfirmar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmar.Location = new System.Drawing.Point(780, 652);
+            this.btnConfirmar.Size = new System.Drawing.Size(260, 38);
+            this.btnConfirmar.Text = "Confirmar recepción";
+            this.btnConfirmar.UseVisualStyleBackColor = true;
+            this.btnConfirmar.Name = "btnConfirmar";
+            this.btnConfirmar.TabIndex = 10;
+            this.btnConfirmar.Click += new System.EventHandler(this.btnConfirmar_Click);
             // 
             // FormRegistrarProductosRecibidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 650);
-            this.Controls.Add(this.btnRegistrar);
+            this.ClientSize = new System.Drawing.Size(1060, 710);
+            this.Controls.Add(this.btnConfirmar);
+            this.Controls.Add(this.btnImprimirRecibo);
             this.Controls.Add(this.btnVolver);
+            this.Controls.Add(this.txtComentario);
+            this.Controls.Add(this.lblComentario);
             this.Controls.Add(this.dgvItems);
             this.Controls.Add(this.lblItems);
             this.Controls.Add(this.lblComparacion);
@@ -164,7 +204,10 @@
         private System.Windows.Forms.Label lblComparacion;
         private System.Windows.Forms.Label lblItems;
         private System.Windows.Forms.DataGridView dgvItems;
+        private System.Windows.Forms.Label lblComentario;
+        private System.Windows.Forms.TextBox txtComentario;
         private System.Windows.Forms.Button btnVolver;
-        private System.Windows.Forms.Button btnRegistrar;
+        private System.Windows.Forms.Button btnImprimirRecibo;
+        private System.Windows.Forms.Button btnConfirmar;
     }
 }

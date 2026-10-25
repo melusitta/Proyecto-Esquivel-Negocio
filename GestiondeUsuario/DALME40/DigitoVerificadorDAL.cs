@@ -110,7 +110,7 @@ namespace DAL
         public List<List<string>> ObtenerDatosProveedor()
         {
             return ObtenerDatosTabla(
-                "SELECT Id, CUIT, RazonSocial, Contacto, Telefono, Email, Rubro, CondicionesEntrega, PlazoEntregaDias, FormaPago, Estado, Activo FROM Proveedor");
+                "SELECT Id, CUIT, RazonSocial, Contacto, Telefono, Email, Rubro, CondicionesEntrega, PlazoEntregaDias, FormaPago, CBU, Banco, Estado, Activo FROM Proveedor");
         }
 
         public List<List<string>> ObtenerDatosSolicitudCompra()
@@ -153,7 +153,7 @@ namespace DAL
 
         public List<List<string>> ObtenerDatosRecepcion()
         {
-            return ObtenerDatosTabla("SELECT Id, IdOrdenCompra, Responsable FROM Recepcion");
+            return ObtenerDatosTabla("SELECT Id, IdOrdenCompra, Responsable, Comentario FROM Recepcion");
         }
 
         public List<List<string>> ObtenerDatosItemRecepcion()

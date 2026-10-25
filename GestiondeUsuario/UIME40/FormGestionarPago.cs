@@ -9,8 +9,8 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CUN-011 Gestionar pago (Supervisor). Lo incluye CUN-009 Generar orden de compra, que lo abre como
-    // diálogo con la orden enviada que se va a pagar.
+    // CUN-010 Gestionar pago (Supervisor). Lo incluye CUN-008 Generar orden de compra, que lo abre como
+    // diálogo ("Pagar") apenas genera la orden; también desde "Órdenes sin pagar" si quedó pendiente.
     // Paso 8: el proveedor entrega la factura; paso 9: el supervisor paga la orden y registra la factura
     // con el comprobante (estado Pagado), que se le envía al proveedor en PDF.
     public partial class FormGestionarPago : Form, IObservadorIdioma
@@ -31,7 +31,7 @@ namespace GestiondeUsuario
         private void FormGestionarPago_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
-            Tema.EstiloPrincipal(btnRegistrarPago);
+            Tema.EstiloPrincipal(btnPagar);
             lblTotalPagar.ForeColor = Tema.PrincipalOscuro;
             dtpFechaFactura.MaxDate = DateTime.Today;
             dtpFechaOperacion.MaxDate = DateTime.Today;
@@ -94,7 +94,7 @@ namespace GestiondeUsuario
         private void MostrarOrden()
         {
             OrdenCompra o = Seleccionada();
-            grpFactura.Enabled = grpPago.Enabled = btnRegistrarPago.Enabled = o != null;
+            grpFactura.Enabled = grpPago.Enabled = btnPagar.Enabled = o != null;
             dgvItems.DataSource = o?.Items.Select(i => new
             {
                 Producto = i.Producto.Nombre,
@@ -128,7 +128,7 @@ namespace GestiondeUsuario
             nudMonto.Value = Math.Min(total, nudMonto.Maximum);
         }
 
-        private void btnRegistrarPago_Click(object sender, EventArgs e)
+        private void btnPagar_Click(object sender, EventArgs e)
         {
             OrdenCompra o = Seleccionada();
             if (o == null) return;
@@ -209,7 +209,7 @@ namespace GestiondeUsuario
             lblMonto.Text = t["lblMonto"]?.ToString();
             lblFechaOperacion.Text = t["lblFechaOperacion"]?.ToString();
             lblComprobante.Text = t["lblComprobante"]?.ToString();
-            btnRegistrarPago.Text = t["btnRegistrarPago"]?.ToString();
+            btnPagar.Text = t["btnPagar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             TraducirColumnas();
             ActualizarTotal();

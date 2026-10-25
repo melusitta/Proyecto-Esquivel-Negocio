@@ -43,7 +43,7 @@ namespace DAL
             return false;
         }
 
-        // PN2 CU-007: productos activos con stock en el mínimo o por debajo, con su proveedor habitual
+        // PN2 CUN-006: productos activos con stock en el mínimo o por debajo, con su proveedor habitual
         public List<Producto> ObtenerAReponer()
         {
             List<Producto> lista = new List<Producto>();

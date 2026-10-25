@@ -9,12 +9,15 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CUN-012 Registrar productos recibidos (Responsable de depósito).
+    // CUN-011 Registrar productos recibidos (Responsable de depósito).
     // Paso 11: compara la orden con la factura y lo entregado, registra cantidad, estado y ubicación
-    // de cada producto y se actualiza el stock con lo recibido en buen estado.
+    // de cada producto y se actualiza el stock con lo recibido en buen estado. Si algo no coincide,
+    // la discrepancia va en el comentario (5.1). Al final puede imprimir el recibo.
     public partial class FormRegistrarProductosRecibidos : Form, IObservadorIdioma
     {
         private List<OrdenCompra> _ordenes = new List<OrdenCompra>();
+        private OrdenCompra _ordenRecibida;
+        private Recepcion _recepcion;
 
         public FormRegistrarProductosRecibidos()
         {
@@ -24,7 +27,8 @@ namespace GestiondeUsuario
         private void FormRegistrarProductosRecibidos_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
-            Tema.EstiloPrincipal(btnRegistrar);
+            Tema.EstiloPrincipal(btnConfirmar);
+            btnImprimirRecibo.Enabled = false;
             lblComparacion.ForeColor = Tema.PrincipalOscuro;
             CrearColumnas();
             GestorIdioma.Instancia.Suscribir(this);
@@ -108,7 +112,8 @@ namespace GestiondeUsuario
         {
             dgvItems.Rows.Clear();
             OrdenCompra o = Seleccionada();
-            btnRegistrar.Enabled = o != null;
+            btnConfirmar.Enabled = o != null;
+            txtComentario.Clear();
             if (o == null)
             {
                 lblComparacion.Text = T("sinOrdenes");
@@ -129,7 +134,7 @@ namespace GestiondeUsuario
             e.ThrowException = false;
         }
 
-        private void btnRegistrar_Click(object sender, EventArgs e)
+        private void btnConfirmar_Click(object sender, EventArgs e)
         {
             OrdenCompra o = Seleccionada();
             if (o == null) return;
@@ -150,11 +155,29 @@ namespace GestiondeUsuario
             }
             try
             {
-                RecepcionBLL.Instancia.RegistrarRecepcion(o.Id, items);
+                _recepcion = RecepcionBLL.Instancia.RegistrarRecepcion(o.Id, items, txtComentario.Text);
+                _ordenRecibida = o;
+                btnImprimirRecibo.Enabled = true;
                 int alStock = items.Where(i => i.Estado == ItemRecepcion.EstadoBueno).Sum(i => i.CantidadRecibida);
                 MessageBox.Show(string.Format(T("msgRecepcionRegistrada"), o.NroOrden.ToString("D6"), alStock),
                     T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CargarOrdenes();
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
+        // Recibo de la última recepción confirmada
+        private void btnImprimirRecibo_Click(object sender, EventArgs e)
+        {
+            if (_recepcion == null) return;
+            try
+            {
+                using (var documento = ImpresionCompras.Recibo(_ordenRecibida, _recepcion).CrearDocumento())
+                    Impresion.MostrarOGuardarPdf(documento, this, T("tituloRecibo"),
+                        ImpresionCompras.NombreArchivo("archivoRecibo", _ordenRecibida.NroOrden.ToString("D6"), _ordenRecibida.Proveedor.RazonSocial));
             }
             catch (Exception ex)
             {
@@ -190,7 +213,9 @@ namespace GestiondeUsuario
             lblTitulo.Text = t["tituloForm"]?.ToString();
             lblOrdenes.Text = t["lblOrdenes"]?.ToString();
             lblItems.Text = t["lblItems"]?.ToString();
-            btnRegistrar.Text = t["btnRegistrar"]?.ToString();
+            lblComentario.Text = t["lblComentario"]?.ToString();
+            btnConfirmar.Text = t["btnConfirmar"]?.ToString();
+            btnImprimirRecibo.Text = t["btnImprimirRecibo"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             ((DataGridViewComboBoxColumn)dgvItems.Columns["Estado"]).DataSource =
                 ItemRecepcion.Estados.Select(s => new OpcionCodigo { Codigo = s, Texto = TextosCompras.Estado(s) }).ToList();

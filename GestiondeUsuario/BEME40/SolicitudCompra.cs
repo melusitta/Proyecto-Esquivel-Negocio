@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BE
 {
     // PN2: el encargado de compras la genera con los productos a reponer y la envía (Enviada, CUN-006);
-    // queda Cerrada cuando todos sus productos tienen orden de compra (CUN-009)
+    // queda Cerrada cuando todos sus productos tienen orden de compra (CUN-008)
     public class SolicitudCompra
     {
         public const string EstadoBorrador = "Borrador";

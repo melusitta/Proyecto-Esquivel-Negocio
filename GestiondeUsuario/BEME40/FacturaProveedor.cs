@@ -2,7 +2,7 @@
 
 namespace BE
 {
-    // PN2 pasos 8 y 9: factura que entrega el proveedor y su pago (CUN-011 Gestionar pago)
+    // PN2 pasos 8 y 9: factura que entrega el proveedor y su pago (CUN-010 Gestionar pago)
     public class FacturaProveedor
     {
         public const string EstadoPagado = "Pagado";

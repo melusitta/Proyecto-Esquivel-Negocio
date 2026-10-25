@@ -5,7 +5,7 @@ using System;
 
 namespace BLL
 {
-    // PN2: CUN-011 Gestionar pago (Supervisor, incluido en CUN-009 Generar orden de compra). Paso 8: el proveedor entrega la factura;
+    // PN2: CUN-010 Gestionar pago (Supervisor, incluido en CUN-008 Generar orden de compra). Paso 8: el proveedor entrega la factura;
     // paso 9: el supervisor paga la orden y registra la factura con el comprobante (estado Pagado).
     public class PagoProveedorBLL
     {

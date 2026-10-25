@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CUN-008 Realizar pre-registro (Encargado de compras). Extiende CUN-006 Generar solicitud de compra:
-    // se abre como diálogo desde CU-007 cuando el proveedor que se quiere asignar no está.
-    // El supervisor completa después su registro (CUN-010).
+    // CUN-007 Realizar pre-registro (Encargado de compras). Extiende CUN-006 Generar solicitud de compra:
+    // se abre como diálogo con "Pre-registrar" cuando el proveedor que se quiere asignar no está.
+    // El supervisor completa después sus datos bancarios (CUN-009).
     public partial class FormRealizarPreRegistro : Form, IObservadorIdioma
     {
         public int IdProveedor { get; private set; }
@@ -22,9 +22,9 @@ namespace GestiondeUsuario
         private void FormRealizarPreRegistro_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
-            Tema.EstiloPrincipal(btnRealizarPreRegistro);
+            Tema.EstiloPrincipal(btnGuardar);
             lblAyuda.ForeColor = Tema.PrincipalOscuro;
-            this.AcceptButton = btnRealizarPreRegistro;
+            this.AcceptButton = btnGuardar;
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
             txtCUIT.Focus();
@@ -40,8 +40,15 @@ namespace GestiondeUsuario
             return GestorIdioma.Instancia.Obtener("FormRealizarPreRegistro", clave);
         }
 
-        private void btnRealizarPreRegistro_Click(object sender, EventArgs e)
+        private void btnGuardar_Click(object sender, EventArgs e)
         {
+            // Plazo opcional: vacío no se carga; si no es un número queda negativo y la BLL lo rechaza
+            int? plazo = null;
+            if (!string.IsNullOrWhiteSpace(txtPlazo.Text))
+            {
+                int dias;
+                plazo = int.TryParse(txtPlazo.Text.Trim(), out dias) ? dias : -1;
+            }
             var proveedor = new Proveedor
             {
                 CUIT = txtCUIT.Text,
@@ -49,7 +56,11 @@ namespace GestiondeUsuario
                 Contacto = txtContacto.Text,
                 Telefono = txtTelefono.Text,
                 Email = txtEmail.Text,
-                CondicionesComerciales = txtCondiciones.Text
+                CondicionesComerciales = txtCondiciones.Text,
+                Rubro = txtRubro.Text,
+                CondicionesEntrega = txtEntrega.Text,
+                PlazoEntregaDias = plazo,
+                FormaPago = (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo
             };
             try
             {
@@ -71,6 +82,17 @@ namespace GestiondeUsuario
             this.Close();
         }
 
+        // Primera opción vacía: la forma de pago es opcional en el pre-registro
+        private void CargarFormasPago()
+        {
+            string elegida = (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo;
+            cmbFormaPago.Items.Clear();
+            cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = null, Texto = "" });
+            foreach (string fp in ProveedorBLL.FormasPago)
+                cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = fp, Texto = TextosCompras.FormaPago(fp) });
+            cmbFormaPago.SelectedIndex = Array.IndexOf(ProveedorBLL.FormasPago, elegida) + 1;
+        }
+
         public void ActualizarIdioma(JObject traducciones)
         {
             var t = traducciones["FormRealizarPreRegistro"];
@@ -78,15 +100,13 @@ namespace GestiondeUsuario
 
             this.Text = t["tituloForm"]?.ToString();
             lblTitulo.Text = t["tituloForm"]?.ToString();
-            lblCUIT.Text = t["lblCUIT"]?.ToString();
-            lblRazonSocial.Text = t["lblRazonSocial"]?.ToString();
-            lblContacto.Text = t["lblContacto"]?.ToString();
-            lblTelefono.Text = t["lblTelefono"]?.ToString();
-            lblEmail.Text = t["lblEmail"]?.ToString();
-            lblCondiciones.Text = t["lblCondiciones"]?.ToString();
+            foreach (string campo in new[] { "CUIT", "RazonSocial", "Contacto", "Telefono", "Email", "Condiciones", "Rubro", "Entrega", "Plazo", "FormaPago" })
+                Controls.Find("lbl" + campo, true)[0].Text = t["lbl" + campo]?.ToString();
             lblAyuda.Text = t["lblAyuda"]?.ToString();
-            btnRealizarPreRegistro.Text = t["btnRealizarPreRegistro"]?.ToString();
+            lblOpcionales.Text = t["lblOpcionales"]?.ToString();
+            btnGuardar.Text = t["btnGuardar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
+            CargarFormasPago();
         }
     }
 }

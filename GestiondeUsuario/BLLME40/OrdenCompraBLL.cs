@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace BLL
 {
-    // PN2: CUN-009 Generar orden de compra (Supervisor): carga y compara las cotizaciones (paso 4),
-    // genera la orden con el proveedor elegido (paso 5) y la envía (paso 7).
-    // Si el proveedor no está registrado se extiende a CUN-010 Completar registro de proveedor (paso 6).
+    // PN2: CUN-008 Generar orden de compra (Supervisor): registra las cotizaciones que remiten los proveedores
+    // (paso 4), genera la orden a partir de la cotización elegida (paso 5) y se la envía (paso 7).
+    // Si el proveedor no tiene datos bancarios se extiende a CUN-009 Completar registro proveedor (paso 6).
     public class OrdenCompraBLL
     {
         private static OrdenCompraBLL _instancia;
@@ -24,29 +24,21 @@ namespace BLL
             }
         }
 
-        // Solicitudes con las que trabaja CUN-009: las enviadas (para cotizar y generar órdenes) y las cerradas
-        // que todavía tienen órdenes sin enviar (paso 7) o sin pagar (CUN-011, incluido en CUN-009)
-        public List<SolicitudCompra> ObtenerSolicitudesEnCurso()
-        {
-            SolicitudCompraDAL solicitudes = new SolicitudCompraDAL();
-            OrdenCompraDAL ordenes = new OrdenCompraDAL();
-            var lista = solicitudes.ObtenerPorEstado(SolicitudCompra.EstadoEnviada);
-            lista.AddRange(solicitudes.ObtenerPorEstado(SolicitudCompra.EstadoCerrada)
-                .Where(s => ordenes.ObtenerPorSolicitud(s.Id).Any(o => o.Estado == OrdenCompra.EstadoEmitida || o.Estado == OrdenCompra.EstadoEnviada)));
-            return lista.OrderBy(s => s.NroSolicitud).ToList();
-        }
-
-        // Id de producto -> proveedor al que ya se le pidió en esta solicitud
-        public Dictionary<int, string> ProductosPedidos(int idSolicitud)
-        {
-            var pedidos = new Dictionary<int, string>();
-            foreach (OrdenCompra o in ObtenerPorSolicitud(idSolicitud))
-                foreach (ItemOrdenCompra i in o.Items)
-                    pedidos[i.Producto.Id] = o.Proveedor.RazonSocial;
-            return pedidos;
-        }
-
         // ---------- Cotizaciones (paso 4) ----------
+
+        // Proveedores a los que se les envió la solicitud y todavía no remitieron su cotización
+        public List<Proveedor> ProveedoresPorCotizar(int idSolicitud)
+        {
+            SolicitudCompra s = SolicitudCompraBLL.Instancia.ObtenerPorId(idSolicitud);
+            var cotizaron = new OrdenCompraDAL().ObtenerCotizaciones(s.Id).Select(c => c.Proveedor.Id).ToList();
+            return SolicitudCompraBLL.Instancia.ProveedoresDe(s).Where(p => !cotizaron.Contains(p.Id)).ToList();
+        }
+
+        // Lo que se le pidió a un proveedor en la solicitud: es lo único que puede cotizar
+        public List<ItemSolicitud> ItemsPedidosA(int idSolicitud, int idProveedor)
+        {
+            return SolicitudCompraBLL.Instancia.ObtenerPorId(idSolicitud).Items.Where(i => i.Proveedor.Id == idProveedor).ToList();
+        }
 
         public int RegistrarCotizacion(Cotizacion c)
         {
@@ -56,6 +48,8 @@ namespace BLL
             if (c.Proveedor == null)
                 throw new ErrorNegocio("PROVEEDOR_NO_ENCONTRADO");
             Proveedor proveedor = ProveedorBLL.Instancia.ObtenerPorId(c.Proveedor.Id);
+            if (!s.Items.Any(i => i.Proveedor.Id == proveedor.Id))
+                throw new ErrorNegocio("PROVEEDOR_NO_EN_SOLICITUD", proveedor.RazonSocial, s.NroSolicitud.ToString("D6"));
 
             OrdenCompraDAL dal = new OrdenCompraDAL();
             if (dal.ObtenerCotizaciones(s.Id).Any(x => x.Proveedor.Id == proveedor.Id))
@@ -70,6 +64,8 @@ namespace BLL
                 ItemSolicitud pedido = s.Items.FirstOrDefault(i => i.Producto.Id == item.Producto?.Id);
                 if (pedido == null)
                     throw new ErrorNegocio("PRODUCTO_NO_EN_SOLICITUD", item.Producto?.Nombre);
+                if (pedido.Proveedor.Id != proveedor.Id)
+                    throw new ErrorNegocio("PRODUCTO_NO_PEDIDO_A_PROVEEDOR", pedido.Producto.Nombre, proveedor.RazonSocial);
                 item.Producto = pedido.Producto;
                 item.Marca = item.Marca?.Trim();
                 item.Presentacion = item.Presentacion?.Trim();
@@ -98,13 +94,10 @@ namespace BLL
             return new OrdenCompraDAL().ObtenerCotizaciones(idSolicitud);
         }
 
-        // Para comparar: el menor precio cotizado de cada producto (Id de producto -> precio)
-        public Dictionary<int, decimal> MejoresPrecios(List<Cotizacion> cotizaciones)
+        // Las cotizaciones recibidas que todavía no tienen orden: las que el supervisor elige en CUN-008
+        public List<Cotizacion> ObtenerCotizacionesRecibidas()
         {
-            return cotizaciones.SelectMany(c => c.Items)
-                .Where(i => i.CantidadDisponible > 0)
-                .GroupBy(i => i.Producto.Id)
-                .ToDictionary(g => g.Key, g => g.Min(i => i.PrecioUnitario));
+            return new OrdenCompraDAL().ObtenerCotizacionesRecibidas();
         }
 
         // ---------- Orden de compra (pasos 5 y 7) ----------
@@ -130,9 +123,9 @@ namespace BLL
             return items;
         }
 
-        // Paso 5: el supervisor elige la cotización (proveedor) y genera la orden de compra.
-        // Las condiciones vacías toman las del proveedor / cotización.
-        public OrdenCompra GenerarOrden(int idCotizacion, string condicionesEntrega, string condicionesPago)
+        // Paso 5: el supervisor elige la cotización y genera la orden con la fecha de emisión y las condiciones
+        // de entrega y de pago. Paso 7: al generarla se le envía al proveedor (queda Enviada, lista para pagar).
+        public OrdenCompra GenerarOrden(int idCotizacion, DateTime fechaEmision, string condicionesEntrega, string condicionesPago)
         {
             OrdenCompraDAL dal = new OrdenCompraDAL();
             Cotizacion c = dal.ObtenerCotizacion(idCotizacion);
@@ -144,7 +137,7 @@ namespace BLL
             if (s.Estado != SolicitudCompra.EstadoEnviada)
                 throw new ErrorNegocio("SOLICITUD_NO_ENVIADA", s.NroSolicitud);
 
-            // Paso 6: con un proveedor sin registrar no se emite la orden (extiende a CUN-010)
+            // Paso 6: sin datos bancarios no se le puede pagar, así que no se emite la orden (extiende a CUN-009)
             Proveedor proveedor = ProveedorBLL.Instancia.ObtenerPorId(c.Proveedor.Id);
             if (!proveedor.EstaRegistrado)
                 throw new ErrorNegocio("PROVEEDOR_NO_REGISTRADO", proveedor.RazonSocial);
@@ -153,19 +146,22 @@ namespace BLL
             if (items.Count == 0)
                 throw new ErrorNegocio("ORDEN_SIN_PRODUCTOS", proveedor.RazonSocial);
 
-            string entrega = string.IsNullOrWhiteSpace(condicionesEntrega) ? proveedor.CondicionesEntrega : condicionesEntrega.Trim();
-            string pago = string.IsNullOrWhiteSpace(condicionesPago)
-                ? c.FormaPago + (string.IsNullOrEmpty(proveedor.CondicionesComerciales) ? "" : " - " + proveedor.CondicionesComerciales)
-                : condicionesPago.Trim();
-            if (string.IsNullOrWhiteSpace(entrega) || string.IsNullOrWhiteSpace(pago))
+            string entrega = condicionesEntrega?.Trim();
+            string pago = condicionesPago?.Trim();
+            if (string.IsNullOrEmpty(entrega) || string.IsNullOrEmpty(pago))
                 throw new ErrorNegocio("ORDEN_CONDICIONES_INCOMPLETAS");
+            if (fechaEmision.Date > DateTime.Today)
+                throw new ErrorNegocio("FECHA_FUTURA");
+            if (fechaEmision.Date < c.FechaRecepcion.Date)
+                throw new ErrorNegocio("FECHA_EMISION_ANTERIOR_COTIZACION", c.FechaRecepcion.ToString("dd/MM/yyyy"));
 
             var orden = new OrdenCompra
             {
                 IdSolicitud = s.Id,
                 IdCotizacion = c.Id,
                 Proveedor = proveedor,
-                FechaEmision = DateTime.Now,
+                FechaEmision = fechaEmision.Date == DateTime.Today ? DateTime.Now : fechaEmision.Date,
+                FechaEnvio = DateTime.Now,
                 CondicionesEntrega = entrega,
                 CondicionesPago = pago,
                 Total = items.Sum(i => i.Subtotal),
@@ -177,16 +173,6 @@ namespace BLL
                 throw new ErrorNegocio("COTIZACION_YA_ACEPTADA", proveedor.RazonSocial);
             Registrar("Generar orden de compra", 3);
             return dal.ObtenerPorId(id);
-        }
-
-        // Paso 7: el supervisor envía la orden al proveedor
-        public OrdenCompra EnviarOrden(int idOrden)
-        {
-            OrdenCompra o = ObtenerPorId(idOrden);
-            if (o.Estado != OrdenCompra.EstadoEmitida || !new OrdenCompraDAL().MarcarEnviada(idOrden, DateTime.Now))
-                throw new ErrorNegocio("ORDEN_ESTADO_INVALIDO", o.NroOrden, o.Estado);
-            Registrar("Enviar orden de compra", 2);
-            return ObtenerPorId(idOrden);
         }
 
         public OrdenCompra ObtenerPorId(int idOrden)

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    // PN2: proveedores (CUN-008 Realizar pre-registro, CUN-010 Completar registro de proveedor)
+    // PN2: proveedores (CUN-007 Realizar pre-registro, CUN-009 Completar registro proveedor)
     public class ProveedorDAL
     {
         private string connectionString = ConexionDAL.ConnectionString;
@@ -25,6 +25,8 @@ namespace DAL
                 CondicionesEntrega = reader["CondicionesEntrega"] == DBNull.Value ? null : reader["CondicionesEntrega"].ToString(),
                 PlazoEntregaDias = reader["PlazoEntregaDias"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["PlazoEntregaDias"]),
                 FormaPago = reader["FormaPago"] == DBNull.Value ? null : reader["FormaPago"].ToString(),
+                CBU = reader["CBU"] == DBNull.Value ? null : reader["CBU"].ToString(),
+                Banco = reader["Banco"] == DBNull.Value ? null : reader["Banco"].ToString(),
                 Estado = reader["Estado"].ToString(),
                 FechaAlta = Convert.ToDateTime(reader["FechaAlta"]),
                 Activo = Convert.ToBoolean(reader["Activo"])
@@ -69,14 +71,16 @@ namespace DAL
             }
         }
 
-        // Pre-registro: queda PreRegistrado hasta que el supervisor complete los datos comerciales
+        // Pre-registro: queda PreRegistrado hasta que el supervisor cargue los datos bancarios
         public int PreRegistrar(Proveedor p)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string query = @"INSERT INTO Proveedor
-                    (CUIT, RazonSocial, Contacto, Telefono, Email, CondicionesComerciales, Estado, FechaAlta, Activo)
-                    VALUES (@CUIT, @RazonSocial, @Contacto, @Telefono, @Email, @Condiciones, @Estado, GETDATE(), 1);
+                    (CUIT, RazonSocial, Contacto, Telefono, Email, CondicionesComerciales, Rubro, CondicionesEntrega,
+                     PlazoEntregaDias, FormaPago, Estado, FechaAlta, Activo)
+                    VALUES (@CUIT, @RazonSocial, @Contacto, @Telefono, @Email, @Condiciones, @Rubro, @Entrega,
+                     @Plazo, @FormaPago, @Estado, GETDATE(), 1);
                     SELECT CAST(SCOPE_IDENTITY() AS INT);";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@CUIT", p.CUIT);
@@ -85,36 +89,28 @@ namespace DAL
                 cmd.Parameters.AddWithValue("@Telefono", p.Telefono);
                 cmd.Parameters.AddWithValue("@Email", p.Email);
                 cmd.Parameters.AddWithValue("@Condiciones", (object)p.CondicionesComerciales ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Rubro", (object)p.Rubro ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Entrega", (object)p.CondicionesEntrega ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Plazo", (object)p.PlazoEntregaDias ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@FormaPago", (object)p.FormaPago ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Estado", Proveedor.EstadoPreRegistrado);
                 con.Open();
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
 
-        // Completa (o corrige) todos los datos y lo deja Registrado
-        public bool CompletarRegistro(Proveedor p)
+        // Carga CBU y banco y lo deja Registrado. Devuelve false si ya tenía datos bancarios.
+        public bool CompletarRegistro(int idProveedor, string cbu, string banco)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"UPDATE Proveedor SET
-                    CUIT = @CUIT, RazonSocial = @RazonSocial, Contacto = @Contacto, Telefono = @Telefono,
-                    Email = @Email, CondicionesComerciales = @Condiciones, Rubro = @Rubro,
-                    CondicionesEntrega = @Entrega, PlazoEntregaDias = @Plazo, FormaPago = @FormaPago,
-                    Estado = @Estado
-                    WHERE Id = @Id";
+                string query = @"UPDATE Proveedor SET CBU = @CBU, Banco = @Banco, Estado = @Estado
+                    WHERE Id = @Id AND (CBU IS NULL OR Banco IS NULL)";
                 SqlCommand cmd = new SqlCommand(query, con);
-                cmd.Parameters.AddWithValue("@CUIT", p.CUIT);
-                cmd.Parameters.AddWithValue("@RazonSocial", p.RazonSocial);
-                cmd.Parameters.AddWithValue("@Contacto", p.Contacto);
-                cmd.Parameters.AddWithValue("@Telefono", p.Telefono);
-                cmd.Parameters.AddWithValue("@Email", p.Email);
-                cmd.Parameters.AddWithValue("@Condiciones", (object)p.CondicionesComerciales ?? DBNull.Value);
-                cmd.Parameters.AddWithValue("@Rubro", p.Rubro);
-                cmd.Parameters.AddWithValue("@Entrega", p.CondicionesEntrega);
-                cmd.Parameters.AddWithValue("@Plazo", p.PlazoEntregaDias);
-                cmd.Parameters.AddWithValue("@FormaPago", p.FormaPago);
+                cmd.Parameters.AddWithValue("@CBU", cbu);
+                cmd.Parameters.AddWithValue("@Banco", banco);
                 cmd.Parameters.AddWithValue("@Estado", Proveedor.EstadoRegistrado);
-                cmd.Parameters.AddWithValue("@Id", p.Id);
+                cmd.Parameters.AddWithValue("@Id", idProveedor);
                 con.Open();
                 return cmd.ExecuteNonQuery() > 0;
             }

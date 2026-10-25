@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BLL
 {
-    // PN2: CUN-012 Registrar productos recibidos (Responsable de depósito).
+    // PN2: CUN-011 Registrar productos recibidos (Responsable de depósito).
     // Paso 11: compara la orden con la factura y lo entregado, registra lo recibido y actualiza el stock.
     public class RecepcionBLL
     {
@@ -30,7 +30,8 @@ namespace BLL
         }
 
         // items: un renglón por cada producto de la orden. Solo lo recibido en buen estado suma al stock.
-        public void RegistrarRecepcion(int idOrden, List<ItemRecepcion> items)
+        // 5.1: si lo entregado no coincide con la orden (faltantes o dañados) la discrepancia va en el comentario.
+        public Recepcion RegistrarRecepcion(int idOrden, List<ItemRecepcion> items, string comentario)
         {
             OrdenCompra orden = OrdenCompraBLL.Instancia.ObtenerPorId(idOrden);
             if (orden.Estado != OrdenCompra.EstadoPagada)
@@ -60,11 +61,20 @@ namespace BLL
                 validados.Add(item);
             }
 
+            comentario = string.IsNullOrWhiteSpace(comentario) ? null : comentario.Trim();
+            bool hayDiscrepancia = validados.Any(i => i.Estado != ItemRecepcion.EstadoBueno
+                || i.CantidadRecibida != orden.Items.First(p => p.Producto.Id == i.Producto.Id).Cantidad);
+            if (hayDiscrepancia && comentario == null)
+                throw new ErrorNegocio("RECEPCION_DISCREPANCIA_SIN_COMENTARIO");
+            if (comentario != null && comentario.Length > 500)
+                throw new ErrorNegocio("COMENTARIO_DEMASIADO_LARGO", 500);
+
             var recepcion = new Recepcion
             {
                 IdOrdenCompra = orden.Id,
                 Fecha = DateTime.Now,
                 Responsable = SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Desconocido",
+                Comentario = comentario,
                 Items = validados
             };
             if (!new RecepcionDAL().Registrar(recepcion))
@@ -72,6 +82,7 @@ namespace BLL
 
             GestorEventosBLL.Instancia.Notificar(recepcion.Responsable, "Registrar productos recibidos", "Compras", 3);
             DigitoVerificadorBLL.Instancia.RecalcularYGuardar();
+            return recepcion;
         }
     }
 }

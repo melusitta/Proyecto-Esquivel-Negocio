@@ -8,8 +8,8 @@ using System.Linq;
 namespace BLL
 {
     // PN2 (Encargado de compras):
-    //   CUN-006 Generar solicitud de compra: arma la solicitud, fija la prioridad y la envía a los proveedores (pasos 1 y 3)
-    //   CU-007 Seleccionar productos stock mínimo (include): productos a reponer con su proveedor asignado (paso 1)
+    //   CUN-006 Generar solicitud de compra: el encargado elige los productos con stock mínimo, le asigna un proveedor
+    //   a cada uno (paso 1), fija la prioridad y la envía a los proveedores (paso 3)
     public class SolicitudCompraBLL
     {
         private static SolicitudCompraBLL _instancia;
@@ -24,7 +24,7 @@ namespace BLL
             }
         }
 
-        // CU-007: productos con stock en el mínimo o por debajo que todavía no están en reposición
+        // Paso 1: productos con stock en el mínimo o por debajo que todavía no están en reposición
         public List<Producto> ObtenerProductosAReponer()
         {
             HashSet<int> enCurso = new SolicitudCompraDAL().ProductosEnCurso();
@@ -37,8 +37,8 @@ namespace BLL
             return Math.Max(1, p.StockMinimo * 2 - p.Existencia);
         }
 
-        // CU-007: revisa la selección (productos a reponer, cada uno con proveedor y cantidad) y la devuelve
-        // con los datos actuales de la base. CUN-006 la vuelve a revisar al generar la solicitud.
+        // Paso 1: revisa la selección (productos a reponer, cada uno con proveedor y cantidad) y la devuelve
+        // con los datos actuales de la base. Se vuelve a revisar al generar la solicitud.
         public List<ItemSolicitud> ValidarSeleccion(List<ItemSolicitud> items)
         {
             if (items == null || items.Count == 0)

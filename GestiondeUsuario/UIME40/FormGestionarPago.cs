@@ -105,8 +105,9 @@ namespace GestiondeUsuario
             Tema.AnchoColumnas(dgvItems, ("Producto", 200), ("Cantidad", 70), ("Precio", 90), ("Subtotal", 100));
             TraducirColumnas();
 
-            // Se propone el importe de la orden; el supervisor carga lo que dice la factura
-            txtNroFactura.Clear();
+            // Se proponen el número siguiente a la última factura del proveedor y el importe de la orden;
+            // el supervisor los confirma o corrige según lo que dice la factura
+            txtNroFactura.Text = o == null ? "" : PagoProveedorBLL.Instancia.SugerirNroFactura(o.Proveedor.Id) ?? "";
             txtComprobante.Clear();
             dtpFechaFactura.Value = DateTime.Today;
             dtpFechaOperacion.Value = DateTime.Today;

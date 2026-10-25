@@ -2,6 +2,7 @@
 using DAL;
 using Servicios;
 using System;
+using System.Text.RegularExpressions;
 
 namespace BLL
 {
@@ -56,6 +57,19 @@ namespace BLL
             GestorEventosBLL.Instancia.Notificar(f.Supervisor, "Gestionar pago a proveedor", "Compras", 3);
             DigitoVerificadorBLL.Instancia.RecalcularYGuardar();
             return dal.ObtenerPorOrden(f.IdOrdenCompra);
+        }
+
+        // Paso 8: el proveedor numera sus facturas en forma correlativa, así que se propone la siguiente a la
+        // última que se le registró (A-0001-00001234 -> A-0001-00001235). El supervisor la confirma o la corrige.
+        // Null si el proveedor todavía no tiene facturas o el número no termina en dígitos.
+        public string SugerirNroFactura(int idProveedor)
+        {
+            string ultimo = new FacturaProveedorDAL().UltimoNroFactura(idProveedor);
+            Match numero = Regex.Match(ultimo ?? "", @"(\d+)$");
+            if (!numero.Success)
+                return null;
+            string siguiente = (long.Parse(numero.Value) + 1).ToString().PadLeft(numero.Length, '0');
+            return ultimo.Substring(0, numero.Index) + siguiente;
         }
 
         public FacturaProveedor ObtenerFacturaDeOrden(int idOrdenCompra)

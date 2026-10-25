@@ -23,6 +23,19 @@ namespace DAL
             }
         }
 
+        // Número de la última factura registrada de un proveedor, o null si todavía no tiene
+        public string UltimoNroFactura(int idProveedor)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT TOP 1 NroFactura FROM FacturaProveedor WHERE IdProveedor = @IdProveedor ORDER BY Fecha DESC, Id DESC", con);
+                cmd.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                con.Open();
+                return cmd.ExecuteScalar() as string;
+            }
+        }
+
         // Registra la factura pagada y la orden pasa de Enviada a Pagada, todo junto.
         // Devuelve false si la orden ya no estaba Enviada.
         public bool RegistrarPago(FacturaProveedor f)

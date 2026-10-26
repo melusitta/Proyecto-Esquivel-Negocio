@@ -40,6 +40,21 @@ namespace DAL
             return Obtener("SELECT * FROM Factura WHERE NroFactura = @Valor", nroFactura);
         }
 
+        // Reporte de facturas: todas, de la más nueva a la más vieja (sin el detalle, que se carga al imprimir)
+        public List<Factura> ObtenerTodas()
+        {
+            var lista = new List<Factura>();
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Factura ORDER BY NroFactura DESC", con);
+                con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        lista.Add(MapearFactura(reader));
+            }
+            return lista;
+        }
+
         // La "fila" de la caja: carritos asociados sin facturar y facturas sin cobrar, del más viejo al más nuevo
         public List<PendienteCaja> ObtenerPendientesDeCaja()
         {

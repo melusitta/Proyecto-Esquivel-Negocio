@@ -76,7 +76,10 @@ namespace GestiondeUsuario
             _recibir = tieneRecibirMercaderia;
             menuCompras.Enabled = tieneCompras || tieneReponerProductos || tieneGestionarCompras || tieneRecibirMercaderia;
             productosMasVendidosToolStripMenuItem.Enabled = tieneReportesVentas;
-            menuReporte.Enabled = tieneReporte || tieneReportesVentas;
+            // Reportes de cada proceso: facturas (PN1) y recibos de mercadería (PN2)
+            reporteFacturasToolStripMenuItem.Enabled = tieneReporte || tieneReportesVentas || tieneFacturar;
+            reporteRecibosToolStripMenuItem.Enabled = tieneReporte || tieneRecibirMercaderia || tieneGestionarCompras;
+            menuReporte.Enabled = true;   // queda en gris si no tiene ninguna opción habilitada (ver abajo)
             // La ayuda es para todos: cada uno ve solo los temas de lo que puede usar
             menuAyuda.Enabled = true;
             gestionRespaldoToolStripMenuItem1.Enabled =
@@ -182,6 +185,18 @@ namespace GestiondeUsuario
             new FormProductosMasVendidos().Show();
             this.Hide();
         }
+        private void reporteFacturasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormReporteFacturas().Show();
+            this.Hide();
+        }
+
+        private void reporteRecibosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormReporteRecibos().Show();
+            this.Hide();
+        }
+
         private void cargarCarritoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormCargarCarrito().Show();
@@ -313,6 +328,8 @@ namespace GestiondeUsuario
             registrarProductosRecibidosToolStripMenuItem.Text = t["registrarProductosRecibidos"]?.ToString();
             menuReporte.Text = t["menuReporte"]?.ToString();
             productosMasVendidosToolStripMenuItem.Text = t["productosMasVendidos"]?.ToString();
+            reporteFacturasToolStripMenuItem.Text = t["reporteFacturas"]?.ToString();
+            reporteRecibosToolStripMenuItem.Text = t["reporteRecibos"]?.ToString();
             menuAyuda.Text = t["menuAyuda"]?.ToString();
             verAyudaToolStripMenuItem.Text = t["verAyuda"]?.ToString();
             manualPdfToolStripMenuItem.Text = t["manualPdf"]?.ToString();

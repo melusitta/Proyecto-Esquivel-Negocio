@@ -69,7 +69,9 @@
     "tipReponerUno": "Hay 1 producto en stock mínimo esperando reposición 🧸",
     "tipCotizacionesUno": "Tenés 1 cotización esperando tu decisión 📋",
     "tipSinPagarUno": "Hay 1 orden de compra sin pagar 💳",
-    "tipRecibirUno": "Hay 1 orden pagada para recibir en el depósito 📦"
+    "tipRecibirUno": "Hay 1 orden pagada para recibir en el depósito 📦",
+    "reporteFacturas": "Facturas",
+    "reporteRecibos": "Recibos de mercadería"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -782,7 +784,6 @@
     "msgError": "Error",
     "btnConfirmar": "Confirmar recepción",
     "btnImprimirRecibo": "Imprimir recibo",
-    "tituloRecibo": "Recibo de mercadería",
     "lblComentario": "Comentario de la recepción (discrepancias con la orden o la factura):",
     "vacioOrdenes": "📦 No hay mercadería esperando en el depósito"
   },
@@ -824,18 +825,11 @@
     "msgPdfsGenerados": "PDF para enviar a cada proveedor (en {0}):\n{1}",
     "msgPreguntaAbrir": "¿Querés abrirlo ahora?",
     "msgPdfError": "No se pudo generar el PDF:",
-    "tituloRecibo": "RECIBO DE MERCADERÍA",
-    "colPedido": "Pedido",
-    "colRecibido": "Recibido",
-    "colEstado": "Estado",
-    "colUbicacion": "Ubicación",
-    "discrepancias": "Discrepancias:",
-    "recibidoPor": "Recibido por:",
-    "archivoRecibo": "Recibo de mercadería {0} - {1}",
     "msgPdfListo": "El PDF quedó en Descargas\\Plumy - Compras.",
     "msgPdfsListos": "Los {0} PDF quedaron en Descargas\\Plumy - Compras.",
     "abrirPdf": "📄 Abrir PDF",
-    "abrirCarpeta": "📂 Ver los PDF"
+    "abrirCarpeta": "📂 Ver los PDF",
+    "archivoRemito": "Remito {0} - {1}"
   },
   "Tema": {
     "grillaVacia": "🌸 Todavía no hay nada por acá",
@@ -1083,6 +1077,26 @@
         "- Después podés usar \"Imprimir recibo\"."
       ]
     },
+    "reporteFacturas": {
+      "titulo": "Facturas",
+      "texto": [
+        "Todas las facturas del sistema, de la más nueva a la más vieja. Se abre desde Reporte → Facturas.",
+        "1. Buscá por número de factura, DNI o nombre del cliente (o dejá el buscador vacío para ver todas).",
+        "2. Elegí la factura y presioná \"Imprimir factura\" (o hacé doble clic).",
+        "- Se ve la misma factura que recibió el cliente; sin impresora se guarda como PDF en Descargas.",
+        "- Arriba se muestran cuántas facturas hay en la lista y la suma de sus totales."
+      ]
+    },
+    "reporteRecibos": {
+      "titulo": "Recibos de mercadería",
+      "texto": [
+        "Todo lo que entró al depósito, con un remito por cada recepción. Se abre desde Reporte → Recibos de mercadería.",
+        "1. Buscá por número de remito, de orden, proveedor o quién recibió.",
+        "2. Elegí el recibo y presioná \"Imprimir remito\" (o hacé doble clic).",
+        "- El remito muestra el proveedor, la orden y su factura, lo recibido con su estado y ubicación, las observaciones y la firma de \"Recibí conforme\".",
+        "💡 La columna \"Observaciones\" dice si en la recepción se anotó algún comentario, por ejemplo faltantes o productos dañados."
+      ]
+    },
     "productosMasVendidos": {
       "titulo": "Productos más vendidos",
       "texto": [
@@ -1116,11 +1130,73 @@
     "pasoComprasTitulo": "Compras",
     "pasoComprasTexto": "Reposición de mercadería: solicitud de compra a los proveedores, orden de compra y pago, y recepción en el depósito.",
     "pasoReporteTitulo": "Reporte",
-    "pasoReporteTexto": "El reporte de productos más vendidos, por período, con su gráfico.",
+    "pasoReporteTexto": "Las facturas y los recibos de mercadería para imprimir cuando quieras, y el reporte de productos más vendidos con su gráfico.",
     "pasoAyudaTitulo": "Ayuda",
     "pasoAyudaTexto": "El manual con el paso a paso de cada pantalla, en pantalla o en PDF. En cualquier pantalla, F1 o el botón \"?\" te llevan directo a su ayuda.",
     "pasoFinTitulo": "¡Listo, ya conocés Plumy! ✨",
     "pasoFinTexto": "Si querés repetir la visita, está en Ayuda → Visita guiada. ¡Que tengas una linda jornada! 🌸"
+  },
+  "FormReporteFacturas": {
+    "tituloForm": "Facturas",
+    "lblBuscar": "Buscar:",
+    "lblResumen": "{0} facturas  ·  $ {1}",
+    "btnImprimir": "Imprimir factura",
+    "btnVolver": "Volver",
+    "sinFacturas": "🧾 Todavía no hay facturas",
+    "colNro": "N°",
+    "colFecha": "Fecha",
+    "colDNI": "DNI",
+    "colCliente": "Cliente",
+    "colTotal": "Total",
+    "colFormaPago": "Forma de pago",
+    "colEstado": "Estado",
+    "colFechaPago": "Fecha de pago",
+    "estadoPendiente": "Pendiente",
+    "estadoPagada": "Pagada",
+    "msgError": "Error"
+  },
+  "FormReporteRecibos": {
+    "tituloForm": "Recibos de mercadería",
+    "lblBuscar": "Buscar:",
+    "lblResumen": "{0} recibos  ·  {1} unidades",
+    "btnImprimir": "Imprimir remito",
+    "btnVolver": "Volver",
+    "sinRecibos": "📦 Todavía no se recibió mercadería",
+    "colRemito": "Remito N°",
+    "colFecha": "Fecha",
+    "colOrden": "Orden N°",
+    "colProveedor": "Proveedor",
+    "colResponsable": "Recibió",
+    "colUnidades": "Unidades",
+    "colDiscrepancias": "Observaciones",
+    "si": "Sí",
+    "no": "No",
+    "msgError": "Error"
+  },
+  "ImpresionRemito": {
+    "titulo": "Remito",
+    "noValido": "DOCUMENTO NO VÁLIDO COMO FACTURA",
+    "codigo": "Cód. 91",
+    "nro": "N°",
+    "fecha": "Fecha:",
+    "pagina": "Página {0}",
+    "rubro": "Recepción de mercadería en el depósito",
+    "senores": "Sr./es: ",
+    "cuit": "CUIT: ",
+    "contacto": "Contacto: ",
+    "orden": "Orden de compra N°: ",
+    "factura": "Factura N°: ",
+    "recibido": "Recibido: ",
+    "colCantidad": "CANTIDAD",
+    "colDescripcion": "DESCRIPCIÓN",
+    "colEstado": "ESTADO",
+    "colUbicacion": "UBICACIÓN",
+    "dePedido": "(de {0} pedidos)",
+    "continua": "Continúa en la página siguiente...",
+    "observaciones": "Observaciones:",
+    "sinObservaciones": "Sin observaciones: la mercadería coincide con la orden.",
+    "totalUnidades": "Total de unidades recibidas: {0}",
+    "recibiConforme": "RECIBÍ CONFORME"
   },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",

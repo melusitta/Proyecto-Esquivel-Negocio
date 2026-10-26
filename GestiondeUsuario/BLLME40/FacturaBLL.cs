@@ -39,6 +39,12 @@ namespace BLL
             return factura;
         }
 
+        // Reporte de facturas (PN1): todas las facturas para consultarlas e imprimirlas
+        public List<Factura> ObtenerTodas()
+        {
+            return new FacturaDAL().ObtenerTodas();
+        }
+
         public Factura ObtenerPorNro(int nroFactura)
         {
             FacturaDAL dal = new FacturaDAL();

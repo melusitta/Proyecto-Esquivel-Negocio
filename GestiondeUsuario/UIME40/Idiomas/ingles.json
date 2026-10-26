@@ -69,7 +69,9 @@
     "tipReponerUno": "1 product at minimum stock is waiting to be restocked 🧸",
     "tipCotizacionesUno": "You have 1 quote waiting for your decision 📋",
     "tipSinPagarUno": "There is 1 unpaid purchase order 💳",
-    "tipRecibirUno": "There is 1 paid order to receive at the warehouse 📦"
+    "tipRecibirUno": "There is 1 paid order to receive at the warehouse 📦",
+    "reporteFacturas": "Invoices",
+    "reporteRecibos": "Goods receipts"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -782,7 +784,6 @@
     "msgError": "Error",
     "btnConfirmar": "Confirm delivery",
     "btnImprimirRecibo": "Print receipt",
-    "tituloRecibo": "Goods receipt",
     "lblComentario": "Delivery comment (discrepancies with the order or the invoice):",
     "vacioOrdenes": "📦 No goods waiting at the warehouse"
   },
@@ -824,18 +825,11 @@
     "msgPdfsGenerados": "PDFs to send to each supplier (in {0}):\n{1}",
     "msgPreguntaAbrir": "Do you want to open it now?",
     "msgPdfError": "The PDF could not be generated:",
-    "tituloRecibo": "GOODS RECEIPT",
-    "colPedido": "Ordered",
-    "colRecibido": "Received",
-    "colEstado": "Condition",
-    "colUbicacion": "Location",
-    "discrepancias": "Discrepancies:",
-    "recibidoPor": "Received by:",
-    "archivoRecibo": "Goods receipt {0} - {1}",
     "msgPdfListo": "The PDF is in Downloads\\Plumy - Compras.",
     "msgPdfsListos": "The {0} PDFs are in Downloads\\Plumy - Compras.",
     "abrirPdf": "📄 Open PDF",
-    "abrirCarpeta": "📂 See the PDFs"
+    "abrirCarpeta": "📂 See the PDFs",
+    "archivoRemito": "Delivery note {0} - {1}"
   },
   "Tema": {
     "grillaVacia": "🌸 Nothing here yet",
@@ -1083,6 +1077,26 @@
         "- Then you can use \"Print receipt\"."
       ]
     },
+    "reporteFacturas": {
+      "titulo": "Invoices",
+      "texto": [
+        "Every invoice in the system, newest first. It opens from Reports → Invoices.",
+        "1. Search by invoice number, DNI or customer name (or leave the search empty to see them all).",
+        "2. Choose the invoice and press \"Print invoice\" (or double click).",
+        "- You see the same invoice the customer got; without a printer it is saved as a PDF in Downloads.",
+        "- At the top you see how many invoices the list has and the sum of their totals."
+      ]
+    },
+    "reporteRecibos": {
+      "titulo": "Goods receipts",
+      "texto": [
+        "Everything that entered the warehouse, with a delivery note for each reception. It opens from Reports → Goods receipts.",
+        "1. Search by delivery note number, order number, supplier or who received it.",
+        "2. Choose the receipt and press \"Print delivery note\" (or double click).",
+        "- The delivery note shows the supplier, the order and its invoice, what was received with its condition and location, the remarks and the \"Received in good order\" signature.",
+        "💡 The \"Remarks\" column tells whether a comment was noted at reception, for example missing or damaged products."
+      ]
+    },
     "productosMasVendidos": {
       "titulo": "Best-selling products",
       "texto": [
@@ -1116,11 +1130,73 @@
     "pasoComprasTitulo": "Purchases",
     "pasoComprasTexto": "Restocking: purchase request to suppliers, purchase order and payment, and receiving at the warehouse.",
     "pasoReporteTitulo": "Reports",
-    "pasoReporteTexto": "The best-selling products report, by period, with its chart.",
+    "pasoReporteTexto": "Invoices and goods receipts to print whenever you want, and the best-selling products report with its chart.",
     "pasoAyudaTitulo": "Help",
     "pasoAyudaTexto": "The manual with the step by step of every screen, on screen or as a PDF. On any screen, F1 or the \"?\" button take you straight to its help.",
     "pasoFinTitulo": "Done, now you know Plumy! ✨",
     "pasoFinTexto": "If you want to repeat the tour, it is in Help → Guided tour. Have a lovely day! 🌸"
+  },
+  "FormReporteFacturas": {
+    "tituloForm": "Invoices",
+    "lblBuscar": "Search:",
+    "lblResumen": "{0} invoices  ·  $ {1}",
+    "btnImprimir": "Print invoice",
+    "btnVolver": "Back",
+    "sinFacturas": "🧾 No invoices yet",
+    "colNro": "No.",
+    "colFecha": "Date",
+    "colDNI": "DNI",
+    "colCliente": "Customer",
+    "colTotal": "Total",
+    "colFormaPago": "Payment method",
+    "colEstado": "Status",
+    "colFechaPago": "Payment date",
+    "estadoPendiente": "Pending",
+    "estadoPagada": "Paid",
+    "msgError": "Error"
+  },
+  "FormReporteRecibos": {
+    "tituloForm": "Goods receipts",
+    "lblBuscar": "Search:",
+    "lblResumen": "{0} receipts  ·  {1} units",
+    "btnImprimir": "Print delivery note",
+    "btnVolver": "Back",
+    "sinRecibos": "📦 No goods received yet",
+    "colRemito": "Delivery note",
+    "colFecha": "Date",
+    "colOrden": "Order No.",
+    "colProveedor": "Supplier",
+    "colResponsable": "Received by",
+    "colUnidades": "Units",
+    "colDiscrepancias": "Remarks",
+    "si": "Yes",
+    "no": "No",
+    "msgError": "Error"
+  },
+  "ImpresionRemito": {
+    "titulo": "Delivery note",
+    "noValido": "NOT VALID AS AN INVOICE",
+    "codigo": "Code 91",
+    "nro": "No.",
+    "fecha": "Date:",
+    "pagina": "Page {0}",
+    "rubro": "Goods received at the warehouse",
+    "senores": "Supplier: ",
+    "cuit": "CUIT: ",
+    "contacto": "Contact: ",
+    "orden": "Purchase order No.: ",
+    "factura": "Invoice No.: ",
+    "recibido": "Received: ",
+    "colCantidad": "QUANTITY",
+    "colDescripcion": "DESCRIPTION",
+    "colEstado": "CONDITION",
+    "colUbicacion": "LOCATION",
+    "dePedido": "(of {0} ordered)",
+    "continua": "Continued on next page...",
+    "observaciones": "Remarks:",
+    "sinObservaciones": "No remarks: the goods match the order.",
+    "totalUnidades": "Total units received: {0}",
+    "recibiConforme": "RECEIVED IN GOOD ORDER"
   },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",

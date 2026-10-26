@@ -55,6 +55,8 @@ namespace GestiondeUsuario
             new TemaAyuda("gestionarPago", "Compras", new[] { "GestionarCompras" }, "FormGestionarPago"),
             new TemaAyuda("recibirProductos", "Compras", new[] { "RecibirMercaderia" }, "FormRegistrarProductosRecibidos"),
 
+            new TemaAyuda("reporteFacturas", "Reporte", new[] { "Reporte", "ReportesVentas", "Facturar" }, "FormReporteFacturas"),
+            new TemaAyuda("reporteRecibos", "Reporte", new[] { "Reporte", "RecibirMercaderia", "GestionarCompras" }, "FormReporteRecibos"),
             new TemaAyuda("productosMasVendidos", "Reporte", new[] { "ReportesVentas" }, "FormProductosMasVendidos"),
         };
 

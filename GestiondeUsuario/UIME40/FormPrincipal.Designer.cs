@@ -55,6 +55,8 @@
             this.registrarProductosRecibidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReporte = new System.Windows.Forms.ToolStripMenuItem();
             this.productosMasVendidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteFacturasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteRecibosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAyuda = new System.Windows.Forms.ToolStripMenuItem();
             this.verAyudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manualPdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -260,9 +262,25 @@
             this.productosMasVendidosToolStripMenuItem.Text = "Productos más vendidos";
             this.productosMasVendidosToolStripMenuItem.Click += new System.EventHandler(this.productosMasVendidosToolStripMenuItem_Click);
             // 
+            // reporteFacturasToolStripMenuItem
+            // 
+            this.reporteFacturasToolStripMenuItem.Name = "reporteFacturasToolStripMenuItem";
+            this.reporteFacturasToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.reporteFacturasToolStripMenuItem.Text = "Facturas";
+            this.reporteFacturasToolStripMenuItem.Click += new System.EventHandler(this.reporteFacturasToolStripMenuItem_Click);
+            // 
+            // reporteRecibosToolStripMenuItem
+            // 
+            this.reporteRecibosToolStripMenuItem.Name = "reporteRecibosToolStripMenuItem";
+            this.reporteRecibosToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.reporteRecibosToolStripMenuItem.Text = "Recibos de mercadería";
+            this.reporteRecibosToolStripMenuItem.Click += new System.EventHandler(this.reporteRecibosToolStripMenuItem_Click);
+            // 
             // menuReporte
             // 
             this.menuReporte.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reporteFacturasToolStripMenuItem,
+            this.reporteRecibosToolStripMenuItem,
             this.productosMasVendidosToolStripMenuItem});
             this.menuReporte.Name = "menuReporte";
             this.menuReporte.Size = new System.Drawing.Size(60, 19);
@@ -362,6 +380,8 @@
         private System.Windows.Forms.ToolStripMenuItem registrarProductosRecibidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuReporte;
         private System.Windows.Forms.ToolStripMenuItem productosMasVendidosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteFacturasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteRecibosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuAyuda;
         private System.Windows.Forms.ToolStripMenuItem verAyudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualPdfToolStripMenuItem;

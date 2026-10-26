@@ -169,15 +169,13 @@ namespace GestiondeUsuario
             }
         }
 
-        // Recibo de la última recepción confirmada
+        // Remito de la última recepción confirmada (el mismo que se reimprime desde Reporte → Recibos de mercadería)
         private void btnImprimirRecibo_Click(object sender, EventArgs e)
         {
             if (_recepcion == null) return;
             try
             {
-                using (var documento = ImpresionCompras.Recibo(_ordenRecibida, _recepcion).CrearDocumento())
-                    Impresion.MostrarOGuardarPdf(documento, this, T("tituloRecibo"),
-                        ImpresionCompras.NombreArchivo("archivoRecibo", _ordenRecibida.NroOrden.ToString("D6"), _ordenRecibida.Proveedor.RazonSocial));
+                ImpresionRemito.MostrarVistaPrevia(this, _ordenRecibida, _recepcion);
             }
             catch (Exception ex)
             {

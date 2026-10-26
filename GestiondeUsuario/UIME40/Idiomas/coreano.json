@@ -69,7 +69,9 @@
     "tipReponerUno": "최소 재고 상품 1개가 재입고를 기다리고 있어요 🧸",
     "tipCotizacionesUno": "결정을 기다리는 견적이 1개 있어요 📋",
     "tipSinPagarUno": "미결제 구매 주문이 1개 있어요 💳",
-    "tipRecibirUno": "창고에서 받을 결제 완료 주문이 1개 있어요 📦"
+    "tipRecibirUno": "창고에서 받을 결제 완료 주문이 1개 있어요 📦",
+    "reporteFacturas": "송장",
+    "reporteRecibos": "입고 영수증"
   },
   "FormGU": {
     "tituloForm": "사용자 관리",
@@ -782,7 +784,6 @@
     "msgError": "오류",
     "btnConfirmar": "입고 확인",
     "btnImprimirRecibo": "영수증 인쇄",
-    "tituloRecibo": "입고 영수증",
     "lblComentario": "입고 메모 (주문서 또는 송장과의 불일치):",
     "vacioOrdenes": "📦 창고에서 기다리는 상품이 없습니다"
   },
@@ -824,18 +825,11 @@
     "msgPdfsGenerados": "각 공급업체에 보낼 PDF ({0}):\n{1}",
     "msgPreguntaAbrir": "지금 여시겠습니까?",
     "msgPdfError": "PDF를 생성할 수 없습니다:",
-    "tituloRecibo": "입고 영수증",
-    "colPedido": "주문",
-    "colRecibido": "입고",
-    "colEstado": "상태",
-    "colUbicacion": "위치",
-    "discrepancias": "불일치:",
-    "recibidoPor": "입고 담당:",
-    "archivoRecibo": "입고 영수증 {0} - {1}",
     "msgPdfListo": "PDF가 다운로드\\Plumy - Compras에 저장되었습니다.",
     "msgPdfsListos": "PDF {0}개가 다운로드\\Plumy - Compras에 저장되었습니다.",
     "abrirPdf": "📄 PDF 열기",
-    "abrirCarpeta": "📂 PDF 보기"
+    "abrirCarpeta": "📂 PDF 보기",
+    "archivoRemito": "납품서 {0} - {1}"
   },
   "Tema": {
     "grillaVacia": "🌸 아직 아무것도 없어요",
@@ -1083,6 +1077,26 @@
         "- 그다음 \"영수증 인쇄\"를 쓸 수 있습니다."
       ]
     },
+    "reporteFacturas": {
+      "titulo": "송장",
+      "texto": [
+        "시스템의 모든 송장을 최신순으로 보여 줍니다. 보고서 → 송장에서 열립니다.",
+        "1. 송장 번호, DNI 또는 고객 이름으로 검색하세요 (비워 두면 모두 보입니다).",
+        "2. 송장을 고르고 \"송장 인쇄\"를 누르세요 (또는 더블 클릭).",
+        "- 고객이 받은 송장과 같은 모양이며, 프린터가 없으면 다운로드에 PDF로 저장됩니다.",
+        "- 위쪽에 목록의 송장 수와 합계 금액이 보입니다."
+      ]
+    },
+    "reporteRecibos": {
+      "titulo": "입고 영수증",
+      "texto": [
+        "창고에 들어온 모든 상품을 입고마다 납품서로 보여 줍니다. 보고서 → 입고 영수증에서 열립니다.",
+        "1. 납품서 번호, 주문 번호, 공급업체 또는 입고 담당자로 검색하세요.",
+        "2. 영수증을 고르고 \"납품서 인쇄\"를 누르세요 (또는 더블 클릭).",
+        "- 납품서에는 공급업체, 주문과 송장, 받은 상품의 상태와 위치, 비고, \"이상 없이 수령함\" 서명이 나옵니다.",
+        "💡 \"비고\" 열은 입고 때 메모(예: 누락이나 파손)가 기록되었는지 알려 줍니다."
+      ]
+    },
     "productosMasVendidos": {
       "titulo": "가장 많이 팔린 상품",
       "texto": [
@@ -1116,11 +1130,73 @@
     "pasoComprasTitulo": "구매",
     "pasoComprasTexto": "재입고: 공급업체 구매 요청, 구매 주문과 결제, 창고 입고.",
     "pasoReporteTitulo": "보고서",
-    "pasoReporteTexto": "기간별 가장 많이 팔린 상품 보고서와 그래프.",
+    "pasoReporteTexto": "송장과 입고 영수증을 언제든 인쇄하고, 가장 많이 팔린 상품 보고서를 그래프로 볼 수 있어요.",
     "pasoAyudaTitulo": "도움말",
     "pasoAyudaTexto": "모든 화면의 단계별 설명서를 화면이나 PDF로 볼 수 있어요. 어느 화면에서든 F1이나 \"?\" 버튼을 누르면 그 화면의 도움말로 바로 갑니다.",
     "pasoFinTitulo": "완료, 이제 Plumy를 알게 되었어요! ✨",
     "pasoFinTexto": "투어를 다시 보려면 도움말 → 가이드 투어로 가세요. 좋은 하루 보내세요! 🌸"
+  },
+  "FormReporteFacturas": {
+    "tituloForm": "송장",
+    "lblBuscar": "검색:",
+    "lblResumen": "송장 {0}건  ·  $ {1}",
+    "btnImprimir": "송장 인쇄",
+    "btnVolver": "돌아가기",
+    "sinFacturas": "🧾 아직 송장이 없습니다",
+    "colNro": "번호",
+    "colFecha": "날짜",
+    "colDNI": "DNI",
+    "colCliente": "고객",
+    "colTotal": "합계",
+    "colFormaPago": "결제 방법",
+    "colEstado": "상태",
+    "colFechaPago": "결제일",
+    "estadoPendiente": "대기",
+    "estadoPagada": "결제 완료",
+    "msgError": "오류"
+  },
+  "FormReporteRecibos": {
+    "tituloForm": "입고 영수증",
+    "lblBuscar": "검색:",
+    "lblResumen": "영수증 {0}건  ·  {1}개",
+    "btnImprimir": "납품서 인쇄",
+    "btnVolver": "돌아가기",
+    "sinRecibos": "📦 아직 입고된 상품이 없습니다",
+    "colRemito": "납품서 번호",
+    "colFecha": "날짜",
+    "colOrden": "주문 번호",
+    "colProveedor": "공급업체",
+    "colResponsable": "입고 담당",
+    "colUnidades": "수량",
+    "colDiscrepancias": "비고",
+    "si": "예",
+    "no": "아니요",
+    "msgError": "오류"
+  },
+  "ImpresionRemito": {
+    "titulo": "납품서",
+    "noValido": "송장으로 사용할 수 없음",
+    "codigo": "코드 91",
+    "nro": "번호",
+    "fecha": "날짜:",
+    "pagina": "{0}쪽",
+    "rubro": "창고 입고 상품",
+    "senores": "공급업체: ",
+    "cuit": "CUIT: ",
+    "contacto": "담당자: ",
+    "orden": "구매 주문 번호: ",
+    "factura": "송장 번호: ",
+    "recibido": "입고: ",
+    "colCantidad": "수량",
+    "colDescripcion": "설명",
+    "colEstado": "상태",
+    "colUbicacion": "위치",
+    "dePedido": "(주문 {0}개 중)",
+    "continua": "다음 쪽에 계속...",
+    "observaciones": "비고:",
+    "sinObservaciones": "비고 없음: 상품이 주문과 일치합니다.",
+    "totalUnidades": "입고 수량 합계: {0}",
+    "recibiConforme": "이상 없이 수령함"
   },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",

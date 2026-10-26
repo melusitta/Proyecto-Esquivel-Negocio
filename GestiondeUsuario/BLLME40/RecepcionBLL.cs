@@ -23,6 +23,12 @@ namespace BLL
             }
         }
 
+        // Reporte de recibos de mercadería (PN2): todo lo que entró al depósito
+        public List<Recepcion> ObtenerRecepciones()
+        {
+            return new RecepcionDAL().ObtenerTodas();
+        }
+
         // Órdenes pagadas que esperan la mercadería
         public List<OrdenCompra> ObtenerOrdenesARecibir()
         {

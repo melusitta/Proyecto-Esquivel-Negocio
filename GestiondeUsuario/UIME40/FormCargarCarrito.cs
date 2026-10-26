@@ -163,8 +163,7 @@ namespace GestiondeUsuario
             try
             {
                 CarritoBLL.Instancia.AsociarCliente(_carrito.Id, dni);
-                MessageBox.Show(string.Format(g.Obtener("FormCargarCarrito", "msgAsociado"), dni),
-                    g.Obtener("FormCargarCarrito", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(string.Format(g.Obtener("FormCargarCarrito", "msgAsociado"), dni));
 
                 // Listo para atender al próximo cliente
                 _carrito = null;

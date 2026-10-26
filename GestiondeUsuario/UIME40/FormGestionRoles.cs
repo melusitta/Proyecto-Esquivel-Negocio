@@ -167,9 +167,7 @@ namespace GestiondeUsuario
                     bool ok = RolBLL.Instancia.Eliminar(_idSeleccionado);
                     if (ok)
                     {
-                        MessageBox.Show(g.Obtener("FormGestionRoles", "msgEliminadoExito"),
-                            g.Obtener("FormGestionRoles", "msgExito"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Aviso.Exito(g.Obtener("FormGestionRoles", "msgEliminadoExito"));
                         LimpiarCampos();
                         DeshabilitarCampos();
                         HabilitarBotonera();
@@ -204,9 +202,7 @@ namespace GestiondeUsuario
                     bool ok = RolBLL.Instancia.Insertar(nuevo);
                     if (ok)
                     {
-                        MessageBox.Show(g.Obtener("FormGestionRoles", "msgCreadoExito"),
-                            g.Obtener("FormGestionRoles", "msgExito"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Aviso.Exito(g.Obtener("FormGestionRoles", "msgCreadoExito"));
                         CargarRoles();
                         LimpiarCampos();
                         DeshabilitarCampos();
@@ -220,9 +216,7 @@ namespace GestiondeUsuario
                     bool ok = RolBLL.Instancia.Modificar(modificado);
                     if (ok)
                     {
-                        MessageBox.Show(g.Obtener("FormGestionRoles", "msgModificadoExito"),
-                            g.Obtener("FormGestionRoles", "msgExito"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Aviso.Exito(g.Obtener("FormGestionRoles", "msgModificadoExito"));
                         CargarRoles();
                         LimpiarCampos();
                         DeshabilitarCampos();

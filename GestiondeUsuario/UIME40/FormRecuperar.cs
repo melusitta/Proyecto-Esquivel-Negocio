@@ -71,9 +71,7 @@ namespace GestiondeUsuario
                     txtNuevaPass.Text);
                 if (ok)
                 {
-                    MessageBox.Show(g.Obtener("FormRecuperar", "msgExito"),
-                        g.Obtener("FormRecuperar", "msgExitoTitulo"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(g.Obtener("FormRecuperar", "msgExito"));
                     new Form1().Show();
                     this.Close();
                 }

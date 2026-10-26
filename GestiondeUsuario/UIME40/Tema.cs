@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Runtime.CompilerServices;
+using Servicios;
 using System.Windows.Forms;
 
 namespace GestiondeUsuario
@@ -25,6 +26,8 @@ namespace GestiondeUsuario
         public static readonly Color Texto = ColorTranslator.FromHtml("#2E2A3B");
         public static readonly Color Borde = ColorTranslator.FromHtml("#D6D7EA");
         public static readonly Color FilaAlterna = ColorTranslator.FromHtml("#F7F7FC");
+        // Fila de la grilla que está bajo el mouse
+        public static readonly Color FilaEncima = ColorTranslator.FromHtml("#EFEAF8");
 
         public const string Fuente = "Segoe UI";
 
@@ -44,6 +47,23 @@ namespace GestiondeUsuario
                         _logo = Image.FromFile(ruta);
                 }
                 return _logo;
+            }
+        }
+
+        private static Image _mascota;
+
+        // Muñequito de Plumy (con fondo transparente) desde Recursos\mascota_plumy.png. Devuelve null si no está.
+        public static Image Mascota
+        {
+            get
+            {
+                if (_mascota == null)
+                {
+                    string ruta = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Recursos", "mascota_plumy.png");
+                    if (File.Exists(ruta))
+                        _mascota = Image.FromFile(ruta);
+                }
+                return _mascota;
             }
         }
 
@@ -182,18 +202,71 @@ namespace GestiondeUsuario
             Redondear(btn);
         }
 
-        // ---------- Botones redondeados ----------
+        // ---------- Botones redondeados y vivos ----------
         // WinForms no tiene botones redondeados: los dibujamos nosotros en el Paint,
         // tomando los colores que dejaron EstiloPrincipal/EstiloSecundario.
+        // Al pasar el mouse el color cambia de a poco (un timer avanza la animación) y al hacer clic
+        // el botón se "hunde" un poquito.
         public const int RadioBoton = 10;
-        private static readonly ConditionalWeakTable<Button, object> _redondeados = new ConditionalWeakTable<Button, object>();
+        private static readonly ConditionalWeakTable<Button, EstadoBoton> _redondeados = new ConditionalWeakTable<Button, EstadoBoton>();
+
+        private class EstadoBoton
+        {
+            public float Encima;        // 0 = normal, 1 = color de hover del todo
+            public bool MouseEncima;
+            public bool Presionado;
+        }
+
+        private static readonly System.Collections.Generic.List<Button> _animando = new System.Collections.Generic.List<Button>();
+        private static Timer _timerBotones;
+        private const float PasoAnimacion = 0.18f;   // ~6 cuadros de 15 ms
 
         private static void Redondear(Button btn)
         {
-            object marca;
-            if (_redondeados.TryGetValue(btn, out marca)) return; // ya tiene el Paint enganchado
-            _redondeados.Add(btn, null);
+            EstadoBoton estado;
+            if (_redondeados.TryGetValue(btn, out estado)) return; // ya tiene el Paint enganchado
+            estado = new EstadoBoton();
+            _redondeados.Add(btn, estado);
             btn.Paint += PintarBotonRedondeado;
+            btn.MouseEnter += (s, e) => { estado.MouseEncima = true; Animar(btn); };
+            btn.MouseLeave += (s, e) => { estado.MouseEncima = false; estado.Presionado = false; Animar(btn); };
+            btn.MouseDown += (s, e) => { if (e.Button == MouseButtons.Left) { estado.Presionado = true; btn.Invalidate(); } };
+            btn.MouseUp += (s, e) => { estado.Presionado = false; btn.Invalidate(); };
+            btn.EnabledChanged += (s, e) => { estado.Encima = 0; estado.Presionado = false; btn.Invalidate(); };
+        }
+
+        private static void Animar(Button btn)
+        {
+            if (!_animando.Contains(btn))
+                _animando.Add(btn);
+            if (_timerBotones == null)
+            {
+                _timerBotones = new Timer { Interval = 15 };
+                _timerBotones.Tick += AvanzarAnimacion;
+            }
+            _timerBotones.Start();
+        }
+
+        private static void AvanzarAnimacion(object sender, EventArgs e)
+        {
+            for (int i = _animando.Count - 1; i >= 0; i--)
+            {
+                Button btn = _animando[i];
+                EstadoBoton estado;
+                if (btn.IsDisposed || !_redondeados.TryGetValue(btn, out estado))
+                {
+                    _animando.RemoveAt(i);
+                    continue;
+                }
+                float objetivo = estado.MouseEncima && btn.Enabled ? 1f : 0f;
+                estado.Encima = objetivo > estado.Encima ? Math.Min(objetivo, estado.Encima + PasoAnimacion)
+                                                         : Math.Max(objetivo, estado.Encima - PasoAnimacion);
+                btn.Invalidate();
+                if (estado.Encima == objetivo)
+                    _animando.RemoveAt(i);
+            }
+            if (_animando.Count == 0)
+                _timerBotones.Stop();
         }
 
         private static void PintarBotonRedondeado(object sender, PaintEventArgs e)
@@ -202,12 +275,13 @@ namespace GestiondeUsuario
             Graphics g = e.Graphics;
             Color fondo = btn.Parent?.BackColor ?? Fondo;
 
-            bool encima = btn.Enabled && btn.ClientRectangle.Contains(btn.PointToClient(Cursor.Position));
-            bool presionado = encima && (Control.MouseButtons & MouseButtons.Left) != 0;
+            EstadoBoton estado;
+            _redondeados.TryGetValue(btn, out estado);
+            float encima = btn.Enabled ? estado?.Encima ?? 0f : 0f;
+            bool presionado = btn.Enabled && estado != null && estado.Presionado;
 
             Color relleno = presionado ? btn.FlatAppearance.MouseDownBackColor
-                          : encima ? btn.FlatAppearance.MouseOverBackColor
-                          : btn.BackColor;
+                          : Mezclar(btn.BackColor, btn.FlatAppearance.MouseOverBackColor, encima);
             Color borde = btn.FlatAppearance.BorderColor;
             Color texto = btn.ForeColor;
             if (!btn.Enabled)
@@ -219,7 +293,9 @@ namespace GestiondeUsuario
 
             g.Clear(fondo);
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            var rect = new RectangleF(0.5f, 0.5f, btn.Width - 1.5f, btn.Height - 1.5f);
+            // Presionado: un poquito más chico y el texto un pixel más abajo
+            float hundido = presionado ? 1.5f : 0f;
+            var rect = new RectangleF(0.5f + hundido, 0.5f + hundido, btn.Width - 1.5f - 2 * hundido, btn.Height - 1.5f - 2 * hundido);
             using (GraphicsPath forma = RectanguloRedondeado(rect, RadioBoton))
             using (var pincel = new SolidBrush(relleno))
             using (var lapiz = new Pen(borde, btn.Focused ? 2f : 1f))
@@ -228,11 +304,14 @@ namespace GestiondeUsuario
                 g.DrawPath(lapiz, forma);
             }
 
-            TextRenderer.DrawText(g, btn.Text, btn.Font, btn.ClientRectangle, texto,
+            Rectangle areaTexto = btn.ClientRectangle;
+            if (presionado)
+                areaTexto.Offset(0, 1);
+            TextRenderer.DrawText(g, btn.Text, btn.Font, areaTexto, texto,
                 TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
 
-        private static GraphicsPath RectanguloRedondeado(RectangleF r, float radio)
+        public static GraphicsPath RectanguloRedondeado(RectangleF r, float radio)
         {
             float d = radio * 2;
             var forma = new GraphicsPath();
@@ -245,7 +324,7 @@ namespace GestiondeUsuario
         }
 
         // Mezcla el color a con b (proporcion = cuánto de b)
-        private static Color Mezclar(Color a, Color b, double proporcion)
+        public static Color Mezclar(Color a, Color b, double proporcion)
         {
             return Color.FromArgb(
                 (int)(a.R + (b.R - a.R) * proporcion),
@@ -344,6 +423,57 @@ namespace GestiondeUsuario
             dgv.DefaultCellStyle.Font = new Font(Fuente, 9.75F);
             dgv.AlternatingRowsDefaultCellStyle.BackColor = FilaAlterna;
             dgv.RowTemplate.Height = 28;
+            AnimarGrilla(dgv);
+        }
+
+        // ---------- Grillas vivas ----------
+        // La fila bajo el mouse se pinta lila suave, y una grilla vacía muestra un mensajito en el medio
+        // (el de MensajeVacio, o uno general) en vez de quedar en blanco.
+        private static readonly ConditionalWeakTable<DataGridView, Func<string>> _mensajesVacio = new ConditionalWeakTable<DataGridView, Func<string>>();
+
+        public static void MensajeVacio(DataGridView dgv, Func<string> texto)
+        {
+            _mensajesVacio.Remove(dgv);
+            _mensajesVacio.Add(dgv, texto);
+            dgv.Invalidate();
+        }
+
+        private static void AnimarGrilla(DataGridView dgv)
+        {
+            Func<string> yaEnganchada;
+            if (_mensajesVacio.TryGetValue(dgv, out yaEnganchada)) return;
+            _mensajesVacio.Add(dgv, () => GestorIdioma.Instancia.Obtener("Tema", "grillaVacia"));
+
+            dgv.CellMouseEnter += (s, e) =>
+            {
+                if (e.RowIndex >= 0 && e.RowIndex < dgv.Rows.Count)
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = FilaEncima;
+            };
+            dgv.CellMouseLeave += (s, e) =>
+            {
+                if (e.RowIndex >= 0 && e.RowIndex < dgv.Rows.Count)
+                    dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Empty;
+            };
+            dgv.RowsAdded += (s, e) => dgv.Invalidate();
+            dgv.RowsRemoved += (s, e) => dgv.Invalidate();
+            dgv.DataBindingComplete += (s, e) => dgv.Invalidate();
+            dgv.Paint += PintarGrillaVacia;
+        }
+
+        private static void PintarGrillaVacia(object sender, PaintEventArgs e)
+        {
+            var dgv = (DataGridView)sender;
+            Func<string> texto;
+            if (dgv.Rows.Count > 0 || dgv.Columns.Count == 0 || !_mensajesVacio.TryGetValue(dgv, out texto))
+                return;
+            string mensaje = texto();
+            if (string.IsNullOrEmpty(mensaje))
+                return;
+            int arriba = dgv.ColumnHeadersVisible ? dgv.ColumnHeadersHeight : 0;
+            var area = new Rectangle(10, arriba, dgv.ClientSize.Width - 20, dgv.ClientSize.Height - arriba);
+            using (var fuente = new Font(Fuente, 11F))
+                TextRenderer.DrawText(e.Graphics, mensaje, fuente, area, PrincipalOscuro,
+                    TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
     }
 }

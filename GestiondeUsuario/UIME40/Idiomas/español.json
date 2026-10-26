@@ -22,7 +22,6 @@
   },
   "FormPrincipal": {
     "tituloForm": "Menú principal",
-    "lblBienvenida": "Bienvenido",
     "menuUsuario": "Usuario",
     "menuAdmin": "Admin",
     "menuMaestro": "Maestro",
@@ -51,7 +50,19 @@
     "gestionClientes": "Gestión de clientes",
     "generarSolicitudCompra": "Generar solicitud de compra",
     "generarOrdenCompra": "Generar orden de compra",
-    "registrarProductosRecibidos": "Registrar productos recibidos"
+    "registrarProductosRecibidos": "Registrar productos recibidos",
+    "saludoManana": "¡Buen día, {0}! ☀️",
+    "saludoTarde": "¡Buenas tardes, {0}! 🌷",
+    "saludoNoche": "¡Buenas noches, {0}! 🌙",
+    "tipReponer": "Hay {0} productos en stock mínimo esperando reposición 🧸",
+    "tipReponerCero": "¡No hay nada para reponer, todo en orden! ✨",
+    "tipCotizaciones": "Tenés {0} cotizaciones esperando tu decisión 📋",
+    "tipSinPagar": "Hay {0} órdenes de compra sin pagar 💳",
+    "tipRecibir": "Hay {0} órdenes pagadas para recibir en el depósito 📦",
+    "tipGeneral1": "¡Que tengas una linda jornada! 🌸",
+    "tipGeneral2": "Podés cambiar el idioma desde el menú Usuario 🌍",
+    "tipGeneral3": "Si maximizás una pantalla, las siguientes también se abren grandes 🪟",
+    "pistaMascota": "Tocá a Plumy para ver otro consejo"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -476,7 +487,8 @@
     "sinProveedor": "(sin proveedor)",
     "colCategoria": "Categoría",
     "colStockMinimo": "Stock mín.",
-    "colProveedor": "Proveedor habitual"
+    "colProveedor": "Proveedor habitual",
+    "msgSinCambios": "No hiciste ningún cambio: el producto queda como estaba."
   },
   "ImpresionFactura": {
     "titulo": "FACTURA",
@@ -587,7 +599,8 @@
     "msgAtencion": "Atención",
     "btnVolver": "Volver",
     "msgExito": "Éxito",
-    "msgError": "Error"
+    "msgError": "Error",
+    "vacioItems": "📋 Elegí la solicitud y el proveedor"
   },
   "FormRealizarPreRegistro": {
     "tituloForm": "Realizar pre-registro",
@@ -644,7 +657,9 @@
     "colProvPlazo": "Plazo (días)",
     "colProvFormaPago": "Forma de pago",
     "colProvCondicionesComerciales": "Condiciones",
-    "colProvEstado": "Estado"
+    "colProvEstado": "Estado",
+    "vacioProductos": "🧸 ¡Todo en orden! No hay productos en stock mínimo",
+    "vacioItems": "👈 Agregá productos desde el listado"
   },
   "FormGenerarOrdenCompra": {
     "tituloForm": "Generar orden de compra",
@@ -679,7 +694,8 @@
     "msgError": "Error",
     "btnDescartar": "Descartar cotización",
     "msgPreguntaDescartar": "¿Descartar la cotización de {0}? No se genera la orden y sus productos quedan para pedirlos en otra solicitud.",
-    "msgDescartada": "Cotización de {0} descartada. Sus productos vuelven a aparecer en \"Generar solicitud de compra\"."
+    "msgDescartada": "Cotización de {0} descartada. Sus productos vuelven a aparecer en \"Generar solicitud de compra\".",
+    "vacioItems": "📋 Elegí una cotización, o registrá la que mandó el proveedor"
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "Completar registro proveedor",
@@ -730,7 +746,8 @@
     "btnVolver": "Volver",
     "msgExito": "Éxito",
     "msgError": "Error",
-    "btnPagar": "Pagar"
+    "btnPagar": "Pagar",
+    "vacioOrdenes": "💜 ¡No hay órdenes para pagar!"
   },
   "FormRegistrarProductosRecibidos": {
     "tituloForm": "Registrar productos recibidos",
@@ -759,7 +776,8 @@
     "btnConfirmar": "Confirmar recepción",
     "btnImprimirRecibo": "Imprimir recibo",
     "tituloRecibo": "Recibo de mercadería",
-    "lblComentario": "Comentario de la recepción (discrepancias con la orden o la factura):"
+    "lblComentario": "Comentario de la recepción (discrepancias con la orden o la factura):",
+    "vacioOrdenes": "📦 No hay mercadería esperando en el depósito"
   },
   "ImpresionCompras": {
     "tituloSolicitud": "SOLICITUD DE COMPRA",
@@ -806,7 +824,18 @@
     "colUbicacion": "Ubicación",
     "discrepancias": "Discrepancias:",
     "recibidoPor": "Recibido por:",
-    "archivoRecibo": "Recibo de mercadería {0} - {1}"
+    "archivoRecibo": "Recibo de mercadería {0} - {1}",
+    "msgPdfListo": "El PDF quedó en Descargas\\Plumy - Compras.",
+    "msgPdfsListos": "Los {0} PDF quedaron en Descargas\\Plumy - Compras.",
+    "abrirPdf": "📄 Abrir PDF",
+    "abrirCarpeta": "📂 Ver los PDF"
+  },
+  "Tema": {
+    "grillaVacia": "🌸 Todavía no hay nada por acá"
+  },
+  "Aviso": {
+    "tituloExito": "¡Listo!",
+    "tituloInfo": "Atención"
   },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",

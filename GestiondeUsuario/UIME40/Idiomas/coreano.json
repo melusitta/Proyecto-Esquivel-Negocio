@@ -22,7 +22,6 @@
   },
   "FormPrincipal": {
     "tituloForm": "메인 메뉴",
-    "lblBienvenida": "환영합니다",
     "menuUsuario": "사용자",
     "menuAdmin": "관리자",
     "menuMaestro": "마스터",
@@ -51,7 +50,19 @@
     "gestionClientes": "고객 관리",
     "generarSolicitudCompra": "구매 요청 생성",
     "generarOrdenCompra": "구매 주문 생성",
-    "registrarProductosRecibidos": "입고 상품 등록"
+    "registrarProductosRecibidos": "입고 상품 등록",
+    "saludoManana": "좋은 아침이에요, {0}! ☀️",
+    "saludoTarde": "좋은 오후예요, {0}! 🌷",
+    "saludoNoche": "좋은 저녁이에요, {0}! 🌙",
+    "tipReponer": "최소 재고 상품 {0}개가 재입고를 기다리고 있어요 🧸",
+    "tipReponerCero": "재입고할 상품이 없어요, 모두 괜찮아요! ✨",
+    "tipCotizaciones": "결정을 기다리는 견적이 {0}개 있어요 📋",
+    "tipSinPagar": "미결제 구매 주문이 {0}개 있어요 💳",
+    "tipRecibir": "창고에서 받을 결제 완료 주문이 {0}개 있어요 📦",
+    "tipGeneral1": "좋은 하루 보내세요! 🌸",
+    "tipGeneral2": "사용자 메뉴에서 언어를 바꿀 수 있어요 🌍",
+    "tipGeneral3": "화면을 최대화하면 다음 화면도 크게 열려요 🪟",
+    "pistaMascota": "다른 팁을 보려면 Plumy를 눌러 보세요"
   },
   "FormGU": {
     "tituloForm": "사용자 관리",
@@ -476,7 +487,8 @@
     "sinProveedor": "(공급업체 없음)",
     "colCategoria": "카테고리",
     "colStockMinimo": "최소 재고",
-    "colProveedor": "주 공급업체"
+    "colProveedor": "주 공급업체",
+    "msgSinCambios": "변경한 내용이 없습니다: 상품은 그대로 유지됩니다."
   },
   "ImpresionFactura": {
     "titulo": "청구서",
@@ -587,7 +599,8 @@
     "msgAtencion": "주의",
     "btnVolver": "돌아가기",
     "msgExito": "성공",
-    "msgError": "오류"
+    "msgError": "오류",
+    "vacioItems": "📋 요청과 공급업체를 선택하세요"
   },
   "FormRealizarPreRegistro": {
     "tituloForm": "사전 등록",
@@ -644,7 +657,9 @@
     "colProvPlazo": "기간(일)",
     "colProvFormaPago": "결제 방법",
     "colProvCondicionesComerciales": "조건",
-    "colProvEstado": "상태"
+    "colProvEstado": "상태",
+    "vacioProductos": "🧸 모두 괜찮아요! 최소 재고 상품이 없습니다",
+    "vacioItems": "👈 목록에서 상품을 추가하세요"
   },
   "FormGenerarOrdenCompra": {
     "tituloForm": "구매 주문 생성",
@@ -679,7 +694,8 @@
     "msgError": "오류",
     "btnDescartar": "견적 거절",
     "msgPreguntaDescartar": "{0}의 견적을 거절할까요? 주문은 생성되지 않으며 해당 상품은 다른 요청으로 다시 주문할 수 있습니다.",
-    "msgDescartada": "{0}의 견적이 거절되었습니다. 해당 상품이 \"구매 요청 생성\"에 다시 표시됩니다."
+    "msgDescartada": "{0}의 견적이 거절되었습니다. 해당 상품이 \"구매 요청 생성\"에 다시 표시됩니다.",
+    "vacioItems": "📋 견적을 선택하거나 공급업체가 보낸 견적을 등록하세요"
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "공급업체 등록 완료",
@@ -730,7 +746,8 @@
     "btnVolver": "뒤로",
     "msgExito": "성공",
     "msgError": "오류",
-    "btnPagar": "결제"
+    "btnPagar": "결제",
+    "vacioOrdenes": "💜 결제할 주문이 없습니다!"
   },
   "FormRegistrarProductosRecibidos": {
     "tituloForm": "입고 상품 등록",
@@ -759,7 +776,8 @@
     "btnConfirmar": "입고 확인",
     "btnImprimirRecibo": "영수증 인쇄",
     "tituloRecibo": "입고 영수증",
-    "lblComentario": "입고 메모 (주문서 또는 송장과의 불일치):"
+    "lblComentario": "입고 메모 (주문서 또는 송장과의 불일치):",
+    "vacioOrdenes": "📦 창고에서 기다리는 상품이 없습니다"
   },
   "ImpresionCompras": {
     "tituloSolicitud": "구매 요청서",
@@ -806,7 +824,18 @@
     "colUbicacion": "위치",
     "discrepancias": "불일치:",
     "recibidoPor": "입고 담당:",
-    "archivoRecibo": "입고 영수증 {0} - {1}"
+    "archivoRecibo": "입고 영수증 {0} - {1}",
+    "msgPdfListo": "PDF가 다운로드\\Plumy - Compras에 저장되었습니다.",
+    "msgPdfsListos": "PDF {0}개가 다운로드\\Plumy - Compras에 저장되었습니다.",
+    "abrirPdf": "📄 PDF 열기",
+    "abrirCarpeta": "📂 PDF 보기"
+  },
+  "Tema": {
+    "grillaVacia": "🌸 아직 아무것도 없어요"
+  },
+  "Aviso": {
+    "tituloExito": "완료!",
+    "tituloInfo": "알림"
   },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",

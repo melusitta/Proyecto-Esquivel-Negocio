@@ -15,6 +15,9 @@ namespace GestiondeUsuario
 {
     public partial class FormPrincipal : Form, IObservadorIdioma
     {
+        // Qué puede hacer el usuario: define los consejos de la mascota
+        private bool _reponer, _gestionarCompras, _recibir;
+
         public FormPrincipal()
         {
             InitializeComponent();
@@ -27,11 +30,9 @@ namespace GestiondeUsuario
             pnlLateral.BackColor = Tema.Principal;
             Tema.EstiloMenu(menuStrip1);
             picLogo.Image = Tema.Logo;
-            lblBienvenida.ForeColor = Tema.PrincipalOscuro;
 
             GestorIdioma.Instancia.Suscribir(this);
             Usuario usuario = SessionManager.Instancia.ObtenerUsuarioActivo();
-            lblBienvenida.Text = "Bienvenido, " + usuario.Nombre + "!";
             // Cada submenú depende de SU propia patente, no de un permiso genérico
             bool tieneGestionUsuarios = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionUsuarios");
             bool tieneGestionPerfiles = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionPerfiles");
@@ -65,6 +66,9 @@ namespace GestiondeUsuario
             generarSolicitudCompraToolStripMenuItem.Enabled = tieneReponerProductos;
             generarOrdenCompraToolStripMenuItem.Enabled = tieneGestionarCompras;
             registrarProductosRecibidosToolStripMenuItem.Enabled = tieneRecibirMercaderia;
+            _reponer = tieneReponerProductos;
+            _gestionarCompras = tieneGestionarCompras;
+            _recibir = tieneRecibirMercaderia;
             menuCompras.Enabled = tieneCompras || tieneReponerProductos || tieneGestionarCompras || tieneRecibirMercaderia;
             productosMasVendidosToolStripMenuItem.Enabled = tieneReportesVentas;
             menuReporte.Enabled = tieneReporte || tieneReportesVentas;
@@ -85,11 +89,7 @@ namespace GestiondeUsuario
         {
             var g = GestorIdioma.Instancia;
             if (SessionManager.Instancia.HaySesionActiva())
-                MessageBox.Show(
-                    g.Obtener("FormPrincipal", "msgSesionActiva") +
-                    SessionManager.Instancia.ObtenerUsuarioActivo().NombreUsuario,
-                    g.Obtener("FormPrincipal", "msgSesionActivaTitulo"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Info(g.Obtener("FormPrincipal", "msgSesionActiva") + SessionManager.Instancia.ObtenerUsuarioActivo().NombreUsuario);
         }
 
         private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -192,15 +192,53 @@ namespace GestiondeUsuario
             this.Hide();
         }
 
+        // ---------- Mascota ----------
+
+        // Saludo según la hora y consejos según lo que tiene pendiente el usuario en Compras
+        private void MostrarMascota()
+        {
+            var g = GestorIdioma.Instancia;
+            int hora = DateTime.Now.Hour;
+            string clave = hora >= 5 && hora < 12 ? "saludoManana" : hora >= 12 && hora < 20 ? "saludoTarde" : "saludoNoche";
+            string saludo = string.Format(g.Obtener("FormPrincipal", clave), SessionManager.Instancia.ObtenerUsuarioActivo()?.Nombre);
+
+            var consejos = new List<string>();
+            try
+            {
+                if (_reponer)
+                {
+                    int aReponer = SolicitudCompraBLL.Instancia.ObtenerProductosAReponer().Count;
+                    consejos.Add(aReponer == 0 ? g.Obtener("FormPrincipal", "tipReponerCero") : string.Format(g.Obtener("FormPrincipal", "tipReponer"), aReponer));
+                }
+                if (_gestionarCompras)
+                {
+                    int cotizaciones = OrdenCompraBLL.Instancia.ObtenerCotizacionesRecibidas().Count;
+                    int sinPagar = OrdenCompraBLL.Instancia.ObtenerPorEstado(BE.OrdenCompra.EstadoEnviada).Count;
+                    if (cotizaciones > 0) consejos.Add(string.Format(g.Obtener("FormPrincipal", "tipCotizaciones"), cotizaciones));
+                    if (sinPagar > 0) consejos.Add(string.Format(g.Obtener("FormPrincipal", "tipSinPagar"), sinPagar));
+                }
+                if (_recibir)
+                {
+                    int aRecibir = RecepcionBLL.Instancia.ObtenerOrdenesARecibir().Count;
+                    if (aRecibir > 0) consejos.Add(string.Format(g.Obtener("FormPrincipal", "tipRecibir"), aRecibir));
+                }
+            }
+            catch
+            {
+                // Si no se pueden contar los pendientes, Plumy igual saluda con los consejos generales
+            }
+            foreach (string tip in new[] { "tipGeneral1", "tipGeneral2", "tipGeneral3" })
+                consejos.Add(g.Obtener("FormPrincipal", tip));
+            mascota.Mostrar(saludo, consejos, g.Obtener("FormPrincipal", "pistaMascota"));
+        }
+
         public void ActualizarIdioma(JObject traducciones)
         {
             var t = traducciones["FormPrincipal"];
             if (t == null) return;
 
             this.Text = t["tituloForm"]?.ToString();
-
-            lblBienvenida.Text = t["lblBienvenida"]?.ToString() + ", " +
-            SessionManager.Instancia.ObtenerUsuarioActivo()?.Nombre + "!";
+            MostrarMascota();
             usuarioToolStripMenuItem.Text = t["menuUsuario"]?.ToString();
             menuAdmin.Text = t["menuAdmin"]?.ToString();
             menuMaestro.Text = t["menuMaestro"]?.ToString();

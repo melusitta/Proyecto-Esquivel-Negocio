@@ -27,6 +27,7 @@ namespace GestiondeUsuario
         private void FormRegistrarProductosRecibidos_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
+            Tema.MensajeVacio(dgvOrdenes, () => T("vacioOrdenes"));
             Tema.EstiloPrincipal(btnConfirmar);
             btnImprimirRecibo.Enabled = false;
             lblComparacion.ForeColor = Tema.PrincipalOscuro;
@@ -159,8 +160,7 @@ namespace GestiondeUsuario
                 _ordenRecibida = o;
                 btnImprimirRecibo.Enabled = true;
                 int alStock = items.Where(i => i.Estado == ItemRecepcion.EstadoBueno).Sum(i => i.CantidadRecibida);
-                MessageBox.Show(string.Format(T("msgRecepcionRegistrada"), o.NroOrden.ToString("D6"), alStock),
-                    T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(string.Format(T("msgRecepcionRegistrada"), o.NroOrden.ToString("D6"), alStock));
                 CargarOrdenes();
             }
             catch (Exception ex)

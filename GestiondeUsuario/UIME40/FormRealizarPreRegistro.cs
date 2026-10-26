@@ -65,8 +65,7 @@ namespace GestiondeUsuario
             try
             {
                 IdProveedor = ProveedorBLL.Instancia.PreRegistrar(proveedor);
-                MessageBox.Show(string.Format(T("msgPreRegistrado"), proveedor.RazonSocial),
-                    T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(string.Format(T("msgPreRegistrado"), proveedor.RazonSocial));
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

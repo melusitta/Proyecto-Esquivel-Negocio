@@ -63,9 +63,7 @@ namespace GestiondeUsuario
             var usuario = SessionManager.Instancia.ObtenerUsuarioActivo();
             UsuarioBLL.Instancia.ActualizarIdioma(usuario.Id, idioma);
 
-            MessageBox.Show(g.Obtener("FormCambiarIdioma", "msgExito") + idioma,
-             g.Obtener("FormCambiarIdioma", "msgExitoTitulo"),
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Aviso.Exito(g.Obtener("FormCambiarIdioma", "msgExito") + idioma);
 
             new FormPrincipal().Show();
             this.Close();

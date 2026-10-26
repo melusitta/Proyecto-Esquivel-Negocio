@@ -170,9 +170,7 @@ namespace GestiondeUsuario
                     bool ok = FamiliaBLL.Instancia.Eliminar(_idSeleccionado);
                     if (ok)
                     {
-                        MessageBox.Show(g.Obtener("FormGestionFamilias", "msgEliminadaExito"),
-                        g.Obtener("FormGestionFamilias", "msgExito"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Aviso.Exito(g.Obtener("FormGestionFamilias", "msgEliminadaExito"));
                         LimpiarCampos();
                         DeshabilitarCampos();
                         HabilitarBotonera();
@@ -207,9 +205,7 @@ namespace GestiondeUsuario
                     bool ok = FamiliaBLL.Instancia.Insertar(nueva);
                     if (ok)
                     {
-                        MessageBox.Show(g.Obtener("FormGestionFamilias", "msgCreadoExito"),
-                            g.Obtener("FormGestionFamilias", "msgExito"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Aviso.Exito(g.Obtener("FormGestionFamilias", "msgCreadoExito"));
                         CargarFamilias();
                         LimpiarCampos();
                         DeshabilitarCampos();
@@ -229,9 +225,7 @@ namespace GestiondeUsuario
                 bool ok = FamiliaBLL.Instancia.Modificar(modificada);
                 if (ok)
                 {
-                    MessageBox.Show(g.Obtener("FormGestionFamilias", "msgModificadaExito"),
-                    g.Obtener("FormGestionFamilias", "msgExito"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(g.Obtener("FormGestionFamilias", "msgModificadaExito"));
                     CargarFamilias();
                     LimpiarCampos();
                     DeshabilitarCampos();

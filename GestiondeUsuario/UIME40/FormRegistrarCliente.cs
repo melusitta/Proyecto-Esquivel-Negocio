@@ -96,8 +96,7 @@ namespace GestiondeUsuario
                     CodigoPostal = txtCodigoPostal.Text
                 };
                 ClienteBLL.Instancia.Registrar(cliente);
-                MessageBox.Show(g.Obtener("FormRegistrarCliente", "msgClienteRegistrado"),
-                    g.Obtener("FormRegistrarCliente", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(g.Obtener("FormRegistrarCliente", "msgClienteRegistrado"));
                 if (_desdeFactura)
                 {
                     this.DialogResult = DialogResult.OK;
@@ -153,8 +152,7 @@ namespace GestiondeUsuario
                 try
                 {
                     ClienteBLL.Instancia.Serializar(seleccionados, dialogo.FileName);
-                    MessageBox.Show(g.Obtener("FormRegistrarCliente", "msgSerializado"),
-                        g.Obtener("FormRegistrarCliente", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(g.Obtener("FormRegistrarCliente", "msgSerializado"));
                 }
                 catch (Exception ex)
                 {

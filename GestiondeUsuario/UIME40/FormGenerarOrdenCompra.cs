@@ -36,6 +36,7 @@ namespace GestiondeUsuario
         private void FormGenerarOrdenCompra_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
+            Tema.MensajeVacio(dgvItems, () => T("vacioItems"));
             Tema.EstiloPrincipal(btnGenerar);
             lblInfoCotizacion.ForeColor = Tema.PrincipalOscuro;
             lblInfoCotizacion.AutoEllipsis = true;
@@ -225,8 +226,7 @@ namespace GestiondeUsuario
             try
             {
                 OrdenCompraBLL.Instancia.DescartarCotizacion(c.Id);
-                MessageBox.Show(string.Format(T("msgDescartada"), c.Proveedor.RazonSocial), T("msgExito"),
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(string.Format(T("msgDescartada"), c.Proveedor.RazonSocial));
                 CargarCotizaciones(null);
             }
             catch (Exception ex)

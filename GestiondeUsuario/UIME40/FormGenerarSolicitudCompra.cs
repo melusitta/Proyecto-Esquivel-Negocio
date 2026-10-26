@@ -27,6 +27,8 @@ namespace GestiondeUsuario
         private void FormGenerarSolicitudCompra_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
+            Tema.MensajeVacio(dgvProductos, () => T("vacioProductos"));
+            Tema.MensajeVacio(dgvItems, () => T("vacioItems"));
             Tema.EstiloPrincipal(btnFinalizar);
             Tema.EstiloPrincipal(btnAgregar);
             lblResumen.ForeColor = Tema.PrincipalOscuro;
@@ -117,7 +119,7 @@ namespace GestiondeUsuario
         {
             if (filas.Count == 0)
             {
-                MessageBox.Show(T("msgElegirProducto"), T("msgAtencion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Info(T("msgElegirProducto"));
                 return;
             }
             foreach (DataGridViewRow r in filas)

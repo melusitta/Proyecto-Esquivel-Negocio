@@ -30,7 +30,7 @@
         {
             this.picLogo = new System.Windows.Forms.PictureBox();
             this.pnlLateral = new System.Windows.Forms.Panel();
-            this.lblBienvenida = new System.Windows.Forms.Label();
+            this.mascota = new GestiondeUsuario.MascotaPlumy();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.usuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iniciarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,15 +59,14 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblBienvenida
+            // mascota
             // 
-            this.lblBienvenida.AutoSize = true;
-            this.lblBienvenida.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBienvenida.Location = new System.Drawing.Point(250, 50);
-            this.lblBienvenida.Name = "lblBienvenida";
-            this.lblBienvenida.Size = new System.Drawing.Size(57, 20);
-            this.lblBienvenida.TabIndex = 2;
-            this.lblBienvenida.Text = "label2";
+            this.mascota.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.mascota.Location = new System.Drawing.Point(230, 40);
+            this.mascota.Name = "mascota";
+            this.mascota.Size = new System.Drawing.Size(570, 240);
+            this.mascota.TabIndex = 2;
             // 
             // menuStrip1
             // 
@@ -296,7 +295,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(820, 480);
-            this.Controls.Add(this.lblBienvenida);
+            this.Controls.Add(this.mascota);
             this.MainMenuStrip = this.menuStrip1;
             this.Controls.Add(this.pnlLateral);
             this.Name = "FormPrincipal";
@@ -311,7 +310,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label lblBienvenida;
+        private GestiondeUsuario.MascotaPlumy mascota;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem usuarioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem iniciarSesionToolStripMenuItem;

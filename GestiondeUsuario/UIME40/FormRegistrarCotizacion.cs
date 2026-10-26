@@ -32,6 +32,7 @@ namespace GestiondeUsuario
         private void FormRegistrarCotizacion_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
+            Tema.MensajeVacio(dgvItems, () => T("vacioItems"));
             Tema.EstiloPrincipal(btnRegistrarCotizacion);
             CrearColumnas();
             GestorIdioma.Instancia.Suscribir(this);
@@ -82,7 +83,7 @@ namespace GestiondeUsuario
                     cmbProveedor.Items.Clear();
                     dgvItems.Rows.Clear();
                     btnRegistrarCotizacion.Enabled = false;
-                    MessageBox.Show(T("sinSolicitudes"), T("msgAtencion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Info(T("sinSolicitudes"));
                 }
             }
             catch (Exception ex)
@@ -168,8 +169,7 @@ namespace GestiondeUsuario
             try
             {
                 IdCotizacion = OrdenCompraBLL.Instancia.RegistrarCotizacion(cotizacion);
-                MessageBox.Show(string.Format(T("msgCotizacionRegistrada"), cotizacion.Proveedor?.RazonSocial),
-                    T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(string.Format(T("msgCotizacionRegistrada"), cotizacion.Proveedor?.RazonSocial));
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }

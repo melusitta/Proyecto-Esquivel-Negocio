@@ -83,9 +83,24 @@ namespace BLL
         }
 
         // El precio nuevo no cambia los carritos ya cargados: cada ítem guarda su precio
-        public bool Modificar(Producto p)
+        // Compara con lo guardado: si no cambió ningún dato no hay nada que modificar
+        public bool HayCambios(Producto p)
         {
             Validar(p);
+            Producto actual = new ProductoDAL().ObtenerPorId(p.Id);
+            if (actual == null)
+                throw new ErrorNegocio("PRODUCTO_NO_ENCONTRADO", p.CodigoProducto);
+            return actual.CodigoProducto != p.CodigoProducto || actual.Nombre != p.Nombre || actual.Marca != p.Marca
+                || actual.Color != p.Color || actual.Modelo != p.Modelo || actual.PrecioUnitario != p.PrecioUnitario
+                || actual.Existencia != p.Existencia || actual.Categoria != p.Categoria || actual.StockMinimo != p.StockMinimo
+                || actual.IdProveedorHabitual != p.IdProveedorHabitual;
+        }
+
+        // Devuelve false sin guardar (ni registrar en la bitácora) si no cambió nada
+        public bool Modificar(Producto p)
+        {
+            if (!HayCambios(p))
+                return false;
             ProductoDAL dal = new ProductoDAL();
             if (dal.ExisteCodigo(p.CodigoProducto, p.Id))
                 throw new ErrorNegocio("PRODUCTO_CODIGO_DUPLICADO", p.CodigoProducto);

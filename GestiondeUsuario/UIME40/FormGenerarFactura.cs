@@ -220,9 +220,7 @@ namespace GestiondeUsuario
                 _carrito = null;
                 MostrarVenta();
                 CargarPendientes();   // pasa de "carrito asociado" a "factura pendiente"
-                MessageBox.Show(string.Format(g.Obtener("FormGenerarFactura", "msgFacturaGenerada"),
-                        _factura.NroFactura, _factura.Total.ToString("N2")),
-                    g.Obtener("FormGenerarFactura", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(string.Format(g.Obtener("FormGenerarFactura", "msgFacturaGenerada"), _factura.NroFactura, _factura.Total.ToString("N2")));
                 CobrarVenta();
             }
             catch (Exception ex)

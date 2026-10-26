@@ -180,13 +180,9 @@ namespace GestiondeUsuario
                     tituloExito, System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
                 return;
             }
-            string detalle = rutas.Count == 1
-                ? string.Format(T("msgPdfGenerado"), rutas[0])
-                : string.Format(T("msgPdfsGenerados"), Carpeta(), string.Join("\n", rutas.Select(Path.GetFileName)));
-            var abrir = System.Windows.Forms.MessageBox.Show(dueño, mensajeExito + "\n\n" + detalle + "\n\n" + T("msgPreguntaAbrir"),
-                tituloExito, System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Information);
-            if (abrir == System.Windows.Forms.DialogResult.Yes)
-                Abrir(rutas);
+            // Aviso con el vínculo para abrir el PDF (o la carpeta, si son varios)
+            string detalle = rutas.Count == 1 ? T("msgPdfListo") : string.Format(T("msgPdfsListos"), rutas.Count);
+            Aviso.Exito(mensajeExito + "\n" + detalle, T(rutas.Count == 1 ? "abrirPdf" : "abrirCarpeta"), () => Abrir(rutas));
         }
 
         public static string NombreArchivo(string clave, string numero, string proveedor)

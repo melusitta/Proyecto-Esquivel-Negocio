@@ -104,10 +104,7 @@ namespace GestiondeUsuario
                     }
                     else
                     {
-                        MessageBox.Show(
-                            _traducciones?["Form1"]?["msgBienvenido"]?.ToString(),
-                            _traducciones?["Form1"]?["msgExito"]?.ToString(),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Aviso.Exito(_traducciones?["Form1"]?["msgBienvenido"]?.ToString());
                         new FormPrincipal().Show();
                         this.Hide();
                     }

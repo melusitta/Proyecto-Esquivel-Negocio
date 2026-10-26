@@ -40,10 +40,7 @@ namespace GestiondeUsuario
                 try
                 {
                     BackUpRestoreBLL.Instancia.RealizarBackUp(fbd.SelectedPath);
-                    MessageBox.Show(
-                        GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgBackupOk"),
-                        GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgExito"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgBackupOk"));
                 }
                 catch (Exception ex)
                 {
@@ -73,10 +70,7 @@ namespace GestiondeUsuario
                     try
                     {
                         BackUpRestoreBLL.Instancia.RealizarRestore(ofd.FileName);
-                        MessageBox.Show(
-                            GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgRestoreOk"),
-                            GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgExito"),
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Aviso.Exito(GestorIdioma.Instancia.Obtener("FormGestionRespaldo", "msgRestoreOk"));
                         new Form1().Show();
                         this.Close();
                     }

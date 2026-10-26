@@ -23,7 +23,6 @@
   },
   "FormPrincipal": {
     "tituloForm": "Main menu",
-    "lblBienvenida": "Welcome",
     "menuUsuario": "User",
     "menuAdmin": "Admin",
     "menuMaestro": "Master",
@@ -51,7 +50,19 @@
     "gestionClientes": "Customer management",
     "generarSolicitudCompra": "Generate purchase request",
     "generarOrdenCompra": "Generate purchase order",
-    "registrarProductosRecibidos": "Register received products"
+    "registrarProductosRecibidos": "Register received products",
+    "saludoManana": "Good morning, {0}! ☀️",
+    "saludoTarde": "Good afternoon, {0}! 🌷",
+    "saludoNoche": "Good evening, {0}! 🌙",
+    "tipReponer": "{0} products at minimum stock are waiting to be restocked 🧸",
+    "tipReponerCero": "Nothing to restock, all good! ✨",
+    "tipCotizaciones": "You have {0} quotes waiting for your decision 📋",
+    "tipSinPagar": "There are {0} unpaid purchase orders 💳",
+    "tipRecibir": "There are {0} paid orders to receive at the warehouse 📦",
+    "tipGeneral1": "Have a lovely day! 🌸",
+    "tipGeneral2": "You can change the language from the User menu 🌍",
+    "tipGeneral3": "If you maximize a screen, the next ones open big too 🪟",
+    "pistaMascota": "Tap Plumy for another tip"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -476,7 +487,8 @@
     "sinProveedor": "(no supplier)",
     "colCategoria": "Category",
     "colStockMinimo": "Min. stock",
-    "colProveedor": "Usual supplier"
+    "colProveedor": "Usual supplier",
+    "msgSinCambios": "You made no changes: the product stays as it was."
   },
   "ImpresionFactura": {
     "titulo": "INVOICE",
@@ -587,7 +599,8 @@
     "msgAtencion": "Attention",
     "btnVolver": "Back",
     "msgExito": "Success",
-    "msgError": "Error"
+    "msgError": "Error",
+    "vacioItems": "📋 Choose the request and the supplier"
   },
   "FormRealizarPreRegistro": {
     "tituloForm": "Pre-register supplier",
@@ -644,7 +657,9 @@
     "colProvPlazo": "Time (days)",
     "colProvFormaPago": "Payment method",
     "colProvCondicionesComerciales": "Terms",
-    "colProvEstado": "Status"
+    "colProvEstado": "Status",
+    "vacioProductos": "🧸 All good! No products at minimum stock",
+    "vacioItems": "👈 Add products from the list"
   },
   "FormGenerarOrdenCompra": {
     "tituloForm": "Generate purchase order",
@@ -679,7 +694,8 @@
     "msgError": "Error",
     "btnDescartar": "Discard quote",
     "msgPreguntaDescartar": "Discard the quote from {0}? No order is generated and its products remain to be requested in another request.",
-    "msgDescartada": "Quote from {0} discarded. Its products appear again in \"Generate purchase request\"."
+    "msgDescartada": "Quote from {0} discarded. Its products appear again in \"Generate purchase request\".",
+    "vacioItems": "📋 Choose a quote, or register the one the supplier sent"
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "Complete supplier registration",
@@ -730,7 +746,8 @@
     "btnVolver": "Back",
     "msgExito": "Success",
     "msgError": "Error",
-    "btnPagar": "Pay"
+    "btnPagar": "Pay",
+    "vacioOrdenes": "💜 No orders to pay!"
   },
   "FormRegistrarProductosRecibidos": {
     "tituloForm": "Register received products",
@@ -759,7 +776,8 @@
     "btnConfirmar": "Confirm delivery",
     "btnImprimirRecibo": "Print receipt",
     "tituloRecibo": "Goods receipt",
-    "lblComentario": "Delivery comment (discrepancies with the order or the invoice):"
+    "lblComentario": "Delivery comment (discrepancies with the order or the invoice):",
+    "vacioOrdenes": "📦 No goods waiting at the warehouse"
   },
   "ImpresionCompras": {
     "tituloSolicitud": "PURCHASE REQUEST",
@@ -806,7 +824,18 @@
     "colUbicacion": "Location",
     "discrepancias": "Discrepancies:",
     "recibidoPor": "Received by:",
-    "archivoRecibo": "Goods receipt {0} - {1}"
+    "archivoRecibo": "Goods receipt {0} - {1}",
+    "msgPdfListo": "The PDF is in Downloads\\Plumy - Compras.",
+    "msgPdfsListos": "The {0} PDFs are in Downloads\\Plumy - Compras.",
+    "abrirPdf": "📄 Open PDF",
+    "abrirCarpeta": "📂 See the PDFs"
+  },
+  "Tema": {
+    "grillaVacia": "🌸 Nothing here yet"
+  },
+  "Aviso": {
+    "tituloExito": "Done!",
+    "tituloInfo": "Heads up"
   },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",

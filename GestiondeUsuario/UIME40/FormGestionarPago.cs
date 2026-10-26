@@ -31,6 +31,7 @@ namespace GestiondeUsuario
         private void FormGestionarPago_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
+            Tema.MensajeVacio(dgvOrdenes, () => T("vacioOrdenes"));
             Tema.EstiloPrincipal(btnPagar);
             lblTotalPagar.ForeColor = Tema.PrincipalOscuro;
             dtpFechaFactura.MaxDate = DateTime.Today;

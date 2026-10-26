@@ -69,10 +69,7 @@ namespace GestiondeUsuario
                 {
                     string rutaCompleta = lstBackups.SelectedItem.ToString();
                     BackUpRestoreBLL.Instancia.RealizarRestore(rutaCompleta);
-                    MessageBox.Show(
-                        g.Obtener("FormRestore", "msgRestoreOk"),
-                        g.Obtener("FormRestore", "msgExito"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(g.Obtener("FormRestore", "msgRestoreOk"));
                     new Form1().Show();
                     this.Close();
                 }

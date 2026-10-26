@@ -248,8 +248,7 @@ namespace GestiondeUsuario
                 bool ok = reactivar ? ProductoBLL.Instancia.Reactivar(p.Id) : ProductoBLL.Instancia.DarDeBaja(p.Id);
                 if (ok)
                 {
-                    MessageBox.Show(g.Obtener("FormGestionProductos", reactivar ? "msgReactivado" : "msgBaja"),
-                        g.Obtener("FormGestionProductos", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(g.Obtener("FormGestionProductos", reactivar ? "msgReactivado" : "msgBaja"));
                     CargarGrilla();
                 }
             }
@@ -283,12 +282,17 @@ namespace GestiondeUsuario
                 else
                 {
                     producto.Id = ProductoSeleccionado().Id;
+                    if (!ProductoBLL.Instancia.HayCambios(producto))
+                    {
+                        Aviso.Info(g.Obtener("FormGestionProductos", "msgSinCambios"));
+                        CambiarModo(Modo.Inicial);
+                        return;
+                    }
                     ok = ProductoBLL.Instancia.Modificar(producto);
                 }
                 if (ok)
                 {
-                    MessageBox.Show(g.Obtener("FormGestionProductos", _modo == Modo.Agregar ? "msgCreado" : "msgModificado"),
-                        g.Obtener("FormGestionProductos", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(g.Obtener("FormGestionProductos", _modo == Modo.Agregar ? "msgCreado" : "msgModificado"));
                     CambiarModo(Modo.Inicial);
                     CargarCombos();
                     CargarGrilla();

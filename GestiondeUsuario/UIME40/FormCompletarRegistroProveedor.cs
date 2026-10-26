@@ -111,7 +111,7 @@ namespace GestiondeUsuario
             try
             {
                 ProveedorBLL.Instancia.CompletarRegistro(p.Id, txtCBU.Text, txtBanco.Text);
-                MessageBox.Show(string.Format(T("msgRegistrado"), p.RazonSocial), T("msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(string.Format(T("msgRegistrado"), p.RazonSocial));
                 CargarProveedores(p.Id);
             }
             catch (Exception ex)

@@ -245,9 +245,7 @@ namespace GestiondeUsuario
 
                     if (ok)
                     {
-                        MessageBox.Show(
-                        g.Obtener("FormGU", "msgUsuarioCreado") + nuevo.NombreUsuario,
-                        g.Obtener("FormGU", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Aviso.Exito(g.Obtener("FormGU", "msgUsuarioCreado") + nuevo.NombreUsuario);
                        CargarGrilla();
                        LimpiarCampos();
                        HabilitarBotonera();
@@ -282,10 +280,7 @@ namespace GestiondeUsuario
 
                 if (ok)
                 {
-                    MessageBox.Show(
-                        g.Obtener("FormGU", "msgUsuarioModificado"),
-                        g.Obtener("FormGU", "msgExito"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(g.Obtener("FormGU", "msgUsuarioModificado"));
                     CargarGrilla();
                     LimpiarCampos();
                     HabilitarBotonera();
@@ -329,10 +324,7 @@ namespace GestiondeUsuario
 
                 if (ok)
                 {
-                    MessageBox.Show(
-                    g.Obtener("FormGU", "msgUsuarioAccion") + accion + g.Obtener("FormGU", "msgDo"),
-                    g.Obtener("FormGU", "msgExito"),
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Aviso.Exito(g.Obtener("FormGU", "msgUsuarioAccion") + accion + g.Obtener("FormGU", "msgDo"));
                     _usuarioActivo = !estaActivo;
                     CargarGrilla();
                     HabilitarBotonera();
@@ -372,7 +364,7 @@ namespace GestiondeUsuario
             bool ok = UsuarioBLL.Instancia.Desbloquear(_idSeleccionado);
             if (ok)
             {
-                MessageBox.Show(g.Obtener("FormGU", "msgUsuarioDesbloqueado"), g.Obtener("FormGU", "msgExito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(g.Obtener("FormGU", "msgUsuarioDesbloqueado"));
                 CargarGrilla();
                 HabilitarBotonera();
                 LimpiarCampos();

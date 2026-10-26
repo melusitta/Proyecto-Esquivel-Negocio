@@ -47,8 +47,7 @@ namespace GestiondeUsuario
             {
                 string ruta = RutaLibre(CarpetaDescargas(), nombreArchivo);
                 GuardarPdf(documento, ruta);
-                MessageBox.Show(dueño, string.Format(g.Obtener("Impresion", "msgPdfGuardado"), ruta),
-                    g.Obtener("Impresion", "msgPdfTitulo"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Aviso.Exito(string.Format(g.Obtener("Impresion", "msgPdfGuardado"), ruta));
                 try { Process.Start(ruta); } catch { /* sin visor de PDF: el archivo igual quedó en Descargas */ }
             }
             catch (Exception ex)

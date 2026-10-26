@@ -726,8 +726,8 @@
     "msgExito": "성공",
     "msgError": "오류"
   },
-  "FormGestionarPago": {
-    "tituloForm": "결제 관리",
+  "FormPagarOrdenCompra": {
+    "tituloForm": "구매 주문 결제",
     "lblOrdenes": "결제할 구매 주문",
     "lblItems": "주문 상세",
     "grpFactura": "공급업체 청구서",
@@ -1055,8 +1055,8 @@
         "💡 결제하지 않고 \"결제\"를 닫았다면 주문은 \"미결제 주문\"에 남습니다."
       ]
     },
-    "gestionarPago": {
-      "titulo": "결제 관리",
+    "pagarOrden": {
+      "titulo": "구매 주문 결제",
       "texto": [
         "구매 주문을 만들면 자동으로 열리거나, \"미결제 주문\"에서 열립니다.",
         "1. 공급업체 송장을 입력하세요: 번호(마지막 다음 번호가 제안됨), 날짜, 금액, 세금.",

@@ -179,11 +179,11 @@
     <Compile Include="FormCompletarRegistroProveedor.Designer.cs">
       <DependentUpon>FormCompletarRegistroProveedor.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormGestionarPago.cs">
+    <Compile Include="FormPagarOrdenCompra.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormGestionarPago.Designer.cs">
-      <DependentUpon>FormGestionarPago.cs</DependentUpon>
+    <Compile Include="FormPagarOrdenCompra.Designer.cs">
+      <DependentUpon>FormPagarOrdenCompra.cs</DependentUpon>
     </Compile>
     <Compile Include="FormRegistrarProductosRecibidos.cs">
       <SubType>Form</SubType>
@@ -309,8 +309,8 @@
     <EmbeddedResource Include="FormCompletarRegistroProveedor.resx">
       <DependentUpon>FormCompletarRegistroProveedor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormGestionarPago.resx">
-      <DependentUpon>FormGestionarPago.cs</DependentUpon>
+    <EmbeddedResource Include="FormPagarOrdenCompra.resx">
+      <DependentUpon>FormPagarOrdenCompra.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormRegistrarProductosRecibidos.resx">
       <DependentUpon>FormRegistrarProductosRecibidos.cs</DependentUpon>

@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace BLL
 {
-    // PN2: CUN-010 Gestionar pago (Supervisor, incluido en CUN-008 Generar orden de compra). Paso 8: el proveedor entrega la factura;
+    // PN2: CUN-010 Pagar orden de compra (Supervisor, incluido en CUN-008 Generar orden de compra). Paso 8: el proveedor entrega la factura;
     // paso 9: el supervisor paga la orden y registra la factura con el comprobante (estado Pagado).
     public class PagoProveedorBLL
     {
@@ -22,7 +22,7 @@ namespace BLL
             }
         }
 
-        public FacturaProveedor GestionarPago(FacturaProveedor f)
+        public FacturaProveedor PagarOrden(FacturaProveedor f)
         {
             OrdenCompra orden = OrdenCompraBLL.Instancia.ObtenerPorId(f.IdOrdenCompra);
             if (orden.Estado != OrdenCompra.EstadoEnviada)
@@ -54,7 +54,7 @@ namespace BLL
             if (!dal.RegistrarPago(f))
                 throw new ErrorNegocio("ORDEN_ESTADO_INVALIDO", orden.NroOrden, orden.Estado);
 
-            GestorEventosBLL.Instancia.Notificar(f.Supervisor, "Gestionar pago a proveedor", "Compras", 3);
+            GestorEventosBLL.Instancia.Notificar(f.Supervisor, "Pagar orden de compra", "Compras", 3);
             DigitoVerificadorBLL.Instancia.RecalcularYGuardar();
             return dal.ObtenerPorOrden(f.IdOrdenCompra);
         }

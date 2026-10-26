@@ -210,7 +210,7 @@ namespace GestiondeUsuario
                 () => new List<string> { ImpresionCompras.Orden(orden)
                     .GuardarPdf(ImpresionCompras.NombreArchivo("archivoOrden", orden.NroOrden.ToString("D6"), orden.Proveedor.RazonSocial)) });
             CargarCotizaciones(null);
-            using (var pago = new FormGestionarPago(orden.Id))
+            using (var pago = new FormPagarOrdenCompra(orden.Id))
                 pago.ShowDialog(this);
             ActualizarOrdenesSinPagar();
         }
@@ -245,7 +245,7 @@ namespace GestiondeUsuario
 
         private void btnOrdenesSinPagar_Click(object sender, EventArgs e)
         {
-            using (var pago = new FormGestionarPago())
+            using (var pago = new FormPagarOrdenCompra())
                 pago.ShowDialog(this);
             ActualizarOrdenesSinPagar();
         }

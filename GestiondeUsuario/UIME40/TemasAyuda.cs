@@ -52,7 +52,7 @@ namespace GestiondeUsuario
 
             new TemaAyuda("generarSolicitud", "Compras", new[] { "ReponerProductos" }, "FormGenerarSolicitudCompra", "FormRealizarPreRegistro"),
             new TemaAyuda("generarOrden", "Compras", new[] { "GestionarCompras" }, "FormGenerarOrdenCompra", "FormRegistrarCotizacion", "FormCompletarRegistroProveedor"),
-            new TemaAyuda("gestionarPago", "Compras", new[] { "GestionarCompras" }, "FormGestionarPago"),
+            new TemaAyuda("pagarOrden", "Compras", new[] { "GestionarCompras" }, "FormPagarOrdenCompra"),
             new TemaAyuda("recibirProductos", "Compras", new[] { "RecibirMercaderia" }, "FormRegistrarProductosRecibidos"),
 
             new TemaAyuda("reporteFacturas", "Reporte", new[] { "Reporte", "ReportesVentas", "Facturar" }, "FormReporteFacturas"),

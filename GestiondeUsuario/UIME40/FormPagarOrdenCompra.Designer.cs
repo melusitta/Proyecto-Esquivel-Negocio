@@ -1,6 +1,6 @@
 ﻿namespace GestiondeUsuario
 {
-    partial class FormGestionarPago
+    partial class FormPagarOrdenCompra
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -65,7 +65,7 @@
             // 
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(18, 14);
-            this.lblTitulo.Text = "Gestionar pago";
+            this.lblTitulo.Text = "Pagar orden de compra";
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.TabIndex = 0;
@@ -354,7 +354,7 @@
             this.btnPagar.TabIndex = 23;
             this.btnPagar.Click += new System.EventHandler(this.btnPagar_Click);
             // 
-            // FormGestionarPago
+            // FormPagarOrdenCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -368,10 +368,10 @@
             this.Controls.Add(this.dgvOrdenes);
             this.Controls.Add(this.lblOrdenes);
             this.Controls.Add(this.lblTitulo);
-            this.Name = "FormGestionarPago";
-            this.Text = "Gestionar pago";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormGestionarPago_FormClosed);
-            this.Load += new System.EventHandler(this.FormGestionarPago_Load);
+            this.Name = "FormPagarOrdenCompra";
+            this.Text = "Pagar orden de compra";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPagarOrdenCompra_FormClosed);
+            this.Load += new System.EventHandler(this.FormPagarOrdenCompra_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).EndInit();
             this.grpFactura.ResumeLayout(false);

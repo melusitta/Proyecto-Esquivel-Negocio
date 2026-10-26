@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    // PN2: factura del proveedor y su pago (CUN-010 Gestionar pago)
+    // PN2: factura del proveedor y su pago (CUN-010 Pagar orden de compra)
     public class FacturaProveedorDAL
     {
         private string connectionString = ConexionDAL.ConnectionString;

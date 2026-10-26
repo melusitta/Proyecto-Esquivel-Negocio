@@ -726,8 +726,8 @@
     "msgExito": "Success",
     "msgError": "Error"
   },
-  "FormGestionarPago": {
-    "tituloForm": "Manage payment",
+  "FormPagarOrdenCompra": {
+    "tituloForm": "Pay purchase order",
     "lblOrdenes": "Purchase order to pay",
     "lblItems": "Order details",
     "grpFactura": "Supplier invoice",
@@ -1055,8 +1055,8 @@
         "💡 If you closed \"Pay\" without paying, the order stays in \"Unpaid orders\"."
       ]
     },
-    "gestionarPago": {
-      "titulo": "Manage payment",
+    "pagarOrden": {
+      "titulo": "Pay purchase order",
       "texto": [
         "It opens by itself when the purchase order is generated, or from \"Unpaid orders\".",
         "1. Enter the supplier invoice: number (the next one after the last is proposed), date, amount and taxes.",

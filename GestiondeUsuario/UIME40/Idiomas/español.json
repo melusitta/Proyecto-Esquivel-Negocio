@@ -726,8 +726,8 @@
     "msgExito": "Éxito",
     "msgError": "Error"
   },
-  "FormGestionarPago": {
-    "tituloForm": "Gestionar pago",
+  "FormPagarOrdenCompra": {
+    "tituloForm": "Pagar orden de compra",
     "lblOrdenes": "Orden de compra a pagar",
     "lblItems": "Detalle de la orden",
     "grpFactura": "Factura del proveedor",
@@ -1055,8 +1055,8 @@
         "💡 Si cerraste \"Pagar\" sin pagar, la orden queda en \"Órdenes sin pagar\"."
       ]
     },
-    "gestionarPago": {
-      "titulo": "Gestionar pago",
+    "pagarOrden": {
+      "titulo": "Pagar orden de compra",
       "texto": [
         "Se abre solo al generar la orden de compra, o desde \"Órdenes sin pagar\".",
         "1. Cargá la factura del proveedor: número (viene propuesto el siguiente al último), fecha, importe e impuestos.",

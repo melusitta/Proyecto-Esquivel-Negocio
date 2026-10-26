@@ -9,26 +9,26 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // CUN-010 Gestionar pago (Supervisor). Lo incluye CUN-008 Generar orden de compra, que lo abre como
+    // CUN-010 Pagar orden de compra (Supervisor). Lo incluye CUN-008 Generar orden de compra, que lo abre como
     // diálogo ("Pagar") apenas genera la orden; también desde "Órdenes sin pagar" si quedó pendiente.
     // Paso 8: el proveedor entrega la factura; paso 9: el supervisor paga la orden y registra la factura
     // con el comprobante (estado Pagado), que se le envía al proveedor en PDF.
-    public partial class FormGestionarPago : Form, IObservadorIdioma
+    public partial class FormPagarOrdenCompra : Form, IObservadorIdioma
     {
         private readonly int? _idOrden;
         private List<OrdenCompra> _ordenes = new List<OrdenCompra>();
 
-        public FormGestionarPago()
+        public FormPagarOrdenCompra()
         {
             InitializeComponent();
         }
 
-        public FormGestionarPago(int idOrden) : this()
+        public FormPagarOrdenCompra(int idOrden) : this()
         {
             _idOrden = idOrden;
         }
 
-        private void FormGestionarPago_Load(object sender, EventArgs e)
+        private void FormPagarOrdenCompra_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
             Tema.MensajeVacio(dgvOrdenes, () => T("vacioOrdenes"));
@@ -41,14 +41,14 @@ namespace GestiondeUsuario
             CargarOrdenes();
         }
 
-        private void FormGestionarPago_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormPagarOrdenCompra_FormClosed(object sender, FormClosedEventArgs e)
         {
             GestorIdioma.Instancia.Desuscribir(this);
         }
 
         private string T(string clave)
         {
-            return GestorIdioma.Instancia.Obtener("FormGestionarPago", clave);
+            return GestorIdioma.Instancia.Obtener("FormPagarOrdenCompra", clave);
         }
 
         private void CargarOrdenes()
@@ -147,7 +147,7 @@ namespace GestiondeUsuario
             };
             try
             {
-                FacturaProveedor registrada = PagoProveedorBLL.Instancia.GestionarPago(factura);
+                FacturaProveedor registrada = PagoProveedorBLL.Instancia.PagarOrden(factura);
                 // Paso 9: se envía el comprobante de pago al proveedor
                 ImpresionCompras.InformarEnvio(this,
                     string.Format(T("msgPagoRegistrado"), o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial,
@@ -195,7 +195,7 @@ namespace GestiondeUsuario
 
         public void ActualizarIdioma(JObject traducciones)
         {
-            var t = traducciones["FormGestionarPago"];
+            var t = traducciones["FormPagarOrdenCompra"];
             if (t == null) return;
 
             this.Text = t["tituloForm"]?.ToString();

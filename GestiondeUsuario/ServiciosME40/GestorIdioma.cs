@@ -54,6 +54,12 @@ namespace Servicios
                 obs.ActualizarIdioma(_traducciones);
         }
 
+        // Una sección entera del idioma activo (por ejemplo el contenido de la ayuda), o null si no está
+        public JToken Seccion(string seccion)
+        {
+            return _traducciones?[seccion];
+        }
+
         public string Obtener(string form, string clave)
         {
             if (_traducciones == null) return clave;

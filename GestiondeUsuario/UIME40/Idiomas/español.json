@@ -62,7 +62,9 @@
     "tipGeneral1": "¡Que tengas una linda jornada! 🌸",
     "tipGeneral2": "Podés cambiar el idioma desde el menú Usuario 🌍",
     "tipGeneral3": "Si maximizás una pantalla, las siguientes también se abren grandes 🪟",
-    "pistaMascota": "Tocá a Plumy para ver otro consejo"
+    "pistaMascota": "Tocá a Plumy para ver otro consejo",
+    "verAyuda": "Manual de ayuda",
+    "manualPdf": "Manual en PDF"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -831,11 +833,261 @@
     "abrirCarpeta": "📂 Ver los PDF"
   },
   "Tema": {
-    "grillaVacia": "🌸 Todavía no hay nada por acá"
+    "grillaVacia": "🌸 Todavía no hay nada por acá",
+    "ayudaPantalla": "Ayuda de esta pantalla (F1)"
   },
   "Aviso": {
     "tituloExito": "¡Listo!",
     "tituloInfo": "Atención"
+  },
+  "FormAyuda": {
+    "tituloForm": "Ayuda",
+    "lblBuscar": "Buscar:",
+    "btnManualPdf": "📄 Manual en PDF",
+    "btnVolver": "Volver",
+    "sinResultados": "No encontramos nada con esa búsqueda 🔍",
+    "grupoGeneral": "General",
+    "grupoAdmin": "Administración",
+    "grupoMaestro": "Maestro",
+    "grupoVenta": "Ventas",
+    "grupoCompras": "Compras",
+    "grupoReporte": "Reportes",
+    "archivoManual": "Manual de usuario Plumy",
+    "tituloManual": "Manual de usuario",
+    "paginaManual": "Página {0}",
+    "portadaManual": "Preparado para {0} el {1}, con las pantallas que podés usar.",
+    "msgManualListo": "El manual quedó en Descargas ({0}).",
+    "abrirManual": "📄 Abrir manual",
+    "msgManualError": "No se pudo generar el manual:"
+  },
+  "Ayuda": {
+    "primerosPasos": {
+      "titulo": "Primeros pasos",
+      "texto": [
+        "Plumy es el sistema de la juguetería: ventas, compras y reposición de mercadería, productos, clientes y usuarios.",
+        "## Iniciar sesión",
+        "1. Escribí tu nombre de usuario (tu apellido seguido de tu DNI, por ejemplo Gonzalez10200300) y tu contraseña.",
+        "2. Si querés, elegí el idioma: español, inglés o coreano.",
+        "3. Presioná \"Ingresar\".",
+        "- La primera vez que entrás, el sistema te pide cambiar la contraseña.",
+        "- Después de 3 intentos fallidos la cuenta se bloquea: pedile al administrador que la desbloquee.",
+        "## El menú principal",
+        "- A la izquierda está el menú. Solo se habilitan las opciones de tu rol.",
+        "- Plumy te saluda y te cuenta lo que tenés pendiente. Tocala para ver otro consejo.",
+        "- Los avisos de éxito aparecen abajo a la derecha de la ventana y se van solos.",
+        "- En cada pantalla, \"Volver\" te lleva de nuevo al menú principal.",
+        "💡 En cualquier pantalla podés apretar F1 o el botón \"?\" de arriba a la derecha para ver la ayuda de esa pantalla."
+      ]
+    },
+    "cambiarContrasena": {
+      "titulo": "Cambiar contraseña",
+      "texto": [
+        "Se abre desde Usuario → Cambiar contraseña, desde \"Recuperar contraseña\" en el inicio de sesión, o sola en tu primer ingreso.",
+        "1. Escribí tu DNI y tu contraseña actual.",
+        "2. Escribí la nueva contraseña dos veces.",
+        "3. Presioná \"Guardar\". Después volvés a iniciar sesión con la nueva contraseña.",
+        "- La contraseña tiene que tener al menos 8 caracteres, con mayúsculas, minúsculas y números.",
+        "- No puede ser igual a la actual.",
+        "💡 Si el administrador te desbloqueó la cuenta, tu contraseña vuelve a ser tu DNI."
+      ]
+    },
+    "cambiarIdioma": {
+      "titulo": "Cambiar idioma",
+      "texto": [
+        "Se abre desde Usuario → Cambiar idioma.",
+        "1. Elegí el idioma: español, inglés o coreano.",
+        "2. Presioná \"Aceptar\".",
+        "- Todas las pantallas cambian al momento, y el idioma queda guardado para la próxima vez que entres."
+      ]
+    },
+    "gestionUsuarios": {
+      "titulo": "Gestión de usuarios",
+      "texto": [
+        "Se abre desde Admin → Gestión de usuarios. Con \"Activos\" o \"Todos\" elegís qué usuarios ver en la grilla.",
+        "## Agregar un usuario",
+        "1. Presioná \"Agregar\".",
+        "2. Completá DNI, nombre, apellido, correo y rol.",
+        "3. Presioná \"Aplicar\".",
+        "- El nombre de usuario se genera solo: apellido seguido del DNI.",
+        "- La contraseña inicial es el DNI, y la tiene que cambiar en su primer ingreso.",
+        "## Otras opciones",
+        "- Modificar: elegí el usuario, cambiá sus datos y presioná \"Aplicar\".",
+        "- Deshabilitar / Habilitar: el usuario deshabilitado no puede iniciar sesión.",
+        "- Desbloquear: para quien se bloqueó con 3 intentos fallidos. Su contraseña vuelve a ser el DNI.",
+        "💡 \"Cancelar\" deja todo como estaba."
+      ]
+    },
+    "gestionFamilias": {
+      "titulo": "Gestión de familias",
+      "texto": [
+        "Una familia agrupa permisos (patentes y otras familias) para asignarlos juntos a un rol. Se abre desde Admin → Gestión de familias.",
+        "1. Presioná \"Nuevo\" (o elegí una familia y presioná \"Modificar\").",
+        "2. Escribí el nombre y la descripción.",
+        "3. Elegí si querés ver \"Patente\" o \"Familia\", seleccioná un elemento de la lista y presioná \"Agregar\". Con \"Quitar\" lo sacás del contenido.",
+        "4. Presioná \"Aplicar\".",
+        "- \"Eliminar\" borra la familia seleccionada (te pide confirmación)."
+      ]
+    },
+    "gestionRoles": {
+      "titulo": "Gestión de roles",
+      "texto": [
+        "El rol define qué puede hacer cada usuario. Se abre desde Admin → Gestión de roles.",
+        "1. Presioná \"Nuevo\" (o elegí un rol y presioná \"Modificar\").",
+        "2. Escribí el nombre y la descripción.",
+        "3. Agregale patentes o familias con \"Agregar\"; con \"Quitar\" las sacás.",
+        "4. Presioná \"Aplicar\".",
+        "- Los usuarios con ese rol ven en el menú solo las opciones que le dan sus permisos."
+      ]
+    },
+    "bitacora": {
+      "titulo": "Bitácora de eventos",
+      "texto": [
+        "Registra todo lo que se hace en el sistema: quién, cuándo, en qué módulo y con qué criticidad. Se abre desde Admin → Bitácora de eventos.",
+        "1. Usá los filtros que necesites: login, fechas, módulo, evento, criticidad, nombre o apellido.",
+        "2. Presioná \"Aplicar\" para ver los eventos que coinciden.",
+        "- \"Limpiar\" borra los filtros.",
+        "- \"Imprimir\" abre la vista previa, o guarda un PDF si no hay impresora."
+      ]
+    },
+    "respaldo": {
+      "titulo": "Respaldo y restauración",
+      "texto": [
+        "Se abre desde Admin → Gestión de respaldo.",
+        "## Hacer un backup",
+        "1. Presioná \"BackUp\".",
+        "2. Elegí la carpeta donde guardarlo.",
+        "## Restaurar",
+        "1. Presioná \"Restore\" y elegí el archivo .bak.",
+        "2. Confirmá. Se pierde todo lo que se hizo después de ese backup, y el sistema vuelve al inicio de sesión.",
+        "## Inconsistencia detectada",
+        "Si al iniciar el sistema detecta datos alterados por fuera de la aplicación, ofrece dos opciones:",
+        "- Recalcular DV: acepta los datos actuales como válidos.",
+        "- Restore BD: vuelve a un backup anterior.",
+        "💡 Hacé un backup antes de cambios grandes."
+      ]
+    },
+    "gestionProductos": {
+      "titulo": "Gestión de productos",
+      "texto": [
+        "Se abre desde Maestro → Gestión de productos. Con \"Buscar\" y \"Activos\" / \"Todos\" filtrás la grilla.",
+        "1. Presioná \"Agregar\", o elegí un producto y presioná \"Modificar\".",
+        "2. Completá código, nombre, marca, color, modelo, precio y existencia.",
+        "3. Para las compras: categoría, stock mínimo y proveedor habitual.",
+        "4. Presioná \"Aplicar\".",
+        "- \"Dar de baja\" saca el producto de la venta; \"Reactivar\" lo vuelve a habilitar.",
+        "- Si presionás \"Aplicar\" sin haber cambiado nada, el sistema te avisa y no guarda.",
+        "💡 Cuando la existencia llega al stock mínimo, el producto aparece para reponer en Compras."
+      ]
+    },
+    "gestionClientes": {
+      "titulo": "Gestión de clientes",
+      "texto": [
+        "Se abre desde Maestro → Gestión de clientes.",
+        "1. Completá los datos del cliente: DNI, nombre, apellido, teléfono, email, dirección, localidad y código postal.",
+        "2. Presioná \"Registrar cliente\".",
+        "## Exportar e importar (XML)",
+        "- Seleccioná clientes de la grilla (o \"Seleccionar todos\") y presioná \"Serializar\" para guardarlos en un archivo XML.",
+        "- \"Deserializar\" abre un archivo XML y muestra los clientes que contiene."
+      ]
+    },
+    "cargarCarrito": {
+      "titulo": "Cargar carrito",
+      "texto": [
+        "El vendedor arma el pedido del cliente. Se abre desde Venta → Cargar carrito.",
+        "1. Presioná \"Seleccionar productos\", buscá el producto, elegí la cantidad y presioná \"Agregar al carrito\".",
+        "2. Repetí con todos los productos. Con \"Quitar una unidad\" o \"Quitar producto\" corregís el carrito.",
+        "3. Escribí el DNI del cliente.",
+        "4. Presioná \"Asociar carrito y enviar a caja\". El cliente ya puede pasar a pagar.",
+        "- La grilla muestra el total del carrito a medida que agregás productos."
+      ]
+    },
+    "generarFactura": {
+      "titulo": "Generar factura",
+      "texto": [
+        "El cajero factura los carritos que mandó el vendedor. Se abre desde Venta → Generar factura.",
+        "1. Elegí un carrito de \"Pendientes de caja\", o buscá por el DNI del cliente.",
+        "2. Si el cliente no está registrado, presioná \"Registrar cliente\" y cargá sus datos.",
+        "3. Revisá el carrito y presioná \"Generar factura\".",
+        "4. Presioná \"Cobrar venta\" para pasar al cobro.",
+        "💡 \"Actualizar\" trae los carritos que llegaron mientras tenías la pantalla abierta."
+      ]
+    },
+    "cobrarVenta": {
+      "titulo": "Cobrar venta",
+      "texto": [
+        "1. Elegí la forma de pago: efectivo, débito, crédito o transferencia.",
+        "2. Con tarjeta, completá número, vencimiento, CVV y titular. Con transferencia, tildá \"El banco confirmó el pago\".",
+        "3. Revisá el monto y presioná \"Cobrar\".",
+        "- La factura queda pagada y podés imprimirla para entregarla con el pedido."
+      ]
+    },
+    "generarSolicitud": {
+      "titulo": "Generar solicitud de compra",
+      "texto": [
+        "El encargado de compras pide a los proveedores los productos que llegaron al stock mínimo. Se abre desde Compras → Generar solicitud de compra.",
+        "1. En la lista de la izquierda están los productos con stock mínimo. Elegilos y presioná \"Agregar a la solicitud\" (o hacé doble clic).",
+        "2. En la grilla de la derecha asigná el proveedor de cada producto (viene el habitual) y ajustá la cantidad.",
+        "3. Abajo podés analizar los proveedores disponibles: rubro, entrega, plazo, forma de pago y condiciones.",
+        "4. Elegí la prioridad y presioná \"Finalizar\".",
+        "- La solicitud queda enviada y se arma un PDF para cada proveedor en Descargas\\Plumy - Compras.",
+        "## Si el proveedor no está",
+        "1. Presioná \"Pre-registrar\".",
+        "2. Completá CUIT, razón social, contacto, teléfono, email y condiciones comerciales (los datos comerciales son opcionales).",
+        "3. Presioná \"Guardar\". El proveedor queda disponible para asignar.",
+        "💡 El supervisor completa después sus datos bancarios."
+      ]
+    },
+    "generarOrden": {
+      "titulo": "Generar orden de compra",
+      "texto": [
+        "El supervisor elige una cotización y genera la orden de compra. Se abre desde Compras → Generar orden de compra.",
+        "## Registrar una cotización",
+        "1. Presioná \"Registrar cotización\".",
+        "2. Elegí la solicitud y el proveedor. Aparecen solo los productos que se le pidieron a ese proveedor.",
+        "3. Tildá los que cotizó y cargá precio, presentación y cantidad disponible (la marca es la del producto).",
+        "4. Completá el plazo de entrega y la forma de pago, y presioná \"Registrar cotización\".",
+        "## Generar la orden",
+        "1. Elegí una cotización del desplegable. Se ven sus productos con las cantidades y precios acordados.",
+        "2. Revisá la fecha de emisión y las condiciones de entrega y de pago.",
+        "3. Presioná \"Generar\". La orden se le envía al proveedor en PDF y se abre \"Pagar\".",
+        "- Si el proveedor no tiene datos bancarios, presioná \"Registrar\" y cargá su CBU (22 dígitos) y su banco con \"Aplicar\".",
+        "- Si la cotización no conviene, presioná \"Descartar cotización\": sus productos se pueden pedir en otra solicitud.",
+        "💡 Si cerraste \"Pagar\" sin pagar, la orden queda en \"Órdenes sin pagar\"."
+      ]
+    },
+    "gestionarPago": {
+      "titulo": "Gestionar pago",
+      "texto": [
+        "Se abre solo al generar la orden de compra, o desde \"Órdenes sin pagar\".",
+        "1. Cargá la factura del proveedor: número (viene propuesto el siguiente al último), fecha, importe e impuestos.",
+        "2. Revisá el monto abonado (importe más impuestos), la fecha de operación y el número de comprobante.",
+        "3. Presioná \"Pagar\".",
+        "- El importe tiene que coincidir con el total de la orden.",
+        "- La orden queda pagada y se arma el comprobante en PDF para enviárselo al proveedor."
+      ]
+    },
+    "recibirProductos": {
+      "titulo": "Registrar productos recibidos",
+      "texto": [
+        "El responsable de depósito recibe la mercadería de las órdenes pagadas. Se abre desde Compras → Registrar productos recibidos.",
+        "1. Elegí la orden. Arriba ves el total de la orden y los datos de su factura, para comparar.",
+        "2. Por cada producto cargá la cantidad recibida, el estado (bueno o dañado) y la ubicación en el depósito.",
+        "3. Si algo no coincide (faltantes o productos dañados), escribí la discrepancia en el comentario.",
+        "4. Presioná \"Confirmar recepción\". Al stock se suma lo recibido en buen estado.",
+        "- Después podés usar \"Imprimir recibo\"."
+      ]
+    },
+    "productosMasVendidos": {
+      "titulo": "Productos más vendidos",
+      "texto": [
+        "Se abre desde Reporte → Productos más vendidos.",
+        "1. Elegí el período: Día del Niño, Navidad y Reyes, año completo o personalizado (desde / hasta).",
+        "2. Elegí si ordenar por unidades o por monto, y cuántos mostrar (top 10, top 20 o todos).",
+        "3. Presioná \"Generar reporte\". Se ven la tabla y el gráfico.",
+        "- \"Imprimir\" abre la vista previa, o guarda un PDF si no hay impresora.",
+        "💡 Solo cuentan las ventas cobradas."
+      ]
+    }
   },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",

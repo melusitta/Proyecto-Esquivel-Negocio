@@ -62,7 +62,9 @@
     "tipGeneral1": "Have a lovely day! 🌸",
     "tipGeneral2": "You can change the language from the User menu 🌍",
     "tipGeneral3": "If you maximize a screen, the next ones open big too 🪟",
-    "pistaMascota": "Tap Plumy for another tip"
+    "pistaMascota": "Tap Plumy for another tip",
+    "verAyuda": "Help manual",
+    "manualPdf": "PDF manual"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -831,11 +833,261 @@
     "abrirCarpeta": "📂 See the PDFs"
   },
   "Tema": {
-    "grillaVacia": "🌸 Nothing here yet"
+    "grillaVacia": "🌸 Nothing here yet",
+    "ayudaPantalla": "Help for this screen (F1)"
   },
   "Aviso": {
     "tituloExito": "Done!",
     "tituloInfo": "Heads up"
+  },
+  "FormAyuda": {
+    "tituloForm": "Help",
+    "lblBuscar": "Search:",
+    "btnManualPdf": "📄 PDF manual",
+    "btnVolver": "Back",
+    "sinResultados": "We found nothing for that search 🔍",
+    "grupoGeneral": "General",
+    "grupoAdmin": "Administration",
+    "grupoMaestro": "Master",
+    "grupoVenta": "Sales",
+    "grupoCompras": "Purchases",
+    "grupoReporte": "Reports",
+    "archivoManual": "Plumy user manual",
+    "tituloManual": "User manual",
+    "paginaManual": "Page {0}",
+    "portadaManual": "Prepared for {0} on {1}, with the screens you can use.",
+    "msgManualListo": "The manual is in Downloads ({0}).",
+    "abrirManual": "📄 Open manual",
+    "msgManualError": "The manual could not be generated:"
+  },
+  "Ayuda": {
+    "primerosPasos": {
+      "titulo": "Getting started",
+      "texto": [
+        "Plumy is the toy store system: sales, purchasing and restocking, products, customers and users.",
+        "## Log in",
+        "1. Type your username (your last name followed by your DNI, for example Gonzalez10200300) and your password.",
+        "2. If you want, choose the language: Spanish, English or Korean.",
+        "3. Press \"Login\".",
+        "- The first time you log in, the system asks you to change your password.",
+        "- After 3 failed attempts the account is locked: ask the administrator to unlock it.",
+        "## The main menu",
+        "- The menu is on the left. Only the options of your role are enabled.",
+        "- Plumy greets you and tells you what is pending. Tap her for another tip.",
+        "- Success notices appear at the bottom right of the window and go away on their own.",
+        "- On every screen, \"Back\" takes you to the main menu.",
+        "💡 On any screen you can press F1 or the \"?\" button at the top right to see the help for that screen."
+      ]
+    },
+    "cambiarContrasena": {
+      "titulo": "Change password",
+      "texto": [
+        "It opens from User → Change password, from \"Recover password\" on the login screen, or by itself on your first login.",
+        "1. Type your DNI and your current password.",
+        "2. Type the new password twice.",
+        "3. Press \"Save\". Then log in again with the new password.",
+        "- The password must have at least 8 characters, with uppercase, lowercase and numbers.",
+        "- It cannot be the same as the current one.",
+        "💡 If the administrator unlocked your account, your password is your DNI again."
+      ]
+    },
+    "cambiarIdioma": {
+      "titulo": "Change language",
+      "texto": [
+        "It opens from User → Change language.",
+        "1. Choose the language: Spanish, English or Korean.",
+        "2. Press \"Accept\".",
+        "- Every screen changes right away, and the language is saved for the next time you log in."
+      ]
+    },
+    "gestionUsuarios": {
+      "titulo": "User management",
+      "texto": [
+        "It opens from Admin → User management. With \"Active\" or \"All\" you choose which users the grid shows.",
+        "## Add a user",
+        "1. Press \"Add\".",
+        "2. Fill in DNI, first name, last name, email and role.",
+        "3. Press \"Apply\".",
+        "- The username is generated automatically: last name followed by the DNI.",
+        "- The initial password is the DNI, and the user must change it on the first login.",
+        "## Other options",
+        "- Modify: choose the user, change the data and press \"Apply\".",
+        "- Disable / Enable: a disabled user cannot log in.",
+        "- Unlock: for users locked after 3 failed attempts. The password goes back to the DNI.",
+        "💡 \"Cancel\" leaves everything as it was."
+      ]
+    },
+    "gestionFamilias": {
+      "titulo": "Family management",
+      "texto": [
+        "A family groups permissions (patents and other families) so they can be assigned to a role together. It opens from Admin → Family management.",
+        "1. Press \"New\" (or choose a family and press \"Modify\").",
+        "2. Type the name and description.",
+        "3. Choose \"Patent\" or \"Family\", select an item from the list and press \"Add\". \"Remove\" takes it out of the content.",
+        "4. Press \"Apply\".",
+        "- \"Delete\" removes the selected family (it asks for confirmation)."
+      ]
+    },
+    "gestionRoles": {
+      "titulo": "Role management",
+      "texto": [
+        "The role defines what each user can do. It opens from Admin → Role management.",
+        "1. Press \"New\" (or choose a role and press \"Modify\").",
+        "2. Type the name and description.",
+        "3. Add patents or families with \"Add\"; \"Remove\" takes them out.",
+        "4. Press \"Apply\".",
+        "- Users with that role only see the menu options their permissions allow."
+      ]
+    },
+    "bitacora": {
+      "titulo": "Event log",
+      "texto": [
+        "It records everything done in the system: who, when, in which module and how critical. It opens from Admin → Event log.",
+        "1. Use the filters you need: login, dates, module, event, criticality, first name or last name.",
+        "2. Press \"Apply\" to see the matching events.",
+        "- \"Clear\" removes the filters.",
+        "- \"Print\" opens the preview, or saves a PDF if there is no printer."
+      ]
+    },
+    "respaldo": {
+      "titulo": "Backup and restore",
+      "texto": [
+        "It opens from Admin → Backup management.",
+        "## Make a backup",
+        "1. Press \"BackUp\".",
+        "2. Choose the folder to save it in.",
+        "## Restore",
+        "1. Press \"Restore\" and choose the .bak file.",
+        "2. Confirm. Everything done after that backup is lost, and the system goes back to the login screen.",
+        "## Inconsistency detected",
+        "If at startup the system detects data changed outside the application, it offers two options:",
+        "- Recalculate DV: accepts the current data as valid.",
+        "- Restore DB: goes back to a previous backup.",
+        "💡 Make a backup before big changes."
+      ]
+    },
+    "gestionProductos": {
+      "titulo": "Product management",
+      "texto": [
+        "It opens from Master → Product management. \"Search\" and \"Active\" / \"All\" filter the grid.",
+        "1. Press \"Add\", or choose a product and press \"Modify\".",
+        "2. Fill in code, name, brand, color, model, price and stock.",
+        "3. For purchasing: category, minimum stock and usual supplier.",
+        "4. Press \"Apply\".",
+        "- \"Deactivate\" takes the product off sale; \"Reactivate\" enables it again.",
+        "- If you press \"Apply\" without changing anything, the system tells you and does not save.",
+        "💡 When the stock reaches the minimum, the product shows up for restocking in Purchases."
+      ]
+    },
+    "gestionClientes": {
+      "titulo": "Customer management",
+      "texto": [
+        "It opens from Master → Customer management.",
+        "1. Fill in the customer data: DNI, first name, last name, phone, email, address, city and postal code.",
+        "2. Press \"Register customer\".",
+        "## Export and import (XML)",
+        "- Select customers in the grid (or \"Select all\") and press \"Serialize\" to save them in an XML file.",
+        "- \"Deserialize\" opens an XML file and shows the customers it contains."
+      ]
+    },
+    "cargarCarrito": {
+      "titulo": "Load cart",
+      "texto": [
+        "The salesperson builds the customer order. It opens from Sales → Load cart.",
+        "1. Press \"Select products\", search for the product, choose the quantity and press \"Add to cart\".",
+        "2. Repeat with every product. \"Remove one unit\" or \"Remove product\" fixes the cart.",
+        "3. Type the customer DNI.",
+        "4. Press \"Link cart and send to checkout\". The customer can now go and pay.",
+        "- The grid shows the cart total as you add products."
+      ]
+    },
+    "generarFactura": {
+      "titulo": "Generate invoice",
+      "texto": [
+        "The cashier invoices the carts sent by the salesperson. It opens from Sales → Generate invoice.",
+        "1. Choose a cart from \"Pending at checkout\", or search by the customer DNI.",
+        "2. If the customer is not registered, press \"Register customer\" and enter the data.",
+        "3. Check the cart and press \"Generate invoice\".",
+        "4. Press \"Charge sale\" to go to the payment.",
+        "💡 \"Refresh\" brings the carts that arrived while the screen was open."
+      ]
+    },
+    "cobrarVenta": {
+      "titulo": "Charge sale",
+      "texto": [
+        "1. Choose the payment method: cash, debit, credit or transfer.",
+        "2. With a card, fill in number, expiry date, CVV and holder. With a transfer, check \"The bank confirmed the payment\".",
+        "3. Check the amount and press \"Charge\".",
+        "- The invoice is paid and you can print it to hand it over with the order."
+      ]
+    },
+    "generarSolicitud": {
+      "titulo": "Generate purchase request",
+      "texto": [
+        "The purchasing manager asks suppliers for the products that reached minimum stock. It opens from Purchases → Generate purchase request.",
+        "1. The list on the left has the products at minimum stock. Choose them and press \"Add to request\" (or double click).",
+        "2. In the grid on the right assign the supplier of each product (the usual one is proposed) and adjust the quantity.",
+        "3. Below you can analyze the available suppliers: line of business, delivery, time, payment method and terms.",
+        "4. Choose the priority and press \"Finish\".",
+        "- The request is sent and a PDF for each supplier is saved in Downloads\\Plumy - Compras.",
+        "## If the supplier is not there",
+        "1. Press \"Pre-register\".",
+        "2. Fill in CUIT, company name, contact, phone, email and commercial terms (commercial details are optional).",
+        "3. Press \"Save\". The supplier is available to assign.",
+        "💡 The supervisor completes its bank details later."
+      ]
+    },
+    "generarOrden": {
+      "titulo": "Generate purchase order",
+      "texto": [
+        "The supervisor chooses a quote and generates the purchase order. It opens from Purchases → Generate purchase order.",
+        "## Register a quote",
+        "1. Press \"Register quote\".",
+        "2. Choose the request and the supplier. Only the products requested from that supplier appear.",
+        "3. Check the ones it quoted and enter price, packaging and available quantity (the brand is the product one).",
+        "4. Fill in delivery time and payment method, and press \"Register quote\".",
+        "## Generate the order",
+        "1. Choose a quote from the list. Its products show with the agreed quantities and prices.",
+        "2. Check the issue date and the delivery and payment terms.",
+        "3. Press \"Generate\". The order is sent to the supplier as a PDF and \"Pay\" opens.",
+        "- If the supplier has no bank details, press \"Register\" and enter its CBU (22 digits) and bank with \"Apply\".",
+        "- If the quote is not convenient, press \"Discard quote\": its products can be requested in another request.",
+        "💡 If you closed \"Pay\" without paying, the order stays in \"Unpaid orders\"."
+      ]
+    },
+    "gestionarPago": {
+      "titulo": "Manage payment",
+      "texto": [
+        "It opens by itself when the purchase order is generated, or from \"Unpaid orders\".",
+        "1. Enter the supplier invoice: number (the next one after the last is proposed), date, amount and taxes.",
+        "2. Check the amount paid (amount plus taxes), the operation date and the receipt number.",
+        "3. Press \"Pay\".",
+        "- The amount must match the order total.",
+        "- The order is paid and the payment receipt is saved as a PDF to send to the supplier."
+      ]
+    },
+    "recibirProductos": {
+      "titulo": "Register received products",
+      "texto": [
+        "The warehouse manager receives the goods of paid orders. It opens from Purchases → Register received products.",
+        "1. Choose the order. At the top you see the order total and its invoice data, to compare.",
+        "2. For each product enter the quantity received, the condition (good or damaged) and the location in the warehouse.",
+        "3. If something does not match (missing or damaged products), write the discrepancy in the comment.",
+        "4. Press \"Confirm delivery\". What arrived in good condition is added to stock.",
+        "- Then you can use \"Print receipt\"."
+      ]
+    },
+    "productosMasVendidos": {
+      "titulo": "Best-selling products",
+      "texto": [
+        "It opens from Reports → Best-selling products.",
+        "1. Choose the period: Children's Day, Christmas and Epiphany, full year or custom (from / to).",
+        "2. Choose whether to sort by units or by amount, and how many to show (top 10, top 20 or all).",
+        "3. Press \"Generate report\". The table and the chart appear.",
+        "- \"Print\" opens the preview, or saves a PDF if there is no printer.",
+        "💡 Only paid sales are counted."
+      ]
+    }
   },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",

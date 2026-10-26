@@ -48,7 +48,6 @@ namespace GestiondeUsuario
             bool tieneRecibirMercaderia = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "RecibirMercaderia");
             bool tieneReporte = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Reporte");
             bool tieneReportesVentas = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "ReportesVentas");
-            bool tieneAyuda = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "Ayuda");
 
             gestionDeUsuariosToolStripMenuItem.Enabled = tieneGestionUsuarios;
             gestionDePerfilesToolStripMenuItem.Enabled = tieneGestionPerfiles;
@@ -72,7 +71,8 @@ namespace GestiondeUsuario
             menuCompras.Enabled = tieneCompras || tieneReponerProductos || tieneGestionarCompras || tieneRecibirMercaderia;
             productosMasVendidosToolStripMenuItem.Enabled = tieneReportesVentas;
             menuReporte.Enabled = tieneReporte || tieneReportesVentas;
-            menuAyuda.Enabled = tieneAyuda;
+            // La ayuda es para todos: cada uno ve solo los temas de lo que puede usar
+            menuAyuda.Enabled = true;
             gestionRespaldoToolStripMenuItem1.Enabled =
              PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
 
@@ -186,6 +186,16 @@ namespace GestiondeUsuario
             new FormGenerarFactura().Show();
             this.Hide();
         }
+        private void verAyudaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAyuda.Abrir(Name);
+        }
+
+        private void manualPdfToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImpresionAyuda.GenerarManual();
+        }
+
         private void cambiarIdiomaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormCambiarIdioma().Show();
@@ -254,6 +264,8 @@ namespace GestiondeUsuario
             menuReporte.Text = t["menuReporte"]?.ToString();
             productosMasVendidosToolStripMenuItem.Text = t["productosMasVendidos"]?.ToString();
             menuAyuda.Text = t["menuAyuda"]?.ToString();
+            verAyudaToolStripMenuItem.Text = t["verAyuda"]?.ToString();
+            manualPdfToolStripMenuItem.Text = t["manualPdf"]?.ToString();
             iniciarSesionToolStripMenuItem.Text = t["iniciarSesion"]?.ToString();
             cambiarContraseñaToolStripMenuItem.Text = t["cambiarContraseña"]?.ToString();
             cambiarIdiomaToolStripMenuItem.Text = t["cambiarIdioma"]?.ToString();

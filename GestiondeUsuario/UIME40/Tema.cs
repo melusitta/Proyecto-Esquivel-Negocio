@@ -98,6 +98,37 @@ namespace GestiondeUsuario
             form.MinimumSize = form.Size;
             RecordarMaximizado(form);
             AplicarControles(form.Controls);
+            AgregarAyuda(form);
+        }
+
+        // ---------- Ayuda de la pantalla ----------
+        // F1, o el botón "?" de arriba a la derecha, abren la ayuda en el tema de esta pantalla
+        private static void AgregarAyuda(Form form)
+        {
+            if (form is FormAyuda || TemasAyuda.DeFormulario(form.Name) == null || form.Controls.ContainsKey("btnAyudaPantalla"))
+                return;
+            form.KeyPreview = true;
+            form.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode != Keys.F1) return;
+                e.Handled = true;
+                FormAyuda.Abrir(form.Name);
+            };
+            var btn = new Button
+            {
+                Name = "btnAyudaPantalla",
+                Text = "?",
+                Size = new Size(32, 32),
+                TabStop = false,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Font = new Font(Fuente, 11F, FontStyle.Bold)
+            };
+            btn.Location = new Point(form.ClientSize.Width - btn.Width - 18, 14);
+            EstiloSecundario(btn);
+            btn.Click += (s, e) => FormAyuda.Abrir(form.Name);
+            new ToolTip().SetToolTip(btn, GestorIdioma.Instancia.Obtener("Tema", "ayudaPantalla"));
+            form.Controls.Add(btn);
+            btn.BringToFront();
         }
 
         // ---------- Ventanas maximizadas ----------

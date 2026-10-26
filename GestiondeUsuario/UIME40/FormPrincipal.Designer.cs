@@ -56,6 +56,8 @@
             this.menuReporte = new System.Windows.Forms.ToolStripMenuItem();
             this.productosMasVendidosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAyuda = new System.Windows.Forms.ToolStripMenuItem();
+            this.verAyudaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.manualPdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -267,9 +269,27 @@
             // 
             // menuAyuda
             // 
+            this.menuAyuda.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verAyudaToolStripMenuItem,
+            this.manualPdfToolStripMenuItem});
             this.menuAyuda.Name = "menuAyuda";
             this.menuAyuda.Size = new System.Drawing.Size(60, 19);
             this.menuAyuda.Text = "Ayuda";
+            // 
+            // verAyudaToolStripMenuItem
+            // 
+            this.verAyudaToolStripMenuItem.Name = "verAyudaToolStripMenuItem";
+            this.verAyudaToolStripMenuItem.ShortcutKeyDisplayString = "F1";
+            this.verAyudaToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.verAyudaToolStripMenuItem.Text = "Manual de ayuda";
+            this.verAyudaToolStripMenuItem.Click += new System.EventHandler(this.verAyudaToolStripMenuItem_Click);
+            // 
+            // manualPdfToolStripMenuItem
+            // 
+            this.manualPdfToolStripMenuItem.Name = "manualPdfToolStripMenuItem";
+            this.manualPdfToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.manualPdfToolStripMenuItem.Text = "Manual en PDF";
+            this.manualPdfToolStripMenuItem.Click += new System.EventHandler(this.manualPdfToolStripMenuItem_Click);
             // 
             // pnlLateral
             // 
@@ -334,6 +354,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuReporte;
         private System.Windows.Forms.ToolStripMenuItem productosMasVendidosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuAyuda;
+        private System.Windows.Forms.ToolStripMenuItem verAyudaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem manualPdfToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionDeRolesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionRespaldoToolStripMenuItem1;
         private System.Windows.Forms.Panel pnlLateral;

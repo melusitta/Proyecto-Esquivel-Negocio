@@ -225,6 +225,9 @@
     </Compile>
     <Compile Include="ImpresionAyuda.cs" />
     <Compile Include="TemasAyuda.cs" />
+    <Compile Include="VisitaGuiada.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="MascotaPlumy.cs">
       <SubType>Component</SubType>
     </Compile>

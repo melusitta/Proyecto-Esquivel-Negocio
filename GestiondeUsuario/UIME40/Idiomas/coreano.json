@@ -64,7 +64,12 @@
     "tipGeneral3": "화면을 최대화하면 다음 화면도 크게 열려요 🪟",
     "pistaMascota": "다른 팁을 보려면 Plumy를 눌러 보세요",
     "verAyuda": "도움말 설명서",
-    "manualPdf": "PDF 설명서"
+    "manualPdf": "PDF 설명서",
+    "visitaGuiada": "가이드 투어",
+    "tipReponerUno": "최소 재고 상품 1개가 재입고를 기다리고 있어요 🧸",
+    "tipCotizacionesUno": "결정을 기다리는 견적이 1개 있어요 📋",
+    "tipSinPagarUno": "미결제 구매 주문이 1개 있어요 💳",
+    "tipRecibirUno": "창고에서 받을 결제 완료 주문이 1개 있어요 📦"
   },
   "FormGU": {
     "tituloForm": "사용자 관리",
@@ -876,6 +881,7 @@
         "- Plumy가 인사하고 처리할 일을 알려 줍니다. 누르면 다른 팁을 보여 줍니다.",
         "- 성공 알림은 창 오른쪽 아래에 나타났다가 저절로 사라집니다.",
         "- 모든 화면에서 \"돌아가기\"를 누르면 메인 메뉴로 돌아갑니다.",
+        "- 도움말 → 가이드 투어에서 투어를 다시 볼 수 있어요.",
         "💡 어느 화면에서든 F1 키나 오른쪽 위의 \"?\" 버튼을 누르면 그 화면의 도움말이 열립니다."
       ]
     },
@@ -1088,6 +1094,33 @@
         "💡 결제된 판매만 셉니다."
       ]
     }
+  },
+  "VisitaGuiada": {
+    "saltar": "투어 건너뛰기",
+    "anterior": "이전",
+    "siguiente": "다음",
+    "finalizar": "완료!",
+    "contador": "{0} / {1}",
+    "pasoBienvenidaTitulo": "Plumy에 오신 것을 환영해요!",
+    "pasoBienvenidaTexto": "저는 Plumy예요 🦄 1분 안에 어디에 무엇이 있는지 보여 드릴게요. 여기서 인사하고 처리할 일을 알려 드려요: 저를 누르면 다른 팁이 나와요. 언제든 투어를 건너뛸 수 있어요.",
+    "pasoMenuTitulo": "메뉴",
+    "pasoMenuTexto": "여기서 모든 화면을 엽니다. 내 역할에 맞는 항목만 활성화되고, 쓸 수 없는 항목은 회색으로 보여요.",
+    "pasoUsuarioTitulo": "사용자",
+    "pasoUsuarioTexto": "비밀번호나 시스템 언어를 바꾸고, 일이 끝나면 로그아웃합니다.",
+    "pasoAdminTitulo": "관리",
+    "pasoAdminTexto": "사용자, 패밀리, 역할과 권한, 이벤트 기록, 데이터베이스 백업.",
+    "pasoMaestroTitulo": "기본 정보",
+    "pasoMaestroTexto": "기본 데이터: 상품(최소 재고와 공급업체 포함)과 고객.",
+    "pasoVentaTitulo": "판매",
+    "pasoVentaTexto": "판매원이 고객 장바구니를 담고, 계산원이 송장을 만들고 결제를 받습니다.",
+    "pasoComprasTitulo": "구매",
+    "pasoComprasTexto": "재입고: 공급업체 구매 요청, 구매 주문과 결제, 창고 입고.",
+    "pasoReporteTitulo": "보고서",
+    "pasoReporteTexto": "기간별 가장 많이 팔린 상품 보고서와 그래프.",
+    "pasoAyudaTitulo": "도움말",
+    "pasoAyudaTexto": "모든 화면의 단계별 설명서를 화면이나 PDF로 볼 수 있어요. 어느 화면에서든 F1이나 \"?\" 버튼을 누르면 그 화면의 도움말로 바로 갑니다.",
+    "pasoFinTitulo": "완료, 이제 Plumy를 알게 되었어요! ✨",
+    "pasoFinTexto": "투어를 다시 보려면 도움말 → 가이드 투어로 가세요. 좋은 하루 보내세요! 🌸"
   },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",

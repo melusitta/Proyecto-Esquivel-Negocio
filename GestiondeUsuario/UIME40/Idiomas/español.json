@@ -64,7 +64,12 @@
     "tipGeneral3": "Si maximizás una pantalla, las siguientes también se abren grandes 🪟",
     "pistaMascota": "Tocá a Plumy para ver otro consejo",
     "verAyuda": "Manual de ayuda",
-    "manualPdf": "Manual en PDF"
+    "manualPdf": "Manual en PDF",
+    "visitaGuiada": "Visita guiada",
+    "tipReponerUno": "Hay 1 producto en stock mínimo esperando reposición 🧸",
+    "tipCotizacionesUno": "Tenés 1 cotización esperando tu decisión 📋",
+    "tipSinPagarUno": "Hay 1 orden de compra sin pagar 💳",
+    "tipRecibirUno": "Hay 1 orden pagada para recibir en el depósito 📦"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -876,6 +881,7 @@
         "- Plumy te saluda y te cuenta lo que tenés pendiente. Tocala para ver otro consejo.",
         "- Los avisos de éxito aparecen abajo a la derecha de la ventana y se van solos.",
         "- En cada pantalla, \"Volver\" te lleva de nuevo al menú principal.",
+        "- Podés repetir la visita guiada desde Ayuda → Visita guiada.",
         "💡 En cualquier pantalla podés apretar F1 o el botón \"?\" de arriba a la derecha para ver la ayuda de esa pantalla."
       ]
     },
@@ -1088,6 +1094,33 @@
         "💡 Solo cuentan las ventas cobradas."
       ]
     }
+  },
+  "VisitaGuiada": {
+    "saltar": "Saltar visita",
+    "anterior": "Anterior",
+    "siguiente": "Siguiente",
+    "finalizar": "¡Listo!",
+    "contador": "{0} de {1}",
+    "pasoBienvenidaTitulo": "¡Te damos la bienvenida a Plumy!",
+    "pasoBienvenidaTexto": "Soy Plumy 🦄 y en un minuto te muestro dónde está cada cosa. Acá te saludo y te cuento lo que tenés pendiente: tocame para ver otro consejo. Podés saltar la visita cuando quieras.",
+    "pasoMenuTitulo": "El menú",
+    "pasoMenuTexto": "Desde acá entrás a todas las pantallas. Solo se habilitan las opciones de tu rol; las que no podés usar se ven en gris.",
+    "pasoUsuarioTitulo": "Usuario",
+    "pasoUsuarioTexto": "Para cambiar tu contraseña o el idioma del sistema, y para cerrar sesión cuando terminás.",
+    "pasoAdminTitulo": "Admin",
+    "pasoAdminTexto": "Usuarios, familias y roles con sus permisos, la bitácora de eventos y los respaldos de la base.",
+    "pasoMaestroTitulo": "Maestro",
+    "pasoMaestroTexto": "Los datos de base: productos (con su stock mínimo y proveedor) y clientes.",
+    "pasoVentaTitulo": "Venta",
+    "pasoVentaTexto": "El vendedor carga el carrito del cliente y el cajero genera la factura y cobra la venta.",
+    "pasoComprasTitulo": "Compras",
+    "pasoComprasTexto": "Reposición de mercadería: solicitud de compra a los proveedores, orden de compra y pago, y recepción en el depósito.",
+    "pasoReporteTitulo": "Reporte",
+    "pasoReporteTexto": "El reporte de productos más vendidos, por período, con su gráfico.",
+    "pasoAyudaTitulo": "Ayuda",
+    "pasoAyudaTexto": "El manual con el paso a paso de cada pantalla, en pantalla o en PDF. En cualquier pantalla, F1 o el botón \"?\" te llevan directo a su ayuda.",
+    "pasoFinTitulo": "¡Listo, ya conocés Plumy! ✨",
+    "pasoFinTexto": "Si querés repetir la visita, está en Ayuda → Visita guiada. ¡Que tengas una linda jornada! 🌸"
   },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",

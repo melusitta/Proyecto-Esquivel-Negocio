@@ -64,7 +64,12 @@
     "tipGeneral3": "If you maximize a screen, the next ones open big too 🪟",
     "pistaMascota": "Tap Plumy for another tip",
     "verAyuda": "Help manual",
-    "manualPdf": "PDF manual"
+    "manualPdf": "PDF manual",
+    "visitaGuiada": "Guided tour",
+    "tipReponerUno": "1 product at minimum stock is waiting to be restocked 🧸",
+    "tipCotizacionesUno": "You have 1 quote waiting for your decision 📋",
+    "tipSinPagarUno": "There is 1 unpaid purchase order 💳",
+    "tipRecibirUno": "There is 1 paid order to receive at the warehouse 📦"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -876,6 +881,7 @@
         "- Plumy greets you and tells you what is pending. Tap her for another tip.",
         "- Success notices appear at the bottom right of the window and go away on their own.",
         "- On every screen, \"Back\" takes you to the main menu.",
+        "- You can repeat the guided tour from Help → Guided tour.",
         "💡 On any screen you can press F1 or the \"?\" button at the top right to see the help for that screen."
       ]
     },
@@ -1088,6 +1094,33 @@
         "💡 Only paid sales are counted."
       ]
     }
+  },
+  "VisitaGuiada": {
+    "saltar": "Skip tour",
+    "anterior": "Back",
+    "siguiente": "Next",
+    "finalizar": "Done!",
+    "contador": "{0} of {1}",
+    "pasoBienvenidaTitulo": "Welcome to Plumy!",
+    "pasoBienvenidaTexto": "I am Plumy 🦄 and in one minute I will show you where everything is. Here I greet you and tell you what is pending: tap me for another tip. You can skip the tour whenever you want.",
+    "pasoMenuTitulo": "The menu",
+    "pasoMenuTexto": "From here you open every screen. Only the options of your role are enabled; the ones you cannot use look grey.",
+    "pasoUsuarioTitulo": "User",
+    "pasoUsuarioTexto": "To change your password or the system language, and to log out when you are done.",
+    "pasoAdminTitulo": "Admin",
+    "pasoAdminTexto": "Users, families and roles with their permissions, the event log and the database backups.",
+    "pasoMaestroTitulo": "Master",
+    "pasoMaestroTexto": "The base data: products (with their minimum stock and supplier) and customers.",
+    "pasoVentaTitulo": "Sales",
+    "pasoVentaTexto": "The salesperson loads the customer cart and the cashier generates the invoice and charges the sale.",
+    "pasoComprasTitulo": "Purchases",
+    "pasoComprasTexto": "Restocking: purchase request to suppliers, purchase order and payment, and receiving at the warehouse.",
+    "pasoReporteTitulo": "Reports",
+    "pasoReporteTexto": "The best-selling products report, by period, with its chart.",
+    "pasoAyudaTitulo": "Help",
+    "pasoAyudaTexto": "The manual with the step by step of every screen, on screen or as a PDF. On any screen, F1 or the \"?\" button take you straight to its help.",
+    "pasoFinTitulo": "Done, now you know Plumy! ✨",
+    "pasoFinTexto": "If you want to repeat the tour, it is in Help → Guided tour. Have a lovely day! 🌸"
   },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",

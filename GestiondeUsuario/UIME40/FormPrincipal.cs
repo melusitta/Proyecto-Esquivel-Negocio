@@ -21,6 +21,12 @@ namespace GestiondeUsuario
         public FormPrincipal()
         {
             InitializeComponent();
+            // La primera vez que el usuario entra se le ofrece la visita guiada
+            Shown += (s, e) =>
+            {
+                if (!VisitaGuiada.YaLaVio(SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario))
+                    BeginInvoke(new Action(IniciarVisita));
+            };
         }
 
         private void FormPrincipal_Load(object sender, EventArgs e)
@@ -191,6 +197,44 @@ namespace GestiondeUsuario
             FormAyuda.Abrir(Name);
         }
 
+        private void visitaGuiadaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IniciarVisita();
+        }
+
+        // ---------- Visita guiada ----------
+
+        // Pasos: Plumy, el menú, Usuario, cada menú que el rol tiene habilitado, Ayuda y el final
+        private void IniciarVisita()
+        {
+            var pasos = new List<VisitaGuiada.Paso>
+            {
+                new VisitaGuiada.Paso { Clave = "Bienvenida", Zona = () => Zona(mascota) },
+                new VisitaGuiada.Paso { Clave = "Menu", Zona = () => Zona(menuStrip1) },
+                new VisitaGuiada.Paso { Clave = "Usuario", Zona = () => Zona(usuarioToolStripMenuItem) },
+            };
+            foreach (var menu in new[] { (menuAdmin, "Admin"), (menuMaestro, "Maestro"), (menuVenta, "Venta"), (menuCompras, "Compras"), (menuReporte, "Reporte") })
+                if (menu.Item1.Enabled)
+                {
+                    ToolStripMenuItem item = menu.Item1;
+                    pasos.Add(new VisitaGuiada.Paso { Clave = menu.Item2, Zona = () => Zona(item) });
+                }
+            pasos.Add(new VisitaGuiada.Paso { Clave = "Ayuda", Zona = () => Zona(menuAyuda) });
+            pasos.Add(new VisitaGuiada.Paso { Clave = "Fin", Zona = () => Zona(mascota) });
+            VisitaGuiada.Iniciar(this, pasos);
+        }
+
+        // Rectángulo de un control o de un ítem del menú, en coordenadas de esta ventana
+        private Rectangle Zona(Control control)
+        {
+            return RectangleToClient(control.RectangleToScreen(control.ClientRectangle));
+        }
+
+        private Rectangle Zona(ToolStripItem item)
+        {
+            return RectangleToClient(menuStrip1.RectangleToScreen(item.Bounds));
+        }
+
         private void manualPdfToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ImpresionAyuda.GenerarManual();
@@ -218,19 +262,19 @@ namespace GestiondeUsuario
                 if (_reponer)
                 {
                     int aReponer = SolicitudCompraBLL.Instancia.ObtenerProductosAReponer().Count;
-                    consejos.Add(aReponer == 0 ? g.Obtener("FormPrincipal", "tipReponerCero") : string.Format(g.Obtener("FormPrincipal", "tipReponer"), aReponer));
+                    consejos.Add(aReponer == 0 ? g.Obtener("FormPrincipal", "tipReponerCero") : Contar("tipReponer", aReponer));
                 }
                 if (_gestionarCompras)
                 {
                     int cotizaciones = OrdenCompraBLL.Instancia.ObtenerCotizacionesRecibidas().Count;
                     int sinPagar = OrdenCompraBLL.Instancia.ObtenerPorEstado(BE.OrdenCompra.EstadoEnviada).Count;
-                    if (cotizaciones > 0) consejos.Add(string.Format(g.Obtener("FormPrincipal", "tipCotizaciones"), cotizaciones));
-                    if (sinPagar > 0) consejos.Add(string.Format(g.Obtener("FormPrincipal", "tipSinPagar"), sinPagar));
+                    if (cotizaciones > 0) consejos.Add(Contar("tipCotizaciones", cotizaciones));
+                    if (sinPagar > 0) consejos.Add(Contar("tipSinPagar", sinPagar));
                 }
                 if (_recibir)
                 {
                     int aRecibir = RecepcionBLL.Instancia.ObtenerOrdenesARecibir().Count;
-                    if (aRecibir > 0) consejos.Add(string.Format(g.Obtener("FormPrincipal", "tipRecibir"), aRecibir));
+                    if (aRecibir > 0) consejos.Add(Contar("tipRecibir", aRecibir));
                 }
             }
             catch
@@ -240,6 +284,12 @@ namespace GestiondeUsuario
             foreach (string tip in new[] { "tipGeneral1", "tipGeneral2", "tipGeneral3" })
                 consejos.Add(g.Obtener("FormPrincipal", tip));
             mascota.Mostrar(saludo, consejos, g.Obtener("FormPrincipal", "pistaMascota"));
+        }
+
+        // Con uno solo se usa el texto en singular (clave terminada en "Uno")
+        private static string Contar(string clave, int cantidad)
+        {
+            return string.Format(GestorIdioma.Instancia.Obtener("FormPrincipal", cantidad == 1 ? clave + "Uno" : clave), cantidad);
         }
 
         public void ActualizarIdioma(JObject traducciones)
@@ -266,6 +316,7 @@ namespace GestiondeUsuario
             menuAyuda.Text = t["menuAyuda"]?.ToString();
             verAyudaToolStripMenuItem.Text = t["verAyuda"]?.ToString();
             manualPdfToolStripMenuItem.Text = t["manualPdf"]?.ToString();
+            visitaGuiadaToolStripMenuItem.Text = t["visitaGuiada"]?.ToString();
             iniciarSesionToolStripMenuItem.Text = t["iniciarSesion"]?.ToString();
             cambiarContraseñaToolStripMenuItem.Text = t["cambiarContraseña"]?.ToString();
             cambiarIdiomaToolStripMenuItem.Text = t["cambiarIdioma"]?.ToString();

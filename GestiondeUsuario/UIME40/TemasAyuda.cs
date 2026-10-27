@@ -41,6 +41,7 @@ namespace GestiondeUsuario
             new TemaAyuda("gestionFamilias", "Admin", new[] { "GestionPerfiles" }, "FormGestionFamilias"),
             new TemaAyuda("gestionRoles", "Admin", new[] { "GestionPerfiles" }, "FormGestionRoles"),
             new TemaAyuda("bitacora", "Admin", new[] { "VerBitacora" }, "FormBitacora"),
+            new TemaAyuda("controlCambios", "Admin", new[] { "ControlCambios" }, "FormControlCambios"),
             new TemaAyuda("respaldo", "Admin", new[] { "GestionBackup" }, "FormGestionRespaldo", "FormRestore", "FormInconsistencia"),
 
             new TemaAyuda("gestionProductos", "Maestro", new[] { "GestionProductos" }, "FormGestionProductos"),

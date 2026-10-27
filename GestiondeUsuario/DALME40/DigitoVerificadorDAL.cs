@@ -79,6 +79,13 @@ namespace DAL
                 "Categoria, StockMinimo, IdProveedorHabitual FROM Producto");
         }
 
+        public List<List<string>> ObtenerDatosProductoVersion()
+        {
+            return ObtenerDatosTabla(
+                "SELECT Id, IdProducto, NroVersion, TipoCambio, Usuario, CodigoProducto, Nombre, Marca, Color, Modelo, " +
+                "PrecioUnitario, Existencia, Activo, Categoria, StockMinimo, IdProveedorHabitual FROM ProductoVersion");
+        }
+
         public List<List<string>> ObtenerDatosCliente()
         {
             return ObtenerDatosTabla(

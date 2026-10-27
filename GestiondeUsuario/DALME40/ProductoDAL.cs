@@ -116,6 +116,18 @@ namespace DAL
             return producto;
         }
 
+        public int ObtenerIdPorCodigo(int codigoProducto)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT Id FROM Producto WHERE CodigoProducto = @Codigo", con);
+                cmd.Parameters.AddWithValue("@Codigo", codigoProducto);
+                con.Open();
+                object id = cmd.ExecuteScalar();
+                return id == null ? 0 : Convert.ToInt32(id);
+            }
+        }
+
         // Todos los productos, activos e inactivos (para el ABM)
         public List<Producto> ObtenerTodos()
         {

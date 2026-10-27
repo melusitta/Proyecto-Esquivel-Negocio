@@ -225,6 +225,12 @@
     </Compile>
     <Compile Include="ImpresionAyuda.cs" />
     <Compile Include="ImpresionRemito.cs" />
+    <Compile Include="FormControlCambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormControlCambios.Designer.cs">
+      <DependentUpon>FormControlCambios.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReporteFacturas.cs">
       <SubType>Form</SubType>
     </Compile>

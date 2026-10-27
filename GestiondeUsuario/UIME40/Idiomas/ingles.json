@@ -71,7 +71,8 @@
     "tipSinPagarUno": "There is 1 unpaid purchase order 💳",
     "tipRecibirUno": "There is 1 paid order to receive at the warehouse 📦",
     "reporteFacturas": "Invoices",
-    "reporteRecibos": "Goods receipts"
+    "reporteRecibos": "Goods receipts",
+    "controlCambios": "Change control"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -949,6 +950,18 @@
         "- \"Print\" opens the preview, or saves a PDF if there is no printer."
       ]
     },
+    "controlCambios": {
+      "titulo": "Change control",
+      "texto": [
+        "Every time a product is created, modified, deactivated or reactivated, the system saves a version with all its data, the date and who made the change. It opens from Admin → Change control.",
+        "1. Search for the product and choose it in the list at the top.",
+        "2. Below you see all its versions, newest first. In pink is what changed from the previous version.",
+        "3. To go back, choose a version and press \"Restore this version\".",
+        "- The restoration is also saved as a new version and in the event log, so you can always go back to how it was.",
+        "- Stock is not restored: it keeps its current value, because it changes with sales and receptions.",
+        "💡 If you restore a version from when the product was deactivated, the product becomes inactive again."
+      ]
+    },
     "respaldo": {
       "titulo": "Backup and restore",
       "texto": [
@@ -1122,7 +1135,7 @@
     "pasoUsuarioTitulo": "User",
     "pasoUsuarioTexto": "To change your password or the system language, and to log out when you are done.",
     "pasoAdminTitulo": "Admin",
-    "pasoAdminTexto": "Users, families and roles with their permissions, the event log and the database backups.",
+    "pasoAdminTexto": "Users, families and roles with their permissions, the event log, product change control and the database backups.",
     "pasoMaestroTitulo": "Master",
     "pasoMaestroTexto": "The base data: products (with their minimum stock and supplier) and customers.",
     "pasoVentaTitulo": "Sales",
@@ -1197,6 +1210,52 @@
     "sinObservaciones": "No remarks: the goods match the order.",
     "totalUnidades": "Total units received: {0}",
     "recibiConforme": "RECEIVED IN GOOD ORDER"
+  },
+  "FormControlCambios": {
+    "tituloForm": "Change control",
+    "lblBuscar": "Search product:",
+    "lblProductos": "Products (active and inactive)",
+    "lblVersiones": "Product versions (in pink, what changed from the previous version)",
+    "btnRestaurar": "Restore this version",
+    "btnVolver": "Back",
+    "activo": "Active",
+    "inactivo": "Inactive",
+    "si": "Yes",
+    "no": "No",
+    "sinVersiones": "🕰️ Choose a product to see its history",
+    "colProdCodigo": "Code",
+    "colProdNombre": "Name",
+    "colProdMarca": "Brand",
+    "colProdPrecio": "Price",
+    "colProdExistencia": "Stock",
+    "colProdEstado": "Status",
+    "colVersion": "No.",
+    "colFecha": "Date",
+    "colUsuario": "User",
+    "colCambio": "Change",
+    "colCodigoProducto": "Code",
+    "colNombre": "Name",
+    "colMarca": "Brand",
+    "colColor": "Color",
+    "colModelo": "Model",
+    "colPrecioUnitario": "Price",
+    "colExistencia": "Stock",
+    "colCategoria": "Category",
+    "colStockMinimo": "Min. stock",
+    "colProveedor": "Supplier",
+    "colActivo": "Active",
+    "tipoAlta": "Created",
+    "tipoModificacion": "Modified",
+    "tipoBaja": "Deactivated",
+    "tipoReactivacion": "Reactivated",
+    "tipoRestauracion": "Restored",
+    "deVersion": "from version {0}",
+    "ayudaElegir": "Choose a version to restore it.",
+    "ayudaRestaurar": "When restored, the product goes back to that data (except stock, which keeps its current value).",
+    "ayudaActual": "This is the current version of the product.",
+    "msgConfirmar": "Restore \"{0}\" to version {1} from {2}? The product goes back to that data, except stock, which keeps its current value.",
+    "msgRestaurada": "\"{0}\" went back to version {1}. The restoration was saved as a new version.",
+    "msgError": "Error"
   },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",
@@ -1297,6 +1356,8 @@
     "RECEPCION_DISCREPANCIA_SIN_COMENTARIO": "What was received does not match the order (missing or damaged products): describe the discrepancy in the comment.",
     "COMENTARIO_DEMASIADO_LARGO": "The comment cannot exceed {0} characters.",
     "COTIZACION_YA_RESUELTA": "The quote from \"{0}\" already has a purchase order or was discarded.",
-    "COTIZACION_DESCARTADA": "The quote from \"{0}\" was discarded: the purchase order cannot be generated."
+    "COTIZACION_DESCARTADA": "The quote from \"{0}\" was discarded: the purchase order cannot be generated.",
+    "VERSION_NO_ENCONTRADA": "The version does not exist.",
+    "VERSION_YA_ACTUAL": "The product already has the data of version {0}: there is nothing to restore."
   }
 }

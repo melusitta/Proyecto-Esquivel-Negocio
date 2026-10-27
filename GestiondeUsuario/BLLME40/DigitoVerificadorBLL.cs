@@ -78,6 +78,7 @@ namespace BLL
                 { "Familia",     dal.ObtenerDatosFamilia() },
                 // Negocio (PN1)
                 { "Producto",    dal.ObtenerDatosProducto() },
+                { "ProductoVersion", dal.ObtenerDatosProductoVersion() },
                 { "Cliente",     dal.ObtenerDatosCliente() },
                 { "Carrito",     dal.ObtenerDatosCarrito() },
                 { "ItemCarrito", dal.ObtenerDatosItemCarrito() },

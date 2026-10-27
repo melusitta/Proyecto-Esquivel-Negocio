@@ -71,7 +71,8 @@
     "tipSinPagarUno": "미결제 구매 주문이 1개 있어요 💳",
     "tipRecibirUno": "창고에서 받을 결제 완료 주문이 1개 있어요 📦",
     "reporteFacturas": "송장",
-    "reporteRecibos": "입고 영수증"
+    "reporteRecibos": "입고 영수증",
+    "controlCambios": "변경 관리"
   },
   "FormGU": {
     "tituloForm": "사용자 관리",
@@ -949,6 +950,18 @@
         "- \"인쇄\"는 미리 보기를 열거나, 프린터가 없으면 PDF로 저장합니다."
       ]
     },
+    "controlCambios": {
+      "titulo": "변경 관리",
+      "texto": [
+        "상품을 등록, 수정, 비활성화 또는 재활성화할 때마다 모든 데이터와 날짜, 변경한 사람을 버전으로 저장합니다. 관리 → 변경 관리에서 열립니다.",
+        "1. 상품을 검색해 위쪽 목록에서 선택하세요.",
+        "2. 아래에 모든 버전이 최신순으로 보입니다. 분홍색은 이전 버전과 달라진 부분입니다.",
+        "3. 되돌리려면 버전을 선택하고 \"이 버전으로 복원\"을 누르세요.",
+        "- 복원도 새 버전과 이벤트 기록으로 남아서 언제든 다시 되돌릴 수 있습니다.",
+        "- 재고는 복원하지 않습니다: 판매와 입고로 바뀌므로 현재 값을 유지합니다.",
+        "💡 비활성화되어 있던 시점의 버전을 복원하면 상품이 다시 비활성 상태가 됩니다."
+      ]
+    },
     "respaldo": {
       "titulo": "백업과 복원",
       "texto": [
@@ -1122,7 +1135,7 @@
     "pasoUsuarioTitulo": "사용자",
     "pasoUsuarioTexto": "비밀번호나 시스템 언어를 바꾸고, 일이 끝나면 로그아웃합니다.",
     "pasoAdminTitulo": "관리",
-    "pasoAdminTexto": "사용자, 패밀리, 역할과 권한, 이벤트 기록, 데이터베이스 백업.",
+    "pasoAdminTexto": "사용자, 패밀리, 역할과 권한, 이벤트 기록, 상품 변경 관리, 데이터베이스 백업.",
     "pasoMaestroTitulo": "기본 정보",
     "pasoMaestroTexto": "기본 데이터: 상품(최소 재고와 공급업체 포함)과 고객.",
     "pasoVentaTitulo": "판매",
@@ -1197,6 +1210,52 @@
     "sinObservaciones": "비고 없음: 상품이 주문과 일치합니다.",
     "totalUnidades": "입고 수량 합계: {0}",
     "recibiConforme": "이상 없이 수령함"
+  },
+  "FormControlCambios": {
+    "tituloForm": "변경 관리",
+    "lblBuscar": "상품 검색:",
+    "lblProductos": "상품 (활성 및 비활성)",
+    "lblVersiones": "상품 버전 (분홍색은 이전 버전과 달라진 부분)",
+    "btnRestaurar": "이 버전으로 복원",
+    "btnVolver": "돌아가기",
+    "activo": "활성",
+    "inactivo": "비활성",
+    "si": "예",
+    "no": "아니요",
+    "sinVersiones": "🕰️ 상품을 선택하면 변경 이력이 보입니다",
+    "colProdCodigo": "코드",
+    "colProdNombre": "이름",
+    "colProdMarca": "브랜드",
+    "colProdPrecio": "가격",
+    "colProdExistencia": "재고",
+    "colProdEstado": "상태",
+    "colVersion": "번호",
+    "colFecha": "날짜",
+    "colUsuario": "사용자",
+    "colCambio": "변경",
+    "colCodigoProducto": "코드",
+    "colNombre": "이름",
+    "colMarca": "브랜드",
+    "colColor": "색상",
+    "colModelo": "모델",
+    "colPrecioUnitario": "가격",
+    "colExistencia": "재고",
+    "colCategoria": "카테고리",
+    "colStockMinimo": "최소 재고",
+    "colProveedor": "공급업체",
+    "colActivo": "활성",
+    "tipoAlta": "등록",
+    "tipoModificacion": "수정",
+    "tipoBaja": "비활성화",
+    "tipoReactivacion": "재활성화",
+    "tipoRestauracion": "복원",
+    "deVersion": "버전 {0}에서",
+    "ayudaElegir": "복원할 버전을 선택하세요.",
+    "ayudaRestaurar": "복원하면 상품이 그 데이터로 돌아갑니다 (재고는 현재 값 유지).",
+    "ayudaActual": "이것이 상품의 현재 버전입니다.",
+    "msgConfirmar": "\"{0}\"을(를) {2}의 버전 {1}(으)로 복원할까요? 재고를 제외한 데이터가 그 버전으로 돌아갑니다.",
+    "msgRestaurada": "\"{0}\"이(가) 버전 {1}(으)로 돌아갔습니다. 복원도 새 버전으로 저장되었습니다.",
+    "msgError": "오류"
   },
   "Errores": {
     "ROL_EN_USO": "사용자에게 할당된 역할은 삭제할 수 없습니다.",
@@ -1297,6 +1356,8 @@
     "RECEPCION_DISCREPANCIA_SIN_COMENTARIO": "입고 내용이 주문과 일치하지 않습니다 (누락 또는 파손): 메모에 불일치 내용을 적으세요.",
     "COMENTARIO_DEMASIADO_LARGO": "메모는 {0}자를 넘을 수 없습니다.",
     "COTIZACION_YA_RESUELTA": "\"{0}\"의 견적은 이미 구매 주문이 있거나 거절되었습니다.",
-    "COTIZACION_DESCARTADA": "\"{0}\"의 견적은 거절되어 구매 주문을 생성할 수 없습니다."
+    "COTIZACION_DESCARTADA": "\"{0}\"의 견적은 거절되어 구매 주문을 생성할 수 없습니다.",
+    "VERSION_NO_ENCONTRADA": "버전이 존재하지 않습니다.",
+    "VERSION_YA_ACTUAL": "상품이 이미 버전 {0}의 데이터를 가지고 있어 복원할 것이 없습니다."
   }
 }

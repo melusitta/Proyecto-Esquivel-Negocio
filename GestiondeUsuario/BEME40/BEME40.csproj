@@ -54,6 +54,7 @@
     <Compile Include="FacturaProveedor.cs" />
     <Compile Include="OrdenCompra.cs" />
     <Compile Include="Producto.cs" />
+    <Compile Include="ProductoVersion.cs" />
     <Compile Include="ProductoVendido.cs" />
     <Compile Include="ReporteProductosVendidos.cs" />
     <Compile Include="Proveedor.cs" />

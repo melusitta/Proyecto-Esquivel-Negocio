@@ -71,7 +71,8 @@
     "tipSinPagarUno": "Hay 1 orden de compra sin pagar 💳",
     "tipRecibirUno": "Hay 1 orden pagada para recibir en el depósito 📦",
     "reporteFacturas": "Facturas",
-    "reporteRecibos": "Recibos de mercadería"
+    "reporteRecibos": "Recibos de mercadería",
+    "controlCambios": "Control de cambios"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -949,6 +950,18 @@
         "- \"Imprimir\" abre la vista previa, o guarda un PDF si no hay impresora."
       ]
     },
+    "controlCambios": {
+      "titulo": "Control de cambios",
+      "texto": [
+        "Cada vez que se da de alta, se modifica, se da de baja o se reactiva un producto, el sistema guarda una versión con todos sus datos, la fecha y quién hizo el cambio. Se abre desde Admin → Control de cambios.",
+        "1. Buscá el producto y elegilo en la lista de arriba.",
+        "2. Abajo ves todas sus versiones, de la más nueva a la más vieja. En rosa está lo que cambió respecto de la versión anterior.",
+        "3. Para volver atrás, elegí una versión y presioná \"Restaurar esta versión\".",
+        "- La restauración también queda como una versión nueva y en la bitácora, así que siempre se puede volver a como estaba.",
+        "- La existencia no se restaura: sigue con el stock actual, porque cambia con las ventas y las recepciones.",
+        "💡 Si restaurás una versión de cuando el producto estaba dado de baja, el producto vuelve a quedar inactivo."
+      ]
+    },
     "respaldo": {
       "titulo": "Respaldo y restauración",
       "texto": [
@@ -1122,7 +1135,7 @@
     "pasoUsuarioTitulo": "Usuario",
     "pasoUsuarioTexto": "Para cambiar tu contraseña o el idioma del sistema, y para cerrar sesión cuando terminás.",
     "pasoAdminTitulo": "Admin",
-    "pasoAdminTexto": "Usuarios, familias y roles con sus permisos, la bitácora de eventos y los respaldos de la base.",
+    "pasoAdminTexto": "Usuarios, familias y roles con sus permisos, la bitácora de eventos, el control de cambios de los productos y los respaldos de la base.",
     "pasoMaestroTitulo": "Maestro",
     "pasoMaestroTexto": "Los datos de base: productos (con su stock mínimo y proveedor) y clientes.",
     "pasoVentaTitulo": "Venta",
@@ -1197,6 +1210,52 @@
     "sinObservaciones": "Sin observaciones: la mercadería coincide con la orden.",
     "totalUnidades": "Total de unidades recibidas: {0}",
     "recibiConforme": "RECIBÍ CONFORME"
+  },
+  "FormControlCambios": {
+    "tituloForm": "Control de cambios",
+    "lblBuscar": "Buscar producto:",
+    "lblProductos": "Productos (activos e inactivos)",
+    "lblVersiones": "Versiones del producto (en rosa, lo que cambió respecto de la versión anterior)",
+    "btnRestaurar": "Restaurar esta versión",
+    "btnVolver": "Volver",
+    "activo": "Activo",
+    "inactivo": "Inactivo",
+    "si": "Sí",
+    "no": "No",
+    "sinVersiones": "🕰️ Elegí un producto para ver su historial",
+    "colProdCodigo": "Código",
+    "colProdNombre": "Nombre",
+    "colProdMarca": "Marca",
+    "colProdPrecio": "Precio",
+    "colProdExistencia": "Existencia",
+    "colProdEstado": "Estado",
+    "colVersion": "N°",
+    "colFecha": "Fecha",
+    "colUsuario": "Usuario",
+    "colCambio": "Cambio",
+    "colCodigoProducto": "Código",
+    "colNombre": "Nombre",
+    "colMarca": "Marca",
+    "colColor": "Color",
+    "colModelo": "Modelo",
+    "colPrecioUnitario": "Precio",
+    "colExistencia": "Existencia",
+    "colCategoria": "Categoría",
+    "colStockMinimo": "Stock mín.",
+    "colProveedor": "Proveedor",
+    "colActivo": "Activo",
+    "tipoAlta": "Alta",
+    "tipoModificacion": "Modificación",
+    "tipoBaja": "Baja",
+    "tipoReactivacion": "Reactivación",
+    "tipoRestauracion": "Restauración",
+    "deVersion": "de la versión {0}",
+    "ayudaElegir": "Elegí una versión para restaurarla.",
+    "ayudaRestaurar": "Al restaurar, el producto vuelve a esos datos (menos la existencia, que sigue con el stock actual).",
+    "ayudaActual": "Esta es la versión actual del producto.",
+    "msgConfirmar": "¿Restaurar \"{0}\" a la versión {1} del {2}? El producto vuelve a esos datos, menos la existencia, que sigue con el stock actual.",
+    "msgRestaurada": "\"{0}\" volvió a la versión {1}. La restauración quedó como versión nueva.",
+    "msgError": "Error"
   },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",
@@ -1297,6 +1356,8 @@
     "RECEPCION_DISCREPANCIA_SIN_COMENTARIO": "Lo recibido no coincide con la orden (faltantes o productos dañados): describí la discrepancia en el comentario.",
     "COMENTARIO_DEMASIADO_LARGO": "El comentario no puede superar los {0} caracteres.",
     "COTIZACION_YA_RESUELTA": "La cotización de \"{0}\" ya tiene orden de compra o fue descartada.",
-    "COTIZACION_DESCARTADA": "La cotización de \"{0}\" fue descartada: no se puede generar la orden de compra."
+    "COTIZACION_DESCARTADA": "La cotización de \"{0}\" fue descartada: no se puede generar la orden de compra.",
+    "VERSION_NO_ENCONTRADA": "La versión no existe.",
+    "VERSION_YA_ACTUAL": "El producto ya tiene los datos de la versión {0}: no hay nada que restaurar."
   }
 }

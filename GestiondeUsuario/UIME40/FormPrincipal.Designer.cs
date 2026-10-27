@@ -43,6 +43,7 @@
             this.bitacoraEventosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionDeRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionRespaldoToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.controlCambiosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMaestro = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,7 +139,8 @@
             this.gestionDePerfilesToolStripMenuItem,
             this.bitacoraEventosToolStripMenuItem,
             this.gestionDeRolesToolStripMenuItem,
-            this.gestionRespaldoToolStripMenuItem1});
+            this.gestionRespaldoToolStripMenuItem1,
+            this.controlCambiosToolStripMenuItem});
             this.menuAdmin.Name = "menuAdmin";
             this.menuAdmin.Size = new System.Drawing.Size(60, 19);
             this.menuAdmin.Text = "Admin";
@@ -177,6 +179,13 @@
             this.gestionRespaldoToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.gestionRespaldoToolStripMenuItem1.Text = "Gestion Respaldo";
             this.gestionRespaldoToolStripMenuItem1.Click += new System.EventHandler(this.gestionRespaldoToolStripMenuItem1_Click);
+            // 
+            // controlCambiosToolStripMenuItem
+            // 
+            this.controlCambiosToolStripMenuItem.Name = "controlCambiosToolStripMenuItem";
+            this.controlCambiosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.controlCambiosToolStripMenuItem.Text = "Control de cambios";
+            this.controlCambiosToolStripMenuItem.Click += new System.EventHandler(this.controlCambiosToolStripMenuItem_Click);
             // 
             // menuMaestro
             // 
@@ -383,6 +392,7 @@
         private System.Windows.Forms.ToolStripMenuItem reporteFacturasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reporteRecibosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuAyuda;
+        private System.Windows.Forms.ToolStripMenuItem controlCambiosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem verAyudaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualPdfToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visitaGuiadaToolStripMenuItem;

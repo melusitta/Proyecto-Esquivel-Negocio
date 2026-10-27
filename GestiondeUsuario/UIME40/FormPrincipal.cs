@@ -82,6 +82,7 @@ namespace GestiondeUsuario
             menuReporte.Enabled = true;   // queda en gris si no tiene ninguna opción habilitada (ver abajo)
             // La ayuda es para todos: cada uno ve solo los temas de lo que puede usar
             menuAyuda.Enabled = true;
+            controlCambiosToolStripMenuItem.Enabled = PerfilBLL.Instancia.TienePermiso(usuario.Rol, "ControlCambios");
             gestionRespaldoToolStripMenuItem1.Enabled =
              PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
 
@@ -343,11 +344,18 @@ namespace GestiondeUsuario
             gestionDePerfilesToolStripMenuItem.Text = t["gestionPerfiles"]?.ToString();
             gestionDeRolesToolStripMenuItem.Text = t["gestionRoles"]?.ToString();
             gestionRespaldoToolStripMenuItem1.Text = t["gestionRespaldo"]?.ToString();
+            controlCambiosToolStripMenuItem.Text = t["controlCambios"]?.ToString();
         }
         private void FormPrincipal_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Desuscribirse al cerrar
             GestorIdioma.Instancia.Desuscribir(this);
+        }
+
+        private void controlCambiosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormControlCambios().Show();
+            this.Hide();
         }
 
         private void gestionRespaldoToolStripMenuItem1_Click(object sender, EventArgs e)

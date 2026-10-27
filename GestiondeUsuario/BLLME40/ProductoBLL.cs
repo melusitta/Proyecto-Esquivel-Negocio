@@ -7,7 +7,9 @@ using System.Linq;
 
 namespace BLL
 {
-    // CUN-002 Seleccionar productos y ABM de productos (menú Maestro)
+    // CUN-002 Seleccionar productos y ABM de productos (menú Maestro).
+    // Control de cambios: cada alta, modificación, baja o reactivación guarda una versión del producto,
+    // que se puede consultar y restaurar desde Admin → Control de cambios.
     public class ProductoBLL
     {
         private static ProductoBLL _instancia;
@@ -73,7 +75,10 @@ namespace BLL
             {
                 bool ok = dal.Insertar(p);
                 if (ok)
+                {
+                    GuardarVersion(dal.ObtenerIdPorCodigo(p.CodigoProducto), ProductoVersion.TipoAlta, null);
                     Registrar("Crear Producto", 2);
+                }
                 return ok;
             }
             catch (SqlException ex) when (ex.Number == 2627)
@@ -108,7 +113,10 @@ namespace BLL
             {
                 bool ok = dal.Modificar(p);
                 if (ok)
+                {
+                    GuardarVersion(p.Id, ProductoVersion.TipoModificacion, null);
                     Registrar("Modificar Producto", 3);
+                }
                 return ok;
             }
             catch (SqlException ex) when (ex.Number == 2627)
@@ -122,7 +130,10 @@ namespace BLL
             ProductoDAL dal = new ProductoDAL();
             bool ok = dal.CambiarActivo(id, false);
             if (ok)
+            {
+                GuardarVersion(id, ProductoVersion.TipoBaja, null);
                 Registrar("Baja Producto", 3);
+            }
             return ok;
         }
 
@@ -131,8 +142,57 @@ namespace BLL
             ProductoDAL dal = new ProductoDAL();
             bool ok = dal.CambiarActivo(id, true);
             if (ok)
+            {
+                GuardarVersion(id, ProductoVersion.TipoReactivacion, null);
                 Registrar("Reactivar Producto", 3);
+            }
             return ok;
+        }
+
+        // ---------- Control de cambios ----------
+
+        private static void GuardarVersion(int idProducto, string tipoCambio, string detalle)
+        {
+            if (idProducto <= 0) return;
+            new ProductoVersionDAL().Guardar(idProducto, tipoCambio,
+                SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Desconocido", detalle);
+        }
+
+        // Versiones de un producto, de la más nueva a la más vieja
+        public List<ProductoVersion> ObtenerVersiones(int idProducto)
+        {
+            return new ProductoVersionDAL().ObtenerPorProducto(idProducto);
+        }
+
+        // Vuelve el producto a los datos de esa versión (incluido si estaba activo o dado de baja) y eso queda
+        // como una versión nueva. La existencia no se restaura: el stock cambia con las ventas y las recepciones.
+        public void RestaurarVersion(int idVersion)
+        {
+            ProductoVersionDAL versiones = new ProductoVersionDAL();
+            ProductoVersion v = versiones.ObtenerPorId(idVersion);
+            if (v == null)
+                throw new ErrorNegocio("VERSION_NO_ENCONTRADA");
+            ProductoDAL dal = new ProductoDAL();
+            Producto actual = dal.ObtenerPorId(v.Datos.Id);
+            if (actual == null)
+                throw new ErrorNegocio("PRODUCTO_NO_ENCONTRADO", v.Datos.CodigoProducto);
+
+            Producto p = v.Datos;
+            p.Existencia = actual.Existencia;
+            if (p.CodigoProducto == actual.CodigoProducto && p.Nombre == actual.Nombre && p.Marca == actual.Marca
+                && p.Color == actual.Color && p.Modelo == actual.Modelo && p.PrecioUnitario == actual.PrecioUnitario
+                && p.Categoria == actual.Categoria && p.StockMinimo == actual.StockMinimo
+                && p.IdProveedorHabitual == actual.IdProveedorHabitual && p.Activo == actual.Activo)
+                throw new ErrorNegocio("VERSION_YA_ACTUAL", v.NroVersion);
+            Validar(p);
+            if (dal.ExisteCodigo(p.CodigoProducto, p.Id))
+                throw new ErrorNegocio("PRODUCTO_CODIGO_DUPLICADO", p.CodigoProducto);
+
+            dal.Modificar(p);
+            if (p.Activo != actual.Activo)
+                dal.CambiarActivo(p.Id, p.Activo);
+            GuardarVersion(p.Id, ProductoVersion.TipoRestauracion, v.NroVersion.ToString());
+            Registrar("Restaurar versión de producto", 4);
         }
 
         private void Validar(Producto p)

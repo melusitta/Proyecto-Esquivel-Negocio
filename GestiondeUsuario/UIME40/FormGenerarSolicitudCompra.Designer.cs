@@ -109,7 +109,7 @@
             this.dgvItems.AllowUserToResizeRows = false;
             this.dgvItems.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             this.dgvItems.Location = new System.Drawing.Point(600, 85);
-            this.dgvItems.MultiSelect = false;
+            this.dgvItems.MultiSelect = true;
             this.dgvItems.ReadOnly = false;
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvItems.Size = new System.Drawing.Size(620, 340);
@@ -176,6 +176,7 @@
             this.dgvProveedores.Size = new System.Drawing.Size(1200, 150);
             this.dgvProveedores.Name = "dgvProveedores";
             this.dgvProveedores.TabIndex = 10;
+            this.dgvProveedores.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProveedores_CellClick);
             // 
             // btnVolver
             // 

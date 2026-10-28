@@ -114,7 +114,8 @@ namespace GestiondeUsuario
             Agregar(dgvProductos.SelectedRows.Cast<DataGridViewRow>().OrderBy(r => r.Index).ToList());
         }
 
-        // Pasan a la solicitud con su proveedor habitual y la cantidad sugerida; el encargado los ajusta
+        // Pasan a la solicitud con su proveedor habitual y la cantidad sugerida; el encargado los ajusta.
+        // Quedan marcados para que, si toca un proveedor de abajo, se les asigne a todos juntos.
         private void Agregar(List<DataGridViewRow> filas)
         {
             if (filas.Count == 0)
@@ -122,6 +123,7 @@ namespace GestiondeUsuario
                 Aviso.Info(T("msgElegirProducto"));
                 return;
             }
+            var agregadas = new List<int>();
             foreach (DataGridViewRow r in filas)
             {
                 Producto p = (Producto)r.Tag;
@@ -129,15 +131,22 @@ namespace GestiondeUsuario
                 dgvItems.Rows[fila].Tag = p;
                 if (p.IdProveedorHabitual.HasValue && _proveedores.Any(x => x.Id == p.IdProveedorHabitual.Value))
                     dgvItems.Rows[fila].Cells["Proveedor"].Value = p.IdProveedorHabitual.Value;
+                agregadas.Add(fila);
             }
             MostrarProductos();
+            dgvItems.ClearSelection();
+            foreach (int fila in agregadas)
+                dgvItems.Rows[fila].Selected = true;
         }
 
         private void btnQuitar_Click(object sender, EventArgs e)
         {
-            DataGridViewRow fila = dgvItems.SelectedRows.Count > 0 ? dgvItems.SelectedRows[0] : dgvItems.CurrentRow;
-            if (fila == null) return;
-            dgvItems.Rows.Remove(fila);
+            List<DataGridViewRow> filas = dgvItems.SelectedRows.Cast<DataGridViewRow>().ToList();
+            if (filas.Count == 0 && dgvItems.CurrentRow != null)
+                filas.Add(dgvItems.CurrentRow);
+            if (filas.Count == 0) return;
+            foreach (DataGridViewRow fila in filas)
+                dgvItems.Rows.Remove(fila);
             MostrarProductos();
         }
 
@@ -246,13 +255,42 @@ namespace GestiondeUsuario
             }
         }
 
-        // 6.1 (extend CUN-007): el proveedor no está y se pre-registra; vuelve disponible para asignar
+        // Tocar un proveedor de la lista se lo asigna a los productos marcados en la solicitud
+        private void dgvProveedores_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < _proveedores.Count)
+                AsignarProveedor(_proveedores[e.RowIndex]);
+        }
+
+        private void AsignarProveedor(Proveedor proveedor)
+        {
+            List<DataGridViewRow> filas = dgvItems.SelectedRows.Cast<DataGridViewRow>().ToList();
+            if (filas.Count == 0)
+            {
+                if (dgvItems.Rows.Count > 0)
+                    Aviso.Info(T("msgElegirItem"));
+                return;
+            }
+            dgvItems.EndEdit();
+            foreach (DataGridViewRow fila in filas)
+                fila.Cells["Proveedor"].Value = proveedor.Id;
+            MostrarResumen();
+            Aviso.Info(string.Format(T("msgAsignado"), proveedor.RazonSocial, filas.Count));
+        }
+
+        // 6.1 (extend CUN-007): el proveedor no está y se pre-registra; queda asignado a los productos marcados
         private void btnPreRegistrar_Click(object sender, EventArgs e)
         {
             using (var preRegistro = new FormRealizarPreRegistro())
             {
-                if (preRegistro.ShowDialog(this) == DialogResult.OK)
-                    CargarProveedores();
+                if (preRegistro.ShowDialog(this) != DialogResult.OK) return;
+                CargarProveedores();
+                int indice = _proveedores.FindIndex(p => p.Id == preRegistro.IdProveedor);
+                if (indice < 0) return;
+                dgvProveedores.ClearSelection();
+                dgvProveedores.Rows[indice].Selected = true;
+                dgvProveedores.FirstDisplayedScrollingRowIndex = indice;
+                AsignarProveedor(_proveedores[indice]);
             }
         }
 

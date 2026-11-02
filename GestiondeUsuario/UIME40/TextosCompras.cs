@@ -1,4 +1,5 @@
 ﻿using Servicios;
+using System.Linq;
 
 namespace GestiondeUsuario
 {
@@ -19,6 +20,12 @@ namespace GestiondeUsuario
         public static string FormaPago(string formaPago)
         {
             return Traducir("fp_" + (formaPago ?? "").Replace(" ", ""), formaPago);
+        }
+
+        // Varias formas de pago guardadas juntas ("Transferencia, Efectivo"), traducidas
+        public static string FormasPago(string guardadas)
+        {
+            return string.Join(", ", BLL.ProveedorBLL.FormasAceptadas(guardadas).Select(FormaPago));
         }
 
         public static string Texto(string clave)

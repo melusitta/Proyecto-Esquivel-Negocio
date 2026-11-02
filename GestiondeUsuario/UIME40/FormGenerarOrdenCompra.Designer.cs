@@ -203,6 +203,8 @@
             this.txtEntrega.Size = new System.Drawing.Size(880, 25);
             this.txtEntrega.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             this.txtEntrega.MaxLength = 200;
+            this.txtEntrega.ReadOnly = true;
+            this.txtEntrega.TabStop = false;
             this.txtEntrega.Name = "txtEntrega";
             this.txtEntrega.TabIndex = 13;
             // 
@@ -225,6 +227,8 @@
             this.txtPago.Size = new System.Drawing.Size(880, 25);
             this.txtPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right));
             this.txtPago.MaxLength = 200;
+            this.txtPago.ReadOnly = true;
+            this.txtPago.TabStop = false;
             this.txtPago.Name = "txtPago";
             this.txtPago.TabIndex = 15;
             // 

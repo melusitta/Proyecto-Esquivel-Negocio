@@ -9,7 +9,8 @@ using System.Text.RegularExpressions;
 
 namespace BLL
 {
-    // PN2: CUN-007 Realizar pre-registro (Encargado de compras) y CUN-009 Completar registro proveedor (Supervisor)
+    // PN2: CUN-007 Realizar pre-registro (Encargado de compras) y CUN-009 Completar registro proveedor (Supervisor).
+    // Desde el menú Maestro, Gestión de proveedores cambia sus condiciones comerciales y de entrega.
     public class ProveedorBLL
     {
         private static ProveedorBLL _instancia;
@@ -24,7 +25,19 @@ namespace BLL
             }
         }
 
-        public static readonly string[] FormasPago = { "Transferencia", "Cheque", "Efectivo", "Cuenta corriente" };
+        // Formas en que se le puede pagar a un proveedor; cada uno acepta algunas (se guardan juntas en FormaPago)
+        public static readonly string[] FormasPago = { "Transferencia", "Cheque", "Efectivo", "Tarjeta" };
+
+        // "Transferencia, Efectivo" -> [Transferencia, Efectivo]. Vacío si no tiene ninguna cargada.
+        public static List<string> FormasAceptadas(string guardadas)
+        {
+            return (guardadas ?? "").Split(',').Select(f => f.Trim()).Where(f => f.Length > 0).ToList();
+        }
+
+        public static string UnirFormas(IEnumerable<string> formas)
+        {
+            return string.Join(", ", FormasPago.Where(f => formas != null && formas.Contains(f)));
+        }
 
         public List<Proveedor> ObtenerTodos()
         {
@@ -43,12 +56,7 @@ namespace BLL
         public int PreRegistrar(Proveedor p)
         {
             ValidarDatosBasicos(p);
-            p.Rubro = string.IsNullOrWhiteSpace(p.Rubro) ? null : p.Rubro.Trim();
-            p.CondicionesEntrega = string.IsNullOrWhiteSpace(p.CondicionesEntrega) ? null : p.CondicionesEntrega.Trim();
-            if (p.PlazoEntregaDias < 0)
-                throw new ErrorNegocio("PLAZO_INVALIDO");
-            if (p.FormaPago != null && !FormasPago.Contains(p.FormaPago))
-                throw new ErrorNegocio("FORMA_PAGO_INVALIDA");
+            ValidarDatosComerciales(p);
             ProveedorDAL dal = new ProveedorDAL();
             if (dal.ObtenerPorCUIT(p.CUIT) != null)
                 throw new ErrorNegocio("PROVEEDOR_DUPLICADO", p.CUIT);
@@ -82,6 +90,35 @@ namespace BLL
             Registrar("Completar registro proveedor", 3);
         }
 
+        // Gestión de proveedores (menú Maestro): solo se cambian las condiciones comerciales y de entrega,
+        // el plazo y las formas de pago que acepta; el resto de los datos del proveedor queda como está
+        public void Modificar(Proveedor cambios)
+        {
+            Proveedor p = ObtenerPorId(cambios.Id);
+            p.CondicionesComerciales = string.IsNullOrWhiteSpace(cambios.CondicionesComerciales) ? null : cambios.CondicionesComerciales.Trim();
+            p.CondicionesEntrega = cambios.CondicionesEntrega;
+            p.PlazoEntregaDias = cambios.PlazoEntregaDias;
+            p.FormaPago = cambios.FormaPago;
+            ValidarDatosComerciales(p);
+
+            if (!new ProveedorDAL().ModificarCondiciones(p))
+                throw new ErrorNegocio("PROVEEDOR_NO_ENCONTRADO");
+            Registrar("Modificar proveedor", 2);
+        }
+
+        // Rubro, entrega, plazo y formas de pago: opcionales; si vienen, tienen que ser válidos
+        private void ValidarDatosComerciales(Proveedor p)
+        {
+            p.Rubro = string.IsNullOrWhiteSpace(p.Rubro) ? null : p.Rubro.Trim();
+            p.CondicionesEntrega = string.IsNullOrWhiteSpace(p.CondicionesEntrega) ? null : p.CondicionesEntrega.Trim();
+            if (p.PlazoEntregaDias < 0)
+                throw new ErrorNegocio("PLAZO_INVALIDO");
+            List<string> formas = FormasAceptadas(p.FormaPago);
+            if (formas.Any(f => !FormasPago.Contains(f)))
+                throw new ErrorNegocio("FORMA_PAGO_INVALIDA");
+            p.FormaPago = formas.Count == 0 ? null : UnirFormas(formas);
+        }
+
         private void ValidarDatosBasicos(Proveedor p)
         {
             p.RazonSocial = p.RazonSocial?.Trim();
@@ -104,44 +141,22 @@ namespace BLL
                 throw new ErrorNegocio("TELEFONO_INVALIDO");
         }
 
-        // CUIT argentino: 11 dígitos (con o sin guiones) y dígito verificador correcto.
+        // CUIT: 11 dígitos (con o sin guiones). No se controla el dígito verificador.
         // Devuelve el CUIT con formato XX-XXXXXXXX-X, o null si no es válido.
         public static string NormalizarCUIT(string cuit)
         {
             string digitos = Regex.Replace(cuit ?? "", @"[\s\-]", "");
             if (!Regex.IsMatch(digitos, @"^\d{11}$"))
                 return null;
-            int[] pesos = { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };
-            int suma = 0;
-            for (int i = 0; i < 10; i++)
-                suma += (digitos[i] - '0') * pesos[i];
-            int verificador = 11 - suma % 11;
-            if (verificador == 11) verificador = 0;
-            if (verificador == 10 || verificador != digitos[10] - '0')
-                return null;
             return digitos.Substring(0, 2) + "-" + digitos.Substring(2, 8) + "-" + digitos.Substring(10);
         }
 
-        // CBU: 22 dígitos en dos bloques (banco y sucursal; cuenta), cada uno con su dígito verificador.
+        // CBU: 22 dígitos (con o sin guiones). No se controlan los dígitos verificadores.
         // Devuelve los 22 dígitos, o null si no es válido.
         public static string NormalizarCBU(string cbu)
         {
             string digitos = Regex.Replace(cbu ?? "", @"[\s\-]", "");
-            if (!Regex.IsMatch(digitos, @"^\d{22}$"))
-                return null;
-            if (DigitoCBU(digitos.Substring(0, 7), new[] { 7, 1, 3, 9, 7, 1, 3 }) != digitos[7] - '0')
-                return null;
-            if (DigitoCBU(digitos.Substring(8, 13), new[] { 3, 9, 7, 1, 3, 9, 7, 1, 3, 9, 7, 1, 3 }) != digitos[21] - '0')
-                return null;
-            return digitos;
-        }
-
-        private static int DigitoCBU(string bloque, int[] pesos)
-        {
-            int suma = 0;
-            for (int i = 0; i < bloque.Length; i++)
-                suma += (bloque[i] - '0') * pesos[i];
-            return (10 - suma % 10) % 10;
+            return Regex.IsMatch(digitos, @"^\d{22}$") ? digitos : null;
         }
 
         private void Registrar(string accion, int criticidad)

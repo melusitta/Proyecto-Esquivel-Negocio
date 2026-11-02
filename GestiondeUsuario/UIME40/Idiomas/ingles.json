@@ -48,31 +48,32 @@
     "gestionProductos": "Product management",
     "productosMasVendidos": "Best-selling products",
     "gestionClientes": "Customer management",
+    "gestionProveedores": "Supplier management",
     "generarSolicitudCompra": "Generate purchase request",
     "generarOrdenCompra": "Generate purchase order",
     "registrarProductosRecibidos": "Register received products",
-    "saludoManana": "Good morning, {0}! ☀️",
-    "saludoTarde": "Good afternoon, {0}! 🌷",
-    "saludoNoche": "Good evening, {0}! 🌙",
-    "tipReponer": "{0} products at minimum stock are waiting to be restocked 🧸",
-    "tipReponerCero": "Nothing to restock, all good! ✨",
-    "tipCotizaciones": "You have {0} quotes waiting for your decision 📋",
-    "tipSinPagar": "There are {0} unpaid purchase orders 💳",
-    "tipRecibir": "There are {0} paid orders to receive at the warehouse 📦",
-    "tipGeneral1": "Have a lovely day! 🌸",
-    "tipGeneral2": "You can change the language from the User menu 🌍",
-    "tipGeneral3": "If you maximize a screen, the next ones open big too 🪟",
+    "saludoManana": "Good morning, {0}!",
+    "saludoTarde": "Good afternoon, {0}!",
+    "saludoNoche": "Good evening, {0}!",
+    "tipReponer": "{0} products at minimum stock are waiting to be restocked",
+    "tipReponerCero": "Nothing to restock, all good!",
+    "tipCotizaciones": "You have {0} quotes waiting for your decision",
+    "tipSinPagar": "There are {0} unpaid purchase orders",
+    "tipRecibir": "There are {0} paid orders to receive at the warehouse",
+    "tipGeneral1": "Have a lovely day!",
+    "tipGeneral2": "You can change the language from the User menu",
+    "tipGeneral3": "If you maximize a screen, the next ones open big too",
     "pistaMascota": "Tap Plumy for another tip",
     "verAyuda": "Help manual",
     "manualPdf": "PDF manual",
     "visitaGuiada": "Guided tour",
-    "tipReponerUno": "1 product at minimum stock is waiting to be restocked 🧸",
-    "tipCotizacionesUno": "You have 1 quote waiting for your decision 📋",
-    "tipSinPagarUno": "There is 1 unpaid purchase order 💳",
-    "tipRecibirUno": "There is 1 paid order to receive at the warehouse 📦",
+    "tipReponerUno": "1 product at minimum stock is waiting to be restocked",
+    "tipCotizacionesUno": "You have 1 quote waiting for your decision",
+    "tipSinPagarUno": "There is 1 unpaid purchase order",
+    "tipRecibirUno": "There is 1 paid order to receive at the warehouse",
     "reporteFacturas": "Invoices",
     "reporteRecibos": "Goods receipts",
-    "controlCambios": "Change control"
+    "controlCambios": "Change Log"
   },
   "FormGU": {
     "tituloForm": "User Management",
@@ -586,18 +587,21 @@
     "fp_Cheque": "Check",
     "fp_Efectivo": "Cash",
     "fp_Cuentacorriente": "Credit account",
+    "fp_Tarjeta": "Card",
     "estado_Rechazada": "Rejected"
   },
   "FormRegistrarCotizacion": {
     "tituloForm": "Register quote",
     "lblSolicitud": "Request:",
     "lblProveedor": "Supplier:",
-    "lblItems": "Products requested from this supplier: check the ones quoted and enter what it reported",
+    "lblItems": "Products requested from this supplier: check the ones it has in stock and enter what it reported",
     "opcionSolicitud": "No. {0} (sent on {1})",
     "sinSolicitudes": "There are no sent requests with pending quotes.",
     "lblPlazo": "Delivery time (days):",
-    "lblFormaPago": "Payment method:",
     "btnRegistrarCotizacion": "Register quote",
+    "btnSinStock": "Out of stock",
+    "msgConfirmarSinStock": "Did {0} answer that it has none of the requested products in stock? Its answer is registered and those products can be requested from another supplier.",
+    "msgSinStockRegistrado": "{0} was registered as out of stock. Its products can be requested again.",
     "colCotiza": "Quoted",
     "colProducto": "Product",
     "colPedido": "Requested",
@@ -610,7 +614,7 @@
     "btnVolver": "Back",
     "msgExito": "Success",
     "msgError": "Error",
-    "vacioItems": "📋 Choose the request and the supplier"
+    "vacioItems": "Choose the request and the supplier"
   },
   "FormRealizarPreRegistro": {
     "tituloForm": "Pre-register supplier",
@@ -625,7 +629,7 @@
     "lblRubro": "Line of business:",
     "lblEntrega": "Delivery terms:",
     "lblPlazo": "Delivery time (days):",
-    "lblFormaPago": "Payment method:",
+    "lblFormaPago": "Payment methods accepted:",
     "msgPreRegistrado": "{0} is now pre-registered. The supervisor will enter its bank details.",
     "btnGuardar": "Save",
     "btnVolver": "Back",
@@ -636,7 +640,7 @@
     "tituloForm": "Generate purchase request",
     "lblProductos": "Products at minimum stock",
     "lblItems": "Purchase request: assign the supplier and quantity of each product",
-    "lblProveedores": "Available suppliers: click one to assign it to the selected products",
+    "lblProveedores": "Available suppliers: click one to choose it (it is assigned to the selected products and to the ones you add)",
     "btnAgregar": "Add to request  >",
     "btnQuitar": "Remove product",
     "btnPreRegistrar": "Pre-register",
@@ -667,18 +671,18 @@
     "colProvRubro": "Line of business",
     "colProvCondicionesEntrega": "Delivery",
     "colProvPlazo": "Time (days)",
-    "colProvFormaPago": "Payment method",
+    "colProvFormaPago": "Payment methods",
     "colProvCondicionesComerciales": "Terms",
     "colProvEstado": "Status",
-    "vacioProductos": "🧸 All good! No products at minimum stock",
-    "vacioItems": "👈 Add products from the list"
+    "vacioProductos": "All good! No products at minimum stock",
+    "vacioItems": "Add products from the list"
   },
   "FormGenerarOrdenCompra": {
     "tituloForm": "Generate purchase order",
     "lblCotizacion": "Quote:",
     "opcionCotizacion": "{0} · Request No. {1} · received on {2}",
     "sinCotizaciones": "There are no quotes received: register the one the supplier sent",
-    "lblInfoCotizacion": "Request No. {0} · {1} priority · delivery in {2} days · {3}",
+    "lblInfoCotizacion": "Request No. {0} · {1} priority · delivery in {2} days · accepts {3}",
     "btnRegistrarCotizacion": "Register quote",
     "provRegistrado": "Registered supplier (bank: {0})",
     "provNoRegistrado": "{0} is not registered: its bank details are missing. Press \"Register\" to complete them.",
@@ -697,6 +701,8 @@
     "lblEntrega": "Delivery terms:",
     "lblPago": "Payment terms:",
     "entregaPropuesta": "Delivery in {0} days",
+    "pagoAConvenir": "To be agreed",
+    "pagoAcepta": "Accepts {0}",
     "btnGenerar": "Generate",
     "btnOrdenesSinPagar": "Unpaid orders ({0})",
     "msgOrdenGenerada": "Order No. {0} for {1} totaling $ {2} generated and sent to the supplier.",
@@ -707,7 +713,7 @@
     "btnDescartar": "Discard quote",
     "msgPreguntaDescartar": "Discard the quote from {0}? No order is generated and its products remain to be requested in another request.",
     "msgDescartada": "Quote from {0} discarded. Its products appear again in \"Generate purchase request\".",
-    "vacioItems": "📋 Choose a quote, or register the one the supplier sent"
+    "vacioItems": "Choose a quote, or register the one the supplier sent"
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "Complete supplier registration",
@@ -729,6 +735,37 @@
     "msgExito": "Success",
     "msgError": "Error"
   },
+  "FormGestionProveedores": {
+    "tituloForm": "Supplier management",
+    "lblBuscar": "Search:",
+    "lblDatos": "{0} details",
+    "elegirProveedor": "Choose a supplier from the list to edit its details",
+    "lblCUIT": "CUIT:",
+    "lblRazonSocial": "Company name:",
+    "lblContacto": "Contact:",
+    "lblTelefono": "Phone:",
+    "lblEmail": "Email:",
+    "lblCondiciones": "Commercial terms:",
+    "lblRubro": "Line of business:",
+    "lblEntrega": "Delivery terms:",
+    "lblPlazo": "Delivery time (days):",
+    "lblFormaPago": "Accepted payment methods:",
+    "lblCBU": "CBU:",
+    "lblBanco": "Bank:",
+    "lblAyuda": "Only commercial terms, delivery terms, delivery time and payment methods can be changed.",
+    "colId": "Id",
+    "colRazonSocial": "Company name",
+    "colCUIT": "CUIT",
+    "colContacto": "Contact",
+    "colTelefono": "Phone",
+    "colRubro": "Line of business",
+    "colFormaPago": "Payment methods",
+    "colEstado": "Status",
+    "msgModificado": "{0} details were saved.",
+    "btnGuardar": "Save changes",
+    "btnVolver": "Back",
+    "msgError": "Error"
+  },
   "FormPagarOrdenCompra": {
     "tituloForm": "Pay purchase order",
     "lblOrdenes": "Purchase order to pay",
@@ -742,6 +779,7 @@
     "lblMonto": "Amount paid:",
     "lblFechaOperacion": "Payment date:",
     "lblComprobante": "Receipt no.:",
+    "lblFormaPago": "Payment method:",
     "lblTotalPagar": "Total to pay (amount + taxes): $ {0}",
     "colOrdId": "Id",
     "colOrdNro": "No.",
@@ -759,7 +797,7 @@
     "msgExito": "Success",
     "msgError": "Error",
     "btnPagar": "Pay",
-    "vacioOrdenes": "💜 No orders to pay!"
+    "vacioOrdenes": "No orders to pay!"
   },
   "FormRegistrarProductosRecibidos": {
     "tituloForm": "Register received products",
@@ -788,7 +826,7 @@
     "btnConfirmar": "Confirm delivery",
     "btnImprimirRecibo": "Print receipt",
     "lblComentario": "Delivery comment (discrepancies with the order or the invoice):",
-    "vacioOrdenes": "📦 No goods waiting at the warehouse"
+    "vacioOrdenes": "No goods waiting at the warehouse"
   },
   "ImpresionCompras": {
     "tituloSolicitud": "PURCHASE REQUEST",
@@ -804,7 +842,8 @@
     "condPago": "Payment:",
     "ordenRef": "Purchase order:",
     "facturaRef": "Invoice:",
-    "notaSolicitud": "Please send us your quote stating unit price, brand, packaging, available quantity, delivery time and payment method.",
+    "formaPagoRef": "Payment method:",
+    "notaSolicitud": "Please send us your quote stating unit price, brand, packaging, available quantity, delivery time and payment methods accepted.",
     "colCodigo": "Code",
     "colProducto": "Product",
     "colMarca": "Brand",
@@ -830,12 +869,12 @@
     "msgPdfError": "The PDF could not be generated:",
     "msgPdfListo": "The PDF is in Downloads\\Plumy - Compras.",
     "msgPdfsListos": "The {0} PDFs are in Downloads\\Plumy - Compras.",
-    "abrirPdf": "📄 Open PDF",
-    "abrirCarpeta": "📂 See the PDFs",
+    "abrirPdf": "Open PDF",
+    "abrirCarpeta": "See the PDFs",
     "archivoRemito": "Delivery note {0} - {1}"
   },
   "Tema": {
-    "grillaVacia": "🌸 Nothing here yet",
+    "grillaVacia": "Nothing here yet",
     "ayudaPantalla": "Help for this screen (F1)"
   },
   "Aviso": {
@@ -845,9 +884,9 @@
   "FormAyuda": {
     "tituloForm": "Help",
     "lblBuscar": "Search:",
-    "btnManualPdf": "📄 PDF manual",
+    "btnManualPdf": "PDF manual",
     "btnVolver": "Back",
-    "sinResultados": "We found nothing for that search 🔍",
+    "sinResultados": "We found nothing for that search",
     "grupoGeneral": "General",
     "grupoAdmin": "Administration",
     "grupoMaestro": "Master",
@@ -859,7 +898,7 @@
     "paginaManual": "Page {0}",
     "portadaManual": "Prepared for {0} on {1}, with the screens you can use.",
     "msgManualListo": "The manual is in Downloads ({0}).",
-    "abrirManual": "📄 Open manual",
+    "abrirManual": "Open manual",
     "msgManualError": "The manual could not be generated:"
   },
   "Ayuda": {
@@ -953,9 +992,9 @@
       ]
     },
     "controlCambios": {
-      "titulo": "Change control",
+      "titulo": "Change log",
       "texto": [
-        "Every time a product is created, modified, deactivated or reactivated, the system saves a version with all its data, the date and who made the change. It opens from Admin → Change control.",
+        "Every time a product is created, modified, deactivated or reactivated, the system saves a version with all its data, the date and who made the change. It opens from Admin → Change log.",
         "1. Search for the product and choose it in the list at the top.",
         "2. Below you see all its versions, newest first. In pink is what changed from the previous version.",
         "3. To go back, choose a version and press \"Restore this version\".",
@@ -1005,6 +1044,16 @@
         "- \"Deserialize\" opens an XML file and shows the customers it contains."
       ]
     },
+    "gestionProveedores": {
+      "titulo": "Supplier management",
+      "texto": [
+        "Open it from Master → Supplier management (Administrator and Purchasing supervisor).",
+        "1. Search the supplier by company name, CUIT or line of business and select it in the grid.",
+        "2. Change the commercial terms, delivery terms, delivery time or accepted payment methods.",
+        "3. Press \"Save changes\".",
+        "- The other details (CUIT, company name, contact, phone, email, line of business, CBU and bank) are shown but cannot be changed."
+      ]
+    },
     "cargarCarrito": {
       "titulo": "Load cart",
       "texto": [
@@ -1041,8 +1090,8 @@
       "texto": [
         "The purchasing manager asks suppliers for the products that reached minimum stock. It opens from Purchases → Generate purchase request.",
         "1. The list on the left has the products at minimum stock. Choose them and press \"Add to request\" (or double click).",
-        "2. In the grid on the right assign the supplier of each product (the usual one is proposed) and adjust the quantity.",
-        "3. Below you can analyze the available suppliers: line of business, delivery, time, payment method and terms.",
+        "2. In the grid on the right assign the supplier of each product (click a supplier in the list below and it is set on the selected products and on the ones you add) and adjust the quantity.",
+        "3. Below you can analyze the available suppliers: line of business, delivery, time, payment methods accepted and terms.",
         "4. Choose the priority and press \"Finish\".",
         "- The request is sent and a PDF for each supplier is saved in Downloads\\Plumy - Compras.",
         "## If the supplier is not there",
@@ -1060,7 +1109,7 @@
         "1. Press \"Register quote\".",
         "2. Choose the request and the supplier. Only the products requested from that supplier appear.",
         "3. Check the ones it quoted and enter price, packaging and available quantity (the brand is the product one).",
-        "4. Fill in delivery time and payment method, and press \"Register quote\".",
+        "4. Check the delivery time (the supplier's is proposed) and press \"Register quote\".",
         "## Generate the order",
         "1. Choose a quote from the list. Its products show with the agreed quantities and prices.",
         "2. Check the issue date and the delivery and payment terms.",
@@ -1074,8 +1123,8 @@
       "titulo": "Pay purchase order",
       "texto": [
         "It opens by itself when the purchase order is generated, or from \"Unpaid orders\".",
-        "1. Enter the supplier invoice: number (the next one after the last is proposed), date, amount and taxes.",
-        "2. Check the amount paid (amount plus taxes), the operation date and the receipt number.",
+        "1. Enter the supplier invoice: date, amount and taxes. The invoice number is assigned by the system.",
+        "2. Check the amount paid (amount plus taxes), the operation date and the receipt number, and choose the payment method: only the ones the supplier accepts are listed.",
         "3. Press \"Pay\".",
         "- The amount must match the order total.",
         "- The order is paid and the payment receipt is saved as a PDF to send to the supplier."
@@ -1086,7 +1135,7 @@
       "texto": [
         "The warehouse manager receives the goods of paid orders. It opens from Purchases → Register received products.",
         "1. Choose the order. At the top you see the order total and its invoice data, to compare.",
-        "2. For each product enter the quantity received, the condition (good or damaged) and the location in the warehouse.",
+        "2. Count what arrived and, for each product, enter the quantity received, the condition (good or damaged) and the location in the warehouse.",
         "3. If something does not match (missing or damaged products), write the discrepancy in the comment.",
         "4. Press \"Confirm delivery\". What arrived in good condition is added to stock.",
         "- Then you can use \"Print receipt\"."
@@ -1131,7 +1180,7 @@
     "finalizar": "Done!",
     "contador": "{0} of {1}",
     "pasoBienvenidaTitulo": "Welcome to Plumy!",
-    "pasoBienvenidaTexto": "I am Plumy 🦄 and in one minute I will show you where everything is. Here I greet you and tell you what is pending: tap me for another tip. You can skip the tour whenever you want.",
+    "pasoBienvenidaTexto": "I am Plumy and in one minute I will show you where everything is. Here I greet you and tell you what is pending: tap me for another tip. You can skip the tour whenever you want.",
     "pasoMenuTitulo": "The menu",
     "pasoMenuTexto": "From here you open every screen. Only the options of your role are enabled; the ones you cannot use look grey.",
     "pasoUsuarioTitulo": "User",
@@ -1148,8 +1197,8 @@
     "pasoReporteTexto": "Invoices and goods receipts to print whenever you want, and the best-selling products report with its chart.",
     "pasoAyudaTitulo": "Help",
     "pasoAyudaTexto": "The manual with the step by step of every screen, on screen or as a PDF. On any screen, F1 or the \"?\" button take you straight to its help.",
-    "pasoFinTitulo": "Done, now you know Plumy! ✨",
-    "pasoFinTexto": "If you want to repeat the tour, it is in Help → Guided tour. Have a lovely day! 🌸"
+    "pasoFinTitulo": "Done, now you know Plumy!",
+    "pasoFinTexto": "If you want to repeat the tour, it is in Help → Guided tour. Have a lovely day!"
   },
   "FormReporteFacturas": {
     "tituloForm": "Invoices",
@@ -1157,7 +1206,7 @@
     "lblResumen": "{0} invoices  ·  $ {1}",
     "btnImprimir": "Print invoice",
     "btnVolver": "Back",
-    "sinFacturas": "🧾 No invoices yet",
+    "sinFacturas": "No invoices yet",
     "colNro": "No.",
     "colFecha": "Date",
     "colDNI": "DNI",
@@ -1176,7 +1225,7 @@
     "lblResumen": "{0} receipts  ·  {1} units",
     "btnImprimir": "Print delivery note",
     "btnVolver": "Back",
-    "sinRecibos": "📦 No goods received yet",
+    "sinRecibos": "No goods received yet",
     "colRemito": "Delivery note",
     "colFecha": "Date",
     "colOrden": "Order No.",
@@ -1214,7 +1263,7 @@
     "recibiConforme": "RECEIVED IN GOOD ORDER"
   },
   "FormControlCambios": {
-    "tituloForm": "Change control",
+    "tituloForm": "Change log",
     "lblBuscar": "Search product:",
     "lblProductos": "Products (active and inactive)",
     "lblVersiones": "Product versions (in pink, what changed from the previous version)",
@@ -1224,7 +1273,7 @@
     "inactivo": "Inactive",
     "si": "Yes",
     "no": "No",
-    "sinVersiones": "🕰️ Choose a product to see its history",
+    "sinVersiones": "Choose a product to see its history",
     "colProdCodigo": "Code",
     "colProdNombre": "Name",
     "colProdMarca": "Brand",
@@ -1288,6 +1337,7 @@
     "FACTURA_NO_ENCONTRADA": "The invoice was not found.",
     "FACTURA_YA_PAGADA": "Invoice No. {0} has already been paid.",
     "FORMA_PAGO_INVALIDA": "Please select a valid payment method.",
+    "FORMA_PAGO_NO_ACEPTADA": "{0} does not accept {1}. Choose one of the payment methods it accepts.",
     "MONTO_INCORRECTO": "The amount paid must equal the invoice total ({0}).",
     "PAGO_NO_ACREDITADO": "The bank has not yet confirmed the payment.",
     "PRODUCTO_CODIGO_DUPLICADO": "A product with code {0} already exists.",
@@ -1312,7 +1362,7 @@
     "SIN_CLIENTES_SELECCIONADOS": "Select at least one customer in the grid to serialize.",
     "FAMILIA_CICLO": "Cannot add \"{0}\" to \"{1}\": \"{0}\" already includes \"{1}\" and it would create a cycle.",
     "PRODUCTO_NO_EN_CARRITO": "That product is no longer in the cart.",
-    "CUIT_INVALIDO": "The CUIT is not valid: it must have 11 digits and a correct check digit.",
+    "CUIT_INVALIDO": "The CUIT is not valid: it must have 11 digits (with or without dashes).",
     "PROVEEDOR_DATOS_INCOMPLETOS": "Fill in the supplier CUIT, company name, contact, phone and email.",
     "PROVEEDOR_DUPLICADO": "A supplier with CUIT {0} already exists.",
     "PROVEEDOR_NO_ENCONTRADO": "The supplier does not exist or is inactive.",
@@ -1329,7 +1379,8 @@
     "SOLICITUD_NO_ENVIADA": "Request No. {0} has not been sent to the suppliers.",
     "PRIORIDAD_INVALIDA": "Choose the priority: Low, Medium or High.",
     "COTIZACION_DUPLICADA": "There is already a quote from \"{0}\" for this request.",
-    "COTIZACION_SIN_PRODUCTOS": "The quote must include at least one product.",
+    "COTIZACION_SIN_PRODUCTOS": "The quote must include at least one product. If the supplier has nothing in stock, press \"Out of stock\".",
+    "COTIZACION_SIN_UNIDADES": "\"{0}\" cannot be quoted with no units available. If the supplier has no stock of that product, uncheck it.",
     "COTIZACION_DATOS_INCOMPLETOS": "Fill in the packaging of each quoted product.",
     "COTIZACION_NO_ENCONTRADA": "The quote does not exist.",
     "COTIZACION_YA_ACEPTADA": "The quote from \"{0}\" already has a purchase order.",
@@ -1338,7 +1389,7 @@
     "ORDEN_CONDICIONES_INCOMPLETAS": "Fill in the delivery and payment terms of the order.",
     "ORDEN_NO_ENCONTRADA": "The purchase order does not exist.",
     "ORDEN_ESTADO_INVALIDO": "Order No. {0} is {1}: this operation is not allowed.",
-    "FACTURA_PROVEEDOR_DATOS_INCOMPLETOS": "Fill in the invoice number and the payment receipt number.",
+    "FACTURA_PROVEEDOR_DATOS_INCOMPLETOS": "Fill in the payment receipt number.",
     "PAGO_ANTERIOR_A_FACTURA": "The payment date cannot be earlier than the invoice date.",
     "IMPORTE_INVALIDO": "The amount must be greater than zero and taxes cannot be negative.",
     "FACTURA_IMPORTE_NO_COINCIDE": "The invoice amount (before taxes) must be $ {0}, the purchase order total.",
@@ -1346,12 +1397,12 @@
     "FACTURA_PROVEEDOR_DUPLICADA": "Invoice {0} from this supplier is already registered.",
     "RECEPCION_INCOMPLETA": "Enter what was received of \"{0}\" (even if it is 0).",
     "PRODUCTO_NO_EN_ORDEN": "\"{0}\" is not in the purchase order.",
-    "CANTIDAD_RECIBIDA_INVALIDA": "The quantity received of \"{0}\" must be between 0 and {1} (what was ordered).",
+    "CANTIDAD_RECIBIDA_INVALIDA": "Enter how many units of \"{0}\" arrived: a number between 0 and {1} (what was ordered).",
     "ESTADO_RECEPCION_INVALIDO": "Choose the condition of the goods: Good or Damaged.",
     "UBICACION_REQUERIDA": "Enter the storage location of \"{0}\".",
     "PROVEEDOR_YA_TIENE_DATOS_BANCARIOS": "The supplier \"{0}\" already has its bank details.",
     "DATOS_BANCARIOS_INCOMPLETOS": "Fill in the CBU and the bank.",
-    "CBU_INVALIDO": "The CBU is not valid: it must have 22 digits and correct check digits.",
+    "CBU_INVALIDO": "The CBU is not valid: it must have 22 digits (with or without dashes).",
     "PROVEEDOR_NO_EN_SOLICITUD": "Nothing was requested from \"{0}\" in request No. {1}.",
     "PRODUCTO_NO_PEDIDO_A_PROVEEDOR": "\"{0}\" was not requested from {1}: it cannot quote it.",
     "FECHA_EMISION_ANTERIOR_COTIZACION": "The issue date cannot be earlier than the quote ({0}).",

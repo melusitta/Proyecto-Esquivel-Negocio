@@ -173,6 +173,12 @@
     <Compile Include="FormGenerarOrdenCompra.Designer.cs">
       <DependentUpon>FormGenerarOrdenCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormGestionProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormGestionProveedores.Designer.cs">
+      <DependentUpon>FormGestionProveedores.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCompletarRegistroProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -311,6 +317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormGenerarOrdenCompra.resx">
       <DependentUpon>FormGenerarOrdenCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormGestionProveedores.resx">
+      <DependentUpon>FormGestionProveedores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormCompletarRegistroProveedor.resx">
       <DependentUpon>FormCompletarRegistroProveedor.cs</DependentUpon>

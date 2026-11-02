@@ -50,7 +50,7 @@
             this.lblAyuda = new System.Windows.Forms.Label();
             this.lblOpcionales = new System.Windows.Forms.Label();
             this.lblFormaPago = new System.Windows.Forms.Label();
-            this.cmbFormaPago = new System.Windows.Forms.ComboBox();
+            this.flpFormasPago = new System.Windows.Forms.FlowLayoutPanel();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -285,24 +285,24 @@
             // lblFormaPago
             // 
             this.lblFormaPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFormaPago.Location = new System.Drawing.Point(20, 465);
-            this.lblFormaPago.Text = "Forma de pago:";
+            this.lblFormaPago.Location = new System.Drawing.Point(5, 465);
+            this.lblFormaPago.Text = "Formas de pago que acepta:";
             this.lblFormaPago.AutoSize = false;
-            this.lblFormaPago.Size = new System.Drawing.Size(180, 25);
+            this.lblFormaPago.Size = new System.Drawing.Size(200, 25);
             this.lblFormaPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblFormaPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
             this.lblFormaPago.Name = "lblFormaPago";
             this.lblFormaPago.TabIndex = 21;
             // 
-            // cmbFormaPago
+            // flpFormasPago: una casilla por cada forma de pago (se crean en el código)
             // 
-            this.cmbFormaPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbFormaPago.Location = new System.Drawing.Point(210, 465);
-            this.cmbFormaPago.Size = new System.Drawing.Size(220, 25);
-            this.cmbFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFormaPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
-            this.cmbFormaPago.Name = "cmbFormaPago";
-            this.cmbFormaPago.TabIndex = 22;
+            this.flpFormasPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.flpFormasPago.Location = new System.Drawing.Point(210, 463);
+            this.flpFormasPago.Size = new System.Drawing.Size(370, 30);
+            this.flpFormasPago.WrapContents = false;
+            this.flpFormasPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+            this.flpFormasPago.Name = "flpFormasPago";
+            this.flpFormasPago.TabIndex = 22;
             // 
             // btnVolver
             // 
@@ -335,7 +335,7 @@
             this.ClientSize = new System.Drawing.Size(600, 620);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.cmbFormaPago);
+            this.Controls.Add(this.flpFormasPago);
             this.Controls.Add(this.lblFormaPago);
             this.Controls.Add(this.lblOpcionales);
             this.Controls.Add(this.lblAyuda);
@@ -391,7 +391,7 @@
         private System.Windows.Forms.Label lblAyuda;
         private System.Windows.Forms.Label lblOpcionales;
         private System.Windows.Forms.Label lblFormaPago;
-        private System.Windows.Forms.ComboBox cmbFormaPago;
+        private System.Windows.Forms.FlowLayoutPanel flpFormasPago;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnGuardar;
     }

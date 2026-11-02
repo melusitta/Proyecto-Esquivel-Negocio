@@ -36,9 +36,9 @@ namespace DAL
             }
         }
 
-        // Registra la factura pagada y la orden pasa de Enviada a Pagada, todo junto.
-        // Devuelve false si la orden ya no estaba Enviada.
-        public bool RegistrarPago(FacturaProveedor f)
+        // Registra la factura pagada, la orden pasa de Enviada a Pagada y en su cotización queda la forma de pago
+        // que se usó, todo junto. Devuelve false si la orden ya no estaba Enviada.
+        public bool RegistrarPago(FacturaProveedor f, int idCotizacion, string formaPago)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -75,6 +75,11 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@Estado", FacturaProveedor.EstadoPagado);
                     cmd.Parameters.AddWithValue("@Supervisor", f.Supervisor);
                     f.Id = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    SqlCommand cmdForma = new SqlCommand("UPDATE Cotizacion SET FormaPago = @FormaPago WHERE Id = @Id", con, tx);
+                    cmdForma.Parameters.AddWithValue("@FormaPago", formaPago);
+                    cmdForma.Parameters.AddWithValue("@Id", idCotizacion);
+                    cmdForma.ExecuteNonQuery();
 
                     tx.Commit();
                     return true;

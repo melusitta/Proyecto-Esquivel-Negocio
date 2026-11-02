@@ -8,8 +8,8 @@ using System.Linq;
 namespace BLL
 {
     // CUN-002 Seleccionar productos y ABM de productos (menú Maestro).
-    // Control de cambios: cada alta, modificación, baja o reactivación guarda una versión del producto,
-    // que se puede consultar y restaurar desde Admin → Control de cambios.
+    // Bitácora de cambios: cada alta, modificación, baja o reactivación guarda una versión del producto,
+    // que se puede consultar y restaurar desde Admin → Bitácora de cambios.
     public class ProductoBLL
     {
         private static ProductoBLL _instancia;
@@ -149,7 +149,7 @@ namespace BLL
             return ok;
         }
 
-        // ---------- Control de cambios ----------
+        // ---------- Bitácora de cambios ----------
 
         private static void GuardarVersion(int idProducto, string tipoCambio, string detalle)
         {

@@ -22,12 +22,16 @@ namespace GestiondeUsuario
         public static readonly Color PrincipalHover = ColorTranslator.FromHtml("#5D5F96");
         public static readonly Color PrincipalSuave = ColorTranslator.FromHtml("#ECECF6");
         public static readonly Color Acento = ColorTranslator.FromHtml("#E87BB1");
+        // Rosa fuerte con letra blanca: fila seleccionada en las grillas y cambios marcados en la Bitácora de cambios
+        public static readonly Color AcentoFuerte = ColorTranslator.FromHtml("#D94F92");
+        public static readonly Color AcentoOscuro = ColorTranslator.FromHtml("#A8326B");
         public static readonly Color AcentoSuave = ColorTranslator.FromHtml("#FCE4EE");
         public static readonly Color Texto = ColorTranslator.FromHtml("#2E2A3B");
         public static readonly Color Borde = ColorTranslator.FromHtml("#D6D7EA");
         public static readonly Color FilaAlterna = ColorTranslator.FromHtml("#F7F7FC");
-        // Fila de la grilla que está bajo el mouse
-        public static readonly Color FilaEncima = ColorTranslator.FromHtml("#EFEAF8");
+        // Fila de la grilla que está bajo el mouse y opción del menú resaltada: lila medio, que se distingue
+        // del blanco aun en pantallas con poco contraste
+        public static readonly Color FilaEncima = ColorTranslator.FromHtml("#D3D4EC");
 
         public const string Fuente = "Segoe UI";
 
@@ -406,9 +410,9 @@ namespace GestiondeUsuario
         {
             public override Color MenuStripGradientBegin => Principal;
             public override Color MenuStripGradientEnd => Principal;
-            public override Color MenuItemSelected => PrincipalSuave;
-            public override Color MenuItemSelectedGradientBegin => PrincipalSuave;
-            public override Color MenuItemSelectedGradientEnd => PrincipalSuave;
+            public override Color MenuItemSelected => FilaEncima;
+            public override Color MenuItemSelectedGradientBegin => FilaEncima;
+            public override Color MenuItemSelectedGradientEnd => FilaEncima;
             public override Color MenuItemPressedGradientBegin => PrincipalSuave;
             public override Color MenuItemPressedGradientMiddle => PrincipalSuave;
             public override Color MenuItemPressedGradientEnd => PrincipalSuave;
@@ -449,8 +453,9 @@ namespace GestiondeUsuario
 
             dgv.DefaultCellStyle.BackColor = Color.White;
             dgv.DefaultCellStyle.ForeColor = Texto;
-            dgv.DefaultCellStyle.SelectionBackColor = AcentoSuave;
-            dgv.DefaultCellStyle.SelectionForeColor = Texto;
+            // Fila seleccionada en rosa fuerte con letra blanca: los tonos claros se confunden con el blanco
+            dgv.DefaultCellStyle.SelectionBackColor = AcentoFuerte;
+            dgv.DefaultCellStyle.SelectionForeColor = Color.White;
             dgv.DefaultCellStyle.Font = new Font(Fuente, 9.75F);
             dgv.AlternatingRowsDefaultCellStyle.BackColor = FilaAlterna;
             dgv.RowTemplate.Height = 28;

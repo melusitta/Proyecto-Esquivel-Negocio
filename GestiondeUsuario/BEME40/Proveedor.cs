@@ -20,6 +20,7 @@ namespace BE
         public string Rubro { get; set; }
         public string CondicionesEntrega { get; set; }
         public int? PlazoEntregaDias { get; set; }
+        // Formas de pago que acepta, separadas por coma (por ejemplo "Transferencia, Efectivo")
         public string FormaPago { get; set; }
         // Datos bancarios para pagarle; con ellos queda Registrado
         public string CBU { get; set; }

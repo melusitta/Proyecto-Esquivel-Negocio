@@ -18,6 +18,8 @@ namespace GestiondeUsuario
     {
         private List<Producto> _productos = new List<Producto>();
         private List<Proveedor> _proveedores = new List<Proveedor>();
+        // El que se tocó en la lista de proveedores: es el que se les pone a los productos que se agregan
+        private Proveedor _proveedorElegido;
 
         public FormGenerarSolicitudCompra()
         {
@@ -36,6 +38,7 @@ namespace GestiondeUsuario
 
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
+            dgvProveedores.DataBindingComplete += (s, ev) => MarcarProveedorElegido();
             CargarProveedores();
             CargarProductos();
         }
@@ -114,8 +117,9 @@ namespace GestiondeUsuario
             Agregar(dgvProductos.SelectedRows.Cast<DataGridViewRow>().OrderBy(r => r.Index).ToList());
         }
 
-        // Pasan a la solicitud con su proveedor habitual y la cantidad sugerida; el encargado los ajusta.
-        // Quedan marcados para que, si toca un proveedor de abajo, se les asigne a todos juntos.
+        // Pasan a la solicitud con el proveedor elegido en la lista de abajo (si todavía no eligió ninguno, sin
+        // proveedor) y la cantidad sugerida; el encargado los ajusta. Quedan marcados para que, si toca otro
+        // proveedor de abajo, se les asigne a todos juntos.
         private void Agregar(List<DataGridViewRow> filas)
         {
             if (filas.Count == 0)
@@ -129,8 +133,8 @@ namespace GestiondeUsuario
                 Producto p = (Producto)r.Tag;
                 int fila = dgvItems.Rows.Add(p.CodigoProducto, p.Nombre, null, SolicitudCompraBLL.CantidadSugerida(p));
                 dgvItems.Rows[fila].Tag = p;
-                if (p.IdProveedorHabitual.HasValue && _proveedores.Any(x => x.Id == p.IdProveedorHabitual.Value))
-                    dgvItems.Rows[fila].Cells["Proveedor"].Value = p.IdProveedorHabitual.Value;
+                if (_proveedorElegido != null)
+                    dgvItems.Rows[fila].Cells["Proveedor"].Value = _proveedorElegido.Id;
                 agregadas.Add(fila);
             }
             MostrarProductos();
@@ -241,13 +245,14 @@ namespace GestiondeUsuario
                     p.Rubro,
                     p.CondicionesEntrega,
                     Plazo = p.PlazoEntregaDias,
-                    FormaPago = TextosCompras.FormaPago(p.FormaPago),
+                    FormaPago = TextosCompras.FormasPago(p.FormaPago),
                     p.CondicionesComerciales,
                     Estado = TextosCompras.Estado(p.Estado)
                 }).ToList();
                 Tema.AnchoColumnas(dgvProveedores, ("RazonSocial", 160), ("CUIT", 100), ("Contacto", 110), ("Telefono", 115),
-                    ("Rubro", 120), ("CondicionesEntrega", 160), ("Plazo", 75), ("FormaPago", 110), ("CondicionesComerciales", 150), ("Estado", 95));
+                    ("Rubro", 120), ("CondicionesEntrega", 160), ("Plazo", 75), ("FormaPago", 150), ("CondicionesComerciales", 150), ("Estado", 95));
                 TraducirColumnas();
+                MarcarProveedorElegido();
             }
             catch (Exception ex)
             {
@@ -255,11 +260,21 @@ namespace GestiondeUsuario
             }
         }
 
+        // Solo queda marcado el que eligió el encargado (al cargarse, la grilla marca el primero sola)
+        private void MarcarProveedorElegido()
+        {
+            dgvProveedores.ClearSelection();
+            int elegido = _proveedorElegido == null ? -1 : _proveedores.FindIndex(p => p.Id == _proveedorElegido.Id);
+            if (elegido >= 0 && elegido < dgvProveedores.Rows.Count)
+                dgvProveedores.Rows[elegido].Selected = true;
+        }
+
         // Tocar un proveedor de la lista se lo asigna a los productos marcados en la solicitud
         private void dgvProveedores_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && e.RowIndex < _proveedores.Count)
-                AsignarProveedor(_proveedores[e.RowIndex]);
+            if (e.RowIndex < 0 || e.RowIndex >= _proveedores.Count) return;
+            _proveedorElegido = _proveedores[e.RowIndex];
+            AsignarProveedor(_proveedorElegido);
         }
 
         private void AsignarProveedor(Proveedor proveedor)
@@ -284,13 +299,13 @@ namespace GestiondeUsuario
             using (var preRegistro = new FormRealizarPreRegistro())
             {
                 if (preRegistro.ShowDialog(this) != DialogResult.OK) return;
+                _proveedorElegido = new Proveedor { Id = preRegistro.IdProveedor };
                 CargarProveedores();
                 int indice = _proveedores.FindIndex(p => p.Id == preRegistro.IdProveedor);
                 if (indice < 0) return;
-                dgvProveedores.ClearSelection();
-                dgvProveedores.Rows[indice].Selected = true;
+                _proveedorElegido = _proveedores[indice];
                 dgvProveedores.FirstDisplayedScrollingRowIndex = indice;
-                AsignarProveedor(_proveedores[indice]);
+                AsignarProveedor(_proveedorElegido);
             }
         }
 

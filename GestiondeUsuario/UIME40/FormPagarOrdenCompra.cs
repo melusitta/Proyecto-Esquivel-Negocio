@@ -106,10 +106,10 @@ namespace GestiondeUsuario
             Tema.AnchoColumnas(dgvItems, ("Producto", 200), ("Cantidad", 70), ("Precio", 90), ("Subtotal", 100));
             TraducirColumnas();
 
-            // Se proponen el número siguiente a la última factura del proveedor y el importe de la orden;
-            // el supervisor los confirma o corrige según lo que dice la factura
-            txtNroFactura.Text = o == null ? "" : PagoProveedorBLL.Instancia.SugerirNroFactura(o.Proveedor.Id) ?? "";
+            // El número de factura lo asigna el sistema (solo se muestra); se propone el importe de la orden
+            txtNroFactura.Text = o == null ? "" : PagoProveedorBLL.Instancia.SiguienteNroFactura(o.Proveedor.Id);
             txtComprobante.Clear();
+            CargarFormasPago(o, null);
             dtpFechaFactura.Value = DateTime.Today;
             dtpFechaOperacion.Value = DateTime.Today;
             nudImpuestos.Value = 0;
@@ -137,7 +137,6 @@ namespace GestiondeUsuario
             var factura = new FacturaProveedor
             {
                 IdOrdenCompra = o.Id,
-                NroFactura = txtNroFactura.Text,
                 Fecha = dtpFechaFactura.Value.Date,
                 Importe = nudImporte.Value,
                 Impuestos = nudImpuestos.Value,
@@ -145,14 +144,15 @@ namespace GestiondeUsuario
                 FechaOperacion = dtpFechaOperacion.Value.Date,
                 NroComprobante = txtComprobante.Text
             };
+            string formaPago = (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo;
             try
             {
-                FacturaProveedor registrada = PagoProveedorBLL.Instancia.PagarOrden(factura);
+                FacturaProveedor registrada = PagoProveedorBLL.Instancia.PagarOrden(factura, formaPago);
                 // Paso 9: se envía el comprobante de pago al proveedor
                 ImpresionCompras.InformarEnvio(this,
                     string.Format(T("msgPagoRegistrado"), o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial,
                         registrada.MontoAbonado.ToString("N2"), registrada.NroComprobante), T("msgExito"),
-                    () => new List<string> { ImpresionCompras.Comprobante(o, registrada)
+                    () => new List<string> { ImpresionCompras.Comprobante(o, registrada, formaPago)
                         .GuardarPdf(ImpresionCompras.NombreArchivo("archivoComprobante", o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial)) });
                 if (_idOrden.HasValue)
                 {
@@ -187,6 +187,21 @@ namespace GestiondeUsuario
 
         // ---------- Idioma ----------
 
+        // Solo las formas de pago que acepta el proveedor de la orden. Si acepta una sola viene elegida; si
+        // acepta varias, la primera opción queda vacía y el supervisor elige (la BLL exige que elija una)
+        private void CargarFormasPago(OrdenCompra o, string elegida)
+        {
+            cmbFormaPago.Items.Clear();
+            if (o == null) return;
+            List<string> formas = PagoProveedorBLL.Instancia.FormasPagoDeOrden(o);
+            if (formas.Count > 1)
+                cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = null, Texto = "" });
+            foreach (string fp in formas)
+                cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = fp, Texto = TextosCompras.FormaPago(fp) });
+            int indice = cmbFormaPago.Items.Cast<OpcionCodigo>().ToList().FindIndex(x => x.Codigo == elegida);
+            cmbFormaPago.SelectedIndex = Math.Max(indice, 0);
+        }
+
         private void TraducirColumnas()
         {
             foreach (DataGridViewColumn c in dgvOrdenes.Columns) c.HeaderText = T("colOrd" + c.Name);
@@ -211,6 +226,8 @@ namespace GestiondeUsuario
             lblMonto.Text = t["lblMonto"]?.ToString();
             lblFechaOperacion.Text = t["lblFechaOperacion"]?.ToString();
             lblComprobante.Text = t["lblComprobante"]?.ToString();
+            lblFormaPago.Text = t["lblFormaPago"]?.ToString();
+            CargarFormasPago(Seleccionada(), (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo);
             btnPagar.Text = t["btnPagar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             TraducirColumnas();

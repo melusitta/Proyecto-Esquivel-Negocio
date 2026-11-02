@@ -46,7 +46,7 @@
             // 
             this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitulo.Location = new System.Drawing.Point(18, 14);
-            this.lblTitulo.Text = "Control de cambios";
+            this.lblTitulo.Text = "Bitácora de cambios";
             this.lblTitulo.AutoSize = true;
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.TabIndex = 0;
@@ -169,7 +169,7 @@
             this.Controls.Add(this.lblBuscar);
             this.Controls.Add(this.lblTitulo);
             this.Name = "FormControlCambios";
-            this.Text = "Control de cambios";
+            this.Text = "Bitácora de cambios";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormControlCambios_FormClosed);
             this.Load += new System.EventHandler(this.FormControlCambios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).EndInit();

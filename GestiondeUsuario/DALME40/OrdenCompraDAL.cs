@@ -29,8 +29,8 @@ namespace DAL
                     cmd.Parameters.AddWithValue("@IdProveedor", c.Proveedor.Id);
                     cmd.Parameters.Add("@Fecha", SqlDbType.DateTime).Value = c.FechaRecepcion;
                     cmd.Parameters.AddWithValue("@Plazo", c.PlazoEntregaDias);
-                    cmd.Parameters.AddWithValue("@FormaPago", c.FormaPago);
-                    cmd.Parameters.AddWithValue("@Estado", Cotizacion.EstadoRecibida);
+                    cmd.Parameters.AddWithValue("@FormaPago", c.FormaPago ?? "");
+                    cmd.Parameters.AddWithValue("@Estado", c.Estado ?? Cotizacion.EstadoRecibida);
                     c.Id = Convert.ToInt32(cmd.ExecuteScalar());
 
                     foreach (ItemCotizacion item in c.Items)
@@ -46,6 +46,8 @@ namespace DAL
                         cmdItem.Parameters.AddWithValue("@Cantidad", item.CantidadDisponible);
                         cmdItem.ExecuteNonQuery();
                     }
+                    // Lo que el proveedor no tiene en stock queda resuelto: puede que ya no quede nada pendiente
+                    CerrarSiCompleta(c.IdSolicitud, con, tx);
                     tx.Commit();
                     return c.Id;
                 }
@@ -247,8 +249,8 @@ namespace DAL
             }
         }
 
-        // La solicitud queda Cerrada cuando cada producto tiene orden de compra o la cotización de su proveedor
-        // fue descartada (ese producto se puede volver a pedir en otra solicitud)
+        // La solicitud queda Cerrada cuando cada producto tiene orden de compra, o la cotización de su proveedor
+        // fue descartada o no lo incluye porque no tiene stock (ese producto se puede volver a pedir en otra solicitud)
         private static void CerrarSiCompleta(int idSolicitud, SqlConnection con, SqlTransaction tx)
         {
             SqlCommand cmd = new SqlCommand(@"UPDATE SolicitudCompra SET Estado = @Cerrada
@@ -257,7 +259,9 @@ namespace DAL
                     AND NOT EXISTS (SELECT 1 FROM ItemOrdenCompra io INNER JOIN OrdenCompra oc ON oc.Id = io.IdOrdenCompra
                                     WHERE oc.IdSolicitud = @IdSolicitud AND io.IdProducto = i.IdProducto)
                     AND NOT EXISTS (SELECT 1 FROM Cotizacion c
-                                    WHERE c.IdSolicitud = @IdSolicitud AND c.IdProveedor = i.IdProveedor AND c.Estado = @Rechazada))", con, tx);
+                                    WHERE c.IdSolicitud = @IdSolicitud AND c.IdProveedor = i.IdProveedor
+                                    AND (c.Estado = @Rechazada OR NOT EXISTS (SELECT 1 FROM ItemCotizacion ic
+                                         WHERE ic.IdCotizacion = c.Id AND ic.IdProducto = i.IdProducto))))", con, tx);
             cmd.Parameters.AddWithValue("@Cerrada", SolicitudCompra.EstadoCerrada);
             cmd.Parameters.AddWithValue("@Rechazada", Cotizacion.EstadoRechazada);
             cmd.Parameters.AddWithValue("@IdSolicitud", idSolicitud);

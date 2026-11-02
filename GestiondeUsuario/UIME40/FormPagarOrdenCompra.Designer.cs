@@ -50,6 +50,8 @@
             this.dtpFechaOperacion = new System.Windows.Forms.DateTimePicker();
             this.lblComprobante = new System.Windows.Forms.Label();
             this.txtComprobante = new System.Windows.Forms.TextBox();
+            this.lblFormaPago = new System.Windows.Forms.Label();
+            this.cmbFormaPago = new System.Windows.Forms.ComboBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnPagar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrdenes)).BeginInit();
@@ -113,7 +115,7 @@
             this.dgvItems.MultiSelect = false;
             this.dgvItems.ReadOnly = true;
             this.dgvItems.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvItems.Size = new System.Drawing.Size(500, 290);
+            this.dgvItems.Size = new System.Drawing.Size(500, 323);
             this.dgvItems.Name = "dgvItems";
             this.dgvItems.TabIndex = 4;
             // 
@@ -155,6 +157,8 @@
             this.txtNroFactura.Size = new System.Drawing.Size(200, 25);
             this.txtNroFactura.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
             this.txtNroFactura.MaxLength = 30;
+            this.txtNroFactura.ReadOnly = true;
+            this.txtNroFactura.TabStop = false;
             this.txtNroFactura.Name = "txtNroFactura";
             this.txtNroFactura.TabIndex = 7;
             // 
@@ -241,10 +245,12 @@
             this.grpPago.Controls.Add(this.dtpFechaOperacion);
             this.grpPago.Controls.Add(this.lblComprobante);
             this.grpPago.Controls.Add(this.txtComprobante);
+            this.grpPago.Controls.Add(this.lblFormaPago);
+            this.grpPago.Controls.Add(this.cmbFormaPago);
             this.grpPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.grpPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpPago.Location = new System.Drawing.Point(540, 440);
-            this.grpPago.Size = new System.Drawing.Size(500, 145);
+            this.grpPago.Size = new System.Drawing.Size(500, 178);
             this.grpPago.TabStop = false;
             this.grpPago.Text = "Pago";
             this.grpPago.Name = "grpPago";
@@ -330,11 +336,33 @@
             this.txtComprobante.Name = "txtComprobante";
             this.txtComprobante.TabIndex = 21;
             // 
+            // lblFormaPago
+            // 
+            this.lblFormaPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFormaPago.Location = new System.Drawing.Point(10, 145);
+            this.lblFormaPago.Text = "Forma de pago:";
+            this.lblFormaPago.AutoSize = false;
+            this.lblFormaPago.Size = new System.Drawing.Size(140, 25);
+            this.lblFormaPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblFormaPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+            this.lblFormaPago.Name = "lblFormaPago";
+            this.lblFormaPago.TabIndex = 22;
+            // 
+            // cmbFormaPago
+            // 
+            this.cmbFormaPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbFormaPago.Location = new System.Drawing.Point(160, 145);
+            this.cmbFormaPago.Size = new System.Drawing.Size(200, 25);
+            this.cmbFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFormaPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left));
+            this.cmbFormaPago.Name = "cmbFormaPago";
+            this.cmbFormaPago.TabIndex = 23;
+            // 
             // btnVolver
             // 
             this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.btnVolver.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVolver.Location = new System.Drawing.Point(20, 630);
+            this.btnVolver.Location = new System.Drawing.Point(20, 663);
             this.btnVolver.Size = new System.Drawing.Size(110, 34);
             this.btnVolver.Text = "Volver";
             this.btnVolver.UseVisualStyleBackColor = true;
@@ -346,7 +374,7 @@
             // 
             this.btnPagar.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.btnPagar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPagar.Location = new System.Drawing.Point(840, 626);
+            this.btnPagar.Location = new System.Drawing.Point(840, 659);
             this.btnPagar.Size = new System.Drawing.Size(200, 38);
             this.btnPagar.Text = "Pagar";
             this.btnPagar.UseVisualStyleBackColor = true;
@@ -358,7 +386,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 680);
+            this.ClientSize = new System.Drawing.Size(1060, 713);
             this.Controls.Add(this.btnPagar);
             this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.grpPago);
@@ -410,6 +438,8 @@
         private System.Windows.Forms.DateTimePicker dtpFechaOperacion;
         private System.Windows.Forms.Label lblComprobante;
         private System.Windows.Forms.TextBox txtComprobante;
+        private System.Windows.Forms.Label lblFormaPago;
+        private System.Windows.Forms.ComboBox cmbFormaPago;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnPagar;
     }

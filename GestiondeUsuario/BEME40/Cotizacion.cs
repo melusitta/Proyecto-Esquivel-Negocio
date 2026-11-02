@@ -17,6 +17,7 @@ namespace BE
         public Proveedor Proveedor { get; set; }
         public DateTime FechaRecepcion { get; set; }
         public int PlazoEntregaDias { get; set; }
+        // Formas de pago que aceptaba el proveedor al cotizar; al pagar la orden queda la que se usó
         public string FormaPago { get; set; }
         public string Estado { get; set; }
         public List<ItemCotizacion> Items { get; set; } = new List<ItemCotizacion>();

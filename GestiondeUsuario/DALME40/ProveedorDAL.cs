@@ -115,5 +115,24 @@ namespace DAL
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
+
+        // Gestión de proveedores: solo cambian las condiciones comerciales y de entrega, el plazo y las formas de pago
+        public bool ModificarCondiciones(Proveedor p)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                string query = @"UPDATE Proveedor SET CondicionesComerciales = @Condiciones, CondicionesEntrega = @Entrega,
+                    PlazoEntregaDias = @Plazo, FormaPago = @FormaPago
+                    WHERE Id = @Id AND Activo = 1";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@Condiciones", (object)p.CondicionesComerciales ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Entrega", (object)p.CondicionesEntrega ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Plazo", (object)p.PlazoEntregaDias ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@FormaPago", (object)p.FormaPago ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Id", p.Id);
+                con.Open();
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
     }
 }

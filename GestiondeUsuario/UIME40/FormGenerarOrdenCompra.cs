@@ -128,7 +128,7 @@ namespace GestiondeUsuario
                 SolicitudCompra s = SolicitudDe(c);
                 _proveedor = ProveedorBLL.Instancia.ObtenerPorId(c.Proveedor.Id);
                 lblInfoCotizacion.Text = string.Format(T("lblInfoCotizacion"), s.NroSolicitud.ToString("D6"),
-                    TextosCompras.Prioridad(s.Prioridad), c.PlazoEntregaDias, TextosCompras.FormaPago(c.FormaPago));
+                    TextosCompras.Prioridad(s.Prioridad), c.PlazoEntregaDias, TextosCompras.FormasPago(c.FormaPago));
 
                 // 3.1: sin datos bancarios no se le puede pagar
                 bool registrado = _proveedor.EstaRegistrado;
@@ -157,10 +157,15 @@ namespace GestiondeUsuario
                 TraducirColumnas();
                 lblTotalOrden.Text = items.Count == 0 ? T("nadaParaPedir") : string.Format(T("lblTotalOrden"), items.Sum(i => i.Subtotal).ToString("N2"));
 
+                // Las condiciones salen de lo cotizado y de los datos del proveedor, y no se editan. En el pago van
+                // las formas que acepta el proveedor: al pagar se elige una de ellas
                 txtEntrega.Text = string.Format(T("entregaPropuesta"), c.PlazoEntregaDias)
                     + (string.IsNullOrEmpty(_proveedor.CondicionesEntrega) ? "" : " - " + _proveedor.CondicionesEntrega);
-                txtPago.Text = TextosCompras.FormaPago(c.FormaPago)
-                    + (string.IsNullOrEmpty(_proveedor.CondicionesComerciales) ? "" : " - " + _proveedor.CondicionesComerciales);
+                string formas = TextosCompras.FormasPago(c.FormaPago);
+                var partes = new List<string>();
+                if (formas.Length > 0) partes.Add(string.Format(T("pagoAcepta"), formas));
+                partes.Add(string.IsNullOrEmpty(_proveedor.CondicionesComerciales) ? T("pagoAConvenir") : _proveedor.CondicionesComerciales);
+                txtPago.Text = string.Join(" - ", partes);
                 btnGenerar.Enabled = registrado && items.Count > 0;
                 btnDescartar.Enabled = true;
             }

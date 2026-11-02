@@ -74,20 +74,52 @@ namespace BLL
                     throw new ErrorNegocio("COTIZACION_DATOS_INCOMPLETOS");
                 if (item.PrecioUnitario <= 0)
                     throw new ErrorNegocio("PRECIO_INVALIDO");
-                if (item.CantidadDisponible < 0)
-                    throw new ErrorNegocio("CANTIDAD_INVALIDA");
+                // Si cotiza el producto tiene que tener unidades; si no tiene stock, se destilda
+                if (item.CantidadDisponible <= 0)
+                    throw new ErrorNegocio("COTIZACION_SIN_UNIDADES", pedido.Producto.Nombre);
             }
             if (c.PlazoEntregaDias < 0)
                 throw new ErrorNegocio("PLAZO_INVALIDO");
-            if (!ProveedorBLL.FormasPago.Contains(c.FormaPago))
-                throw new ErrorNegocio("FORMA_PAGO_INVALIDA");
 
+            // Las formas de pago que acepta el proveedor quedan con la cotización (al pagar se elige una de ellas)
+            c.FormaPago = proveedor.FormaPago ?? "";
             c.Proveedor = proveedor;
             if (c.FechaRecepcion == default(DateTime))
                 c.FechaRecepcion = DateTime.Now;
             int id = dal.InsertarCotizacion(c);
             Registrar("Registrar cotización", 2);
             return id;
+        }
+
+        // Paso 4: el proveedor responde que no tiene stock de nada de lo que se le pidió. Queda registrada su
+        // respuesta (como cotización rechazada, sin productos) y esos productos se pueden volver a pedir a otro.
+        public void RegistrarSinStock(int idSolicitud, int idProveedor)
+        {
+            SolicitudCompra s = SolicitudCompraBLL.Instancia.ObtenerPorId(idSolicitud);
+            if (s.Estado != SolicitudCompra.EstadoEnviada)
+                throw new ErrorNegocio("SOLICITUD_NO_ENVIADA", s.NroSolicitud);
+            Proveedor proveedor = ProveedorBLL.Instancia.ObtenerPorId(idProveedor);
+            if (!s.Items.Any(i => i.Proveedor.Id == proveedor.Id))
+                throw new ErrorNegocio("PROVEEDOR_NO_EN_SOLICITUD", proveedor.RazonSocial, s.NroSolicitud.ToString("D6"));
+            OrdenCompraDAL dal = new OrdenCompraDAL();
+            if (dal.ObtenerCotizaciones(s.Id).Any(x => x.Proveedor.Id == proveedor.Id))
+                throw new ErrorNegocio("COTIZACION_DUPLICADA", proveedor.RazonSocial);
+
+            dal.InsertarCotizacion(new Cotizacion
+            {
+                IdSolicitud = s.Id,
+                Proveedor = proveedor,
+                FechaRecepcion = DateTime.Now,
+                PlazoEntregaDias = 0,
+                FormaPago = proveedor.FormaPago ?? "",
+                Estado = Cotizacion.EstadoRechazada
+            });
+            Registrar("Registrar cotización sin stock", 2);
+        }
+
+        public Cotizacion ObtenerCotizacion(int idCotizacion)
+        {
+            return new OrdenCompraDAL().ObtenerCotizacion(idCotizacion);
         }
 
         public List<Cotizacion> ObtenerCotizaciones(int idSolicitud)

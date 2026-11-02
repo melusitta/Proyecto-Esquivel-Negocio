@@ -48,31 +48,32 @@
     "gestionProductos": "Gestión de productos",
     "productosMasVendidos": "Productos más vendidos",
     "gestionClientes": "Gestión de clientes",
+    "gestionProveedores": "Gestión de proveedores",
     "generarSolicitudCompra": "Generar solicitud de compra",
     "generarOrdenCompra": "Generar orden de compra",
     "registrarProductosRecibidos": "Registrar productos recibidos",
-    "saludoManana": "¡Buen día, {0}! ☀️",
-    "saludoTarde": "¡Buenas tardes, {0}! 🌷",
-    "saludoNoche": "¡Buenas noches, {0}! 🌙",
-    "tipReponer": "Hay {0} productos en stock mínimo esperando reposición 🧸",
-    "tipReponerCero": "¡No hay nada para reponer, todo en orden! ✨",
-    "tipCotizaciones": "Tenés {0} cotizaciones esperando tu decisión 📋",
-    "tipSinPagar": "Hay {0} órdenes de compra sin pagar 💳",
-    "tipRecibir": "Hay {0} órdenes pagadas para recibir en el depósito 📦",
-    "tipGeneral1": "¡Que tengas una linda jornada! 🌸",
-    "tipGeneral2": "Podés cambiar el idioma desde el menú Usuario 🌍",
-    "tipGeneral3": "Si maximizás una pantalla, las siguientes también se abren grandes 🪟",
+    "saludoManana": "¡Buen día, {0}!",
+    "saludoTarde": "¡Buenas tardes, {0}!",
+    "saludoNoche": "¡Buenas noches, {0}!",
+    "tipReponer": "Hay {0} productos en stock mínimo esperando reposición",
+    "tipReponerCero": "¡No hay nada para reponer, todo en orden!",
+    "tipCotizaciones": "Tenés {0} cotizaciones esperando tu decisión",
+    "tipSinPagar": "Hay {0} órdenes de compra sin pagar",
+    "tipRecibir": "Hay {0} órdenes pagadas para recibir en el depósito",
+    "tipGeneral1": "¡Que tengas una linda jornada!",
+    "tipGeneral2": "Podés cambiar el idioma desde el menú Usuario",
+    "tipGeneral3": "Si maximizás una pantalla, las siguientes también se abren grandes",
     "pistaMascota": "Tocá a Plumy para ver otro consejo",
     "verAyuda": "Manual de ayuda",
     "manualPdf": "Manual en PDF",
     "visitaGuiada": "Visita guiada",
-    "tipReponerUno": "Hay 1 producto en stock mínimo esperando reposición 🧸",
-    "tipCotizacionesUno": "Tenés 1 cotización esperando tu decisión 📋",
-    "tipSinPagarUno": "Hay 1 orden de compra sin pagar 💳",
-    "tipRecibirUno": "Hay 1 orden pagada para recibir en el depósito 📦",
+    "tipReponerUno": "Hay 1 producto en stock mínimo esperando reposición",
+    "tipCotizacionesUno": "Tenés 1 cotización esperando tu decisión",
+    "tipSinPagarUno": "Hay 1 orden de compra sin pagar",
+    "tipRecibirUno": "Hay 1 orden pagada para recibir en el depósito",
     "reporteFacturas": "Facturas",
     "reporteRecibos": "Recibos de mercadería",
-    "controlCambios": "Control de cambios"
+    "controlCambios": "Bitácora de Cambios"
   },
   "FormGU": {
     "tituloForm": "Gestión de Usuarios",
@@ -586,18 +587,21 @@
     "fp_Cheque": "Cheque",
     "fp_Efectivo": "Efectivo",
     "fp_Cuentacorriente": "Cuenta corriente",
+    "fp_Tarjeta": "Tarjeta",
     "estado_Rechazada": "Rechazada"
   },
   "FormRegistrarCotizacion": {
     "tituloForm": "Registrar cotización",
     "lblSolicitud": "Solicitud:",
     "lblProveedor": "Proveedor:",
-    "lblItems": "Productos que se le pidieron: tildá los que cotizó y cargá lo que informó",
+    "lblItems": "Productos que se le pidieron: tildá los que tiene en stock y cargá lo que informó",
     "opcionSolicitud": "N° {0} (enviada el {1})",
     "sinSolicitudes": "No hay solicitudes enviadas con cotizaciones pendientes.",
     "lblPlazo": "Plazo de entrega (días):",
-    "lblFormaPago": "Forma de pago:",
     "btnRegistrarCotizacion": "Registrar cotización",
+    "btnSinStock": "No tiene stock",
+    "msgConfirmarSinStock": "¿{0} respondió que no tiene stock de ninguno de los productos que se le pidieron? Se registra su respuesta y esos productos se pueden volver a pedir a otro proveedor.",
+    "msgSinStockRegistrado": "Se registró que {0} no tiene stock. Sus productos se pueden volver a pedir.",
     "colCotiza": "Cotizó",
     "colProducto": "Producto",
     "colPedido": "Pedido",
@@ -610,7 +614,7 @@
     "btnVolver": "Volver",
     "msgExito": "Éxito",
     "msgError": "Error",
-    "vacioItems": "📋 Elegí la solicitud y el proveedor"
+    "vacioItems": "Elegí la solicitud y el proveedor"
   },
   "FormRealizarPreRegistro": {
     "tituloForm": "Realizar pre-registro",
@@ -625,7 +629,7 @@
     "lblRubro": "Rubro:",
     "lblEntrega": "Condiciones de entrega:",
     "lblPlazo": "Plazo de entrega (días):",
-    "lblFormaPago": "Forma de pago:",
+    "lblFormaPago": "Formas de pago que acepta:",
     "msgPreRegistrado": "{0} quedó pre-registrado. El supervisor va a cargar sus datos bancarios.",
     "btnGuardar": "Guardar",
     "btnVolver": "Volver",
@@ -636,7 +640,7 @@
     "tituloForm": "Generar solicitud de compra",
     "lblProductos": "Productos con stock mínimo",
     "lblItems": "Solicitud de compra: asigná el proveedor y la cantidad de cada producto",
-    "lblProveedores": "Proveedores disponibles: tocá uno para asignarlo a los productos marcados",
+    "lblProveedores": "Proveedores disponibles: tocá uno para elegirlo (se asigna a los productos marcados y a los que agregues)",
     "btnAgregar": "Agregar a la solicitud  >",
     "btnQuitar": "Quitar producto",
     "btnPreRegistrar": "Pre-registrar",
@@ -667,18 +671,18 @@
     "colProvRubro": "Rubro",
     "colProvCondicionesEntrega": "Entrega",
     "colProvPlazo": "Plazo (días)",
-    "colProvFormaPago": "Forma de pago",
+    "colProvFormaPago": "Formas de pago",
     "colProvCondicionesComerciales": "Condiciones",
     "colProvEstado": "Estado",
-    "vacioProductos": "🧸 ¡Todo en orden! No hay productos en stock mínimo",
-    "vacioItems": "👈 Agregá productos desde el listado"
+    "vacioProductos": "¡Todo en orden! No hay productos en stock mínimo",
+    "vacioItems": "Agregá productos desde el listado"
   },
   "FormGenerarOrdenCompra": {
     "tituloForm": "Generar orden de compra",
     "lblCotizacion": "Cotización:",
     "opcionCotizacion": "{0} · Solicitud N° {1} · recibida el {2}",
     "sinCotizaciones": "No hay cotizaciones recibidas: registrá la que mandó el proveedor",
-    "lblInfoCotizacion": "Solicitud N° {0} · prioridad {1} · plazo de entrega {2} días · {3}",
+    "lblInfoCotizacion": "Solicitud N° {0} · prioridad {1} · plazo de entrega {2} días · acepta {3}",
     "btnRegistrarCotizacion": "Registrar cotización",
     "provRegistrado": "Proveedor registrado (banco: {0})",
     "provNoRegistrado": "{0} no está registrado: faltan sus datos bancarios. Presioná \"Registrar\" para completarlos.",
@@ -697,6 +701,8 @@
     "lblEntrega": "Condiciones de entrega:",
     "lblPago": "Condiciones de pago:",
     "entregaPropuesta": "Entrega en {0} días",
+    "pagoAConvenir": "A convenir",
+    "pagoAcepta": "Acepta {0}",
     "btnGenerar": "Generar",
     "btnOrdenesSinPagar": "Órdenes sin pagar ({0})",
     "msgOrdenGenerada": "Orden N° {0} para {1} por $ {2} generada y enviada al proveedor.",
@@ -707,7 +713,7 @@
     "btnDescartar": "Descartar cotización",
     "msgPreguntaDescartar": "¿Descartar la cotización de {0}? No se genera la orden y sus productos quedan para pedirlos en otra solicitud.",
     "msgDescartada": "Cotización de {0} descartada. Sus productos vuelven a aparecer en \"Generar solicitud de compra\".",
-    "vacioItems": "📋 Elegí una cotización, o registrá la que mandó el proveedor"
+    "vacioItems": "Elegí una cotización, o registrá la que mandó el proveedor"
   },
   "FormCompletarRegistroProveedor": {
     "tituloForm": "Completar registro proveedor",
@@ -729,6 +735,37 @@
     "msgExito": "Éxito",
     "msgError": "Error"
   },
+  "FormGestionProveedores": {
+    "tituloForm": "Gestión de proveedores",
+    "lblBuscar": "Buscar:",
+    "lblDatos": "Datos de {0}",
+    "elegirProveedor": "Elegí un proveedor de la lista para editar sus datos",
+    "lblCUIT": "CUIT:",
+    "lblRazonSocial": "Razón social:",
+    "lblContacto": "Contacto:",
+    "lblTelefono": "Teléfono:",
+    "lblEmail": "Email:",
+    "lblCondiciones": "Condiciones comerciales:",
+    "lblRubro": "Rubro:",
+    "lblEntrega": "Condiciones de entrega:",
+    "lblPlazo": "Plazo de entrega (días):",
+    "lblFormaPago": "Formas de pago que acepta:",
+    "lblCBU": "CBU:",
+    "lblBanco": "Banco:",
+    "lblAyuda": "Solo se pueden cambiar las condiciones comerciales y de entrega, el plazo y las formas de pago.",
+    "colId": "Id",
+    "colRazonSocial": "Razón social",
+    "colCUIT": "CUIT",
+    "colContacto": "Contacto",
+    "colTelefono": "Teléfono",
+    "colRubro": "Rubro",
+    "colFormaPago": "Formas de pago",
+    "colEstado": "Estado",
+    "msgModificado": "Se guardaron los datos de {0}.",
+    "btnGuardar": "Guardar cambios",
+    "btnVolver": "Volver",
+    "msgError": "Error"
+  },
   "FormPagarOrdenCompra": {
     "tituloForm": "Pagar orden de compra",
     "lblOrdenes": "Orden de compra a pagar",
@@ -742,6 +779,7 @@
     "lblMonto": "Monto abonado:",
     "lblFechaOperacion": "Fecha de operación:",
     "lblComprobante": "N° de comprobante:",
+    "lblFormaPago": "Forma de pago:",
     "lblTotalPagar": "Total a pagar (importe + impuestos): $ {0}",
     "colOrdId": "Id",
     "colOrdNro": "N°",
@@ -759,7 +797,7 @@
     "msgExito": "Éxito",
     "msgError": "Error",
     "btnPagar": "Pagar",
-    "vacioOrdenes": "💜 ¡No hay órdenes para pagar!"
+    "vacioOrdenes": "¡No hay órdenes para pagar!"
   },
   "FormRegistrarProductosRecibidos": {
     "tituloForm": "Registrar productos recibidos",
@@ -788,7 +826,7 @@
     "btnConfirmar": "Confirmar recepción",
     "btnImprimirRecibo": "Imprimir recibo",
     "lblComentario": "Comentario de la recepción (discrepancias con la orden o la factura):",
-    "vacioOrdenes": "📦 No hay mercadería esperando en el depósito"
+    "vacioOrdenes": "No hay mercadería esperando en el depósito"
   },
   "ImpresionCompras": {
     "tituloSolicitud": "SOLICITUD DE COMPRA",
@@ -804,7 +842,8 @@
     "condPago": "Pago:",
     "ordenRef": "Orden de compra:",
     "facturaRef": "Factura:",
-    "notaSolicitud": "Les pedimos que nos envíen su cotización indicando precio unitario, marca, presentación, cantidad disponible, plazo de entrega y forma de pago.",
+    "formaPagoRef": "Forma de pago:",
+    "notaSolicitud": "Les pedimos que nos envíen su cotización indicando precio unitario, marca, presentación, cantidad disponible, plazo de entrega y formas de pago que aceptan.",
     "colCodigo": "Código",
     "colProducto": "Producto",
     "colMarca": "Marca",
@@ -830,12 +869,12 @@
     "msgPdfError": "No se pudo generar el PDF:",
     "msgPdfListo": "El PDF quedó en Descargas\\Plumy - Compras.",
     "msgPdfsListos": "Los {0} PDF quedaron en Descargas\\Plumy - Compras.",
-    "abrirPdf": "📄 Abrir PDF",
-    "abrirCarpeta": "📂 Ver los PDF",
+    "abrirPdf": "Abrir PDF",
+    "abrirCarpeta": "Ver los PDF",
     "archivoRemito": "Remito {0} - {1}"
   },
   "Tema": {
-    "grillaVacia": "🌸 Todavía no hay nada por acá",
+    "grillaVacia": "Todavía no hay nada por acá",
     "ayudaPantalla": "Ayuda de esta pantalla (F1)"
   },
   "Aviso": {
@@ -845,9 +884,9 @@
   "FormAyuda": {
     "tituloForm": "Ayuda",
     "lblBuscar": "Buscar:",
-    "btnManualPdf": "📄 Manual en PDF",
+    "btnManualPdf": "Manual en PDF",
     "btnVolver": "Volver",
-    "sinResultados": "No encontramos nada con esa búsqueda 🔍",
+    "sinResultados": "No encontramos nada con esa búsqueda",
     "grupoGeneral": "General",
     "grupoAdmin": "Administración",
     "grupoMaestro": "Maestro",
@@ -859,7 +898,7 @@
     "paginaManual": "Página {0}",
     "portadaManual": "Preparado para {0} el {1}, con las pantallas que podés usar.",
     "msgManualListo": "El manual quedó en Descargas ({0}).",
-    "abrirManual": "📄 Abrir manual",
+    "abrirManual": "Abrir manual",
     "msgManualError": "No se pudo generar el manual:"
   },
   "Ayuda": {
@@ -953,9 +992,9 @@
       ]
     },
     "controlCambios": {
-      "titulo": "Control de cambios",
+      "titulo": "Bitácora de cambios",
       "texto": [
-        "Cada vez que se da de alta, se modifica, se da de baja o se reactiva un producto, el sistema guarda una versión con todos sus datos, la fecha y quién hizo el cambio. Se abre desde Admin → Control de cambios.",
+        "Cada vez que se da de alta, se modifica, se da de baja o se reactiva un producto, el sistema guarda una versión con todos sus datos, la fecha y quién hizo el cambio. Se abre desde Admin → Bitácora de cambios.",
         "1. Buscá el producto y elegilo en la lista de arriba.",
         "2. Abajo ves todas sus versiones, de la más nueva a la más vieja. En rosa está lo que cambió respecto de la versión anterior.",
         "3. Para volver atrás, elegí una versión y presioná \"Restaurar esta versión\".",
@@ -1005,6 +1044,16 @@
         "- \"Deserializar\" abre un archivo XML y muestra los clientes que contiene."
       ]
     },
+    "gestionProveedores": {
+      "titulo": "Gestión de proveedores",
+      "texto": [
+        "Se abre desde Maestro → Gestión de proveedores (Administrador y Supervisor de compras).",
+        "1. Buscá el proveedor por razón social, CUIT o rubro y elegilo en la grilla.",
+        "2. Cambiá las condiciones comerciales, las condiciones de entrega, el plazo de entrega o las formas de pago que acepta.",
+        "3. Presioná \"Guardar cambios\".",
+        "- El resto de los datos (CUIT, razón social, contacto, teléfono, email, rubro, CBU y banco) se ve pero no se puede cambiar."
+      ]
+    },
     "cargarCarrito": {
       "titulo": "Cargar carrito",
       "texto": [
@@ -1041,13 +1090,13 @@
       "texto": [
         "El encargado de compras pide a los proveedores los productos que llegaron al stock mínimo. Se abre desde Compras → Generar solicitud de compra.",
         "1. En la lista de la izquierda están los productos con stock mínimo. Elegilos y presioná \"Agregar a la solicitud\" (o hacé doble clic).",
-        "2. En la grilla de la derecha asigná el proveedor de cada producto (viene el habitual) y ajustá la cantidad.",
-        "3. Abajo podés analizar los proveedores disponibles: rubro, entrega, plazo, forma de pago y condiciones.",
+        "2. En la grilla de la derecha asigná el proveedor de cada producto (tocá un proveedor de la lista de abajo y se les pone a los productos marcados y a los que agregues) y ajustá la cantidad.",
+        "3. Abajo podés analizar los proveedores disponibles: rubro, entrega, plazo, formas de pago que acepta y condiciones.",
         "4. Elegí la prioridad y presioná \"Finalizar\".",
         "- La solicitud queda enviada y se arma un PDF para cada proveedor en Descargas\\Plumy - Compras.",
         "## Si el proveedor no está",
         "1. Presioná \"Pre-registrar\".",
-        "2. Completá CUIT, razón social, contacto, teléfono, email y condiciones comerciales (los datos comerciales son opcionales).",
+        "2. Completá CUIT, razón social, contacto, teléfono, email y condiciones comerciales. Los datos comerciales son opcionales; entre ellos, tildá las formas de pago que acepta.",
         "3. Presioná \"Guardar\". El proveedor queda disponible para asignar.",
         "💡 El supervisor completa después sus datos bancarios."
       ]
@@ -1060,7 +1109,7 @@
         "1. Presioná \"Registrar cotización\".",
         "2. Elegí la solicitud y el proveedor. Aparecen solo los productos que se le pidieron a ese proveedor.",
         "3. Tildá los que cotizó y cargá precio, presentación y cantidad disponible (la marca es la del producto).",
-        "4. Completá el plazo de entrega y la forma de pago, y presioná \"Registrar cotización\".",
+        "4. Revisá el plazo de entrega (viene el del proveedor) y presioná \"Registrar cotización\".",
         "## Generar la orden",
         "1. Elegí una cotización del desplegable. Se ven sus productos con las cantidades y precios acordados.",
         "2. Revisá la fecha de emisión y las condiciones de entrega y de pago.",
@@ -1074,8 +1123,8 @@
       "titulo": "Pagar orden de compra",
       "texto": [
         "Se abre solo al generar la orden de compra, o desde \"Órdenes sin pagar\".",
-        "1. Cargá la factura del proveedor: número (viene propuesto el siguiente al último), fecha, importe e impuestos.",
-        "2. Revisá el monto abonado (importe más impuestos), la fecha de operación y el número de comprobante.",
+        "1. Cargá la factura del proveedor: fecha, importe e impuestos. El número de factura lo asigna el sistema.",
+        "2. Revisá el monto abonado (importe más impuestos), la fecha de operación y el número de comprobante, y elegí la forma de pago: solo aparecen las que acepta el proveedor.",
         "3. Presioná \"Pagar\".",
         "- El importe tiene que coincidir con el total de la orden.",
         "- La orden queda pagada y se arma el comprobante en PDF para enviárselo al proveedor."
@@ -1086,7 +1135,7 @@
       "texto": [
         "El responsable de depósito recibe la mercadería de las órdenes pagadas. Se abre desde Compras → Registrar productos recibidos.",
         "1. Elegí la orden. Arriba ves el total de la orden y los datos de su factura, para comparar.",
-        "2. Por cada producto cargá la cantidad recibida, el estado (bueno o dañado) y la ubicación en el depósito.",
+        "2. Contá lo que llegó y, por cada producto, cargá la cantidad recibida, el estado (bueno o dañado) y la ubicación en el depósito.",
         "3. Si algo no coincide (faltantes o productos dañados), escribí la discrepancia en el comentario.",
         "4. Presioná \"Confirmar recepción\". Al stock se suma lo recibido en buen estado.",
         "- Después podés usar \"Imprimir recibo\"."
@@ -1131,7 +1180,7 @@
     "finalizar": "¡Listo!",
     "contador": "{0} de {1}",
     "pasoBienvenidaTitulo": "¡Te damos la bienvenida a Plumy!",
-    "pasoBienvenidaTexto": "Soy Plumy 🦄 y en un minuto te muestro dónde está cada cosa. Acá te saludo y te cuento lo que tenés pendiente: tocame para ver otro consejo. Podés saltar la visita cuando quieras.",
+    "pasoBienvenidaTexto": "Soy Plumy y en un minuto te muestro dónde está cada cosa. Acá te saludo y te cuento lo que tenés pendiente: tocame para ver otro consejo. Podés saltar la visita cuando quieras.",
     "pasoMenuTitulo": "El menú",
     "pasoMenuTexto": "Desde acá entrás a todas las pantallas. Solo se habilitan las opciones de tu rol; las que no podés usar se ven en gris.",
     "pasoUsuarioTitulo": "Usuario",
@@ -1148,8 +1197,8 @@
     "pasoReporteTexto": "Las facturas y los recibos de mercadería para imprimir cuando quieras, y el reporte de productos más vendidos con su gráfico.",
     "pasoAyudaTitulo": "Ayuda",
     "pasoAyudaTexto": "El manual con el paso a paso de cada pantalla, en pantalla o en PDF. En cualquier pantalla, F1 o el botón \"?\" te llevan directo a su ayuda.",
-    "pasoFinTitulo": "¡Listo, ya conocés Plumy! ✨",
-    "pasoFinTexto": "Si querés repetir la visita, está en Ayuda → Visita guiada. ¡Que tengas una linda jornada! 🌸"
+    "pasoFinTitulo": "¡Listo, ya conocés Plumy!",
+    "pasoFinTexto": "Si querés repetir la visita, está en Ayuda → Visita guiada. ¡Que tengas una linda jornada!"
   },
   "FormReporteFacturas": {
     "tituloForm": "Facturas",
@@ -1157,7 +1206,7 @@
     "lblResumen": "{0} facturas  ·  $ {1}",
     "btnImprimir": "Imprimir factura",
     "btnVolver": "Volver",
-    "sinFacturas": "🧾 Todavía no hay facturas",
+    "sinFacturas": "Todavía no hay facturas",
     "colNro": "N°",
     "colFecha": "Fecha",
     "colDNI": "DNI",
@@ -1176,7 +1225,7 @@
     "lblResumen": "{0} recibos  ·  {1} unidades",
     "btnImprimir": "Imprimir remito",
     "btnVolver": "Volver",
-    "sinRecibos": "📦 Todavía no se recibió mercadería",
+    "sinRecibos": "Todavía no se recibió mercadería",
     "colRemito": "Remito N°",
     "colFecha": "Fecha",
     "colOrden": "Orden N°",
@@ -1214,7 +1263,7 @@
     "recibiConforme": "RECIBÍ CONFORME"
   },
   "FormControlCambios": {
-    "tituloForm": "Control de cambios",
+    "tituloForm": "Bitácora de cambios",
     "lblBuscar": "Buscar producto:",
     "lblProductos": "Productos (activos e inactivos)",
     "lblVersiones": "Versiones del producto (en rosa, lo que cambió respecto de la versión anterior)",
@@ -1224,7 +1273,7 @@
     "inactivo": "Inactivo",
     "si": "Sí",
     "no": "No",
-    "sinVersiones": "🕰️ Elegí un producto para ver su historial",
+    "sinVersiones": "Elegí un producto para ver su historial",
     "colProdCodigo": "Código",
     "colProdNombre": "Nombre",
     "colProdMarca": "Marca",
@@ -1288,6 +1337,7 @@
     "FACTURA_NO_ENCONTRADA": "No se encontró la factura.",
     "FACTURA_YA_PAGADA": "La factura N° {0} ya fue cobrada.",
     "FORMA_PAGO_INVALIDA": "Seleccioná una forma de pago válida.",
+    "FORMA_PAGO_NO_ACEPTADA": "{0} no acepta {1}. Elegí una de las formas de pago que acepta.",
     "MONTO_INCORRECTO": "El monto pagado debe ser igual al total de la factura ({0}).",
     "PAGO_NO_ACREDITADO": "El banco todavía no confirmó la acreditación del pago.",
     "PRODUCTO_CODIGO_DUPLICADO": "Ya existe un producto con el código {0}.",
@@ -1312,7 +1362,7 @@
     "SIN_CLIENTES_SELECCIONADOS": "Seleccioná en la grilla al menos un cliente para serializar.",
     "FAMILIA_CICLO": "No se puede integrar \"{0}\" en \"{1}\": \"{0}\" ya incluye a \"{1}\" y se formaría un ciclo.",
     "PRODUCTO_NO_EN_CARRITO": "Ese producto ya no está en el carrito.",
-    "CUIT_INVALIDO": "El CUIT no es válido: tiene que tener 11 dígitos y un dígito verificador correcto.",
+    "CUIT_INVALIDO": "El CUIT no es válido: tiene que tener 11 dígitos (con o sin guiones).",
     "PROVEEDOR_DATOS_INCOMPLETOS": "Completá CUIT, razón social, contacto, teléfono y email del proveedor.",
     "PROVEEDOR_DUPLICADO": "Ya existe un proveedor con el CUIT {0}.",
     "PROVEEDOR_NO_ENCONTRADO": "El proveedor no existe o está dado de baja.",
@@ -1329,7 +1379,8 @@
     "SOLICITUD_NO_ENVIADA": "La solicitud N° {0} no está enviada a los proveedores.",
     "PRIORIDAD_INVALIDA": "Elegí la prioridad: Baja, Media o Alta.",
     "COTIZACION_DUPLICADA": "Ya hay una cotización de \"{0}\" para esta solicitud.",
-    "COTIZACION_SIN_PRODUCTOS": "La cotización tiene que incluir al menos un producto.",
+    "COTIZACION_SIN_PRODUCTOS": "La cotización tiene que incluir al menos un producto. Si el proveedor no tiene stock de nada, presioná \"No tiene stock\".",
+    "COTIZACION_SIN_UNIDADES": "No se puede cotizar \"{0}\" sin unidades disponibles. Si el proveedor no tiene stock de ese producto, destildalo.",
     "COTIZACION_DATOS_INCOMPLETOS": "Completá la presentación de cada producto cotizado.",
     "COTIZACION_NO_ENCONTRADA": "La cotización no existe.",
     "COTIZACION_YA_ACEPTADA": "La cotización de \"{0}\" ya tiene una orden de compra.",
@@ -1338,7 +1389,7 @@
     "ORDEN_CONDICIONES_INCOMPLETAS": "Completá las condiciones de entrega y de pago de la orden.",
     "ORDEN_NO_ENCONTRADA": "La orden de compra no existe.",
     "ORDEN_ESTADO_INVALIDO": "La orden N° {0} está {1}: no se puede hacer esta operación.",
-    "FACTURA_PROVEEDOR_DATOS_INCOMPLETOS": "Completá el número de factura y el número de comprobante de pago.",
+    "FACTURA_PROVEEDOR_DATOS_INCOMPLETOS": "Completá el número de comprobante de pago.",
     "PAGO_ANTERIOR_A_FACTURA": "La fecha del pago no puede ser anterior a la fecha de la factura.",
     "IMPORTE_INVALIDO": "El importe tiene que ser mayor a cero y los impuestos no pueden ser negativos.",
     "FACTURA_IMPORTE_NO_COINCIDE": "El importe de la factura (sin impuestos) tiene que ser $ {0}, el total de la orden de compra.",
@@ -1346,12 +1397,12 @@
     "FACTURA_PROVEEDOR_DUPLICADA": "La factura {0} de este proveedor ya está registrada.",
     "RECEPCION_INCOMPLETA": "Indicá lo recibido de \"{0}\" (aunque sea 0).",
     "PRODUCTO_NO_EN_ORDEN": "\"{0}\" no está en la orden de compra.",
-    "CANTIDAD_RECIBIDA_INVALIDA": "La cantidad recibida de \"{0}\" tiene que estar entre 0 y {1} (lo pedido).",
+    "CANTIDAD_RECIBIDA_INVALIDA": "Ingresá cuántas unidades de \"{0}\" llegaron: un número entre 0 y {1} (lo pedido).",
     "ESTADO_RECEPCION_INVALIDO": "Elegí el estado de la mercadería: Bueno o Dañado.",
     "UBICACION_REQUERIDA": "Indicá la ubicación de almacenamiento de \"{0}\".",
     "PROVEEDOR_YA_TIENE_DATOS_BANCARIOS": "El proveedor \"{0}\" ya tiene sus datos bancarios cargados.",
     "DATOS_BANCARIOS_INCOMPLETOS": "Completá el CBU y el banco.",
-    "CBU_INVALIDO": "El CBU no es válido: tiene que tener 22 dígitos y sus dígitos verificadores correctos.",
+    "CBU_INVALIDO": "El CBU no es válido: tiene que tener 22 dígitos (con o sin guiones).",
     "PROVEEDOR_NO_EN_SOLICITUD": "A \"{0}\" no se le pidió nada en la solicitud N° {1}.",
     "PRODUCTO_NO_PEDIDO_A_PROVEEDOR": "\"{0}\" no se le pidió a {1}: no lo puede cotizar.",
     "FECHA_EMISION_ANTERIOR_COTIZACION": "La fecha de emisión no puede ser anterior a la cotización ({0}).",

@@ -100,6 +100,20 @@ namespace GestiondeUsuario
             }
         }
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool EnableWindow(IntPtr hWnd, bool habilitar);
+
+        private const int WM_ENABLE = 0x000A;
+
+        // Si se abre un diálogo (por ejemplo "Pagar" justo después de generar la orden), Windows deshabilita
+        // las demás ventanas, el aviso incluido, y ya no se podía cerrar ni abrir el PDF: se vuelve a habilitar
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+            if (m.Msg == WM_ENABLE && m.WParam == IntPtr.Zero)
+                EnableWindow(Handle, true);
+        }
+
         // Ventana de Plumy en la que se está trabajando. Si es un diálogo (que suele cerrarse justo después
         // del aviso, como Pagar o Realizar pre-registro), la de atrás.
         private static Form VentanaDeReferencia()

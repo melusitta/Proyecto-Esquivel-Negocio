@@ -98,7 +98,7 @@ namespace GestiondeUsuario
         }
 
         // Paso 9: comprobante del pago de la orden
-        public static ImpresionCompras Comprobante(OrdenCompra o, FacturaProveedor f)
+        public static ImpresionCompras Comprobante(OrdenCompra o, FacturaProveedor f, string formaPago)
         {
             var d = new ImpresionCompras
             {
@@ -110,6 +110,8 @@ namespace GestiondeUsuario
             d.DatosProveedor(o.Proveedor);
             d._datos.Add(Tuple.Create(T("ordenRef"), o.NroOrden.ToString("D6")));
             d._datos.Add(Tuple.Create(T("facturaRef"), f.NroFactura + "  (" + f.Fecha.ToString("dd/MM/yyyy") + ")"));
+            if (!string.IsNullOrEmpty(formaPago))
+                d._datos.Add(Tuple.Create(T("formaPagoRef"), TextosCompras.FormaPago(formaPago)));
             d.ColumnasProductos(true);
             foreach (ItemOrdenCompra i in o.Items)
                 d._filas.Add(new[] { i.Producto.CodigoProducto.ToString(), i.Producto.Nombre, i.Cantidad.ToString(),

@@ -10,8 +10,8 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // Paso 4: los proveedores remiten su cotización (precio unitario, marca, presentación, cantidad disponible,
-    // plazo de entrega y forma de pago). Diálogo de CUN-008 Generar orden de compra: el supervisor carga la que
+    // Paso 4: los proveedores remiten su cotización (precio unitario, marca, presentación, cantidad disponible
+    // y plazo de entrega; la forma de pago la elige el supervisor al pagar). Diálogo de CUN-008 Generar orden de compra: el supervisor carga la que
     // mandó un proveedor, solo con los productos que se le pidieron en la solicitud.
     public partial class FormRegistrarCotizacion : Form, IObservadorIdioma
     {
@@ -82,7 +82,7 @@ namespace GestiondeUsuario
                 {
                     cmbProveedor.Items.Clear();
                     dgvItems.Rows.Clear();
-                    btnRegistrarCotizacion.Enabled = false;
+                    btnRegistrarCotizacion.Enabled = btnSinStock.Enabled = false;
                     Aviso.Info(T("sinSolicitudes"));
                 }
             }
@@ -119,7 +119,7 @@ namespace GestiondeUsuario
             dgvItems.Rows.Clear();
             SolicitudCompra s = SolicitudElegida();
             Proveedor p = ProveedorElegido();
-            btnRegistrarCotizacion.Enabled = s != null && p != null;
+            btnRegistrarCotizacion.Enabled = btnSinStock.Enabled = s != null && p != null;
             if (s == null || p == null) return;
             foreach (ItemSolicitud i in OrdenCompraBLL.Instancia.ItemsPedidosA(s.Id, p.Id))
             {
@@ -127,8 +127,9 @@ namespace GestiondeUsuario
                 int fila = dgvItems.Rows.Add(false, i.Producto.Nombre, i.Cantidad, "", i.Producto.Marca, "", "");
                 dgvItems.Rows[fila].Tag = i.Producto;
             }
-            nudPlazo.Value = 0;
-            cmbFormaPago.SelectedIndex = 0;
+            // El plazo se propone con el del proveedor; se ajusta si en esta cotización informó otro
+            Proveedor datos = ProveedorBLL.Instancia.ObtenerPorId(p.Id);
+            nudPlazo.Value = Math.Min(Math.Max(datos.PlazoEntregaDias ?? 0, (int)nudPlazo.Minimum), (int)nudPlazo.Maximum);
         }
 
         private void dgvItems_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -146,7 +147,6 @@ namespace GestiondeUsuario
                 IdSolicitud = s.Id,
                 Proveedor = ProveedorElegido(),
                 PlazoEntregaDias = (int)nudPlazo.Value,
-                FormaPago = (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo,
                 FechaRecepcion = DateTime.Now
             };
             foreach (DataGridViewRow fila in dgvItems.Rows)
@@ -179,6 +179,29 @@ namespace GestiondeUsuario
             }
         }
 
+        // El proveedor respondió que no tiene stock de nada de lo que se le pidió (si le falta solo algún producto,
+        // se registra la cotización con ese producto destildado)
+        private void btnSinStock_Click(object sender, EventArgs e)
+        {
+            SolicitudCompra s = SolicitudElegida();
+            Proveedor p = ProveedorElegido();
+            if (s == null || p == null) return;
+            if (MessageBox.Show(string.Format(T("msgConfirmarSinStock"), p.RazonSocial), T("msgAtencion"),
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+            try
+            {
+                OrdenCompraBLL.Instancia.RegistrarSinStock(s.Id, p.Id);
+                Aviso.Info(string.Format(T("msgSinStockRegistrado"), p.RazonSocial));
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+            }
+        }
+
         private void btnVolver_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -191,17 +214,6 @@ namespace GestiondeUsuario
         }
 
         // ---------- Idioma ----------
-
-        // Primera opción vacía: se elige la que informó el proveedor
-        private void CargarFormasPago()
-        {
-            string elegida = (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo;
-            cmbFormaPago.Items.Clear();
-            cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = null, Texto = "" });
-            foreach (string fp in ProveedorBLL.FormasPago)
-                cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = fp, Texto = TextosCompras.FormaPago(fp) });
-            cmbFormaPago.SelectedIndex = Array.IndexOf(ProveedorBLL.FormasPago, elegida) + 1;
-        }
 
         private void TraducirColumnas()
         {
@@ -219,10 +231,9 @@ namespace GestiondeUsuario
             lblProveedor.Text = t["lblProveedor"]?.ToString();
             lblItems.Text = t["lblItems"]?.ToString();
             lblPlazo.Text = t["lblPlazo"]?.ToString();
-            lblFormaPago.Text = t["lblFormaPago"]?.ToString();
             btnRegistrarCotizacion.Text = t["btnRegistrarCotizacion"]?.ToString();
+            btnSinStock.Text = t["btnSinStock"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
-            CargarFormasPago();
             TraducirColumnas();
         }
     }

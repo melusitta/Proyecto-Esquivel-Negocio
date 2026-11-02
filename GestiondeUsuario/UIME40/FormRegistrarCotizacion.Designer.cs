@@ -37,10 +37,9 @@
             this.dgvItems = new System.Windows.Forms.DataGridView();
             this.lblPlazo = new System.Windows.Forms.Label();
             this.nudPlazo = new System.Windows.Forms.NumericUpDown();
-            this.lblFormaPago = new System.Windows.Forms.Label();
-            this.cmbFormaPago = new System.Windows.Forms.ComboBox();
             this.btnVolver = new System.Windows.Forms.Button();
             this.btnRegistrarCotizacion = new System.Windows.Forms.Button();
+            this.btnSinStock = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPlazo)).BeginInit();
             this.SuspendLayout();
@@ -147,28 +146,6 @@
             this.nudPlazo.Name = "nudPlazo";
             this.nudPlazo.TabIndex = 8;
             // 
-            // lblFormaPago
-            // 
-            this.lblFormaPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFormaPago.Location = new System.Drawing.Point(320, 447);
-            this.lblFormaPago.Text = "Forma de pago:";
-            this.lblFormaPago.AutoSize = false;
-            this.lblFormaPago.Size = new System.Drawing.Size(130, 25);
-            this.lblFormaPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblFormaPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
-            this.lblFormaPago.Name = "lblFormaPago";
-            this.lblFormaPago.TabIndex = 9;
-            // 
-            // cmbFormaPago
-            // 
-            this.cmbFormaPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbFormaPago.Location = new System.Drawing.Point(455, 447);
-            this.cmbFormaPago.Size = new System.Drawing.Size(220, 25);
-            this.cmbFormaPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFormaPago.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
-            this.cmbFormaPago.Name = "cmbFormaPago";
-            this.cmbFormaPago.TabIndex = 10;
-            // 
             // btnVolver
             // 
             this.btnVolver.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
@@ -193,15 +170,26 @@
             this.btnRegistrarCotizacion.TabIndex = 12;
             this.btnRegistrarCotizacion.Click += new System.EventHandler(this.btnRegistrarCotizacion_Click);
             // 
+            // btnSinStock
+            // 
+            this.btnSinStock.Anchor = ((System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.btnSinStock.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSinStock.Location = new System.Drawing.Point(450, 504);
+            this.btnSinStock.Size = new System.Drawing.Size(215, 34);
+            this.btnSinStock.Text = "No tiene stock";
+            this.btnSinStock.UseVisualStyleBackColor = true;
+            this.btnSinStock.Name = "btnSinStock";
+            this.btnSinStock.TabIndex = 13;
+            this.btnSinStock.Click += new System.EventHandler(this.btnSinStock_Click);
+            // 
             // FormRegistrarCotizacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(920, 560);
+            this.Controls.Add(this.btnSinStock);
             this.Controls.Add(this.btnRegistrarCotizacion);
             this.Controls.Add(this.btnVolver);
-            this.Controls.Add(this.cmbFormaPago);
-            this.Controls.Add(this.lblFormaPago);
             this.Controls.Add(this.nudPlazo);
             this.Controls.Add(this.lblPlazo);
             this.Controls.Add(this.dgvItems);
@@ -233,9 +221,8 @@
         private System.Windows.Forms.DataGridView dgvItems;
         private System.Windows.Forms.Label lblPlazo;
         private System.Windows.Forms.NumericUpDown nudPlazo;
-        private System.Windows.Forms.Label lblFormaPago;
-        private System.Windows.Forms.ComboBox cmbFormaPago;
         private System.Windows.Forms.Button btnVolver;
         private System.Windows.Forms.Button btnRegistrarCotizacion;
+        private System.Windows.Forms.Button btnSinStock;
     }
 }

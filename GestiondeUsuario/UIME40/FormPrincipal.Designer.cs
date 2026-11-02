@@ -47,6 +47,7 @@
             this.menuMaestro = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionProductosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gestionClientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gestionProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuVenta = new System.Windows.Forms.ToolStripMenuItem();
             this.cargarCarritoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarFacturaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -138,9 +139,9 @@
             this.gestionDeUsuariosToolStripMenuItem,
             this.gestionDePerfilesToolStripMenuItem,
             this.bitacoraEventosToolStripMenuItem,
+            this.controlCambiosToolStripMenuItem,
             this.gestionDeRolesToolStripMenuItem,
-            this.gestionRespaldoToolStripMenuItem1,
-            this.controlCambiosToolStripMenuItem});
+            this.gestionRespaldoToolStripMenuItem1});
             this.menuAdmin.Name = "menuAdmin";
             this.menuAdmin.Size = new System.Drawing.Size(60, 19);
             this.menuAdmin.Text = "Admin";
@@ -184,14 +185,15 @@
             // 
             this.controlCambiosToolStripMenuItem.Name = "controlCambiosToolStripMenuItem";
             this.controlCambiosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.controlCambiosToolStripMenuItem.Text = "Control de cambios";
+            this.controlCambiosToolStripMenuItem.Text = "Bitácora de Cambios";
             this.controlCambiosToolStripMenuItem.Click += new System.EventHandler(this.controlCambiosToolStripMenuItem_Click);
             // 
             // menuMaestro
             // 
             this.menuMaestro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gestionProductosToolStripMenuItem,
-            this.gestionClientesToolStripMenuItem});
+            this.gestionClientesToolStripMenuItem,
+            this.gestionProveedoresToolStripMenuItem});
             this.menuMaestro.Name = "menuMaestro";
             this.menuMaestro.Size = new System.Drawing.Size(60, 19);
             this.menuMaestro.Text = "Maestro";
@@ -209,6 +211,13 @@
             this.gestionClientesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gestionClientesToolStripMenuItem.Text = "Gestión de clientes";
             this.gestionClientesToolStripMenuItem.Click += new System.EventHandler(this.gestionClientesToolStripMenuItem_Click);
+            //
+            // gestionProveedoresToolStripMenuItem
+            //
+            this.gestionProveedoresToolStripMenuItem.Name = "gestionProveedoresToolStripMenuItem";
+            this.gestionProveedoresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gestionProveedoresToolStripMenuItem.Text = "Gestión de proveedores";
+            this.gestionProveedoresToolStripMenuItem.Click += new System.EventHandler(this.gestionProveedoresToolStripMenuItem_Click);
             // 
             // menuVenta
             // 
@@ -380,6 +389,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuMaestro;
         private System.Windows.Forms.ToolStripMenuItem gestionProductosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionClientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gestionProveedoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuVenta;
         private System.Windows.Forms.ToolStripMenuItem cargarCarritoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generarFacturaToolStripMenuItem;

@@ -108,7 +108,7 @@ namespace GestiondeUsuario
             MostrarOrden();
         }
 
-        // Se propone lo pedido, en buen estado; el responsable corrige según lo que llegó
+        // La cantidad recibida arranca vacía: el responsable cuenta lo que llegó y la carga (puede ser menos que lo pedido)
         private void MostrarOrden()
         {
             dgvItems.Rows.Clear();
@@ -125,7 +125,7 @@ namespace GestiondeUsuario
                 f?.NroFactura ?? "-", f?.Importe.ToString("N2") ?? "-", o.Items.Sum(i => i.Cantidad));
             foreach (ItemOrdenCompra i in o.Items)
             {
-                int fila = dgvItems.Rows.Add(i.Producto.CodigoProducto, i.Producto.Nombre, i.Cantidad, i.Cantidad, ItemRecepcion.EstadoBueno, "");
+                int fila = dgvItems.Rows.Add(i.Producto.CodigoProducto, i.Producto.Nombre, i.Cantidad, "", ItemRecepcion.EstadoBueno, "");
                 dgvItems.Rows[fila].Tag = i.Producto;
             }
         }

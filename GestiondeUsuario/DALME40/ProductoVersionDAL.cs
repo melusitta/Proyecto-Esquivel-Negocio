@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    // Control de cambios del maestro de productos: versiones guardadas en ProductoVersion
+    // Bitácora de cambios del maestro de productos: versiones guardadas en ProductoVersion
     public class ProductoVersionDAL
     {
         private string connectionString = ConexionDAL.ConnectionString;

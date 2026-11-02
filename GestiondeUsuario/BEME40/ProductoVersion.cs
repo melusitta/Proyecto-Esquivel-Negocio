@@ -2,7 +2,7 @@
 
 namespace BE
 {
-    // Control de cambios del maestro de productos: cada alta, modificación, baja, reactivación o restauración
+    // Bitácora de cambios del maestro de productos: cada alta, modificación, baja, reactivación o restauración
     // guarda una versión con todos los datos del producto en ese momento.
     public class ProductoVersion
     {

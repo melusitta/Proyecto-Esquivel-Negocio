@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // Control de cambios del maestro de productos (menú Admin): se elige un producto y se ven todas sus versiones
+    // Bitácora de cambios del maestro de productos (menú Admin): se elige un producto y se ven todas sus versiones
     // (alta, modificaciones, baja, reactivación, restauraciones), con lo que cambió en cada una resaltado.
     // "Restaurar esta versión" vuelve el producto a esos datos (menos la existencia) y queda como versión nueva.
     public partial class FormControlCambios : Form, IObservadorIdioma
@@ -134,7 +134,11 @@ namespace GestiondeUsuario
                     DataGridViewCell celda = dgvVersiones.Rows[i].Cells[campo];
                     if (!Equals(Convert.ToString(celda.Value), Convert.ToString(dgvVersiones.Rows[i + 1].Cells[campo].Value)))
                     {
-                        celda.Style.BackColor = Tema.AcentoSuave;
+                        // Rosa fuerte, que se vea aun con la fila seleccionada (el rosa claro se confundía con el blanco)
+                        celda.Style.BackColor = Tema.AcentoFuerte;
+                        celda.Style.ForeColor = Color.White;
+                        celda.Style.SelectionBackColor = Tema.AcentoOscuro;
+                        celda.Style.SelectionForeColor = Color.White;
                         celda.Style.Font = new Font(dgvVersiones.Font, FontStyle.Bold);
                     }
                 }

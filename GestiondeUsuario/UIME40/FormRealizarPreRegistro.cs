@@ -3,6 +3,7 @@ using BLL;
 using Newtonsoft.Json.Linq;
 using Servicios;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GestiondeUsuario
@@ -60,7 +61,7 @@ namespace GestiondeUsuario
                 Rubro = txtRubro.Text,
                 CondicionesEntrega = txtEntrega.Text,
                 PlazoEntregaDias = plazo,
-                FormaPago = (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo
+                FormaPago = ProveedorBLL.UnirFormas(flpFormasPago.Controls.OfType<CheckBox>().Where(c => c.Checked).Select(c => (string)c.Tag))
             };
             try
             {
@@ -81,15 +82,20 @@ namespace GestiondeUsuario
             this.Close();
         }
 
-        // Primera opción vacía: la forma de pago es opcional en el pre-registro
+        // Una casilla por forma de pago; se tildan las que acepta el proveedor (opcional en el pre-registro)
         private void CargarFormasPago()
         {
-            string elegida = (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo;
-            cmbFormaPago.Items.Clear();
-            cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = null, Texto = "" });
+            var tildadas = flpFormasPago.Controls.OfType<CheckBox>().Where(c => c.Checked).Select(c => (string)c.Tag).ToList();
+            flpFormasPago.Controls.Clear();
             foreach (string fp in ProveedorBLL.FormasPago)
-                cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = fp, Texto = TextosCompras.FormaPago(fp) });
-            cmbFormaPago.SelectedIndex = Array.IndexOf(ProveedorBLL.FormasPago, elegida) + 1;
+                flpFormasPago.Controls.Add(new CheckBox
+                {
+                    Text = TextosCompras.FormaPago(fp),
+                    Tag = fp,
+                    AutoSize = true,
+                    Checked = tildadas.Contains(fp),
+                    Margin = new Padding(0, 3, 10, 0)
+                });
         }
 
         public void ActualizarIdioma(JObject traducciones)

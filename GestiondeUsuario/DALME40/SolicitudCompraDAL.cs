@@ -93,12 +93,15 @@ namespace DAL
             var ids = new HashSet<int>();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                // Lo descartado (cotización Rechazada) deja de estar en reposición y se puede volver a pedir
+                // Lo descartado (cotización Rechazada) o lo que el proveedor no tenía en stock (su cotización no lo
+                // incluye) deja de estar en reposición y se puede volver a pedir
                 string query = @"SELECT i.IdProducto FROM ItemSolicitud i
                         INNER JOIN SolicitudCompra s ON s.Id = i.IdSolicitud
                         WHERE s.Estado IN (@Borrador, @Enviada)
                         AND NOT EXISTS (SELECT 1 FROM Cotizacion c WHERE c.IdSolicitud = i.IdSolicitud
-                                        AND c.IdProveedor = i.IdProveedor AND c.Estado = @Rechazada)
+                                        AND c.IdProveedor = i.IdProveedor
+                                        AND (c.Estado = @Rechazada OR NOT EXISTS (SELECT 1 FROM ItemCotizacion ic
+                                             WHERE ic.IdCotizacion = c.Id AND ic.IdProducto = i.IdProducto)))
                     UNION
                     SELECT io.IdProducto FROM ItemOrdenCompra io
                         INNER JOIN OrdenCompra o ON o.Id = io.IdOrdenCompra

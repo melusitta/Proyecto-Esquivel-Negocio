@@ -63,7 +63,8 @@ namespace GestiondeUsuario
 
             gestionProductosToolStripMenuItem.Enabled = tieneGestionProductos;
             gestionClientesToolStripMenuItem.Enabled = tieneFacturar;   // Gestión de clientes: Administrador y Cajero
-            menuMaestro.Enabled = tieneMaestro || tieneGestionProductos || tieneFacturar;
+            gestionProveedoresToolStripMenuItem.Enabled = tieneGestionarCompras;   // Gestión de proveedores: Administrador y Supervisor
+            menuMaestro.Enabled = tieneMaestro || tieneGestionProductos || tieneFacturar || tieneGestionarCompras;
             // PN1: el Vendedor carga el carrito y el Cajero factura y cobra
             cargarCarritoToolStripMenuItem.Enabled = tieneCargarCarrito;
             generarFacturaToolStripMenuItem.Enabled = tieneFacturar;
@@ -155,6 +156,12 @@ namespace GestiondeUsuario
         private void gestionClientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new FormRegistrarCliente().Show();
+            this.Hide();
+        }
+
+        private void gestionProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FormGestionProveedores().Show();
             this.Hide();
         }
 
@@ -320,6 +327,7 @@ namespace GestiondeUsuario
             menuMaestro.Text = t["menuMaestro"]?.ToString();
             gestionProductosToolStripMenuItem.Text = t["gestionProductos"]?.ToString();
             gestionClientesToolStripMenuItem.Text = t["gestionClientes"]?.ToString();
+            gestionProveedoresToolStripMenuItem.Text = t["gestionProveedores"]?.ToString();
             menuVenta.Text = t["menuVenta"]?.ToString();
             cargarCarritoToolStripMenuItem.Text = t["cargarCarrito"]?.ToString();
             generarFacturaToolStripMenuItem.Text = t["generarFactura"]?.ToString();

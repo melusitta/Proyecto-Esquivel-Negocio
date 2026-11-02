@@ -46,6 +46,7 @@ namespace GestiondeUsuario
 
             new TemaAyuda("gestionProductos", "Maestro", new[] { "GestionProductos" }, "FormGestionProductos"),
             new TemaAyuda("gestionClientes", "Maestro", new[] { "Facturar" }, "FormRegistrarCliente"),
+            new TemaAyuda("gestionProveedores", "Maestro", new[] { "GestionarCompras" }, "FormGestionProveedores"),
 
             new TemaAyuda("cargarCarrito", "Venta", new[] { "CargarCarrito" }, "FormCargarCarrito", "FormSeleccionarProductos"),
             new TemaAyuda("generarFactura", "Venta", new[] { "Facturar" }, "FormGenerarFactura"),

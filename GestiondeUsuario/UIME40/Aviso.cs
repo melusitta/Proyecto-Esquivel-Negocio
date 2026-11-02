@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // Aviso que aparece abajo a la derecha, se desliza hacia arriba y se va solo: reemplaza la ventanita de
+    // Aviso que aparece al costado de la ventana, se desliza y se va solo: reemplaza la ventanita de
     // "Éxito" de Windows. Los errores y las preguntas (Sí/No) siguen siendo MessageBox para que no se pierdan.
     // Si hay varios a la vez se apilan. Con el mouse encima no se cierra; con un clic se cierra.
     public class Aviso : Form
@@ -26,6 +26,7 @@ namespace GestiondeUsuario
         private bool _saliendo;
         private Rectangle _zonaAccion, _zonaCerrar;
         private int _yFinal;
+        private bool _haciaAbajo;            // arriba de la ventana se apilan hacia abajo; al costado, hacia arriba
 
         public static void Exito(string mensaje)
         {
@@ -128,28 +129,53 @@ namespace GestiondeUsuario
             return ventana != null && ventana.Visible && ventana.WindowState != FormWindowState.Minimized ? ventana : null;
         }
 
-        // Abajo a la derecha dentro de la ventana; si no hay ninguna visible, en la pantalla
-        private static Rectangle AreaDeTrabajo()
+        // Abajo, al costado de la ventana (a la derecha o, si no entra, a la izquierda) para no tapar los botones
+        // de abajo. Si la ventana ocupa todo el ancho, arriba a la derecha adentro, lejos de los botones.
+        // Sin ninguna ventana visible, abajo a la derecha de la pantalla.
+        private void Ubicar()
         {
             Form ventana = VentanaDeReferencia();
             Rectangle pantalla = (ventana != null ? Screen.FromControl(ventana) : Screen.FromPoint(Cursor.Position)).WorkingArea;
+            int x, borde;
             if (ventana == null)
-                return pantalla;
-            Rectangle area = Rectangle.Intersect(ventana.RectangleToScreen(ventana.ClientRectangle), pantalla);
-            return area.Width >= Ancho + 2 * Margen && area.Height > 100 ? area : pantalla;
-        }
+            {
+                x = pantalla.Right - Width - Margen;
+                borde = pantalla.Bottom - Margen;
+            }
+            else
+            {
+                // Si hay un diálogo abierto encima (por ejemplo Pagar), tampoco hay que taparlo
+                Rectangle v = ventana.Bounds;
+                Form activa = Form.ActiveForm;
+                if (activa != null && !(activa is Aviso) && activa.Visible && activa.WindowState != FormWindowState.Minimized)
+                    v = Rectangle.Union(v, activa.Bounds);
+                v = Rectangle.Intersect(v, pantalla);
+                borde = v.Bottom - Margen;
+                if (v.Right + Margen + Width <= pantalla.Right)
+                    x = v.Right + Margen;
+                else if (v.Left - Margen - Width >= pantalla.Left)
+                    x = v.Left - Margen - Width;
+                else
+                {
+                    Rectangle cliente = Rectangle.Intersect(ventana.RectangleToScreen(ventana.ClientRectangle), pantalla);
+                    x = cliente.Right - Width - Margen;
+                    borde = cliente.Top + Margen;
+                    _haciaAbajo = true;
+                }
+            }
 
-        // Se apila arriba de los avisos que ya están abiertos
-        private void Ubicar()
-        {
-            Rectangle area = AreaDeTrabajo();
-            int y = area.Bottom - Margen;
+            // Se apila junto a los avisos que ya están abiertos
+            int y = borde;
             foreach (Aviso otro in _abiertos)
-                y = Math.Min(y, otro._yFinal - 10);
-            _yFinal = y - Height;
-            Location = new Point(area.Right - Width - Margen, _yFinal + 20);
+                if (otro._haciaAbajo == _haciaAbajo)
+                    y = _haciaAbajo ? Math.Max(y, otro._yFinal + otro.Height + 10) : Math.Min(y, otro._yFinal - 10);
+            _yFinal = _haciaAbajo ? y : y - Height;
+            Location = new Point(x, _yFinal + Deslizamiento);
             _abiertos.Add(this);
         }
+
+        // Entra deslizándose desde abajo, o desde arriba cuando se apila hacia abajo
+        private int Deslizamiento => _haciaAbajo ? -20 : 20;
 
         protected override void OnShown(EventArgs e)
         {
@@ -179,11 +205,11 @@ namespace GestiondeUsuario
                     _saliendo = true;
             }
 
-            // Entra deslizándose hacia arriba y saliendo se desvanece
+            // Entra deslizándose y saliendo se desvanece
             float suave = 1 - (1 - _aparicion) * (1 - _aparicion);
             Opacity = suave;
             if (!_saliendo)
-                Top = _yFinal + (int)(20 * (1 - suave));
+                Top = _yFinal + (int)(Deslizamiento * (1 - suave));
         }
 
         private void AlHacerClic(object sender, MouseEventArgs e)

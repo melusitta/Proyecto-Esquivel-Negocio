@@ -346,16 +346,17 @@
             // lblFormaPago
             // 
             this.lblFormaPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFormaPago.Location = new System.Drawing.Point(0, 573);
+            this.lblFormaPago.Location = new System.Drawing.Point(0, 563);
             this.lblFormaPago.Text = "Formas de pago que acepta:";
             this.lblFormaPago.AutoSize = false;
-            this.lblFormaPago.Size = new System.Drawing.Size(180, 25);
+            this.lblFormaPago.Size = new System.Drawing.Size(180, 46);
             this.lblFormaPago.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblFormaPago.Name = "lblFormaPago";
             this.lblFormaPago.TabIndex = 27;
             // 
             // flpFormasPago
             // 
+            this.flpFormasPago.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flpFormasPago.Location = new System.Drawing.Point(185, 571);
             this.flpFormasPago.Size = new System.Drawing.Size(795, 30);
             this.flpFormasPago.Name = "flpFormasPago";

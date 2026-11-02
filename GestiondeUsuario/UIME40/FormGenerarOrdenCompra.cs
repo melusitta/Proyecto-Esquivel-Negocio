@@ -58,6 +58,12 @@ namespace GestiondeUsuario
             return GestorIdioma.Instancia.Obtener("FormGenerarOrdenCompra", clave);
         }
 
+        // "1 día" / "7 días"
+        private string Dias(int cantidad)
+        {
+            return string.Format(T(cantidad == 1 ? "diasUno" : "dias"), cantidad);
+        }
+
         private Cotizacion CotizacionElegida()
         {
             return (cmbCotizacion.SelectedItem as OpcionCotizacion)?.Valor;
@@ -128,7 +134,7 @@ namespace GestiondeUsuario
                 SolicitudCompra s = SolicitudDe(c);
                 _proveedor = ProveedorBLL.Instancia.ObtenerPorId(c.Proveedor.Id);
                 lblInfoCotizacion.Text = string.Format(T("lblInfoCotizacion"), s.NroSolicitud.ToString("D6"),
-                    TextosCompras.Prioridad(s.Prioridad), c.PlazoEntregaDias, TextosCompras.FormasPago(c.FormaPago));
+                    TextosCompras.Prioridad(s.Prioridad), Dias(c.PlazoEntregaDias), TextosCompras.FormasPago(c.FormaPago));
 
                 // 3.1: sin datos bancarios no se le puede pagar
                 bool registrado = _proveedor.EstaRegistrado;
@@ -159,7 +165,7 @@ namespace GestiondeUsuario
 
                 // Las condiciones salen de lo cotizado y de los datos del proveedor, y no se editan. En el pago van
                 // las formas que acepta el proveedor: al pagar se elige una de ellas
-                txtEntrega.Text = string.Format(T("entregaPropuesta"), c.PlazoEntregaDias)
+                txtEntrega.Text = string.Format(T("entregaPropuesta"), Dias(c.PlazoEntregaDias))
                     + (string.IsNullOrEmpty(_proveedor.CondicionesEntrega) ? "" : " - " + _proveedor.CondicionesEntrega);
                 string formas = TextosCompras.FormasPago(c.FormaPago);
                 var partes = new List<string>();

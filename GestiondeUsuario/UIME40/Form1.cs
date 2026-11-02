@@ -104,9 +104,10 @@ namespace GestiondeUsuario
                     }
                     else
                     {
-                        Aviso.Exito(_traducciones?["Form1"]?["msgBienvenido"]?.ToString());
                         new FormPrincipal().Show();
                         this.Hide();
+                        // Después de abrir el menú, para que el aviso se ubique al costado del menú y no del login
+                        Aviso.Exito(_traducciones?["Form1"]?["msgBienvenido"]?.ToString());
                     }
                 }
                 else

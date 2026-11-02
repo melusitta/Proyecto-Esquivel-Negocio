@@ -107,9 +107,9 @@ namespace GestiondeUsuario
         {
             dgvVersiones.AutoGenerateColumns = false;
             dgvVersiones.Columns.Clear();
-            foreach (var c in new[] { ("Version", 40f), ("Fecha", 115f), ("Usuario", 125f), ("Cambio", 105f), ("CodigoProducto", 60f),
-                                      ("Nombre", 170f), ("Marca", 105f), ("Color", 75f), ("Modelo", 90f), ("PrecioUnitario", 85f),
-                                      ("Existencia", 80f), ("Categoria", 90f), ("StockMinimo", 80f), ("Proveedor", 140f), ("Activo", 55f) })
+            foreach (var c in new[] { ("Version", 40f), ("Fecha", 150f), ("Usuario", 90f), ("Cambio", 90f), ("CodigoProducto", 60f),
+                                      ("Nombre", 175f), ("Marca", 105f), ("Color", 65f), ("Modelo", 90f), ("PrecioUnitario", 85f),
+                                      ("Existencia", 80f), ("Categoria", 90f), ("StockMinimo", 100f), ("Proveedor", 155f), ("Activo", 50f) })
                 dgvVersiones.Columns.Add(new DataGridViewTextBoxColumn { Name = c.Item1, FillWeight = c.Item2, MinimumWidth = 40 });
         }
 

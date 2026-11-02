@@ -29,7 +29,8 @@ namespace GestiondeUsuario
         private void FormGenerarSolicitudCompra_Load(object sender, EventArgs e)
         {
             Tema.Aplicar(this);
-            Tema.MensajeVacio(dgvProductos, () => T("vacioProductos"));
+            // Si la lista quedó vacía porque se pasaron todos a la solicitud, no es que esté "todo en orden"
+            Tema.MensajeVacio(dgvProductos, () => T(dgvItems.Rows.Count > 0 ? "vacioProductosAgregados" : "vacioProductos"));
             Tema.MensajeVacio(dgvItems, () => T("vacioItems"));
             Tema.EstiloPrincipal(btnFinalizar);
             Tema.EstiloPrincipal(btnAgregar);
@@ -51,6 +52,12 @@ namespace GestiondeUsuario
         private string T(string clave)
         {
             return GestorIdioma.Instancia.Obtener("FormGenerarSolicitudCompra", clave);
+        }
+
+        // "1 producto" / "3 productos": con cantidad 1 usa la clave terminada en "Uno"
+        private string Contar(string clave, int cantidad)
+        {
+            return string.Format(T(cantidad == 1 ? clave + "Uno" : clave), cantidad);
         }
 
         private void CrearColumnas()
@@ -199,7 +206,7 @@ namespace GestiondeUsuario
             int productos = dgvItems.Rows.Count;
             int proveedores = dgvItems.Rows.Cast<DataGridViewRow>().Select(r => r.Cells["Proveedor"].Value)
                 .Where(v => v != null).Distinct().Count();
-            lblResumen.Text = productos == 0 ? T("sinProductos") : string.Format(T("lblResumen"), productos, proveedores);
+            lblResumen.Text = productos == 0 ? T("sinProductos") : string.Format(T("lblResumen"), Contar("productos", productos), Contar("proveedores", proveedores));
             btnFinalizar.Enabled = btnQuitar.Enabled = productos > 0;
             btnAgregar.Enabled = dgvProductos.Rows.Count > 0;
         }
@@ -249,8 +256,8 @@ namespace GestiondeUsuario
                     p.CondicionesComerciales,
                     Estado = TextosCompras.Estado(p.Estado)
                 }).ToList();
-                Tema.AnchoColumnas(dgvProveedores, ("RazonSocial", 160), ("CUIT", 100), ("Contacto", 110), ("Telefono", 115),
-                    ("Rubro", 120), ("CondicionesEntrega", 160), ("Plazo", 75), ("FormaPago", 150), ("CondicionesComerciales", 150), ("Estado", 95));
+                Tema.AnchoColumnas(dgvProveedores, ("RazonSocial", 160), ("CUIT", 110), ("Contacto", 110), ("Telefono", 125),
+                    ("Rubro", 120), ("CondicionesEntrega", 145), ("Plazo", 105), ("FormaPago", 150), ("CondicionesComerciales", 150), ("Estado", 85));
                 TraducirColumnas();
                 MarcarProveedorElegido();
             }
@@ -290,7 +297,7 @@ namespace GestiondeUsuario
             foreach (DataGridViewRow fila in filas)
                 fila.Cells["Proveedor"].Value = proveedor.Id;
             MostrarResumen();
-            Aviso.Info(string.Format(T("msgAsignado"), proveedor.RazonSocial, filas.Count));
+            Aviso.Info(string.Format(T(filas.Count == 1 ? "msgAsignadoUno" : "msgAsignado"), proveedor.RazonSocial, filas.Count));
         }
 
         // 6.1 (extend CUN-007): el proveedor no está y se pre-registra; queda asignado a los productos marcados

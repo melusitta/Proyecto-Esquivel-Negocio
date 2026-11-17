@@ -160,51 +160,77 @@ namespace DAL
             }
         }
 
-        public bool Insertar(Producto p)
+        // CUS014 Auditoría de cambios: la versión del producto la guarda el trigger trg_Producto_Audit.
+        // Antes del INSERT/UPDATE se le pasa, en la misma conexión, el tipo de cambio, el usuario y un detalle
+        // con SESSION_CONTEXT; después se limpia para que no quede en la conexión.
+        private int EjecutarConAuditoria(string sentencia, Action<SqlCommand> parametros,
+            string tipoCambio, string usuario, string detalle)
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                string query = @"INSERT INTO Producto
-                    (CodigoProducto, Nombre, Marca, Color, Modelo, PrecioUnitario, Existencia, Activo,
-                     Categoria, StockMinimo, IdProveedorHabitual)
-                    VALUES (@Codigo, @Nombre, @Marca, @Color, @Modelo, @Precio, @Existencia, 1,
-                     @Categoria, @StockMinimo, @IdProveedor)";
+                string query = @"EXEC sp_set_session_context N'TipoCambio', @TipoCambio;
+                    EXEC sp_set_session_context N'Usuario', @Usuario;
+                    EXEC sp_set_session_context N'Detalle', @Detalle;
+                    " + sentencia + @";
+                    EXEC sp_set_session_context N'TipoCambio', NULL;
+                    EXEC sp_set_session_context N'Usuario', NULL;
+                    EXEC sp_set_session_context N'Detalle', NULL;";
                 SqlCommand cmd = new SqlCommand(query, con);
-                CargarParametros(cmd, p);
+                parametros(cmd);
+                cmd.Parameters.AddWithValue("@TipoCambio", tipoCambio);
+                cmd.Parameters.AddWithValue("@Usuario", (object)usuario ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Detalle", (object)detalle ?? DBNull.Value);
                 con.Open();
-                return cmd.ExecuteNonQuery() > 0;
+                return cmd.ExecuteNonQuery();
             }
         }
 
-        public bool Modificar(Producto p)
+        public bool Insertar(Producto p, string usuario)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            string query = @"INSERT INTO Producto
+                (CodigoProducto, Nombre, Marca, Color, Modelo, PrecioUnitario, Existencia, Activo,
+                 Categoria, StockMinimo, IdProveedorHabitual)
+                VALUES (@Codigo, @Nombre, @Marca, @Color, @Modelo, @Precio, @Existencia, 1,
+                 @Categoria, @StockMinimo, @IdProveedor)";
+            return EjecutarConAuditoria(query, cmd => CargarParametros(cmd, p), "Alta", usuario, null) > 0;
+        }
+
+        public bool Modificar(Producto p, string usuario)
+        {
+            return Actualizar(p, null, "Modificacion", usuario, null);
+        }
+
+        // Restaurar una versión: un solo UPDATE (datos y Activo) para que el trigger guarde una sola versión
+        public bool Restaurar(Producto p, string usuario, int nroVersion)
+        {
+            return Actualizar(p, p.Activo, "Restauracion", usuario, nroVersion.ToString());
+        }
+
+        private bool Actualizar(Producto p, bool? activo, string tipoCambio, string usuario, string detalle)
+        {
+            string query = @"UPDATE Producto SET
+                CodigoProducto = @Codigo, Nombre = @Nombre, Marca = @Marca, Color = @Color,
+                Modelo = @Modelo, PrecioUnitario = @Precio, Existencia = @Existencia,
+                Categoria = @Categoria, StockMinimo = @StockMinimo, IdProveedorHabitual = @IdProveedor,
+                Activo = ISNULL(@Activo, Activo)
+                WHERE Id = @Id";
+            return EjecutarConAuditoria(query, cmd =>
             {
-                string query = @"UPDATE Producto SET
-                    CodigoProducto = @Codigo, Nombre = @Nombre, Marca = @Marca, Color = @Color,
-                    Modelo = @Modelo, PrecioUnitario = @Precio, Existencia = @Existencia,
-                    Categoria = @Categoria, StockMinimo = @StockMinimo, IdProveedorHabitual = @IdProveedor
-                    WHERE Id = @Id";
-                SqlCommand cmd = new SqlCommand(query, con);
                 CargarParametros(cmd, p);
                 cmd.Parameters.AddWithValue("@Id", p.Id);
-                con.Open();
-                return cmd.ExecuteNonQuery() > 0;
-            }
+                cmd.Parameters.AddWithValue("@Activo", (object)activo ?? DBNull.Value);
+            }, tipoCambio, usuario, detalle) > 0;
         }
 
         // Baja lógica: el producto queda en carritos y facturas viejas, pero deja de venderse
-        public bool CambiarActivo(int id, bool activo)
+        public bool CambiarActivo(int id, bool activo, string usuario)
         {
-            using (SqlConnection con = new SqlConnection(connectionString))
+            string query = "UPDATE Producto SET Activo = @Activo WHERE Id = @Id";
+            return EjecutarConAuditoria(query, cmd =>
             {
-                string query = "UPDATE Producto SET Activo = @Activo WHERE Id = @Id";
-                SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Activo", activo);
                 cmd.Parameters.AddWithValue("@Id", id);
-                con.Open();
-                return cmd.ExecuteNonQuery() > 0;
-            }
+            }, activo ? "Reactivacion" : "Baja", usuario, null) > 0;
         }
 
         private void CargarParametros(SqlCommand cmd, Producto p)

@@ -1,6 +1,7 @@
 ﻿using BE;
 using DAL;
 using Servicios;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Linq;
 namespace BLL
 {
     // CUN-002 Seleccionar productos y ABM de productos (menú Maestro).
-    // Bitácora de cambios (CUS014): cada alta, modificación, baja, reactivación o restauración deja una versión
-    // del producto en ProductoVersion. La guarda el trigger trg_Producto_Audit de la base; la BLL solo le pasa
-    // (por la DAL) el usuario. Se consulta y restaura desde Admin → Bitácora de cambios.
+    // Bitácora de cambios (CUS014): cada alta, modificación, baja o reactivación deja una versión del producto en
+    // ProductoVersion, que queda como la versión activa. La guarda el trigger trg_Producto_Audit de la base; la BLL
+    // solo le pasa (por la DAL) el usuario. Se consulta, filtra y activa desde Admin → Bitácora de cambios.
     public class ProductoBLL
     {
         private static ProductoBLL _instancia;
@@ -152,8 +153,30 @@ namespace BLL
             return new ProductoVersionDAL().ObtenerPorProducto(idProducto);
         }
 
-        // Vuelve el producto a los datos de esa versión (incluido si estaba activo o dado de baja) y eso queda
-        // como una versión nueva (la guarda el trigger). La existencia no se restaura: el stock cambia con las ventas y las recepciones.
+        // Al abrir la bitácora se muestran los cambios del último mes
+        public static DateTime DesdeInicial => DateTime.Today.AddMonths(-1);
+
+        // Cambios de todos los productos entre dos fechas, filtrados por producto (código, nombre o marca),
+        // usuario y tipo de cambio (vacíos = todos), de los más nuevos a los más viejos
+        public List<ProductoVersion> ObtenerCambios(DateTime desde, DateTime hasta, string producto, string usuario, string tipoCambio)
+        {
+            if (desde.Date > hasta.Date)
+                throw new ErrorNegocio("FECHAS_INVALIDAS");
+            return new ProductoVersionDAL().ObtenerCambios(desde, hasta,
+                string.IsNullOrWhiteSpace(producto) ? null : producto.Trim(),
+                string.IsNullOrWhiteSpace(usuario) ? null : usuario,
+                string.IsNullOrWhiteSpace(tipoCambio) ? null : tipoCambio);
+        }
+
+        // Usuarios que hicieron cambios (para el filtro)
+        public List<string> ObtenerUsuariosCambios()
+        {
+            return new ProductoVersionDAL().ObtenerUsuarios();
+        }
+
+        // Activa una versión vieja: el producto vuelve a esos datos (incluido si estaba activo o dado de baja) y el
+        // trigger marca esa versión como la activa (las demás quedan inactivas). No se crea un registro nuevo.
+        // La existencia no se restaura: el stock cambia con las ventas y las recepciones.
         public void RestaurarVersion(int idVersion)
         {
             ProductoVersionDAL versiones = new ProductoVersionDAL();
@@ -165,13 +188,10 @@ namespace BLL
             if (actual == null)
                 throw new ErrorNegocio("PRODUCTO_NO_ENCONTRADO", v.Datos.CodigoProducto);
 
+            if (v.VersionActiva)
+                throw new ErrorNegocio("VERSION_YA_ACTUAL", v.NroVersion);
             Producto p = v.Datos;
             p.Existencia = actual.Existencia;
-            if (p.CodigoProducto == actual.CodigoProducto && p.Nombre == actual.Nombre && p.Marca == actual.Marca
-                && p.Color == actual.Color && p.Modelo == actual.Modelo && p.PrecioUnitario == actual.PrecioUnitario
-                && p.Categoria == actual.Categoria && p.StockMinimo == actual.StockMinimo
-                && p.IdProveedorHabitual == actual.IdProveedorHabitual && p.Activo == actual.Activo)
-                throw new ErrorNegocio("VERSION_YA_ACTUAL", v.NroVersion);
             Validar(p);
             if (dal.ExisteCodigo(p.CodigoProducto, p.Id))
                 throw new ErrorNegocio("PRODUCTO_CODIGO_DUPLICADO", p.CodigoProducto);

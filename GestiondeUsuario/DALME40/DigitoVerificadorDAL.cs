@@ -83,7 +83,7 @@ namespace DAL
         {
             return ObtenerDatosTabla(
                 "SELECT Id, IdProducto, NroVersion, TipoCambio, Usuario, CodigoProducto, Nombre, Marca, Color, Modelo, " +
-                "PrecioUnitario, Existencia, Activo, Categoria, StockMinimo, IdProveedorHabitual FROM ProductoVersion");
+                "PrecioUnitario, Existencia, Activo, Categoria, StockMinimo, IdProveedorHabitual, VersionActiva FROM ProductoVersion");
         }
 
         public List<List<string>> ObtenerDatosCliente()

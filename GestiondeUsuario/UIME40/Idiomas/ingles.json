@@ -1002,13 +1002,13 @@
     "controlCambios": {
       "titulo": "Change log",
       "texto": [
-        "Every time a product is created, modified, deactivated or reactivated, the system saves a version with all its data, the date and who made the change. It opens from Admin → Change log.",
-        "1. Search for the product and choose it in the list at the top.",
-        "2. Below you see all its versions, newest first. In pink is what changed from the previous version.",
-        "3. To go back, choose a version and press \"Restore this version\".",
-        "- The restoration is also saved as a new version and in the event log, so you can always go back to how it was.",
+        "Every time a product is created, modified, deactivated or reactivated, the system saves a version with all its data, the date and who made the change. That version becomes the product's active one: each product has only one active version. It opens from Admin → Change log.",
+        "1. When it opens you see the changes of the last month for all products, newest first. In pink is what changed from the previous version and in purple the active version.",
+        "2. To search, fill in the filters (product, user, change type and dates) and press \"Search\". \"Clear\" removes the filters and goes back to the changes of the last month.",
+        "3. To take a product back, choose one of its changes and press \"Activate this version\". The product goes back to that data and that version becomes the active one.",
         "- Stock is not restored: it keeps its current value, because it changes with sales and receptions.",
-        "💡 If you restore a version from when the product was deactivated, the product becomes inactive again."
+        "- Sales and receptions do not create versions, because they only change the stock.",
+        "💡 If you activate a version from when the product was deactivated, the product becomes inactive again."
       ]
     },
     "respaldo": {
@@ -1272,22 +1272,14 @@
   },
   "FormControlCambios": {
     "tituloForm": "Change log",
-    "lblBuscar": "Search product:",
-    "lblProductos": "Products (active and inactive)",
-    "lblVersiones": "Product versions (in pink, what changed from the previous version)",
-    "btnRestaurar": "Restore this version",
+    "lblBuscar": "Product:",
+    "lblVersiones": "Changes ({0}) · in pink, what changed from the previous version; in purple, the active version of each product",
+    "btnRestaurar": "Activate this version",
     "btnVolver": "Back",
     "activo": "Active",
     "inactivo": "Inactive",
     "si": "Yes",
     "no": "No",
-    "sinVersiones": "Choose a product to see its history",
-    "colProdCodigo": "Code",
-    "colProdNombre": "Name",
-    "colProdMarca": "Brand",
-    "colProdPrecio": "Price",
-    "colProdExistencia": "Stock",
-    "colProdEstado": "Status",
     "colVersion": "No.",
     "colFecha": "Date",
     "colUsuario": "User",
@@ -1302,19 +1294,28 @@
     "colCategoria": "Category",
     "colStockMinimo": "Min. stock",
     "colProveedor": "Supplier",
-    "colActivo": "Active",
+    "colActivo": "Status",
     "tipoAlta": "Created",
     "tipoModificacion": "Modified",
     "tipoBaja": "Deactivated",
     "tipoReactivacion": "Reactivated",
     "tipoRestauracion": "Restored",
     "deVersion": "from version {0}",
-    "ayudaElegir": "Choose a version to restore it.",
-    "ayudaRestaurar": "When restored, the product goes back to that data (except stock, which keeps its current value).",
-    "ayudaActual": "This is the current version of the product.",
-    "msgConfirmar": "Restore \"{0}\" to version {1} from {2}? The product goes back to that data, except stock, which keeps its current value.",
-    "msgRestaurada": "\"{0}\" went back to version {1}. The restoration was saved as a new version.",
-    "msgError": "Error"
+    "ayudaElegir": "Choose a change to activate that version of the product.",
+    "ayudaRestaurar": "When activated, the product goes back to that data (except stock, which keeps its current value) and it becomes its active version.",
+    "ayudaActual": "This is the active version of the product.",
+    "msgConfirmar": "Activate version {1} of \"{0}\" (from {2})? The product goes back to that data, except stock, which keeps its current value.",
+    "msgRestaurada": "Version {1} of \"{0}\" is now active and the product was updated with its data.",
+    "msgError": "Error",
+    "lblUsuario": "User:",
+    "lblTipo": "Change type:",
+    "lblDesde": "From:",
+    "lblHasta": "To:",
+    "btnBuscar": "Search",
+    "btnLimpiar": "Clear",
+    "todos": "All",
+    "sinCambios": "There are no changes with these filters",
+    "colVersionActiva": "Active"
   },
   "Errores": {
     "ROL_EN_USO": "A role that is assigned to a user cannot be deleted.",
@@ -1419,6 +1420,6 @@
     "COTIZACION_YA_RESUELTA": "The quote from \"{0}\" already has a purchase order or was discarded.",
     "COTIZACION_DESCARTADA": "The quote from \"{0}\" was discarded: the purchase order cannot be generated.",
     "VERSION_NO_ENCONTRADA": "The version does not exist.",
-    "VERSION_YA_ACTUAL": "The product already has the data of version {0}: there is nothing to restore."
+    "VERSION_YA_ACTUAL": "Version {0} is already the active version of the product."
   }
 }

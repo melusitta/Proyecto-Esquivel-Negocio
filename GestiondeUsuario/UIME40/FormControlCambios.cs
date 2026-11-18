@@ -10,17 +10,28 @@ using System.Windows.Forms;
 
 namespace GestiondeUsuario
 {
-    // Bitácora de cambios del maestro de productos (menú Admin): se elige un producto y se ven todas sus versiones
-    // (alta, modificaciones, baja, reactivación, restauraciones), con lo que cambió en cada una resaltado.
-    // "Restaurar esta versión" vuelve el producto a esos datos (menos la existencia) y queda como versión nueva.
+    // CUS014 Bitácora de cambios del maestro de productos (menú Admin). Al abrir muestra los cambios del último mes
+    // de todos los productos; se filtran por producto, usuario, tipo de cambio y fechas, y "Limpiar" vuelve a eso.
+    // En cada cambio se resalta en rosa lo que cambió respecto de la versión anterior del producto.
+    // De las versiones de un producto una sola es la activa; "Activar esta versión" activa una vieja y el producto
+    // vuelve a esos datos (menos la existencia). Las versiones las guarda el trigger trg_Producto_Audit.
     public partial class FormControlCambios : Form, IObservadorIdioma
     {
-        private List<Producto> _productos = new List<Producto>();
-        private List<ProductoVersion> _versiones = new List<ProductoVersion>();
+        private List<ProductoVersion> _cambios = new List<ProductoVersion>();
 
-        // Campos que se comparan entre versiones (nombre de columna de la grilla)
+        // Campos que se comparan con la versión anterior (nombre de columna de la grilla)
         private static readonly string[] Campos = { "CodigoProducto", "Nombre", "Marca", "Color", "Modelo", "PrecioUnitario",
                                                     "Existencia", "Categoria", "StockMinimo", "Proveedor", "Activo" };
+        private static readonly string[] Tipos = { ProductoVersion.TipoAlta, ProductoVersion.TipoModificacion, ProductoVersion.TipoBaja,
+                                                   ProductoVersion.TipoReactivacion, ProductoVersion.TipoRestauracion };
+
+        // Ítem de un combo: valor que se filtra y texto en el idioma activo (valor null = todos)
+        private class Opcion
+        {
+            public string Valor { get; set; }
+            public string Texto { get; set; }
+            public override string ToString() => Texto;
+        }
 
         public FormControlCambios()
         {
@@ -31,12 +42,14 @@ namespace GestiondeUsuario
         {
             Tema.Aplicar(this);
             Tema.EstiloPrincipal(btnRestaurar);
-            Tema.MensajeVacio(dgvVersiones, () => T("sinVersiones"));
+            Tema.EstiloPrincipal(btnBuscar);
+            Tema.EstiloSecundario(btnLimpiar);
+            Tema.MensajeVacio(dgvVersiones, () => T("sinCambios"));
             lblAyudaRestaurar.ForeColor = Tema.PrincipalOscuro;
-            CrearColumnasVersiones();
+            CrearColumnas();
             GestorIdioma.Instancia.Suscribir(this);
             GestorIdioma.Instancia.CambiarIdioma(SessionManager.Instancia.ObtenerIdioma());
-            CargarProductos(null);
+            Limpiar();
         }
 
         private void FormControlCambios_FormClosed(object sender, FormClosedEventArgs e)
@@ -49,101 +62,144 @@ namespace GestiondeUsuario
             return GestorIdioma.Instancia.Obtener("FormControlCambios", clave);
         }
 
-        // ---------- Productos ----------
+        // ---------- Filtros ----------
 
-        private void CargarProductos(int? seleccionar)
+        private void CargarCombos()
         {
+            string usuario = (cmbUsuario.SelectedItem as Opcion)?.Valor;
+            string tipo = (cmbTipo.SelectedItem as Opcion)?.Valor;
+
+            cmbUsuario.Items.Clear();
+            cmbUsuario.Items.Add(new Opcion { Valor = null, Texto = T("todos") });
             try
             {
-                int? actual = seleccionar ?? Seleccionado()?.Id;
-                _productos = ProductoBLL.Instancia.ObtenerParaABM(true, txtBuscar.Text);
-                dgvProductos.SelectionChanged -= dgvProductos_SelectionChanged;
-                dgvProductos.DataSource = _productos.Select(p => new
-                {
-                    p.Id,
-                    Codigo = p.CodigoProducto,
-                    p.Nombre,
-                    p.Marca,
-                    Precio = p.PrecioUnitario.ToString("N2"),
-                    p.Existencia,
-                    Estado = p.Activo ? T("activo") : T("inactivo")
-                }).ToList();
-                dgvProductos.Columns["Id"].Visible = false;
-                Tema.AnchoColumnas(dgvProductos, ("Codigo", 70), ("Nombre", 250), ("Marca", 140), ("Precio", 100), ("Existencia", 80), ("Estado", 90));
-                foreach (DataGridViewColumn c in dgvProductos.Columns) c.HeaderText = T("colProd" + c.Name);
-                foreach (DataGridViewRow fila in dgvProductos.Rows)
-                    if (actual.HasValue && Convert.ToInt32(fila.Cells["Id"].Value) == actual.Value)
-                        dgvProductos.CurrentCell = fila.Cells["Codigo"];
-                dgvProductos.SelectionChanged += dgvProductos_SelectionChanged;
-                MostrarVersiones();
+                foreach (string u in ProductoBLL.Instancia.ObtenerUsuariosCambios())
+                    cmbUsuario.Items.Add(new Opcion { Valor = u, Texto = u });
             }
             catch (Exception ex)
             {
                 MostrarError(ex);
             }
+            cmbTipo.Items.Clear();
+            cmbTipo.Items.Add(new Opcion { Valor = null, Texto = T("todos") });
+            foreach (string t in Tipos)
+                cmbTipo.Items.Add(new Opcion { Valor = t, Texto = T("tipo" + t) });
+
+            Elegir(cmbUsuario, usuario);
+            Elegir(cmbTipo, tipo);
         }
 
-        private Producto Seleccionado()
+        private static void Elegir(ComboBox cmb, string valor)
         {
-            DataGridViewRow fila = dgvProductos.SelectedRows.Count > 0 ? dgvProductos.SelectedRows[0] : dgvProductos.CurrentRow;
-            if (fila == null) return null;
-            int id = Convert.ToInt32(fila.Cells["Id"].Value);
-            return _productos.FirstOrDefault(p => p.Id == id);
+            cmb.SelectedIndex = 0;
+            for (int i = 0; i < cmb.Items.Count; i++)
+                if (((Opcion)cmb.Items[i]).Valor == valor)
+                    cmb.SelectedIndex = i;
         }
 
-        private void txtBuscar_TextChanged(object sender, EventArgs e)
+        // Datos iniciales: sin filtros, los cambios del último mes
+        private void Limpiar()
         {
-            CargarProductos(null);
+            txtBuscar.Clear();
+            cmbUsuario.SelectedIndex = -1;
+            cmbTipo.SelectedIndex = -1;
+            CargarCombos();
+            dtpDesde.Value = ProductoBLL.DesdeInicial;
+            dtpHasta.Value = DateTime.Today;
+            CargarCambios(null);
         }
 
-        private void dgvProductos_SelectionChanged(object sender, EventArgs e)
+        private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            MostrarVersiones();
+            Limpiar();
         }
 
-        // ---------- Versiones ----------
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            CargarCambios(null);
+        }
 
-        private void CrearColumnasVersiones()
+        private void txtBuscar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) return;
+            e.SuppressKeyPress = true;
+            CargarCambios(null);
+        }
+
+        // ---------- Cambios ----------
+
+        private void CrearColumnas()
         {
             dgvVersiones.AutoGenerateColumns = false;
             dgvVersiones.Columns.Clear();
-            foreach (var c in new[] { ("Version", 40f), ("Fecha", 150f), ("Usuario", 90f), ("Cambio", 90f), ("CodigoProducto", 60f),
-                                      ("Nombre", 175f), ("Marca", 105f), ("Color", 65f), ("Modelo", 90f), ("PrecioUnitario", 85f),
-                                      ("Existencia", 80f), ("Categoria", 90f), ("StockMinimo", 100f), ("Proveedor", 155f), ("Activo", 50f) })
+            foreach (var c in new[] { ("VersionActiva", 60f), ("CodigoProducto", 60f), ("Nombre", 170f), ("Version", 40f), ("Fecha", 120f),
+                                      ("Usuario", 95f), ("Cambio", 100f), ("Marca", 95f), ("Color", 60f), ("Modelo", 90f),
+                                      ("PrecioUnitario", 80f), ("Existencia", 70f), ("Categoria", 80f), ("StockMinimo", 70f),
+                                      ("Proveedor", 140f), ("Activo", 55f) })
                 dgvVersiones.Columns.Add(new DataGridViewTextBoxColumn { Name = c.Item1, FillWeight = c.Item2, MinimumWidth = 40 });
         }
 
-        private void MostrarVersiones()
+        private void CargarCambios(int? seleccionar)
         {
-            dgvVersiones.Rows.Clear();
-            Producto p = Seleccionado();
-            _versiones = p == null ? new List<ProductoVersion>() : ProductoBLL.Instancia.ObtenerVersiones(p.Id);
-            foreach (ProductoVersion v in _versiones)
+            try
             {
-                Producto d = v.Datos;
-                string cambio = TextoCambio(v);
-                int fila = dgvVersiones.Rows.Add(v.NroVersion, v.Fecha.ToString("dd/MM/yyyy HH:mm"), v.Usuario, cambio,
-                    d.CodigoProducto, d.Nombre, d.Marca, d.Color, d.Modelo, d.PrecioUnitario.ToString("N2"), d.Existencia,
-                    d.Categoria, d.StockMinimo, d.ProveedorHabitual ?? "", d.Activo ? T("si") : T("no"));
-                dgvVersiones.Rows[fila].Tag = v;
+                _cambios = ProductoBLL.Instancia.ObtenerCambios(dtpDesde.Value, dtpHasta.Value, txtBuscar.Text,
+                    (cmbUsuario.SelectedItem as Opcion)?.Valor, (cmbTipo.SelectedItem as Opcion)?.Valor);
             }
-            // Lo que cambió respecto de la versión anterior (la siguiente fila, porque van de la más nueva a la más vieja)
-            for (int i = 0; i < dgvVersiones.Rows.Count - 1; i++)
+            catch (Exception ex)
+            {
+                MostrarError(ex);
+                return;
+            }
+
+            dgvVersiones.Rows.Clear();
+            foreach (ProductoVersion v in _cambios)
+            {
+                int fila = dgvVersiones.Rows.Add(Fila(v, v.Datos, v.VersionActiva ? T("si") : T("no"), v.NroVersion,
+                    v.Fecha.ToString("dd/MM/yyyy HH:mm"), v.Usuario, TextoCambio(v)));
+                DataGridViewRow r = dgvVersiones.Rows[fila];
+                r.Tag = v;
+                if (v.VersionActiva)
+                {
+                    // La versión activa del producto se ve en violeta
+                    DataGridViewCell activa = r.Cells["VersionActiva"];
+                    activa.Style.BackColor = Tema.Principal;
+                    activa.Style.ForeColor = Color.White;
+                    activa.Style.SelectionBackColor = Tema.PrincipalHover;
+                    activa.Style.SelectionForeColor = Color.White;
+                    activa.Style.Font = new Font(dgvVersiones.Font, FontStyle.Bold);
+                }
+                // Lo que cambió respecto de la versión anterior del producto
+                if (v.DatosAnteriores == null) continue;
+                object[] anterior = Fila(v, v.DatosAnteriores, "", 0, "", "", "");
                 foreach (string campo in Campos)
                 {
-                    DataGridViewCell celda = dgvVersiones.Rows[i].Cells[campo];
-                    if (!Equals(Convert.ToString(celda.Value), Convert.ToString(dgvVersiones.Rows[i + 1].Cells[campo].Value)))
-                    {
-                        // Rosa fuerte, que se vea aun con la fila seleccionada (el rosa claro se confundía con el blanco)
-                        celda.Style.BackColor = Tema.AcentoFuerte;
-                        celda.Style.ForeColor = Color.White;
-                        celda.Style.SelectionBackColor = Tema.AcentoOscuro;
-                        celda.Style.SelectionForeColor = Color.White;
-                        celda.Style.Font = new Font(dgvVersiones.Font, FontStyle.Bold);
-                    }
+                    DataGridViewCell celda = r.Cells[campo];
+                    if (Equals(Convert.ToString(celda.Value), Convert.ToString(anterior[celda.ColumnIndex])))
+                        continue;
+                    // Rosa fuerte, que se vea aun con la fila seleccionada
+                    celda.Style.BackColor = Tema.AcentoFuerte;
+                    celda.Style.ForeColor = Color.White;
+                    celda.Style.SelectionBackColor = Tema.AcentoOscuro;
+                    celda.Style.SelectionForeColor = Color.White;
+                    celda.Style.Font = new Font(dgvVersiones.Font, FontStyle.Bold);
                 }
+            }
+            lblVersiones.Text = string.Format(T("lblVersiones"), _cambios.Count);
             dgvVersiones.ClearSelection();
+            if (seleccionar.HasValue)
+                foreach (DataGridViewRow r in dgvVersiones.Rows)
+                    if (((ProductoVersion)r.Tag).Id == seleccionar.Value)
+                        r.Selected = true;
             dgvVersiones_SelectionChanged(null, EventArgs.Empty);
+        }
+
+        // Valores de una fila de la grilla, en el orden de las columnas
+        private object[] Fila(ProductoVersion v, Producto d, string activa, int nro, string fecha, string usuario, string cambio)
+        {
+            return new object[] { activa, d.CodigoProducto, d.Nombre, nro == 0 ? (object)"" : nro, fecha, usuario, cambio,
+                d.Marca, d.Color, d.Modelo, d.PrecioUnitario.ToString("N2"), d.Existencia, d.Categoria, d.StockMinimo,
+                d.ProveedorHabitual ?? "", d.Activo ? T("activo") : T("inactivo") };
         }
 
         private string TextoCambio(ProductoVersion v)
@@ -160,28 +216,26 @@ namespace GestiondeUsuario
             return fila?.Tag as ProductoVersion;
         }
 
-        // Se puede restaurar cualquier versión menos la última (que son los datos de hoy)
+        // Se puede activar cualquier versión que no sea la activa de su producto
         private void dgvVersiones_SelectionChanged(object sender, EventArgs e)
         {
             ProductoVersion v = VersionElegida();
-            bool sePuede = v != null && _versiones.Count > 0 && v.Id != _versiones[0].Id;
-            btnRestaurar.Enabled = sePuede;
-            lblAyudaRestaurar.Text = v == null ? T("ayudaElegir") : sePuede ? T("ayudaRestaurar") : T("ayudaActual");
+            btnRestaurar.Enabled = v != null && !v.VersionActiva;
+            lblAyudaRestaurar.Text = v == null ? T("ayudaElegir") : v.VersionActiva ? T("ayudaActual") : T("ayudaRestaurar");
         }
 
         private void btnRestaurar_Click(object sender, EventArgs e)
         {
             ProductoVersion v = VersionElegida();
-            Producto p = Seleccionado();
-            if (v == null || p == null) return;
-            if (MessageBox.Show(string.Format(T("msgConfirmar"), p.Nombre, v.NroVersion, v.Fecha.ToString("dd/MM/yyyy HH:mm")),
+            if (v == null) return;
+            if (MessageBox.Show(string.Format(T("msgConfirmar"), v.Datos.Nombre, v.NroVersion, v.Fecha.ToString("dd/MM/yyyy HH:mm")),
                     T("tituloForm"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 return;
             try
             {
                 ProductoBLL.Instancia.RestaurarVersion(v.Id);
-                Aviso.Exito(string.Format(T("msgRestaurada"), p.Nombre, v.NroVersion));
-                CargarProductos(p.Id);
+                Aviso.Exito(string.Format(T("msgRestaurada"), v.Datos.Nombre, v.NroVersion));
+                CargarCambios(v.Id);
             }
             catch (Exception ex)
             {
@@ -210,13 +264,20 @@ namespace GestiondeUsuario
             this.Text = t["tituloForm"]?.ToString();
             lblTitulo.Text = t["tituloForm"]?.ToString();
             lblBuscar.Text = t["lblBuscar"]?.ToString();
-            lblProductos.Text = t["lblProductos"]?.ToString();
-            lblVersiones.Text = t["lblVersiones"]?.ToString();
+            lblUsuario.Text = t["lblUsuario"]?.ToString();
+            lblTipo.Text = t["lblTipo"]?.ToString();
+            lblDesde.Text = t["lblDesde"]?.ToString();
+            lblHasta.Text = t["lblHasta"]?.ToString();
+            btnBuscar.Text = t["btnBuscar"]?.ToString();
+            btnLimpiar.Text = t["btnLimpiar"]?.ToString();
             btnRestaurar.Text = t["btnRestaurar"]?.ToString();
             btnVolver.Text = t["btnVolver"]?.ToString();
             foreach (DataGridViewColumn c in dgvVersiones.Columns) c.HeaderText = t["col" + c.Name]?.ToString();
-            if (dgvProductos.DataSource != null)
-                CargarProductos(null);
+            if (cmbTipo.Items.Count > 0)
+            {
+                CargarCombos();
+                CargarCambios(VersionElegida()?.Id);
+            }
         }
     }
 }

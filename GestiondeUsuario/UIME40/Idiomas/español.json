@@ -1002,13 +1002,13 @@
     "controlCambios": {
       "titulo": "Bitácora de cambios",
       "texto": [
-        "Cada vez que se da de alta, se modifica, se da de baja o se reactiva un producto, el sistema guarda una versión con todos sus datos, la fecha y quién hizo el cambio. Se abre desde Admin → Bitácora de cambios.",
-        "1. Buscá el producto y elegilo en la lista de arriba.",
-        "2. Abajo ves todas sus versiones, de la más nueva a la más vieja. En rosa está lo que cambió respecto de la versión anterior.",
-        "3. Para volver atrás, elegí una versión y presioná \"Restaurar esta versión\".",
-        "- La restauración también queda como una versión nueva y en la bitácora, así que siempre se puede volver a como estaba.",
+        "Cada vez que se da de alta, se modifica, se da de baja o se reactiva un producto, el sistema guarda una versión con todos sus datos, la fecha y quién hizo el cambio. Esa versión pasa a ser la activa del producto: cada producto tiene una sola versión activa. Se abre desde Admin → Bitácora de cambios.",
+        "1. Al abrir se ven los cambios del último mes de todos los productos, del más nuevo al más viejo. En rosa está lo que cambió respecto de la versión anterior y en violeta la versión activa.",
+        "2. Para buscar, completá los filtros (producto, usuario, tipo de cambio y fechas) y presioná \"Buscar\". \"Limpiar\" borra los filtros y vuelve a los cambios del último mes.",
+        "3. Para volver atrás un producto, elegí uno de sus cambios y presioná \"Activar esta versión\". El producto vuelve a esos datos y esa versión pasa a ser la activa.",
         "- La existencia no se restaura: sigue con el stock actual, porque cambia con las ventas y las recepciones.",
-        "💡 Si restaurás una versión de cuando el producto estaba dado de baja, el producto vuelve a quedar inactivo."
+        "- Las ventas y las recepciones no generan versiones, porque solo cambian el stock.",
+        "💡 Si activás una versión de cuando el producto estaba dado de baja, el producto vuelve a quedar inactivo."
       ]
     },
     "respaldo": {
@@ -1272,22 +1272,14 @@
   },
   "FormControlCambios": {
     "tituloForm": "Bitácora de cambios",
-    "lblBuscar": "Buscar producto:",
-    "lblProductos": "Productos (activos e inactivos)",
-    "lblVersiones": "Versiones del producto (en rosa, lo que cambió respecto de la versión anterior)",
-    "btnRestaurar": "Restaurar esta versión",
+    "lblBuscar": "Producto:",
+    "lblVersiones": "Cambios ({0}) · en rosa, lo que cambió respecto de la versión anterior; en violeta, la versión activa de cada producto",
+    "btnRestaurar": "Activar esta versión",
     "btnVolver": "Volver",
     "activo": "Activo",
     "inactivo": "Inactivo",
     "si": "Sí",
     "no": "No",
-    "sinVersiones": "Elegí un producto para ver su historial",
-    "colProdCodigo": "Código",
-    "colProdNombre": "Nombre",
-    "colProdMarca": "Marca",
-    "colProdPrecio": "Precio",
-    "colProdExistencia": "Existencia",
-    "colProdEstado": "Estado",
     "colVersion": "N°",
     "colFecha": "Fecha",
     "colUsuario": "Usuario",
@@ -1302,19 +1294,28 @@
     "colCategoria": "Categoría",
     "colStockMinimo": "Stock mín.",
     "colProveedor": "Proveedor",
-    "colActivo": "Activo",
+    "colActivo": "Estado",
     "tipoAlta": "Alta",
     "tipoModificacion": "Modificación",
     "tipoBaja": "Baja",
     "tipoReactivacion": "Reactivación",
     "tipoRestauracion": "Restauración",
     "deVersion": "de la versión {0}",
-    "ayudaElegir": "Elegí una versión para restaurarla.",
-    "ayudaRestaurar": "Al restaurar, el producto vuelve a esos datos (menos la existencia, que sigue con el stock actual).",
-    "ayudaActual": "Esta es la versión actual del producto.",
-    "msgConfirmar": "¿Restaurar \"{0}\" a la versión {1} del {2}? El producto vuelve a esos datos, menos la existencia, que sigue con el stock actual.",
-    "msgRestaurada": "\"{0}\" volvió a la versión {1}. La restauración quedó como versión nueva.",
-    "msgError": "Error"
+    "ayudaElegir": "Elegí un cambio para activar esa versión del producto.",
+    "ayudaRestaurar": "Al activarla, el producto vuelve a esos datos (menos la existencia, que sigue con el stock actual) y pasa a ser su versión activa.",
+    "ayudaActual": "Esta es la versión activa del producto.",
+    "msgConfirmar": "¿Activar la versión {1} de \"{0}\" (del {2})? El producto vuelve a esos datos, menos la existencia, que sigue con el stock actual.",
+    "msgRestaurada": "La versión {1} de \"{0}\" quedó activa y el producto se actualizó con sus datos.",
+    "msgError": "Error",
+    "lblUsuario": "Usuario:",
+    "lblTipo": "Tipo de cambio:",
+    "lblDesde": "Desde:",
+    "lblHasta": "Hasta:",
+    "btnBuscar": "Buscar",
+    "btnLimpiar": "Limpiar",
+    "todos": "Todos",
+    "sinCambios": "No hay cambios con esos filtros",
+    "colVersionActiva": "Activa"
   },
   "Errores": {
     "ROL_EN_USO": "No se puede eliminar un rol que está siendo utilizado por un usuario.",
@@ -1419,6 +1420,6 @@
     "COTIZACION_YA_RESUELTA": "La cotización de \"{0}\" ya tiene orden de compra o fue descartada.",
     "COTIZACION_DESCARTADA": "La cotización de \"{0}\" fue descartada: no se puede generar la orden de compra.",
     "VERSION_NO_ENCONTRADA": "La versión no existe.",
-    "VERSION_YA_ACTUAL": "El producto ya tiene los datos de la versión {0}: no hay nada que restaurar."
+    "VERSION_YA_ACTUAL": "La versión {0} ya es la versión activa del producto."
   }
 }

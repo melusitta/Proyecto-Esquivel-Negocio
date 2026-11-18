@@ -87,6 +87,14 @@ namespace GestiondeUsuario
             gestionRespaldoToolStripMenuItem1.Enabled =
              PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
 
+            // Versión 1 (solo servicios): lo del negocio no se muestra hasta instalar la versión 2
+            if (!ModulosBLL.NegocioInstalado)
+                foreach (ToolStripMenuItem item in new[] { menuMaestro, menuVenta, menuCompras, menuReporte, controlCambiosToolStripMenuItem })
+                {
+                    item.Enabled = false;
+                    item.Visible = false;
+                }
+
             // Un menú sin ninguna opción habilitada queda en gris y no se puede abrir
             // (por ejemplo, Admin para un Vendedor)
             foreach (ToolStripMenuItem menu in menuStrip1.Items.OfType<ToolStripMenuItem>())

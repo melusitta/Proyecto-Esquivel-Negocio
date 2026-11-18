@@ -11,18 +11,23 @@ using System.Xml;
 
 namespace InstaladorDB
 {
-    // Crea la base GestionUsuarios con Script_GestionUsuarios.sql en la instancia de SQL Server que se elija.
+    // Crea la base GestionUsuarios en la instancia de SQL Server que se elija.
+    // Plumy se instala en dos versiones:
+    //   versión 1: --script Script_Servicios.sql (usuarios, perfiles, bitácora, dígito verificador)
+    //   versión 2: --script Script_Servicios.sql --negocio Script_Negocio.sql. Si ya hay una base (la de la versión 1)
+    //              y no se pide reemplazarla, se ACTUALIZA: se le agrega el negocio sin perder sus datos.
     // Sin --silencioso funciona en consola: lista las instancias, se elige una y pregunta si reemplazar una base existente.
     // El instalador de Plumy lo usa así:
     //   --listar [--salida <archivo>]     instancias encontradas, una por línea: "fuente|descripción" (en el archivo, en UTF-8)
     //   --existe <instancia>             0 = conecta y no hay base, 2 = conecta y la base existe, 1 = no conecta
-    //   --silencioso --instancia <inst> [--reemplazar] --script <.sql> --config <GestionNegocio.exe.config> [--log <archivo>] [--base <nombre>]
-    // Si el servicio de la instancia está detenido, intenta iniciarlo. Antes de reemplazar una base guarda una copia (.bak).
+    //   --silencioso --instancia <inst> [--reemplazar] --script <.sql> [--negocio <.sql>] --config <GestionNegocio.exe.config> [--log <archivo>] [--base <nombre>]
+    // Si el servicio de la instancia está detenido, intenta iniciarlo. Antes de reemplazar o actualizar una base guarda una copia (.bak).
     // Códigos de salida de la instalación: 0 base creada, 2 la base ya existía y se dejó como estaba, 3 base reemplazada,
-    // 10 no se pudo conectar, 11 no está el script, 12 la base se creó con errores, 13 error inesperado.
+    // 4 base actualizada (se le agregó el negocio), 10 no se pudo conectar, 11 no está el script, 12 la base se creó con errores,
+    // 13 error inesperado.
     class Program
     {
-        const int Creada = 0, YaExistia = 2, Reemplazada = 3, SinConexion = 10, SinScript = 11, ConErrores = 12, ErrorInesperado = 13;
+        const int Creada = 0, YaExistia = 2, Reemplazada = 3, Actualizada = 4, SinConexion = 10, SinScript = 11, ConErrores = 12, ErrorInesperado = 13;
 
         static bool _silencioso;
         static string _log;
@@ -48,12 +53,13 @@ namespace InstaladorDB
                 return Probar(aProbar, baseDatos);
 
             string script = Argumento(args, "--script") ?? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Script_GestionUsuarios.sql");
+            string negocio = Argumento(args, "--negocio");
             string config = Argumento(args, "--config");
             int resultado;
             if (_silencioso)
-                resultado = Instalar(Argumento(args, "--instancia"), args.Contains("--reemplazar"), script, config, baseDatos);
+                resultado = Instalar(Argumento(args, "--instancia"), args.Contains("--reemplazar"), script, negocio, config, baseDatos);
             else
-                resultado = InstalarEnConsola(script, config, baseDatos);
+                resultado = InstalarEnConsola(script, negocio, config, baseDatos);
             if (!_silencioso)
             {
                 Console.WriteLine("\nPresioná una tecla para cerrar...");
@@ -197,7 +203,7 @@ namespace InstaladorDB
 
         // ---------- Instalación ----------
 
-        static int InstalarEnConsola(string script, string config, string baseDatos)
+        static int InstalarEnConsola(string script, string negocio, string config, string baseDatos)
         {
             List<Instancia> instancias = BuscarInstancias();
             if (instancias.Count == 0)
@@ -218,13 +224,14 @@ namespace InstaladorDB
             bool reemplazar = false;
             if (Probar(fuente, baseDatos) == 2)
             {
-                Console.Write("La base " + baseDatos + " ya existe. ¿Reemplazarla por una nueva? Se guarda una copia antes y se pierden los datos actuales (S/N): ");
+                Console.Write("La base " + baseDatos + " ya existe. ¿Reemplazarla por una nueva? Se guarda una copia antes y se pierden los datos actuales" +
+                    (negocio != null ? " (con N se actualiza: se le agrega el negocio sin perder sus datos)" : "") + " (S/N): ");
                 reemplazar = (Console.ReadLine() ?? "").Trim().StartsWith("s", StringComparison.OrdinalIgnoreCase);
             }
-            return Instalar(fuente, reemplazar, script, config, baseDatos);
+            return Instalar(fuente, reemplazar, script, negocio, config, baseDatos);
         }
 
-        static int Instalar(string fuente, bool reemplazar, string scriptPath, string configPath, string baseDatos)
+        static int Instalar(string fuente, bool reemplazar, string scriptPath, string negocioPath, string configPath, string baseDatos)
         {
             if (string.IsNullOrWhiteSpace(fuente))
             {
@@ -249,23 +256,39 @@ namespace InstaladorDB
                     return SinConexion;
                 }
 
-                if (existe && !reemplazar)
+                if (existe && !reemplazar && negocioPath == null)
                 {
                     Mostrar("La base " + baseDatos + " ya existe: se usa tal cual, sin modificarla.");
                     ConfigurarAplicacion(configPath, connApp);
                     return YaExistia;
                 }
 
-                if (!File.Exists(scriptPath))
+                foreach (string archivo in new[] { scriptPath, negocioPath })
+                    if (archivo != null && !File.Exists(archivo))
+                    {
+                        Mostrar("No se encontró el script SQL: " + archivo);
+                        return SinScript;
+                    }
+
+                bool huboErrores;
+                if (existe && !reemplazar)
                 {
-                    Mostrar("No se encontró el script SQL: " + scriptPath);
-                    return SinScript;
+                    // Versión 2 sobre la base de la versión 1: se le agrega el negocio, sin perder sus datos
+                    Mostrar("La base " + baseDatos + " ya existe: se actualiza (se le agrega el negocio, sin perder sus datos).");
+                    Respaldar(connMaster, baseDatos, "antes_de_actualizar");
+                    huboErrores = EjecutarScript(connMaster, negocioPath, baseDatos);
+                    ConfigurarAplicacion(configPath, connApp);
+                    Mostrar(huboErrores ? "La base se actualizó pero con errores en algunos bloques. Revisá los mensajes de arriba."
+                                        : "Base de datos actualizada, sin errores.");
+                    return huboErrores ? ConErrores : Actualizada;
                 }
 
                 if (existe)
                     Reemplazar(connMaster, baseDatos);
 
-                bool huboErrores = EjecutarScript(connMaster, scriptPath, baseDatos);
+                huboErrores = EjecutarScript(connMaster, scriptPath, baseDatos);
+                if (negocioPath != null)
+                    huboErrores |= EjecutarScript(connMaster, negocioPath, baseDatos);
                 ConfigurarAplicacion(configPath, connApp);
                 if (huboErrores)
                 {
@@ -290,7 +313,19 @@ namespace InstaladorDB
         // Copia de seguridad en la carpeta de backups de SQL Server y después se borra la base vieja
         static void Reemplazar(string connMaster, string baseDatos)
         {
-            string archivo = baseDatos + "_antes_de_instalar_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bak";
+            Respaldar(connMaster, baseDatos, "antes_de_instalar");
+            using (var con = new SqlConnection(connMaster))
+            {
+                con.Open();
+                new SqlCommand("ALTER DATABASE [" + baseDatos + "] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [" + baseDatos + "];", con) { CommandTimeout = 120 }.ExecuteNonQuery();
+                Mostrar("Base anterior borrada.");
+            }
+        }
+
+        // Copia de seguridad (.bak) en la carpeta de backups de SQL Server
+        static void Respaldar(string connMaster, string baseDatos, string motivo)
+        {
+            string archivo = baseDatos + "_" + motivo + "_" + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".bak";
             using (var con = new SqlConnection(connMaster))
             {
                 con.Open();
@@ -307,8 +342,6 @@ namespace InstaladorDB
                 }
                 catch { }
                 Mostrar("Copia de seguridad de la base anterior: " + (ruta as string ?? archivo + " (en la carpeta de backups de SQL Server)"));
-                new SqlCommand("ALTER DATABASE [" + baseDatos + "] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE [" + baseDatos + "];", con) { CommandTimeout = 120 }.ExecuteNonQuery();
-                Mostrar("Base anterior borrada.");
             }
         }
 

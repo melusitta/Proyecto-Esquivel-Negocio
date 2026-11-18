@@ -1,32 +1,60 @@
 ﻿; =====================================================================
-; Instalador de Plumy (Inno Setup 6)
+; Instalador de Plumy (Inno Setup 6), en dos versiones:
+;   Versión 1 (ISCC.exe /DVersion=1 Plumy.iss): SOLO LOS SERVICIOS. La base se crea con
+;     Script_Servicios.sql: usuarios, perfiles (roles, familias y patentes), bitácora y
+;     dígito verificador. La aplicación oculta los menús del negocio.
+;   Versión 2 (ISCC.exe /DVersion=2 Plumy.iss): REINSTALADOR CON EL NEGOCIO. Se instala
+;     encima de la versión 1 (mismo AppId). Si encuentra la base de la versión 1 la
+;     ACTUALIZA con Script_Negocio.sql (maestro, ventas, compras, reportes y bitácora de
+;     cambios) sin perder sus datos; si no hay base, la crea completa.
+;
 ;   1. Copia la aplicación (Archivos de programa\Plumy por defecto)
 ;   2. Pantalla "Base de datos": busca las instancias de SQL Server (registro,
 ;      servicios y LocalDB) y se elige una. Si la base GestionUsuarios no existe
 ;      se crea desde cero; si existe se reemplaza (con copia de seguridad antes)
-;      o, destildando la casilla, se usa tal cual. Configura la conexión.
+;      o, destildando la casilla, se usa tal cual (versión 1) o se actualiza
+;      (versión 2, también con copia de seguridad antes). Configura la conexión.
 ;      En una instalación silenciosa: /instancia=<nombre> /reemplazar=no
 ;   3. Accesos directos en el menú Inicio y el Escritorio
 ;   4. Desinstalador en "Agregar o quitar programas" (no borra la base)
 ;
 ; Antes de compilarlo: compilar la solución en Release.
-; El script SQL no está en el repositorio: por defecto se toma del Escritorio
-; (Script_GestionUsuarios.sql). Se puede indicar otro con /DScriptSql=<ruta>.
-;   ISCC.exe Plumy.iss
+; Los scripts SQL no están en el repositorio: por defecto se toman del Escritorio
+; (Script_Servicios.sql y Script_Negocio.sql). Se puede indicar otra carpeta con
+; /DScripts=<carpeta>.
+;   ISCC.exe /DVersion=1 Plumy.iss   ->  Instalador_Plumy_v1.exe
+;   ISCC.exe /DVersion=2 Plumy.iss   ->  Instalador_Plumy_v2.exe
 ; =====================================================================
 
+#ifndef Version
+  #define Version "2"
+#endif
+#if Version != "1" && Version != "2"
+  #error La versión tiene que ser 1 o 2 (/DVersion=1 o /DVersion=2).
+#endif
 #define AppNombre "Plumy"
-#define AppVersion "1.0"
+#define AppVersion Version + ".0"
 #define AppExe "GestionNegocio.exe"
 
-#ifndef ScriptSql
-  #define ScriptSql AddBackslash(GetEnv("USERPROFILE")) + "Desktop\Script_GestionUsuarios.sql"
+#ifndef Scripts
+  #define Scripts AddBackslash(GetEnv("USERPROFILE")) + "Desktop"
 #endif
+#define ScriptServicios AddBackslash(Scripts) + "Script_Servicios.sql"
+#define ScriptNegocio AddBackslash(Scripts) + "Script_Negocio.sql"
 #ifndef Salida
   #define Salida AddBackslash(GetEnv("USERPROFILE")) + "Desktop\Instalador Plumy"
 #endif
-#if !FileExists(ScriptSql)
-  #error No se encontró el script SQL de la base. Indicá su ruta con /DScriptSql=<ruta>.
+#if !FileExists(ScriptServicios)
+  #error No se encontró Script_Servicios.sql. Indicá su carpeta con /DScripts=<carpeta>.
+#endif
+#if Version == "2" && !FileExists(ScriptNegocio)
+  #error No se encontró Script_Negocio.sql. Indicá su carpeta con /DScripts=<carpeta>.
+#endif
+; Parámetros de InstaladorDB con los scripts de esta versión
+#if Version == "2"
+  #define ParamScripts '--script ""{app}\BaseDeDatos\Script_Servicios.sql"" --negocio ""{app}\BaseDeDatos\Script_Negocio.sql""'
+#else
+  #define ParamScripts '--script ""{app}\BaseDeDatos\Script_Servicios.sql""'
 #endif
 #if !FileExists(SourcePath + "..\UIME40\bin\Release\" + AppExe)
   #error Falta compilar la solución en Release.
@@ -38,13 +66,17 @@ AppName={#AppNombre}
 AppVersion={#AppVersion}
 AppVerName={#AppNombre} {#AppVersion}
 AppPublisher=Plumy · Juguetería
+#if Version == "2"
 AppComments=Sistema de gestión de la juguetería: ventas, compras y reposición de mercadería
+#else
+AppComments=Sistema de gestión de la juguetería: usuarios, perfiles, bitácora y respaldo
+#endif
 DefaultDirName={autopf}\{#AppNombre}
 DefaultGroupName={#AppNombre}
 DisableProgramGroupPage=yes
 DisableWelcomePage=no
 OutputDir={#Salida}
-OutputBaseFilename=Instalador_Plumy
+OutputBaseFilename=Instalador_Plumy_v{#Version}
 SetupIconFile=..\UIME40\Recursos\plumy.ico
 UninstallDisplayIcon={app}\{#AppExe}
 UninstallDisplayName={#AppNombre}
@@ -74,7 +106,11 @@ spanish.Probar=Probar conexión
 spanish.Probando=Probando la conexión...
 spanish.EstadoSinProbar=Elegí una instancia y tocá "Probar conexión".
 spanish.EstadoNueva=✓ Conecta. Se va a crear la base GestionUsuarios desde cero.
+#if Version == "2"
+spanish.EstadoExiste=✓ Conecta. Ya hay una base GestionUsuarios: se actualiza agregándole el negocio, sin perder sus datos.
+#else
 spanish.EstadoExiste=✓ Conecta. Ya hay una base GestionUsuarios en esta instancia.
+#endif
 spanish.EstadoFalla=✗ No se pudo conectar con esa instancia. Probá con otra.
 spanish.SinInstancias=No se encontró SQL Server en esta computadora. Instalalo (la edición Express es gratis) y tocá "Buscar de nuevo", o seguí y creá la base después.
 spanish.Descargar=Descargar SQL Server Express
@@ -84,9 +120,11 @@ spanish.MemoBase=Base de datos:
 spanish.MemoCrear=Crear GestionUsuarios desde cero en %1
 spanish.MemoReemplazar=Reemplazar GestionUsuarios en %1 (con copia de seguridad antes)
 spanish.MemoUsar=Usar la base GestionUsuarios que ya existe en %1, sin modificarla
+spanish.MemoActualizar=Actualizar GestionUsuarios en %1: se le agrega el negocio sin perder sus datos (con copia de seguridad antes)
 spanish.MemoOmitir=No se crea por ahora (se puede crear después desde el menú Inicio)
 spanish.BaseCreada=La base de datos GestionUsuarios se creó con los datos iniciales.
 spanish.BaseExistia=La base de datos GestionUsuarios ya existía: se usa tal cual, sin modificar sus datos.
+spanish.BaseActualizada=La base de datos GestionUsuarios se actualizó: se le agregó el negocio (maestro, ventas, compras, reportes y bitácora de cambios) sin perder sus datos. La copia de seguridad de la anterior quedó en la carpeta de backups de SQL Server (el detalle está en %1).
 spanish.BaseReemplazada=La base de datos GestionUsuarios se reemplazó por una nueva con los datos iniciales. La copia de seguridad de la anterior quedó en la carpeta de backups de SQL Server (el detalle está en %1).
 spanish.BaseOmitida=La base de datos no se creó todavía. Cuando tengas SQL Server, abrí "Configurar base de datos" desde el menú Inicio (carpeta Plumy).
 spanish.SinSqlServer=No se pudo conectar con SQL Server, así que todavía no se creó la base de datos. El detalle quedó en %1.%n%nAbrí "Configurar base de datos" desde el menú Inicio (carpeta Plumy) para reintentarlo.
@@ -101,7 +139,10 @@ Name: "escritorio"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{c
 Source: "..\UIME40\bin\Release\*"; Excludes: "*.pdb,*.xml"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; Creación de la base
 Source: "..\InstaladorDB\bin\Release\*"; Excludes: "*.pdb,*.xml"; DestDir: "{app}\BaseDeDatos"; Flags: ignoreversion
-Source: "{#ScriptSql}"; DestDir: "{app}\BaseDeDatos"; DestName: "Script_GestionUsuarios.sql"; Flags: ignoreversion
+Source: "{#ScriptServicios}"; DestDir: "{app}\BaseDeDatos"; Flags: ignoreversion
+#if Version == "2"
+Source: "{#ScriptNegocio}"; DestDir: "{app}\BaseDeDatos"; Flags: ignoreversion
+#endif
 ; Copia temporal para la pantalla "Base de datos" (antes de instalar)
 Source: "..\InstaladorDB\bin\Release\InstaladorDB.exe"; Flags: dontcopy
 Source: "..\InstaladorDB\bin\Release\InstaladorDB.exe.config"; Flags: dontcopy
@@ -109,12 +150,16 @@ Source: "..\InstaladorDB\bin\Release\System.Data.SqlClient.dll"; Flags: dontcopy
 
 [Icons]
 Name: "{group}\{#AppNombre}"; Filename: "{app}\{#AppExe}"; IconFilename: "{app}\Recursos\plumy.ico"
-Name: "{group}\{cm:ConfigurarBase}"; Filename: "{app}\BaseDeDatos\InstaladorDB.exe"; Parameters: "--script ""{app}\BaseDeDatos\Script_GestionUsuarios.sql"" --config ""{app}\{#AppExe}.config"""; WorkingDir: "{app}\BaseDeDatos"
+Name: "{group}\{cm:ConfigurarBase}"; Filename: "{app}\BaseDeDatos\InstaladorDB.exe"; Parameters: "{#ParamScripts} --config ""{app}\{#AppExe}.config"""; WorkingDir: "{app}\BaseDeDatos"
 Name: "{group}\{cm:UninstallProgram,{#AppNombre}}"; Filename: "{uninstallexe}"
 Name: "{autodesktop}\{#AppNombre}"; Filename: "{app}\{#AppExe}"; IconFilename: "{app}\Recursos\plumy.ico"; Tasks: escritorio
 
 [Run]
 Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchProgram,{#AppNombre}}"; Flags: postinstall nowait skipifsilent
+
+[InstallDelete]
+; Script de la base de la versión anterior a la división en servicios y negocio
+Type: files; Name: "{app}\BaseDeDatos\Script_GestionUsuarios.sql"
 
 [UninstallDelete]
 Type: files; Name: "{app}\BaseDeDatos\instalacion.log"
@@ -307,7 +352,12 @@ begin
   ChkReemplazar.Width := PaginaBase.SurfaceWidth;
   ChkReemplazar.Height := ScaleY(34);
   ChkReemplazar.Caption := CustomMessage('Reemplazar');
+#if Version == "2"
+  // Versión 2: lo normal es actualizar la base de la versión 1, no reemplazarla
+  ChkReemplazar.Checked := ExpandConstant('{param:reemplazar|no}') = 'si';
+#else
   ChkReemplazar.Checked := ExpandConstant('{param:reemplazar|si}') <> 'no';
+#endif
 
   LnkDescargar := TNewStaticText.Create(PaginaBase);
   LnkDescargar.Parent := PaginaBase.Surface;
@@ -345,7 +395,11 @@ begin
   else if (EstadoConexion = 2) and ChkReemplazar.Checked then
     Base := FmtMessage(CustomMessage('MemoReemplazar'), [FuenteElegida()])
   else if EstadoConexion = 2 then
+#if Version == "2"
+    Base := FmtMessage(CustomMessage('MemoActualizar'), [FuenteElegida()])
+#else
     Base := FmtMessage(CustomMessage('MemoUsar'), [FuenteElegida()])
+#endif
   else
     Base := FmtMessage(CustomMessage('MemoCrear'), [FuenteElegida()]);
   Result := MemoDirInfo + NewLine + NewLine + CustomMessage('MemoBase') + NewLine + Space + Base;
@@ -369,7 +423,10 @@ begin
   WizardForm.StatusLabel.Caption := CustomMessage('CreandoBase');
   Log := ExpandConstant('{app}\BaseDeDatos\instalacion.log');
   Parametros := '--silencioso --instancia "' + FuenteElegida() + '"' +
-                ' --script "' + ExpandConstant('{app}\BaseDeDatos\Script_GestionUsuarios.sql') + '"' +
+                ' --script "' + ExpandConstant('{app}\BaseDeDatos\Script_Servicios.sql') + '"' +
+#if Version == "2"
+                ' --negocio "' + ExpandConstant('{app}\BaseDeDatos\Script_Negocio.sql') + '"' +
+#endif
                 ' --config "' + ExpandConstant('{app}\{#AppExe}.config') + '" --log "' + Log + '"';
   if (EstadoConexion = 2) and ChkReemplazar.Checked then
     Parametros := Parametros + ' --reemplazar';
@@ -380,12 +437,13 @@ begin
     0: ResultadoBase := CustomMessage('BaseCreada');
     2: ResultadoBase := CustomMessage('BaseExistia');
     3: ResultadoBase := FmtMessage(CustomMessage('BaseReemplazada'), [Log]);
+    4: ResultadoBase := FmtMessage(CustomMessage('BaseActualizada'), [Log]);
     10: ResultadoBase := FmtMessage(CustomMessage('SinSqlServer'), [Log]);
     12: ResultadoBase := FmtMessage(CustomMessage('BaseConErrores'), [Log]);
   else
     ResultadoBase := FmtMessage(CustomMessage('BaseError'), [Log]);
   end;
-  if (Codigo <> 0) and (Codigo <> 2) and (Codigo <> 3) then
+  if (Codigo <> 0) and (Codigo <> 2) and (Codigo <> 3) and (Codigo <> 4) then
     SuppressibleMsgBox(ResultadoBase, mbInformation, MB_OK, IDOK);
 end;
 

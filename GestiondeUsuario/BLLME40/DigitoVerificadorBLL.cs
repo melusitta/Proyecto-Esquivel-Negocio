@@ -68,14 +68,21 @@ namespace BLL
 
         // Tablas protegidas por el dígito verificador y sus datos actuales.
         // Para sumar una tabla nueva alcanza con agregarla acá.
+        // Las del negocio solo si la base las tiene (la versión 1 instala solo los servicios).
         private Dictionary<string, List<List<string>>> ObtenerTablas(DigitoVerificadorDAL dal)
         {
-            return new Dictionary<string, List<List<string>>>
+            var servicios = new Dictionary<string, List<List<string>>>
             {
                 { "Usuarios",    dal.ObtenerDatosUsuarios() },
                 { "Rol",         dal.ObtenerDatosRol() },
                 { "Patente",     dal.ObtenerDatosPatente() },
-                { "Familia",     dal.ObtenerDatosFamilia() },
+                { "Familia",     dal.ObtenerDatosFamilia() }
+            };
+            if (!ModulosBLL.NegocioInstalado)
+                return servicios;
+
+            var tablas = new Dictionary<string, List<List<string>>>(servicios)
+            {
                 // Negocio (PN1)
                 { "Producto",    dal.ObtenerDatosProducto() },
                 { "ProductoVersion", dal.ObtenerDatosProductoVersion() },
@@ -96,6 +103,7 @@ namespace BLL
                 { "Recepcion",        dal.ObtenerDatosRecepcion() },
                 { "ItemRecepcion",    dal.ObtenerDatosItemRecepcion() }
             };
+            return tablas;
         }
 
         // Recalcula y persiste el DV de todas las tablas

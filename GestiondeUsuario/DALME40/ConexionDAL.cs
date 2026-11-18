@@ -43,6 +43,19 @@ public static class ConexionDAL
         };
     }
 
+    // ¿La base tiene esta tabla? La versión 1 de Plumy instala solo los servicios (usuarios, perfiles,
+    // bitácora, respaldo); las tablas del negocio llegan con la versión 2.
+    public static bool ExisteTabla(string tabla)
+    {
+        using (var con = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT OBJECT_ID(@Tabla, 'U')", con);
+            cmd.Parameters.AddWithValue("@Tabla", "dbo." + tabla);
+            con.Open();
+            return cmd.ExecuteScalar() != DBNull.Value;
+        }
+    }
+
     // Conecta directo a la base: si el servidor existe pero no tiene GestionUsuarios, no sirve
     private static bool Responde(string cadena)
     {

@@ -114,7 +114,8 @@ spanish.EstadoExiste=✓ Conecta. Ya hay una base GestionUsuarios en esta instan
 spanish.EstadoFalla=✗ No se pudo conectar con esa instancia. Probá con otra.
 spanish.SinInstancias=No se encontró SQL Server en esta computadora. Instalalo (la edición Express es gratis) y tocá "Buscar de nuevo", o seguí y creá la base después.
 spanish.Descargar=Descargar SQL Server Express
-spanish.Reemplazar=Reemplazar la base existente por una nueva (antes se guarda una copia de seguridad; se pierden los datos que tenía)
+spanish.Reemplazar=Reemplazar la base existente por una nueva
+spanish.ReemplazarNota=Antes se guarda una copia de seguridad, pero se pierden los datos que tenía.
 spanish.SeguirSinBase=No se pudo conectar con SQL Server.%n%n¿Querés seguir sin crear la base de datos? La podés crear después con "Configurar base de datos" desde el menú Inicio.
 spanish.MemoBase=Base de datos:
 spanish.MemoCrear=Crear GestionUsuarios desde cero en %1
@@ -168,7 +169,7 @@ Type: files; Name: "{app}\BaseDeDatos\instalacion.log"
 var
   PaginaBase: TWizardPage;
   ComboInstancias: TNewComboBox;
-  LblEstado, LnkDescargar: TNewStaticText;
+  LblEstado, LnkDescargar, LblReemplazar: TNewStaticText;
   ChkReemplazar: TNewCheckBox;
   BtnBuscar, BtnProbar: TNewButton;
   Fuentes: TArrayOfString;      // "Data Source" de cada ítem del combo
@@ -206,6 +207,7 @@ end;
 procedure MostrarEstado();
 begin
   ChkReemplazar.Visible := EstadoConexion = 2;
+  LblReemplazar.Visible := EstadoConexion = 2;
   case EstadoConexion of
     0: LblEstado.Caption := CustomMessage('EstadoNueva');
     2: LblEstado.Caption := CustomMessage('EstadoExiste');
@@ -350,8 +352,18 @@ begin
   ChkReemplazar.Parent := PaginaBase.Surface;
   ChkReemplazar.Top := LblEstado.Top + LblEstado.Height + ScaleY(4);
   ChkReemplazar.Width := PaginaBase.SurfaceWidth;
-  ChkReemplazar.Height := ScaleY(34);
+  ChkReemplazar.Height := ScaleY(17);
   ChkReemplazar.Caption := CustomMessage('Reemplazar');
+
+  LblReemplazar := TNewStaticText.Create(PaginaBase);
+  LblReemplazar.Parent := PaginaBase.Surface;
+  LblReemplazar.Left := ScaleX(17);
+  LblReemplazar.Top := ChkReemplazar.Top + ChkReemplazar.Height;
+  LblReemplazar.Width := PaginaBase.SurfaceWidth - ScaleX(17);
+  LblReemplazar.AutoSize := False;
+  LblReemplazar.WordWrap := True;
+  LblReemplazar.Height := ScaleY(17);
+  LblReemplazar.Caption := CustomMessage('ReemplazarNota');
 #if Version == "2"
   // Versión 2: lo normal es actualizar la base de la versión 1, no reemplazarla
   ChkReemplazar.Checked := ExpandConstant('{param:reemplazar|no}') = 'si';
@@ -362,7 +374,7 @@ begin
   LnkDescargar := TNewStaticText.Create(PaginaBase);
   LnkDescargar.Parent := PaginaBase.Surface;
   LnkDescargar.Caption := CustomMessage('Descargar');
-  LnkDescargar.Top := ChkReemplazar.Top + ChkReemplazar.Height + ScaleY(8);
+  LnkDescargar.Top := LblReemplazar.Top + LblReemplazar.Height + ScaleY(8);
   LnkDescargar.Font.Color := clBlue;
   LnkDescargar.Font.Style := [fsUnderline];
   LnkDescargar.Cursor := crHand;

@@ -286,19 +286,6 @@ namespace DAL
 
         // ---------- Pago de la orden (CUN-010) ----------
 
-        public bool ExisteNroFactura(int idProveedor, string nroFactura)
-        {
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand(
-                    "SELECT COUNT(*) FROM OrdenCompra WHERE IdProveedor = @IdProveedor AND NroFacturaProveedor = @Nro", con);
-                cmd.Parameters.AddWithValue("@IdProveedor", idProveedor);
-                cmd.Parameters.AddWithValue("@Nro", nroFactura);
-                con.Open();
-                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
-            }
-        }
-
         // Número de la última factura registrada de un proveedor, o null si todavía no tiene
         public string UltimoNroFactura(int idProveedor)
         {

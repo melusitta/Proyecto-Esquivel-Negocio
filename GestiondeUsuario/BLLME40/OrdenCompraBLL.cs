@@ -284,22 +284,19 @@ namespace BLL
                 throw new ErrorNegocio("MONTO_ABONADO_INCORRECTO", (importe + impuestos).ToString("N2"));
 
             // El número de factura lo asigna el sistema: el siguiente al último de ese proveedor
-            OrdenCompraDAL dal = new OrdenCompraDAL();
             orden.NroFacturaProveedor = SiguienteNroFactura(orden.Proveedor.Id);
-            if (dal.ExisteNroFactura(orden.Proveedor.Id, orden.NroFacturaProveedor))
-                throw new ErrorNegocio("FACTURA_PROVEEDOR_DUPLICADA", orden.NroFacturaProveedor);
-
             orden.FechaFactura = fechaFactura.Date;
             orden.Impuestos = impuestos;
             orden.MontoAbonado = montoAbonado;
             orden.FechaPago = fechaPago.Date;
             orden.NroComprobante = nroComprobante;
             orden.PagadoPor = UsuarioActivo();
-            if (!dal.RegistrarPago(orden, formaPago))
+            if (!new OrdenCompraDAL().RegistrarPago(orden, formaPago))
                 throw new ErrorNegocio("ORDEN_ESTADO_INVALIDO", orden.NroOrden, orden.Estado);
+            orden.Estado = OrdenCompra.EstadoPagada;
 
             Registrar("Pagar orden de compra", 3);
-            return dal.ObtenerPorId(idOrden);
+            return orden;
         }
 
         // Paso 8: las facturas de cada proveedor se numeran en forma correlativa; el sistema asigna la siguiente

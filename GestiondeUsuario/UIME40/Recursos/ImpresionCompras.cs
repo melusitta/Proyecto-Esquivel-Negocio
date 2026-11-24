@@ -98,28 +98,28 @@ namespace GestiondeUsuario
         }
 
         // Paso 9: comprobante del pago de la orden
-        public static ImpresionCompras Comprobante(OrdenCompra o, FacturaProveedor f, string formaPago)
+        public static ImpresionCompras Comprobante(OrdenCompra o, string formaPago)
         {
             var d = new ImpresionCompras
             {
                 _titulo = T("tituloComprobante"),
-                _numero = f.NroComprobante,
-                _fecha = f.FechaOperacion.ToString("dd/MM/yyyy"),
+                _numero = o.NroComprobante,
+                _fecha = o.FechaPago?.ToString("dd/MM/yyyy"),
                 _sello = T("pagado")
             };
             d.DatosProveedor(o.Proveedor);
             d._datos.Add(Tuple.Create(T("ordenRef"), o.NroOrden.ToString("D6")));
-            d._datos.Add(Tuple.Create(T("facturaRef"), f.NroFactura + "  (" + f.Fecha.ToString("dd/MM/yyyy") + ")"));
+            d._datos.Add(Tuple.Create(T("facturaRef"), o.NroFacturaProveedor + "  (" + o.FechaFactura?.ToString("dd/MM/yyyy") + ")"));
             if (!string.IsNullOrEmpty(formaPago))
                 d._datos.Add(Tuple.Create(T("formaPagoRef"), TextosCompras.FormaPago(formaPago)));
             d.ColumnasProductos(true);
             foreach (ItemOrdenCompra i in o.Items)
                 d._filas.Add(new[] { i.Producto.CodigoProducto.ToString(), i.Producto.Nombre, i.Cantidad.ToString(),
                                      "$ " + i.PrecioUnitario.ToString("N2"), "$ " + i.Subtotal.ToString("N2") });
-            d._totales.Add(Tuple.Create(T("importe"), "$ " + f.Importe.ToString("N2")));
-            d._totales.Add(Tuple.Create(T("impuestos"), "$ " + f.Impuestos.ToString("N2")));
-            d._totales.Add(Tuple.Create(T("montoAbonado"), "$ " + f.MontoAbonado.ToString("N2")));
-            d._pie.Add(Tuple.Create(T("pagadoPor"), f.Supervisor));
+            d._totales.Add(Tuple.Create(T("importe"), "$ " + o.Total.ToString("N2")));
+            d._totales.Add(Tuple.Create(T("impuestos"), "$ " + o.Impuestos.ToString("N2")));
+            d._totales.Add(Tuple.Create(T("montoAbonado"), "$ " + o.MontoAbonado.ToString("N2")));
+            d._pie.Add(Tuple.Create(T("pagadoPor"), o.PagadoPor));
             return d;
         }
 

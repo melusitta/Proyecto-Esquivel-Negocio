@@ -3,6 +3,7 @@ using DAL;
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -147,18 +148,14 @@ namespace BLL
             return SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Desconocido";
         }
 
-        // Versiones de un producto, de la más nueva a la más vieja
-        public List<ProductoVersion> ObtenerVersiones(int idProducto)
-        {
-            return new ProductoVersionDAL().ObtenerPorProducto(idProducto);
-        }
-
         // Al abrir la bitácora se muestran los cambios del último mes
         public static DateTime DesdeInicial => DateTime.Today.AddMonths(-1);
 
         // Cambios de todos los productos entre dos fechas, filtrados por producto (código, nombre o marca),
-        // usuario y tipo de cambio (vacíos = todos), de los más nuevos a los más viejos
-        public List<ProductoVersion> ObtenerCambios(DateTime desde, DateTime hasta, string producto, string usuario, string tipoCambio)
+        // usuario y tipo de cambio (vacíos = todos), de los más nuevos a los más viejos.
+        // Cada fila es una versión (IdVersion, NroVersion, TipoCambio, Fecha, Usuario, Detalle, VersionActiva y los datos
+        // del producto) con los de la versión anterior en las columnas Ant_*, para mostrar qué cambió.
+        public DataTable ObtenerCambios(DateTime desde, DateTime hasta, string producto, string usuario, string tipoCambio)
         {
             if (desde.Date > hasta.Date)
                 throw new ErrorNegocio("FECHAS_INVALIDAS");
@@ -179,24 +176,24 @@ namespace BLL
         // La existencia no se restaura: el stock cambia con las ventas y las recepciones.
         public void RestaurarVersion(int idVersion)
         {
-            ProductoVersionDAL versiones = new ProductoVersionDAL();
-            ProductoVersion v = versiones.ObtenerPorId(idVersion);
+            DataRow v = new ProductoVersionDAL().ObtenerPorId(idVersion);
             if (v == null)
                 throw new ErrorNegocio("VERSION_NO_ENCONTRADA");
+            Producto p = ProductoVersionDAL.ProductoDeVersion(v);
+            int nroVersion = Convert.ToInt32(v["NroVersion"]);
             ProductoDAL dal = new ProductoDAL();
-            Producto actual = dal.ObtenerPorId(v.Datos.Id);
+            Producto actual = dal.ObtenerPorId(p.Id);
             if (actual == null)
-                throw new ErrorNegocio("PRODUCTO_NO_ENCONTRADO", v.Datos.CodigoProducto);
+                throw new ErrorNegocio("PRODUCTO_NO_ENCONTRADO", p.CodigoProducto);
 
-            if (v.VersionActiva)
-                throw new ErrorNegocio("VERSION_YA_ACTUAL", v.NroVersion);
-            Producto p = v.Datos;
+            if (Convert.ToBoolean(v["VersionActiva"]))
+                throw new ErrorNegocio("VERSION_YA_ACTUAL", nroVersion);
             p.Existencia = actual.Existencia;
             Validar(p);
             if (dal.ExisteCodigo(p.CodigoProducto, p.Id))
                 throw new ErrorNegocio("PRODUCTO_CODIGO_DUPLICADO", p.CodigoProducto);
 
-            dal.Restaurar(p, UsuarioActivo(), v.NroVersion);
+            dal.Restaurar(p, UsuarioActivo(), nroVersion);
             Registrar("Restaurar versión de producto", 4);
         }
 

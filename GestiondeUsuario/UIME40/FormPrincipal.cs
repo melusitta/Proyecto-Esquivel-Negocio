@@ -88,7 +88,7 @@ namespace GestiondeUsuario
              PerfilBLL.Instancia.TienePermiso(usuario.Rol, "GestionBackup");
 
             // Versión 1 (solo servicios): lo del negocio no se muestra hasta instalar la versión 2
-            if (!ModulosBLL.NegocioInstalado)
+            if (!DigitoVerificadorBLL.NegocioInstalado)
                 foreach (ToolStripMenuItem item in new[] { menuMaestro, menuVenta, menuCompras, menuReporte, controlCambiosToolStripMenuItem })
                 {
                     item.Enabled = false;

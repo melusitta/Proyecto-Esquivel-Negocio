@@ -5,6 +5,7 @@ namespace BE
 {
     // PN2: Enviada (CUN-008: se genera y se envía al proveedor) -> Pagada (CUN-010, incluido en CUN-008)
     // -> Recibida (CUN-011). Emitida queda de las versiones anteriores.
+    // Al pagarla (CUN-010) se guardan en la misma orden la factura que entregó el proveedor y el pago.
     public class OrdenCompra
     {
         public const string EstadoEmitida = "Emitida";
@@ -25,6 +26,21 @@ namespace BE
         public DateTime? FechaEnvio { get; set; }
         public string Supervisor { get; set; }
         public List<ItemOrdenCompra> Items { get; set; } = new List<ItemOrdenCompra>();
+
+        // Factura del proveedor y su pago (vacíos hasta que la orden se paga). El importe de la
+        // factura sin impuestos es el Total de la orden.
+        public string NroFacturaProveedor { get; set; }
+        public DateTime? FechaFactura { get; set; }
+        public decimal Impuestos { get; set; }
+        public decimal MontoAbonado { get; set; }
+        public DateTime? FechaPago { get; set; }
+        public string NroComprobante { get; set; }
+        public string PagadoPor { get; set; }
+
+        public decimal TotalFactura
+        {
+            get { return Total + Impuestos; }
+        }
 
         public override string ToString()
         {

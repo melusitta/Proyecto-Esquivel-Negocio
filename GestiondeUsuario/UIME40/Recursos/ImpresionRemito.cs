@@ -20,14 +20,12 @@ namespace GestiondeUsuario
 
         private readonly OrdenCompra _orden;
         private readonly Recepcion _recepcion;
-        private readonly FacturaProveedor _factura;
         private int _siguiente, _pagina;
 
         private ImpresionRemito(OrdenCompra orden, Recepcion recepcion)
         {
             _orden = orden;
             _recepcion = recepcion;
-            _factura = PagoProveedorBLL.Instancia.ObtenerFacturaDeOrden(orden.Id);
         }
 
         private static string T(string clave)
@@ -118,7 +116,7 @@ namespace GestiondeUsuario
                     izq + 14, y, ancho - 28, fNegrita, fNormal, punteado);
                 y += 26;
                 Renglon(g, T("orden"), _orden.NroOrden.ToString("D6"), izq + 14, y, ancho / 3, fNegrita, fNormal, punteado);
-                Renglon(g, T("factura"), _factura?.NroFactura ?? "-", izq + 14 + ancho / 3 + 10, y, ancho / 3 - 10, fNegrita, fNormal, punteado);
+                Renglon(g, T("factura"), _orden.NroFacturaProveedor ?? "-", izq + 14 + ancho / 3 + 10, y, ancho / 3 - 10, fNegrita, fNormal, punteado);
                 Renglon(g, T("recibido"), _recepcion.Fecha.ToString("dd/MM/yyyy HH:mm"), izq + 14 + 2 * ancho / 3 + 10, y, ancho / 3 - 34, fNegrita, fNormal, punteado);
                 y += 32;
                 g.DrawLine(lapiz, izq, y, der, y);

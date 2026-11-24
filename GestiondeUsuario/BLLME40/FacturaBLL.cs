@@ -3,7 +3,9 @@ using DAL;
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace BLL
 {
@@ -55,7 +57,7 @@ namespace BLL
         }
 
         // Clientes esperando en la caja (carritos asociados y facturas sin cobrar)
-        public List<PendienteCaja> ObtenerPendientesDeCaja()
+        public DataTable ObtenerPendientesDeCaja()
         {
             FacturaDAL dal = new FacturaDAL();
             return dal.ObtenerPendientesDeCaja();
@@ -112,7 +114,7 @@ namespace BLL
         }
 
         // Revisa que la factura se pueda cobrar con ese monto y forma de pago (sin cobrarla).
-        // La usa Cobrar y también PagoBLL, antes de pedirle la aprobación al banco.
+        // La usa Cobrar y también AutorizarPagoConTarjeta, antes de pedirle la aprobación al banco.
         public Factura ValidarCobro(int idFactura, decimal monto, string formaPago)
         {
             Factura factura = ObtenerPorId(idFactura);
@@ -126,12 +128,12 @@ namespace BLL
         }
 
         // Pasos 10 a 15: cobra la factura. pagoAcreditado es la confirmación del banco
-        // (con tarjeta la da PagoBLL; con transferencia, el cajero). El efectivo no la necesita.
+        // (con tarjeta la da AutorizarPagoConTarjeta; con transferencia, el cajero). El efectivo no la necesita.
         // El monto tiene que ser igual al total. Al cobrar se descuenta el stock (todo o nada).
         public bool Cobrar(int idFactura, decimal monto, string formaPago, bool pagoAcreditado)
         {
             Factura factura = ValidarCobro(idFactura, monto, formaPago);
-            if (PagoBLL.RequiereConfirmacionBanco(formaPago) && !pagoAcreditado)
+            if (RequiereConfirmacionBanco(formaPago) && !pagoAcreditado)
                 throw new ErrorNegocio("PAGO_NO_ACREDITADO");
             ValidarStock(factura.Items.ToArray());
 
@@ -152,6 +154,61 @@ namespace BLL
 
             GestorEventosBLL.Instancia.Notificar(UsuarioActivo(), "Cobrar venta", "Ventas", 3);
             DigitoVerificadorBLL.Instancia.RecalcularYGuardar();
+            return true;
+        }
+
+        // ---------- Pago con tarjeta de débito o crédito (CUN-005) ----------
+
+        public static bool EsPagoConTarjeta(string formaPago)
+        {
+            return formaPago == "Debito" || formaPago == "Credito";
+        }
+
+        // El efectivo se cobra en mano y no pasa por el banco. La transferencia la confirma el banco
+        // (el cajero lo verifica) y la tarjeta la autoriza el banco con AutorizarPagoConTarjeta.
+        public static bool RequiereConfirmacionBanco(string formaPago)
+        {
+            return formaPago != "Efectivo";
+        }
+
+        // Los datos de la tarjeta no se guardan: solo viajan de la pantalla al banco durante el cobro
+        public void ValidarTarjeta(string numero, string vencimiento, string cvv, string titular)
+        {
+            if (!Regex.IsMatch(numero ?? "", @"^\d{16}$"))
+                throw new ErrorNegocio("TARJETA_NUMERO_INVALIDO");
+            if (!Regex.IsMatch(cvv ?? "", @"^\d{3}$"))
+                throw new ErrorNegocio("TARJETA_CVV_INVALIDO");
+
+            // MM/AA leído a mano: con año de 2 dígitos, .NET Framework toma "30" como 1930
+            Match venc = Regex.Match(vencimiento ?? "", @"^(0[1-9]|1[0-2])/(\d{2})$");
+            if (!venc.Success)
+                throw new ErrorNegocio("TARJETA_VENCIMIENTO_INVALIDO");
+            int mes = int.Parse(venc.Groups[1].Value);
+            int anio = 2000 + int.Parse(venc.Groups[2].Value);
+            // La tarjeta sirve hasta el último día de su mes de vencimiento
+            if (new DateTime(anio, mes, 1).AddMonths(1) <= DateTime.Now)
+                throw new ErrorNegocio("TARJETA_VENCIDA");
+
+            if (string.IsNullOrWhiteSpace(titular))
+                throw new ErrorNegocio("TARJETA_TITULAR_VACIO");
+        }
+
+        // Pasos 11 a 13 con tarjeta: se valida el cobro y la tarjeta, y el banco confirma la acreditación.
+        // Primero se revisan la factura y el monto, para no pedirle al banco un pago que después no se registra.
+        // Devuelve true si el banco aprobó; si lo rechaza, ErrorNegocio PAGO_RECHAZADO.
+        public bool AutorizarPagoConTarjeta(int idFactura, decimal monto, string formaPago,
+                                            string numero, string vencimiento, string cvv, string titular)
+        {
+            ValidarCobro(idFactura, monto, formaPago);
+            ValidarTarjeta(numero, vencimiento, cvv, titular);
+
+            BancoDAL banco = new BancoDAL();
+            if (!banco.AutorizarPago(numero, monto))
+                throw new ErrorNegocio("PAGO_RECHAZADO");
+
+            // Solo los últimos 4 dígitos: el número completo no se registra en ningún lado
+            GestorEventosBLL.Instancia.Notificar(UsuarioActivo(),
+                "Pago con tarjeta aprobado (terminada en " + numero.Substring(numero.Length - 4) + ")", "Ventas", 2);
             return true;
         }
 

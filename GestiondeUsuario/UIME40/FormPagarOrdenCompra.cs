@@ -107,7 +107,7 @@ namespace GestiondeUsuario
             TraducirColumnas();
 
             // El número de factura lo asigna el sistema (solo se muestra); se propone el importe de la orden
-            txtNroFactura.Text = o == null ? "" : PagoProveedorBLL.Instancia.SiguienteNroFactura(o.Proveedor.Id);
+            txtNroFactura.Text = o == null ? "" : OrdenCompraBLL.Instancia.SiguienteNroFactura(o.Proveedor.Id);
             txtComprobante.Clear();
             CargarFormasPago(o, null);
             dtpFechaFactura.Value = DateTime.Today;
@@ -134,25 +134,16 @@ namespace GestiondeUsuario
         {
             OrdenCompra o = Seleccionada();
             if (o == null) return;
-            var factura = new FacturaProveedor
-            {
-                IdOrdenCompra = o.Id,
-                Fecha = dtpFechaFactura.Value.Date,
-                Importe = nudImporte.Value,
-                Impuestos = nudImpuestos.Value,
-                MontoAbonado = nudMonto.Value,
-                FechaOperacion = dtpFechaOperacion.Value.Date,
-                NroComprobante = txtComprobante.Text
-            };
             string formaPago = (cmbFormaPago.SelectedItem as OpcionCodigo)?.Codigo;
             try
             {
-                FacturaProveedor registrada = PagoProveedorBLL.Instancia.PagarOrden(factura, formaPago);
+                OrdenCompra pagada = OrdenCompraBLL.Instancia.PagarOrden(o.Id, dtpFechaFactura.Value, nudImporte.Value,
+                    nudImpuestos.Value, nudMonto.Value, dtpFechaOperacion.Value, txtComprobante.Text, formaPago);
                 // Paso 9: se envía el comprobante de pago al proveedor
                 ImpresionCompras.InformarEnvio(this,
                     string.Format(T("msgPagoRegistrado"), o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial,
-                        registrada.MontoAbonado.ToString("N2"), registrada.NroComprobante), T("msgExito"),
-                    () => new List<string> { ImpresionCompras.Comprobante(o, registrada, formaPago)
+                        pagada.MontoAbonado.ToString("N2"), pagada.NroComprobante), T("msgExito"),
+                    () => new List<string> { ImpresionCompras.Comprobante(pagada, formaPago)
                         .GuardarPdf(ImpresionCompras.NombreArchivo("archivoComprobante", o.NroOrden.ToString("D6"), o.Proveedor.RazonSocial)) });
                 if (_idOrden.HasValue)
                 {
@@ -193,7 +184,7 @@ namespace GestiondeUsuario
         {
             cmbFormaPago.Items.Clear();
             if (o == null) return;
-            List<string> formas = PagoProveedorBLL.Instancia.FormasPagoDeOrden(o);
+            List<string> formas = OrdenCompraBLL.Instancia.FormasPagoDeOrden(o);
             if (formas.Count > 1)
                 cmbFormaPago.Items.Add(new OpcionCodigo { Codigo = null, Texto = "" });
             foreach (string fp in formas)

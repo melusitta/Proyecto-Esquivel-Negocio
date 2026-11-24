@@ -144,18 +144,13 @@ namespace DAL
         public List<List<string>> ObtenerDatosOrdenCompra()
         {
             return ObtenerDatosTabla(
-                "SELECT Id, NroOrden, IdSolicitud, IdCotizacion, IdProveedor, Total, Estado, Supervisor FROM OrdenCompra");
+                @"SELECT Id, NroOrden, IdSolicitud, IdCotizacion, IdProveedor, Total, Estado, Supervisor,
+                    NroFacturaProveedor, Impuestos, MontoAbonado, NroComprobante FROM OrdenCompra");
         }
 
         public List<List<string>> ObtenerDatosItemOrdenCompra()
         {
             return ObtenerDatosTabla("SELECT IdOrdenCompra, IdProducto, Cantidad, PrecioUnitario FROM ItemOrdenCompra");
-        }
-
-        public List<List<string>> ObtenerDatosFacturaProveedor()
-        {
-            return ObtenerDatosTabla(
-                "SELECT Id, IdOrdenCompra, IdProveedor, NroFactura, Importe, Impuestos, MontoAbonado, NroComprobante, Estado FROM FacturaProveedor");
         }
 
         public List<List<string>> ObtenerDatosRecepcion()

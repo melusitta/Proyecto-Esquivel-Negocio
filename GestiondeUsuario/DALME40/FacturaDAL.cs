@@ -56,9 +56,10 @@ namespace DAL
         }
 
         // La "fila" de la caja: carritos asociados sin facturar y facturas sin cobrar, del más viejo al más nuevo
-        public List<PendienteCaja> ObtenerPendientesDeCaja()
+        // Es una consulta (no se guarda): columnas DNI, NombreCliente, NroFactura (null si es un carrito), Total y Fecha
+        public DataTable ObtenerPendientesDeCaja()
         {
-            var lista = new List<PendienteCaja>();
+            var tabla = new DataTable();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string query = @"
@@ -77,19 +78,9 @@ namespace DAL
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.Parameters.AddWithValue("@Asociado", Carrito.EstadoAsociado);
                 cmd.Parameters.AddWithValue("@Pendiente", Factura.EstadoPendiente);
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                    lista.Add(new PendienteCaja
-                    {
-                        DNI = Convert.ToInt32(reader["DNI"]),
-                        NombreCliente = reader["NombreCliente"] == DBNull.Value ? null : reader["NombreCliente"].ToString(),
-                        NroFactura = reader["NroFactura"] == DBNull.Value ? (int?)null : Convert.ToInt32(reader["NroFactura"]),
-                        Total = Convert.ToDecimal(reader["Total"]),
-                        Fecha = Convert.ToDateTime(reader["Fecha"])
-                    });
+                new SqlDataAdapter(cmd).Fill(tabla);
             }
-            return lista;
+            return tabla;
         }
 
         // Última factura generada para ese DNI que todavía no se cobró

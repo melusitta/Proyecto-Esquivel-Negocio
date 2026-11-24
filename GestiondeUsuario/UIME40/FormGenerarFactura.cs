@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -53,14 +54,15 @@ namespace GestiondeUsuario
             {
                 var pendientes = FacturaBLL.Instancia.ObtenerPendientesDeCaja();
                 dgvPendientes.DataSource = null;
-                dgvPendientes.DataSource = pendientes.Select(p => new
+                dgvPendientes.DataSource = pendientes.Rows.Cast<DataRow>().Select(p => new
                 {
-                    p.DNI,
-                    Cliente = p.NombreCliente ?? g.Obtener("FormGenerarFactura", "noRegistrado"),
-                    Estado = p.NroFactura.HasValue
-                        ? string.Format(g.Obtener("FormGenerarFactura", "estFacturaPendiente"), p.NroFactura)
+                    DNI = Convert.ToInt32(p["DNI"]),
+                    Cliente = p["NombreCliente"] == DBNull.Value
+                        ? g.Obtener("FormGenerarFactura", "noRegistrado") : p["NombreCliente"].ToString(),
+                    Estado = p["NroFactura"] != DBNull.Value
+                        ? string.Format(g.Obtener("FormGenerarFactura", "estFacturaPendiente"), p["NroFactura"])
                         : g.Obtener("FormGenerarFactura", "estCarritoAsociado"),
-                    p.Total
+                    Total = Convert.ToDecimal(p["Total"])
                 }).ToList();
                 dgvPendientes.Columns["Total"].DefaultCellStyle.Format = "N2";
                 Tema.AnchoColumnas(dgvPendientes, ("DNI", 80), ("Cliente", 125), ("Estado", 95), ("Total", 85));

@@ -1,12 +1,14 @@
 ﻿﻿using BE;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace DAL
 {
-    // Bitácora de cambios del maestro de productos: lee las versiones de ProductoVersion.
-    // Las versiones las guarda el trigger trg_Producto_Audit (ver ProductoDAL.EjecutarConAuditoria).
+    // Bitácora de cambios del maestro de productos: lee las versiones de la tabla ProductoVersion.
+    // Las versiones las guarda el trigger trg_Producto_Audit (ver ProductoDAL.EjecutarConAuditoria); acá solo se leen,
+    // como DataTable: no hace falta una clase para cada versión.
     public class ProductoVersionDAL
     {
         private string connectionString = ConexionDAL.ConnectionString;
@@ -25,22 +27,16 @@ namespace DAL
             LEFT JOIN ProductoVersion a ON a.IdProducto = v.IdProducto AND a.NroVersion = v.NroVersion - 1
             LEFT JOIN Proveedor pa ON pa.Id = a.IdProveedorHabitual";
 
-        // Versiones de un producto, de la más nueva a la más vieja
-        public List<ProductoVersion> ObtenerPorProducto(int idProducto)
+        // Una versión (null si no existe)
+        public DataRow ObtenerPorId(int idVersion)
         {
-            return Leer(Consulta + " WHERE v.IdProducto = @Valor ORDER BY v.NroVersion DESC",
-                cmd => cmd.Parameters.AddWithValue("@Valor", idProducto));
-        }
-
-        public ProductoVersion ObtenerPorId(int idVersion)
-        {
-            var lista = Leer(Consulta + " WHERE v.Id = @Valor", cmd => cmd.Parameters.AddWithValue("@Valor", idVersion));
-            return lista.Count > 0 ? lista[0] : null;
+            DataTable tabla = Leer(Consulta + " WHERE v.Id = @Valor", cmd => cmd.Parameters.AddWithValue("@Valor", idVersion));
+            return tabla.Rows.Count > 0 ? tabla.Rows[0] : null;
         }
 
         // Cambios de todos los productos entre dos fechas (incluidas), de los más nuevos a los más viejos.
         // texto: código exacto, o parte del nombre o la marca. usuario y tipoCambio: null = todos.
-        public List<ProductoVersion> ObtenerCambios(DateTime desde, DateTime hasta, string texto, string usuario, string tipoCambio)
+        public DataTable ObtenerCambios(DateTime desde, DateTime hasta, string texto, string usuario, string tipoCambio)
         {
             string query = Consulta + @"
                 WHERE v.Fecha >= @Desde AND v.Fecha < DATEADD(DAY, 1, @Hasta)
@@ -74,50 +70,36 @@ namespace DAL
             return lista;
         }
 
-        private List<ProductoVersion> Leer(string query, Action<SqlCommand> parametros)
+        private DataTable Leer(string query, Action<SqlCommand> parametros)
         {
-            var lista = new List<ProductoVersion>();
+            DataTable tabla = new DataTable();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand(query, con);
                 parametros(cmd);
-                con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                    while (reader.Read())
-                        lista.Add(new ProductoVersion
-                        {
-                            Id = Convert.ToInt32(reader["IdVersion"]),
-                            NroVersion = Convert.ToInt32(reader["NroVersion"]),
-                            TipoCambio = reader["TipoCambio"].ToString(),
-                            Fecha = Convert.ToDateTime(reader["Fecha"]),
-                            Usuario = reader["Usuario"].ToString(),
-                            Detalle = reader["Detalle"] == DBNull.Value ? null : reader["Detalle"].ToString(),
-                            VersionActiva = Convert.ToBoolean(reader["VersionActiva"]),
-                            Datos = ProductoDAL.MapearProducto(reader),
-                            DatosAnteriores = MapearAnterior(reader)
-                        });
+                new SqlDataAdapter(cmd).Fill(tabla);
             }
-            return lista;
+            return tabla;
         }
 
-        private static Producto MapearAnterior(SqlDataReader r)
+        // Los datos del producto guardados en una versión (para restaurarla)
+        public static Producto ProductoDeVersion(DataRow v)
         {
-            if (r["Ant_Id"] == DBNull.Value) return null;
             return new Producto
             {
-                Id = Convert.ToInt32(r["Id"]),
-                CodigoProducto = Convert.ToInt32(r["Ant_CodigoProducto"]),
-                Nombre = r["Ant_Nombre"].ToString(),
-                Marca = r["Ant_Marca"].ToString(),
-                Color = r["Ant_Color"].ToString(),
-                Modelo = r["Ant_Modelo"].ToString(),
-                PrecioUnitario = Convert.ToDecimal(r["Ant_PrecioUnitario"]),
-                Existencia = Convert.ToInt32(r["Ant_Existencia"]),
-                Activo = Convert.ToBoolean(r["Ant_Activo"]),
-                Categoria = r["Ant_Categoria"].ToString(),
-                StockMinimo = Convert.ToInt32(r["Ant_StockMinimo"]),
-                IdProveedorHabitual = r["Ant_IdProveedorHabitual"] == DBNull.Value ? (int?)null : Convert.ToInt32(r["Ant_IdProveedorHabitual"]),
-                ProveedorHabitual = r["Ant_ProveedorHabitual"] == DBNull.Value ? null : r["Ant_ProveedorHabitual"].ToString()
+                Id = Convert.ToInt32(v["Id"]),
+                CodigoProducto = Convert.ToInt32(v["CodigoProducto"]),
+                Nombre = v["Nombre"].ToString(),
+                Marca = v["Marca"].ToString(),
+                Color = v["Color"].ToString(),
+                Modelo = v["Modelo"].ToString(),
+                PrecioUnitario = Convert.ToDecimal(v["PrecioUnitario"]),
+                Existencia = Convert.ToInt32(v["Existencia"]),
+                Activo = Convert.ToBoolean(v["Activo"]),
+                Categoria = v["Categoria"].ToString(),
+                StockMinimo = Convert.ToInt32(v["StockMinimo"]),
+                IdProveedorHabitual = v["IdProveedorHabitual"] == DBNull.Value ? (int?)null : Convert.ToInt32(v["IdProveedorHabitual"]),
+                ProveedorHabitual = v["ProveedorHabitual"] == DBNull.Value ? null : v["ProveedorHabitual"].ToString()
             };
         }
     }

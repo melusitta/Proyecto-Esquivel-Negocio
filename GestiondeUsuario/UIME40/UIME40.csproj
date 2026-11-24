@@ -209,18 +209,18 @@
     <Compile Include="FormRestore.Designer.cs">
       <DependentUpon>FormRestore.cs</DependentUpon>
     </Compile>
-    <Compile Include="IconoPlumy.cs">
+    <Compile Include="Recursos\IconoPlumy.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Impresion.cs" />
-    <Compile Include="TextosCompras.cs" />
-    <Compile Include="ImpresionCompras.cs" />
-    <Compile Include="ImpresionFactura.cs" />
-    <Compile Include="OjoContrasena.cs">
+    <Compile Include="Recursos\Impresion.cs" />
+    <Compile Include="Recursos\TextosCompras.cs" />
+    <Compile Include="Recursos\ImpresionCompras.cs" />
+    <Compile Include="Recursos\ImpresionFactura.cs" />
+    <Compile Include="Recursos\OjoContrasena.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Aviso.cs">
+    <Compile Include="Recursos\Aviso.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormAyuda.cs">
@@ -229,8 +229,8 @@
     <Compile Include="FormAyuda.Designer.cs">
       <DependentUpon>FormAyuda.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImpresionAyuda.cs" />
-    <Compile Include="ImpresionRemito.cs" />
+    <Compile Include="Recursos\ImpresionAyuda.cs" />
+    <Compile Include="Recursos\ImpresionRemito.cs" />
     <Compile Include="FormControlCambios.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -249,14 +249,14 @@
     <Compile Include="FormReporteRecibos.Designer.cs">
       <DependentUpon>FormReporteRecibos.cs</DependentUpon>
     </Compile>
-    <Compile Include="TemasAyuda.cs" />
-    <Compile Include="VisitaGuiada.cs">
+    <Compile Include="Recursos\TemasAyuda.cs" />
+    <Compile Include="Recursos\VisitaGuiada.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MascotaPlumy.cs">
+    <Compile Include="Recursos\MascotaPlumy.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Tema.cs" />
+    <Compile Include="Recursos\Tema.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

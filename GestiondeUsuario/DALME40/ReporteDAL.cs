@@ -1,6 +1,5 @@
 ﻿using BE;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -11,9 +10,10 @@ namespace DAL
         private string connectionString = ConexionDAL.ConnectionString;
 
         // Unidades y monto vendidos por producto, solo de facturas cobradas en [desde, hastaExclusivo)
-        public List<ProductoVendido> ObtenerProductosVendidos(DateTime desde, DateTime hastaExclusivo)
+        // Columnas: CodigoProducto, Nombre, Marca, Unidades, Monto
+        public DataTable ObtenerProductosVendidos(DateTime desde, DateTime hastaExclusivo)
         {
-            var lista = new List<ProductoVendido>();
+            DataTable tabla = new DataTable();
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 string query = @"SELECT p.CodigoProducto, p.Nombre, p.Marca,
@@ -26,19 +26,9 @@ namespace DAL
                     GROUP BY p.Id, p.CodigoProducto, p.Nombre, p.Marca";
                 SqlCommand cmd = new SqlCommand(query, con);
                 CargarParametros(cmd, desde, hastaExclusivo);
-                con.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                    lista.Add(new ProductoVendido
-                    {
-                        CodigoProducto = Convert.ToInt32(reader["CodigoProducto"]),
-                        Nombre = reader["Nombre"].ToString(),
-                        Marca = reader["Marca"].ToString(),
-                        Unidades = Convert.ToInt32(reader["Unidades"]),
-                        Monto = Convert.ToDecimal(reader["Monto"])
-                    });
+                new SqlDataAdapter(cmd).Fill(tabla);
             }
-            return lista;
+            return tabla;
         }
 
         public int ContarFacturasCobradas(DateTime desde, DateTime hastaExclusivo)

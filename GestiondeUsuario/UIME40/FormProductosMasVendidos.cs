@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Printing;
 using System.Linq;
@@ -15,7 +16,12 @@ namespace GestiondeUsuario
     // Reporte: productos más vendidos en un período (personalizado o festivo: Día del Niño, Navidad y Reyes)
     public partial class FormProductosMasVendidos : Form, IObservadorIdioma
     {
-        private ReporteProductosVendidos _reporte;
+        // Último reporte generado (null = todavía no se generó)
+        private DataTable _ranking;
+        private DateTime _desde, _hasta;
+        private bool _porMonto;
+        private int _cantidadFacturas, _totalUnidades;
+        private decimal _totalMonto;
         private Opcion _periodoReporte;   // período con el que se generó el reporte (para imprimir)
         private Chart _grafico;
         private int _siguienteFilaImpresion;
@@ -112,7 +118,11 @@ namespace GestiondeUsuario
             try
             {
                 int top = (int)((Opcion)cmbTop.SelectedItem).Valor;
-                _reporte = ReporteBLL.Instancia.ProductosMasVendidos(dtpDesde.Value, dtpHasta.Value, rbMonto.Checked, top);
+                _ranking = ReporteBLL.Instancia.ProductosMasVendidos(dtpDesde.Value, dtpHasta.Value, rbMonto.Checked, top,
+                    out _cantidadFacturas, out _totalUnidades, out _totalMonto);
+                _desde = dtpDesde.Value.Date;
+                _hasta = dtpHasta.Value.Date;
+                _porMonto = rbMonto.Checked;
                 _periodoReporte = (Opcion)cmbPeriodo.SelectedItem;
                 MostrarReporte();
             }
@@ -127,15 +137,15 @@ namespace GestiondeUsuario
         private void MostrarReporte()
         {
             var g = GestorIdioma.Instancia;
-            var filas = (_reporte?.Productos ?? new List<ProductoVendido>()).Select(p => new
+            var filas = Productos().Select(p => new
             {
-                p.Posicion,
-                p.CodigoProducto,
-                Producto = p.Nombre,
-                p.Marca,
-                p.Unidades,
-                p.Monto,
-                Porcentaje = p.Porcentaje.ToString("N1") + " %"
+                Posicion = (int)p["Posicion"],
+                CodigoProducto = (int)p["CodigoProducto"],
+                Producto = (string)p["Nombre"],
+                Marca = (string)p["Marca"],
+                Unidades = (int)p["Unidades"],
+                Monto = (decimal)p["Monto"],
+                Porcentaje = ((decimal)p["Porcentaje"]).ToString("N1") + " %"
             }).ToList();
             dgvRanking.DataSource = null;
             dgvRanking.DataSource = filas;
@@ -146,11 +156,11 @@ namespace GestiondeUsuario
                 ("Unidades", 70), ("Monto", 95), ("Porcentaje", 60));
             TraducirColumnas();
 
-            if (_reporte == null)
+            if (_ranking == null)
                 lblResumen.Text = "";
-            else if (_reporte.TotalUnidades == 0)
+            else if (_totalUnidades == 0)
                 lblResumen.Text = string.Format(g.Obtener("FormProductosMasVendidos", "sinVentas"),
-                    _reporte.Desde.ToString("dd/MM/yyyy"), _reporte.Hasta.ToString("dd/MM/yyyy"));
+                    _desde.ToString("dd/MM/yyyy"), _hasta.ToString("dd/MM/yyyy"));
             else
                 lblResumen.Text = TextoResumen();
 
@@ -160,8 +170,14 @@ namespace GestiondeUsuario
         private string TextoResumen()
         {
             return string.Format(GestorIdioma.Instancia.Obtener("FormProductosMasVendidos", "lblResumen"),
-                _reporte.Desde.ToString("dd/MM/yyyy"), _reporte.Hasta.ToString("dd/MM/yyyy"),
-                _reporte.CantidadFacturas, _reporte.TotalUnidades, _reporte.TotalMonto.ToString("N2"));
+                _desde.ToString("dd/MM/yyyy"), _hasta.ToString("dd/MM/yyyy"),
+                _cantidadFacturas, _totalUnidades, _totalMonto.ToString("N2"));
+        }
+
+        // Filas del ranking (vacío si todavía no se generó)
+        private List<DataRow> Productos()
+        {
+            return _ranking == null ? new List<DataRow>() : _ranking.Rows.Cast<DataRow>().ToList();
         }
 
         // ---------- Gráfico: barras horizontales, una sola serie (sin leyenda), N°1 arriba ----------
@@ -209,13 +225,13 @@ namespace GestiondeUsuario
             serie.Points.Clear();
             _grafico.Titles.Clear();
 
-            bool porMonto = _reporte?.OrdenadoPorMonto ?? rbMonto.Checked;
+            bool porMonto = _ranking != null ? _porMonto : rbMonto.Checked;
             var area = _grafico.ChartAreas["ranking"];
             area.AxisY.Title = g.Obtener("FormProductosMasVendidos", porMonto ? "ejeMonto" : "ejeUnidades");
             // Montos del eje en miles ($ 120k) para que entren; el monto exacto está en la tabla y en el tooltip
             area.AxisY.LabelStyle.Format = porMonto ? "$ #,0,k" : "#,0";
 
-            if (_reporte == null || _reporte.Productos.Count == 0)
+            if (Productos().Count == 0)
             {
                 _grafico.Titles.Add(new Title(g.Obtener("FormProductosMasVendidos", "sinDatosGrafico"),
                     Docking.Top, new Font(Tema.Fuente, 10F), Color.DimGray));
@@ -223,13 +239,16 @@ namespace GestiondeUsuario
             }
 
             // Las barras se dibujan de abajo hacia arriba: se cargan al revés para que el N°1 quede arriba
-            foreach (var p in Enumerable.Reverse(_reporte.Productos))
+            foreach (DataRow p in Enumerable.Reverse(Productos()))
             {
-                double valor = porMonto ? (double)p.Monto : p.Unidades;
-                int i = serie.Points.AddXY(p.Posicion + ". " + p.Nombre, valor);
+                string nombre = (string)p["Nombre"];
+                decimal monto = (decimal)p["Monto"];
+                int unidades = (int)p["Unidades"];
+                double valor = porMonto ? (double)monto : unidades;
+                int i = serie.Points.AddXY(p["Posicion"] + ". " + nombre, valor);
                 serie.Points[i].ToolTip = porMonto
-                    ? p.Nombre + ": $ " + p.Monto.ToString("N2")
-                    : p.Nombre + ": " + p.Unidades + " " + g.Obtener("FormProductosMasVendidos", "ejeUnidades").ToLower();
+                    ? nombre + ": $ " + monto.ToString("N2")
+                    : nombre + ": " + unidades + " " + g.Obtener("FormProductosMasVendidos", "ejeUnidades").ToLower();
             }
         }
 
@@ -238,7 +257,7 @@ namespace GestiondeUsuario
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             var g = GestorIdioma.Instancia;
-            if (_reporte == null)
+            if (_ranking == null)
             {
                 MessageBox.Show(g.Obtener("FormProductosMasVendidos", "msgGenerarPrimero"),
                     g.Obtener("FormProductosMasVendidos", "msgAtencion"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -248,7 +267,7 @@ namespace GestiondeUsuario
             string titulo = g.Obtener("FormProductosMasVendidos", "tituloForm");
             using (PrintDocument documento = CrearDocumento())
                 Impresion.MostrarOGuardarPdf(documento, this, titulo,
-                    titulo + "_" + _reporte.Desde.ToString("yyyy-MM-dd") + "_" + _reporte.Hasta.ToString("yyyy-MM-dd"));
+                    titulo + "_" + _desde.ToString("yyyy-MM-dd") + "_" + _hasta.ToString("yyyy-MM-dd"));
         }
 
         public PrintDocument CrearDocumento()
@@ -276,19 +295,19 @@ namespace GestiondeUsuario
             {
                 gr.DrawString("Plumy · " + t.Obtener("FormProductosMasVendidos", "tituloForm"), fTitulo, lila, izq, y);
                 y += 34;
-                gr.DrawString(_periodoReporte + " · " + t.Obtener("FormProductosMasVendidos", _reporte.OrdenadoPorMonto ? "rbMonto" : "rbUnidades"),
+                gr.DrawString(_periodoReporte + " · " + t.Obtener("FormProductosMasVendidos", _porMonto ? "rbMonto" : "rbUnidades"),
                     fNegrita, Brushes.Black, izq, y);
                 y += 20;
-                gr.DrawString(_reporte.TotalUnidades == 0
-                        ? string.Format(t.Obtener("FormProductosMasVendidos", "sinVentas"), _reporte.Desde.ToString("dd/MM/yyyy"), _reporte.Hasta.ToString("dd/MM/yyyy"))
+                gr.DrawString(_totalUnidades == 0
+                        ? string.Format(t.Obtener("FormProductosMasVendidos", "sinVentas"), _desde.ToString("dd/MM/yyyy"), _hasta.ToString("dd/MM/yyyy"))
                         : TextoResumen(), fNormal, Brushes.Black, izq, y);
                 y += 30;
 
                 // El gráfico solo en la primera página
-                if (_siguienteFilaImpresion == 0 && _reporte.Productos.Count > 0)
+                if (_siguienteFilaImpresion == 0 && _ranking.Rows.Count > 0)
                 {
                     // Se dibuja directo en la hoja (nítido y sin deformarse), no como foto de la pantalla
-                    int ancho = (int)(der - izq), alto = Math.Min(340, 90 + _reporte.Productos.Count * 30);
+                    int ancho = (int)(der - izq), alto = Math.Min(340, 90 + _ranking.Rows.Count * 30);
                     _grafico.Printing.PrintPaint(gr, new Rectangle((int)izq, (int)y, ancho, alto));
                     y += alto + 15;
                 }
@@ -304,20 +323,20 @@ namespace GestiondeUsuario
                 gr.DrawString("%", fNegrita, Brushes.Black, cols[5] - 4, y + 3, derecha);
                 y += 26;
 
-                while (_siguienteFilaImpresion < _reporte.Productos.Count)
+                while (_siguienteFilaImpresion < _ranking.Rows.Count)
                 {
                     if (y > area.Bottom - 20)
                     {
                         e.HasMorePages = true;
                         return;
                     }
-                    var p = _reporte.Productos[_siguienteFilaImpresion++];
-                    gr.DrawString(p.Posicion.ToString(), fNormal, Brushes.Black, cols[0], y, derecha);
-                    gr.DrawString(p.CodigoProducto.ToString(), fNormal, Brushes.Black, cols[1], y, derecha);
-                    gr.DrawString(p.Nombre + " (" + p.Marca + ")", fNormal, Brushes.Black, cols[1] + 12, y);
-                    gr.DrawString(p.Unidades.ToString(), fNormal, Brushes.Black, cols[3], y, derecha);
-                    gr.DrawString("$ " + p.Monto.ToString("N2"), fNormal, Brushes.Black, cols[4], y, derecha);
-                    gr.DrawString(p.Porcentaje.ToString("N1") + " %", fNormal, Brushes.Black, cols[5] - 4, y, derecha);
+                    DataRow p = _ranking.Rows[_siguienteFilaImpresion++];
+                    gr.DrawString(p["Posicion"].ToString(), fNormal, Brushes.Black, cols[0], y, derecha);
+                    gr.DrawString(p["CodigoProducto"].ToString(), fNormal, Brushes.Black, cols[1], y, derecha);
+                    gr.DrawString(p["Nombre"] + " (" + p["Marca"] + ")", fNormal, Brushes.Black, cols[1] + 12, y);
+                    gr.DrawString(p["Unidades"].ToString(), fNormal, Brushes.Black, cols[3], y, derecha);
+                    gr.DrawString("$ " + ((decimal)p["Monto"]).ToString("N2"), fNormal, Brushes.Black, cols[4], y, derecha);
+                    gr.DrawString(((decimal)p["Porcentaje"]).ToString("N1") + " %", fNormal, Brushes.Black, cols[5] - 4, y, derecha);
                     y += 20;
                 }
                 e.HasMorePages = false;

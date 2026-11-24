@@ -69,20 +69,16 @@ namespace GestiondeUsuario
             {
                 _ordenes = RecepcionBLL.Instancia.ObtenerOrdenesARecibir();
                 dgvOrdenes.DataSource = null;
-                dgvOrdenes.DataSource = _ordenes.Select(o =>
+                dgvOrdenes.DataSource = _ordenes.Select(o => new
                 {
-                    FacturaProveedor f = PagoProveedorBLL.Instancia.ObtenerFacturaDeOrden(o.Id);
-                    return new
-                    {
-                        o.Id,
-                        Nro = o.NroOrden.ToString("D6"),
-                        Proveedor = o.Proveedor.RazonSocial,
-                        Emision = o.FechaEmision.ToString("dd/MM/yyyy"),
-                        Productos = o.Items.Count,
-                        Total = o.Total.ToString("N2"),
-                        Factura = f?.NroFactura ?? "",
-                        Importe = f?.Importe.ToString("N2") ?? ""
-                    };
+                    o.Id,
+                    Nro = o.NroOrden.ToString("D6"),
+                    Proveedor = o.Proveedor.RazonSocial,
+                    Emision = o.FechaEmision.ToString("dd/MM/yyyy"),
+                    Productos = o.Items.Count,
+                    Total = o.Total.ToString("N2"),
+                    Factura = o.NroFacturaProveedor ?? "",
+                    Importe = o.NroFacturaProveedor == null ? "" : o.Total.ToString("N2")
                 }).ToList();
                 dgvOrdenes.Columns["Id"].Visible = false;
                 Tema.AnchoColumnas(dgvOrdenes, ("Nro", 70), ("Proveedor", 180), ("Emision", 85), ("Productos", 70), ("Total", 100), ("Factura", 120), ("Importe", 100));
@@ -120,9 +116,9 @@ namespace GestiondeUsuario
                 lblComparacion.Text = T("sinOrdenes");
                 return;
             }
-            FacturaProveedor f = PagoProveedorBLL.Instancia.ObtenerFacturaDeOrden(o.Id);
+            bool conFactura = o.NroFacturaProveedor != null;
             lblComparacion.Text = string.Format(T("lblComparacion"), o.NroOrden.ToString("D6"), o.Total.ToString("N2"),
-                f?.NroFactura ?? "-", f?.Importe.ToString("N2") ?? "-", o.Items.Sum(i => i.Cantidad));
+                conFactura ? o.NroFacturaProveedor : "-", conFactura ? o.Total.ToString("N2") : "-", o.Items.Sum(i => i.Cantidad));
             foreach (ItemOrdenCompra i in o.Items)
             {
                 int fila = dgvItems.Rows.Add(i.Producto.CodigoProducto, i.Producto.Nombre, i.Cantidad, "", ItemRecepcion.EstadoBueno, "");

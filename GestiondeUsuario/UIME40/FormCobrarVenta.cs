@@ -96,8 +96,9 @@ namespace GestiondeUsuario
             {
                 // Débito / Crédito: la BLL valida la tarjeta y le pide la aprobación al banco.
                 // Transferencia: el cajero confirma que el banco la acreditó. Efectivo: no pasa por el banco.
-                bool pagoAcreditado = PagoBLL.EsPagoConTarjeta(formaPago)
-                    ? PagoBLL.Instancia.AutorizarPagoConTarjeta(_factura.Id, monto, formaPago, LeerTarjeta())
+                bool pagoAcreditado = FacturaBLL.EsPagoConTarjeta(formaPago)
+                    ? FacturaBLL.Instancia.AutorizarPagoConTarjeta(_factura.Id, monto, formaPago,
+                        txtNumeroTarjeta.Text.Trim(), txtVencimiento.Text.Trim(), txtCVV.Text.Trim(), txtTitular.Text.Trim())
                     : chkAcreditado.Checked;
 
                 FacturaBLL.Instancia.Cobrar(_factura.Id, monto, formaPago, pagoAcreditado);
@@ -126,22 +127,10 @@ namespace GestiondeUsuario
         private void cmbFormaPago_SelectedIndexChanged(object sender, EventArgs e)
         {
             string formaPago = (cmbFormaPago.SelectedItem as OpcionPago)?.Codigo;
-            bool tarjeta = PagoBLL.EsPagoConTarjeta(formaPago);
+            bool tarjeta = FacturaBLL.EsPagoConTarjeta(formaPago);
             pnlTarjeta.Visible = tarjeta;
-            chkAcreditado.Visible = !tarjeta && PagoBLL.RequiereConfirmacionBanco(formaPago);
+            chkAcreditado.Visible = !tarjeta && FacturaBLL.RequiereConfirmacionBanco(formaPago);
             chkAcreditado.Checked = false;
-        }
-
-        // Datos que cargó el cajero; las validaciones las hace PagoBLL
-        private Tarjeta LeerTarjeta()
-        {
-            return new Tarjeta
-            {
-                Numero = txtNumeroTarjeta.Text.Trim(),
-                Vencimiento = txtVencimiento.Text.Trim(),
-                CVV = txtCVV.Text.Trim(),
-                Titular = txtTitular.Text.Trim()
-            };
         }
 
         private void txtSoloNumeros_KeyPress(object sender, KeyPressEventArgs e)

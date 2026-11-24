@@ -4,12 +4,15 @@ using Servicios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace BLL
 {
     // PN2: CUN-008 Generar orden de compra (Supervisor): registra las cotizaciones que remiten los proveedores
     // (paso 4), genera la orden a partir de la cotización elegida (paso 5) y se la envía (paso 7).
     // Si el proveedor no tiene datos bancarios se extiende a CUN-009 Completar registro proveedor (paso 6).
+    // También CUN-010 Pagar orden de compra (incluido en CUN-008): paso 8, el proveedor entrega la factura;
+    // paso 9, el supervisor paga la orden y registra la factura con el comprobante.
     public class OrdenCompraBLL
     {
         private static OrdenCompraBLL _instancia;
@@ -239,6 +242,76 @@ namespace BLL
         public List<OrdenCompra> ObtenerPorSolicitud(int idSolicitud)
         {
             return new OrdenCompraDAL().ObtenerPorSolicitud(idSolicitud);
+        }
+
+        // ---------- Pago de la orden (CUN-010, pasos 8 y 9) ----------
+
+        // Formas en que se le puede pagar la orden: las que aceptaba el proveedor al cotizar (si no tenía
+        // ninguna cargada, cualquiera)
+        public List<string> FormasPagoDeOrden(OrdenCompra orden)
+        {
+            Cotizacion c = ObtenerCotizacion(orden.IdCotizacion);
+            List<string> formas = ProveedorBLL.FormasAceptadas(c?.FormaPago).Where(f => ProveedorBLL.FormasPago.Contains(f)).ToList();
+            return formas.Count > 0 ? formas : ProveedorBLL.FormasPago.ToList();
+        }
+
+        // Paso 9: importe es el de la factura sin impuestos (tiene que coincidir con el total de la orden);
+        // formaPago es la que elige el supervisor entre las que acepta el proveedor
+        public OrdenCompra PagarOrden(int idOrden, DateTime fechaFactura, decimal importe, decimal impuestos,
+                                      decimal montoAbonado, DateTime fechaPago, string nroComprobante, string formaPago)
+        {
+            OrdenCompra orden = ObtenerPorId(idOrden);
+            if (orden.Estado != OrdenCompra.EstadoEnviada)
+                throw new ErrorNegocio("ORDEN_ESTADO_INVALIDO", orden.NroOrden, orden.Estado);
+
+            nroComprobante = nroComprobante?.Trim();
+            if (string.IsNullOrEmpty(nroComprobante))
+                throw new ErrorNegocio("FACTURA_PROVEEDOR_DATOS_INCOMPLETOS");
+            if (string.IsNullOrEmpty(formaPago))
+                throw new ErrorNegocio("FORMA_PAGO_INVALIDA");
+            if (!FormasPagoDeOrden(orden).Contains(formaPago))
+                throw new ErrorNegocio("FORMA_PAGO_NO_ACEPTADA", orden.Proveedor.RazonSocial, formaPago);
+            if (fechaFactura.Date > DateTime.Today || fechaPago.Date > DateTime.Today)
+                throw new ErrorNegocio("FECHA_FUTURA");
+            if (fechaPago.Date < fechaFactura.Date)
+                throw new ErrorNegocio("PAGO_ANTERIOR_A_FACTURA");
+            if (importe <= 0 || impuestos < 0)
+                throw new ErrorNegocio("IMPORTE_INVALIDO");
+            // El importe de la factura (sin impuestos) tiene que coincidir con lo acordado en la orden
+            if (importe != orden.Total)
+                throw new ErrorNegocio("FACTURA_IMPORTE_NO_COINCIDE", orden.Total.ToString("N2"));
+            if (montoAbonado != importe + impuestos)
+                throw new ErrorNegocio("MONTO_ABONADO_INCORRECTO", (importe + impuestos).ToString("N2"));
+
+            // El número de factura lo asigna el sistema: el siguiente al último de ese proveedor
+            OrdenCompraDAL dal = new OrdenCompraDAL();
+            orden.NroFacturaProveedor = SiguienteNroFactura(orden.Proveedor.Id);
+            if (dal.ExisteNroFactura(orden.Proveedor.Id, orden.NroFacturaProveedor))
+                throw new ErrorNegocio("FACTURA_PROVEEDOR_DUPLICADA", orden.NroFacturaProveedor);
+
+            orden.FechaFactura = fechaFactura.Date;
+            orden.Impuestos = impuestos;
+            orden.MontoAbonado = montoAbonado;
+            orden.FechaPago = fechaPago.Date;
+            orden.NroComprobante = nroComprobante;
+            orden.PagadoPor = UsuarioActivo();
+            if (!dal.RegistrarPago(orden, formaPago))
+                throw new ErrorNegocio("ORDEN_ESTADO_INVALIDO", orden.NroOrden, orden.Estado);
+
+            Registrar("Pagar orden de compra", 3);
+            return dal.ObtenerPorId(idOrden);
+        }
+
+        // Paso 8: las facturas de cada proveedor se numeran en forma correlativa; el sistema asigna la siguiente
+        // a la última que se le registró (A-0001-00001234 -> A-0001-00001235). La primera es 0001-00000001.
+        public string SiguienteNroFactura(int idProveedor)
+        {
+            string ultimo = new OrdenCompraDAL().UltimoNroFactura(idProveedor);
+            Match numero = Regex.Match(ultimo ?? "", @"(\d+)$");
+            if (!numero.Success)
+                return string.IsNullOrEmpty(ultimo) ? "0001-00000001" : ultimo + "-1";
+            string siguiente = (long.Parse(numero.Value) + 1).ToString().PadLeft(numero.Length, '0');
+            return ultimo.Substring(0, numero.Index) + siguiente;
         }
 
         private static string UsuarioActivo()

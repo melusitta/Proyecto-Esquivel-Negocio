@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using Servicios;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -17,13 +18,13 @@ namespace GestiondeUsuario
     // vuelve a esos datos (menos la existencia). Las versiones las guarda el trigger trg_Producto_Audit.
     public partial class FormControlCambios : Form, IObservadorIdioma
     {
-        private List<ProductoVersion> _cambios = new List<ProductoVersion>();
+        // Cada fila es una versión de un producto (ver ProductoBLL.ObtenerCambios)
+        private DataTable _cambios;
 
         // Campos que se comparan con la versión anterior (nombre de columna de la grilla)
         private static readonly string[] Campos = { "CodigoProducto", "Nombre", "Marca", "Color", "Modelo", "PrecioUnitario",
                                                     "Existencia", "Categoria", "StockMinimo", "Proveedor", "Activo" };
-        private static readonly string[] Tipos = { ProductoVersion.TipoAlta, ProductoVersion.TipoModificacion, ProductoVersion.TipoBaja,
-                                                   ProductoVersion.TipoReactivacion, ProductoVersion.TipoRestauracion };
+        private static readonly string[] Tipos = { "Alta", "Modificacion", "Baja", "Reactivacion", "Restauracion" };
 
         // Ítem de un combo: valor que se filtra y texto en el idioma activo (valor null = todos)
         private class Opcion
@@ -153,13 +154,14 @@ namespace GestiondeUsuario
             }
 
             dgvVersiones.Rows.Clear();
-            foreach (ProductoVersion v in _cambios)
+            foreach (DataRow v in _cambios.Rows)
             {
-                int fila = dgvVersiones.Rows.Add(Fila(v, v.Datos, v.VersionActiva ? T("si") : T("no"), v.NroVersion,
-                    v.Fecha.ToString("dd/MM/yyyy HH:mm"), v.Usuario, TextoCambio(v)));
+                bool versionActiva = Convert.ToBoolean(v["VersionActiva"]);
+                int fila = dgvVersiones.Rows.Add(Fila(v, "", versionActiva ? T("si") : T("no"), v["NroVersion"],
+                    Convert.ToDateTime(v["Fecha"]).ToString("dd/MM/yyyy HH:mm"), v["Usuario"].ToString(), TextoCambio(v)));
                 DataGridViewRow r = dgvVersiones.Rows[fila];
                 r.Tag = v;
-                if (v.VersionActiva)
+                if (versionActiva)
                 {
                     // La versión activa del producto se ve en violeta
                     DataGridViewCell activa = r.Cells["VersionActiva"];
@@ -169,9 +171,9 @@ namespace GestiondeUsuario
                     activa.Style.SelectionForeColor = Color.White;
                     activa.Style.Font = new Font(dgvVersiones.Font, FontStyle.Bold);
                 }
-                // Lo que cambió respecto de la versión anterior del producto
-                if (v.DatosAnteriores == null) continue;
-                object[] anterior = Fila(v, v.DatosAnteriores, "", 0, "", "", "");
+                // Lo que cambió respecto de la versión anterior del producto (columnas Ant_*)
+                if (v["Ant_Id"] == DBNull.Value) continue;
+                object[] anterior = Fila(v, "Ant_", "", "", "", "", "");
                 foreach (string campo in Campos)
                 {
                     DataGridViewCell celda = r.Cells[campo];
@@ -185,57 +187,70 @@ namespace GestiondeUsuario
                     celda.Style.Font = new Font(dgvVersiones.Font, FontStyle.Bold);
                 }
             }
-            lblVersiones.Text = string.Format(T("lblVersiones"), _cambios.Count);
+            lblVersiones.Text = string.Format(T("lblVersiones"), _cambios.Rows.Count);
             dgvVersiones.ClearSelection();
             if (seleccionar.HasValue)
                 foreach (DataGridViewRow r in dgvVersiones.Rows)
-                    if (((ProductoVersion)r.Tag).Id == seleccionar.Value)
+                    if (IdVersion((DataRow)r.Tag) == seleccionar.Value)
                         r.Selected = true;
             dgvVersiones_SelectionChanged(null, EventArgs.Empty);
         }
 
-        // Valores de una fila de la grilla, en el orden de las columnas
-        private object[] Fila(ProductoVersion v, Producto d, string activa, int nro, string fecha, string usuario, string cambio)
+        // Valores de una fila de la grilla, en el orden de las columnas.
+        // pre = "" para los datos de la versión, "Ant_" para los de la versión anterior
+        private object[] Fila(DataRow v, string pre, string activa, object nro, string fecha, string usuario, string cambio)
         {
-            return new object[] { activa, d.CodigoProducto, d.Nombre, nro == 0 ? (object)"" : nro, fecha, usuario, cambio,
-                d.Marca, d.Color, d.Modelo, d.PrecioUnitario.ToString("N2"), d.Existencia, d.Categoria, d.StockMinimo,
-                d.ProveedorHabitual ?? "", d.Activo ? T("activo") : T("inactivo") };
+            return new object[] { activa, v[pre + "CodigoProducto"], v[pre + "Nombre"], nro, fecha, usuario, cambio,
+                v[pre + "Marca"], v[pre + "Color"], v[pre + "Modelo"], Convert.ToDecimal(v[pre + "PrecioUnitario"]).ToString("N2"),
+                v[pre + "Existencia"], v[pre + "Categoria"], v[pre + "StockMinimo"],
+                v[pre + "ProveedorHabitual"] == DBNull.Value ? "" : v[pre + "ProveedorHabitual"],
+                Convert.ToBoolean(v[pre + "Activo"]) ? T("activo") : T("inactivo") };
         }
 
-        private string TextoCambio(ProductoVersion v)
+        private string TextoCambio(DataRow v)
         {
-            string texto = T("tipo" + v.TipoCambio);
-            if (v.TipoCambio == ProductoVersion.TipoRestauracion && v.Detalle != null)
-                texto += " (" + string.Format(T("deVersion"), v.Detalle) + ")";
+            string tipo = v["TipoCambio"].ToString();
+            string texto = T("tipo" + tipo);
+            if (tipo == "Restauracion" && v["Detalle"] != DBNull.Value)
+                texto += " (" + string.Format(T("deVersion"), v["Detalle"]) + ")";
             return texto;
         }
 
-        private ProductoVersion VersionElegida()
+        private static int IdVersion(DataRow v)
+        {
+            return Convert.ToInt32(v["IdVersion"]);
+        }
+
+        private DataRow VersionElegida()
         {
             DataGridViewRow fila = dgvVersiones.SelectedRows.Count > 0 ? dgvVersiones.SelectedRows[0] : null;
-            return fila?.Tag as ProductoVersion;
+            return fila?.Tag as DataRow;
         }
 
         // Se puede activar cualquier versión que no sea la activa de su producto
         private void dgvVersiones_SelectionChanged(object sender, EventArgs e)
         {
-            ProductoVersion v = VersionElegida();
-            btnRestaurar.Enabled = v != null && !v.VersionActiva;
-            lblAyudaRestaurar.Text = v == null ? T("ayudaElegir") : v.VersionActiva ? T("ayudaActual") : T("ayudaRestaurar");
+            DataRow v = VersionElegida();
+            bool activa = v != null && Convert.ToBoolean(v["VersionActiva"]);
+            btnRestaurar.Enabled = v != null && !activa;
+            lblAyudaRestaurar.Text = v == null ? T("ayudaElegir") : activa ? T("ayudaActual") : T("ayudaRestaurar");
         }
 
         private void btnRestaurar_Click(object sender, EventArgs e)
         {
-            ProductoVersion v = VersionElegida();
+            DataRow v = VersionElegida();
             if (v == null) return;
-            if (MessageBox.Show(string.Format(T("msgConfirmar"), v.Datos.Nombre, v.NroVersion, v.Fecha.ToString("dd/MM/yyyy HH:mm")),
+            int id = IdVersion(v);
+            string nombre = v["Nombre"].ToString();
+            object nro = v["NroVersion"];
+            if (MessageBox.Show(string.Format(T("msgConfirmar"), nombre, nro, Convert.ToDateTime(v["Fecha"]).ToString("dd/MM/yyyy HH:mm")),
                     T("tituloForm"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                 return;
             try
             {
-                ProductoBLL.Instancia.RestaurarVersion(v.Id);
-                Aviso.Exito(string.Format(T("msgRestaurada"), v.Datos.Nombre, v.NroVersion));
-                CargarCambios(v.Id);
+                ProductoBLL.Instancia.RestaurarVersion(id);
+                Aviso.Exito(string.Format(T("msgRestaurada"), nombre, nro));
+                CargarCambios(id);
             }
             catch (Exception ex)
             {
@@ -276,7 +291,7 @@ namespace GestiondeUsuario
             if (cmbTipo.Items.Count > 0)
             {
                 CargarCombos();
-                CargarCambios(VersionElegida()?.Id);
+                CargarCambios(VersionElegida() == null ? (int?)null : IdVersion(VersionElegida()));
             }
         }
     }

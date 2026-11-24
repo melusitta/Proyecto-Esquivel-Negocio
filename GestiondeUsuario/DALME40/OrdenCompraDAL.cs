@@ -284,6 +284,81 @@ namespace DAL
             return LeerOrdenes("SELECT * FROM OrdenCompra WHERE IdSolicitud = @Valor ORDER BY NroOrden", idSolicitud, null);
         }
 
+        // ---------- Pago de la orden (CUN-010) ----------
+
+        public bool ExisteNroFactura(int idProveedor, string nroFactura)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(
+                    "SELECT COUNT(*) FROM OrdenCompra WHERE IdProveedor = @IdProveedor AND NroFacturaProveedor = @Nro", con);
+                cmd.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                cmd.Parameters.AddWithValue("@Nro", nroFactura);
+                con.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
+        }
+
+        // Número de la última factura registrada de un proveedor, o null si todavía no tiene
+        public string UltimoNroFactura(int idProveedor)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(@"SELECT TOP 1 NroFacturaProveedor FROM OrdenCompra
+                    WHERE IdProveedor = @IdProveedor AND NroFacturaProveedor IS NOT NULL
+                    ORDER BY FechaFactura DESC, Id DESC", con);
+                cmd.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                con.Open();
+                return cmd.ExecuteScalar() as string;
+            }
+        }
+
+        // Guarda la factura y el pago en la orden, que pasa de Enviada a Pagada, y en su cotización queda
+        // la forma de pago que se usó, todo junto. Devuelve false si la orden ya no estaba Enviada.
+        public bool RegistrarPago(OrdenCompra o, string formaPago)
+        {
+            using (SqlConnection con = new SqlConnection(connectionString))
+            {
+                con.Open();
+                SqlTransaction tx = con.BeginTransaction();
+                try
+                {
+                    SqlCommand cmd = new SqlCommand(@"UPDATE OrdenCompra SET Estado = @Pagada,
+                        NroFacturaProveedor = @Nro, FechaFactura = @FechaFactura, Impuestos = @Impuestos,
+                        MontoAbonado = @Monto, FechaPago = @FechaPago, NroComprobante = @Comprobante, PagadoPor = @PagadoPor
+                        WHERE Id = @Id AND Estado = @Enviada", con, tx);
+                    cmd.Parameters.AddWithValue("@Pagada", OrdenCompra.EstadoPagada);
+                    cmd.Parameters.AddWithValue("@Enviada", OrdenCompra.EstadoEnviada);
+                    cmd.Parameters.AddWithValue("@Id", o.Id);
+                    cmd.Parameters.AddWithValue("@Nro", o.NroFacturaProveedor);
+                    cmd.Parameters.Add("@FechaFactura", SqlDbType.DateTime).Value = o.FechaFactura.Value;
+                    cmd.Parameters.AddWithValue("@Impuestos", o.Impuestos);
+                    cmd.Parameters.AddWithValue("@Monto", o.MontoAbonado);
+                    cmd.Parameters.Add("@FechaPago", SqlDbType.DateTime).Value = o.FechaPago.Value;
+                    cmd.Parameters.AddWithValue("@Comprobante", o.NroComprobante);
+                    cmd.Parameters.AddWithValue("@PagadoPor", o.PagadoPor);
+                    if (cmd.ExecuteNonQuery() == 0)
+                    {
+                        tx.Rollback();
+                        return false;
+                    }
+
+                    SqlCommand cmdForma = new SqlCommand("UPDATE Cotizacion SET FormaPago = @FormaPago WHERE Id = @Id", con, tx);
+                    cmdForma.Parameters.AddWithValue("@FormaPago", formaPago);
+                    cmdForma.Parameters.AddWithValue("@Id", o.IdCotizacion);
+                    cmdForma.ExecuteNonQuery();
+
+                    tx.Commit();
+                    return true;
+                }
+                catch
+                {
+                    tx.Rollback();
+                    throw;
+                }
+            }
+        }
+
         private List<OrdenCompra> LeerOrdenes(string query, int valor, string texto)
         {
             var lista = new List<OrdenCompra>();
@@ -309,7 +384,14 @@ namespace DAL
                             Total = Convert.ToDecimal(reader["Total"]),
                             Estado = reader["Estado"].ToString(),
                             FechaEnvio = reader["FechaEnvio"] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(reader["FechaEnvio"]),
-                            Supervisor = reader["Supervisor"].ToString()
+                            Supervisor = reader["Supervisor"].ToString(),
+                            NroFacturaProveedor = reader["NroFacturaProveedor"] as string,
+                            FechaFactura = reader["FechaFactura"] as DateTime?,
+                            Impuestos = reader["Impuestos"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["Impuestos"]),
+                            MontoAbonado = reader["MontoAbonado"] == DBNull.Value ? 0 : Convert.ToDecimal(reader["MontoAbonado"]),
+                            FechaPago = reader["FechaPago"] as DateTime?,
+                            NroComprobante = reader["NroComprobante"] as string,
+                            PagadoPor = reader["PagadoPor"] as string
                         });
                         idsProveedor.Add(Convert.ToInt32(reader["IdProveedor"]));
                     }

@@ -2,6 +2,7 @@
 using DAL;
 using Servicios;
 using System;
+using System.Data;
 using System.Linq;
 
 namespace BLL
@@ -61,7 +62,9 @@ namespace BLL
 
         // Ranking de productos vendidos entre dos fechas (inclusive), por unidades o por monto.
         // top = 0 devuelve todos. Los totales y porcentajes son sobre todo el período.
-        public ReporteProductosVendidos ProductosMasVendidos(DateTime desde, DateTime hasta, bool porMonto, int top)
+        // Columnas: Posicion, CodigoProducto, Nombre, Marca, Unidades, Monto, Porcentaje
+        public DataTable ProductosMasVendidos(DateTime desde, DateTime hasta, bool porMonto, int top,
+            out int cantidadFacturas, out int totalUnidades, out decimal totalMonto)
         {
             desde = desde.Date;
             hasta = hasta.Date;
@@ -72,37 +75,42 @@ namespace BLL
 
             ReporteDAL dal = new ReporteDAL();
             DateTime hastaExclusivo = hasta.AddDays(1);
-            var vendidos = dal.ObtenerProductosVendidos(desde, hastaExclusivo);
+            DataTable vendidos = dal.ObtenerProductosVendidos(desde, hastaExclusivo);
+            var filas = vendidos.Rows.Cast<DataRow>().ToList();
 
-            var reporte = new ReporteProductosVendidos
-            {
-                Desde = desde,
-                Hasta = hasta,
-                OrdenadoPorMonto = porMonto,
-                CantidadFacturas = dal.ContarFacturasCobradas(desde, hastaExclusivo),
-                TotalUnidades = vendidos.Sum(v => v.Unidades),
-                TotalMonto = vendidos.Sum(v => v.Monto)
-            };
+            cantidadFacturas = dal.ContarFacturasCobradas(desde, hastaExclusivo);
+            totalUnidades = filas.Sum(f => Convert.ToInt32(f["Unidades"]));
+            totalMonto = filas.Sum(f => Convert.ToDecimal(f["Monto"]));
 
             var ordenados = porMonto
-                ? vendidos.OrderByDescending(v => v.Monto).ThenByDescending(v => v.Unidades)
-                : vendidos.OrderByDescending(v => v.Unidades).ThenByDescending(v => v.Monto);
-            int posicion = 0;
-            foreach (var v in ordenados.ThenBy(v => v.Nombre))
+                ? filas.OrderByDescending(f => Convert.ToDecimal(f["Monto"])).ThenByDescending(f => Convert.ToInt32(f["Unidades"]))
+                : filas.OrderByDescending(f => Convert.ToInt32(f["Unidades"])).ThenByDescending(f => Convert.ToDecimal(f["Monto"]));
+
+            DataTable ranking = new DataTable();
+            ranking.Columns.Add("Posicion", typeof(int));
+            ranking.Columns.Add("CodigoProducto", typeof(int));
+            ranking.Columns.Add("Nombre", typeof(string));
+            ranking.Columns.Add("Marca", typeof(string));
+            ranking.Columns.Add("Unidades", typeof(int));
+            ranking.Columns.Add("Monto", typeof(decimal));
+            ranking.Columns.Add("Porcentaje", typeof(decimal));
+            foreach (DataRow f in ordenados.ThenBy(f => f["Nombre"].ToString()))
             {
-                v.Posicion = ++posicion;
-                v.Porcentaje = porMonto
-                    ? (reporte.TotalMonto == 0 ? 0 : Math.Round(v.Monto * 100 / reporte.TotalMonto, 1))
-                    : (reporte.TotalUnidades == 0 ? 0 : Math.Round(v.Unidades * 100m / reporte.TotalUnidades, 1));
-                reporte.Productos.Add(v);
+                if (top > 0 && ranking.Rows.Count == top)
+                    break;
+                int unidades = Convert.ToInt32(f["Unidades"]);
+                decimal monto = Convert.ToDecimal(f["Monto"]);
+                decimal porcentaje = porMonto
+                    ? (totalMonto == 0 ? 0 : Math.Round(monto * 100 / totalMonto, 1))
+                    : (totalUnidades == 0 ? 0 : Math.Round(unidades * 100m / totalUnidades, 1));
+                ranking.Rows.Add(ranking.Rows.Count + 1, Convert.ToInt32(f["CodigoProducto"]), f["Nombre"].ToString(),
+                    f["Marca"].ToString(), unidades, monto, porcentaje);
             }
-            if (top > 0)
-                reporte.Productos = reporte.Productos.Take(top).ToList();
 
             GestorEventosBLL.Instancia.Notificar(
                 SessionManager.Instancia.ObtenerUsuarioActivo()?.NombreUsuario ?? "Desconocido",
                 "Reporte productos más vendidos", "Reportes", 1);
-            return reporte;
+            return ranking;
         }
     }
 }

@@ -47,16 +47,4 @@ namespace BE
             return "OC N° " + NroOrden.ToString("D6") + " - " + Proveedor?.RazonSocial;
         }
     }
-
-    public class ItemOrdenCompra
-    {
-        public Producto Producto { get; set; }
-        public int Cantidad { get; set; }
-        public decimal PrecioUnitario { get; set; }
-
-        public decimal Subtotal
-        {
-            get { return Cantidad * PrecioUnitario; }
-        }
-    }
 }

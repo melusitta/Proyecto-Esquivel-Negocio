@@ -49,6 +49,10 @@
     <Compile Include="Factura.cs" />
     <Compile Include="ItemCarrito.cs" />
     <Compile Include="ItemFactura.cs" />
+    <Compile Include="ItemCotizacion.cs" />
+    <Compile Include="ItemOrdenCompra.cs" />
+    <Compile Include="ItemRecepcion.cs" />
+    <Compile Include="ItemSolicitud.cs" />
     <Compile Include="Cotizacion.cs" />
     <Compile Include="OrdenCompra.cs" />
     <Compile Include="Producto.cs" />

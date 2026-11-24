@@ -219,11 +219,12 @@ namespace BLL
                 Supervisor = UsuarioActivo(),
                 Items = items
             };
-            int id = dal.Generar(orden);
-            if (id == 0)
+            // Generar le carga el Id y el número; queda enviada al proveedor
+            if (dal.Generar(orden) == 0)
                 throw new ErrorNegocio("COTIZACION_YA_ACEPTADA", proveedor.RazonSocial);
+            orden.Estado = OrdenCompra.EstadoEnviada;
             Registrar("Generar orden de compra", 3);
-            return dal.ObtenerPorId(id);
+            return orden;
         }
 
         public OrdenCompra ObtenerPorId(int idOrden)

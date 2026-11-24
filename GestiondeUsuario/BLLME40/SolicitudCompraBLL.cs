@@ -87,10 +87,11 @@ namespace BLL
                 Prioridad = prioridad,
                 Items = validados
             };
-            SolicitudCompraDAL dal = new SolicitudCompraDAL();
-            int id = dal.Crear(solicitud);
+            // Crear le carga el Id y el número; queda enviada
+            new SolicitudCompraDAL().Crear(solicitud);
+            solicitud.Estado = SolicitudCompra.EstadoEnviada;
             Registrar("Generar solicitud de compra", 3);
-            return dal.ObtenerPorId(id);
+            return solicitud;
         }
 
         public SolicitudCompra ObtenerPorId(int id)
